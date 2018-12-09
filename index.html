@@ -7,20 +7,25 @@
     <!--Avoid search engine indexing the page-->
     <meta name="robots" content="noindex">
 
+    <!--Let the website mobile friendly-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <!--Favicon-->
     <link rel="icon" type="image/png" href="./img/favicon.png" sizes="256x256">
 
     <!--Bootstrap CSS & JS-->
     <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pattaya">
     <script src="./js/bootstrap.bundle.min.js"></script>
-    <!--Popper inclued-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
 
-    <!--Font-->
-    <!--Body Font: Roboto, Logo Font: Pattaya-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Pattaya" rel="stylesheet">
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+        crossorigin="anonymous">
+
+    <!--Google Font-->
+    <!--Body Font: Roboto, Logo Font: Jura 400-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Jura:400" rel="stylesheet">
 
     <!--Custom Style-->
     <style>
@@ -35,7 +40,8 @@
         }
 
         .container {
-            width: 1000px
+            max-width: 1000px;
+            /*Width of container*/
         }
 
         .header {
@@ -43,9 +49,28 @@
         }
 
         a.logo {
-            font-family: 'Pattaya', sans-serif;
-            font-size: 40px;
-            color: #c3e88d;
+            font-family: 'Jura', Arial, sans-serif;
+            color: #FFFFFF;
+            font-size: 50px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 0px;
+        }
+
+        a.logo:hover {
+            text-decoration: none;
+        }
+
+        .social-icon {
+            color: #FFFFFF;
+            text-align: center;
+            text-transform: uppercase;
+            min-width: 90px;
+        }
+
+        .social-icon i {
+            font-size: 25px;
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -53,23 +78,57 @@
 <body>
 
     <div class="container">
-        <div class="header d-flex">
-            <a class="logo align-self-center mr-auto" href="index.html">Max Loh</a>
-            <div class="my-2 my-lg-0 align-self-center">Email: <a href="mailto:maxloh.register@gmail.com">maxloh.register@gmail.com</a></div>
+        <div class="row header">
+            <div class="col-md-6">
+                <a class="logo" href="index.html">Max Loh</a>
+            </div>
+            <div class="col-md-6 d-flex align-items-center justify-content-end">
+                <a href="mailto:maxloh.register@gmail.com" style="margin-right: 15px;">
+                    <div class="social-icon align-middle">
+                        <i class="far fa-envelope"></i><br>
+                        <span>EMail</span>
+                    </div>
+                </a>
+                <a href="mailto:maxloh.register@gmail.com">
+                    <div class="social-icon align-middle">
+                        <i class="fab fa-instagram"></i><br>
+                        <span>Instagram</span>
+                    </div>
+                </a>
+
+            </div>
         </div>
+    </div>
+    </div>
 
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <a>About</a>
-            <a>Experience</a>
-            <a>Spare Time</a>
-            <a>Skills</a>
-            <a>Education</a>
+    </div>
+
+    <div class="row">
+        <nav class="col-md-2 col-xs-2">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Dashboard</a>
+                </li>
+            </ul>
+            <!--<a>About</a>
+                <a>Experience</a>
+                <a>Spare Time</a>
+                <a>Skills</a>
+                <a>Education</a>-->
         </nav>
+        <div class="col-md-10 col-xs-2">
+            <main>
 
-        <main>
+                <h1>Hello World</h1>
+            </main>
+        </div>
+    </div>
 
-            <h1>Hello World</h1>
-        </main>
+
+
     </div>
 
 </body>
