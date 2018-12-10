@@ -61,13 +61,14 @@
             text-decoration: none;
         }
 
-        .social-icon {
+        .social-link {
             color: #FFFFFF;
             text-align: center;
             text-transform: uppercase;
+            margin: 0px 20px;
         }
 
-        .social-icon i {
+        .social-link i {
             font-size: 25px;
             margin-bottom: 5px;
         }
@@ -92,24 +93,30 @@
 <body>
     <div class="container">
         <div class="row justify-content-center header">
-            <!--mr-md-auto: mr-auto for md or larger device
-                col-xs-12: for xs or above, the logo column occupy the whole row
-                col-md-auto: for md or above (overriding the last rule), the logo column sized based on the natural width of contents within-->
+            <!--col-xs-12: for xs or above, the logo column occupy the whole row
+                col-md-auto: for md or above (overriding the last rule), the logo column sized based on the natural width of contents within
+                mr-md-auto: mr-auto for md or larger device, pushing social links to right site-->
             <div class="col-xs-12 col-md-auto mr-md-auto logo">
                 <a href="index.html">Max Loh</a>
             </div>
             <!--align-items-center: center items within (for mobile site)-->
-            <div class="col-auto d-flex align-items-center">
-                <a href="mailto:maxloh.register@gmail.com" style="margin-right: 40px;">
-                    <div class="social-icon align-middle">
-                        <i class="far fa-envelope"></i><br>
-                        <span>EMail</span>
-                    </div>
-                </a>
+            <div class="col-auto d-flex align-items-center" style="margin: 0px -20px;">
                 <a href="https://www.instagram.com/max.loh/" target="_blank">
-                    <div class="social-icon align-middle">
+                    <div class="social-link">
                         <i class="fab fa-instagram"></i><br>
                         <span>Instagram</span>
+                    </div>
+                </a>
+                <a href="https://www.github.com/maxloh/" target="_blank">
+                    <div class="social-link">
+                        <i class="fab fa-github"></i><br>
+                        <span>Github</span>
+                    </div>
+                </a>
+                <a href="mailto:maxloh.register@gmail.com">
+                    <div class="social-link">
+                        <i class="far fa-envelope"></i><br>
+                        <span>EMail</span>
                     </div>
                 </a>
             </div>
