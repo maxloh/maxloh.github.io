@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title>Max Loh</title>
@@ -48,7 +48,7 @@
             margin: 60px 0px;
         }
 
-        a.logo {
+        .logo a {
             font-family: 'Jura', Arial, sans-serif;
             color: #FFFFFF;
             font-size: 50px;
@@ -57,7 +57,7 @@
             padding: 0px;
         }
 
-        a.logo:hover {
+        .logo a:hover {
             text-decoration: none;
         }
 
@@ -65,69 +65,81 @@
             color: #FFFFFF;
             text-align: center;
             text-transform: uppercase;
-            min-width: 90px;
         }
 
         .social-icon i {
             font-size: 25px;
             margin-bottom: 5px;
         }
+
+        /*CSS for phones with width <767px)
+          If device with width >=768px, the desktop site will be rendered
+          Somehow I hardcoded this part, but this is the most convenient way*/
+        @media (max-width: 767px) {
+            .logo {
+                margin-bottom: 20px;
+                text-align: center;
+                display: block;
+            }
+
+            .header {
+                margin: 30px 0px;
+            }
+        }
     </style>
 </head>
 
 <body>
-
     <div class="container">
-        <div class="row header">
-            <div class="col-md-6">
-                <a class="logo" href="index.html">Max Loh</a>
+        <div class="row justify-content-center header">
+            <!--mr-md-auto: mr-auto for md or larger device
+                col-xs-12: for xs or above, the logo column occupy the whole row
+                col-md-auto: for md or above (overriding the last rule), the logo column sized based on the natural width of contents within-->
+            <div class="col-xs-12 col-md-auto mr-md-auto logo">
+                <a href="index.html">Max Loh</a>
             </div>
-            <div class="col-md-6 d-flex align-items-center justify-content-end">
-                <a href="mailto:maxloh.register@gmail.com" style="margin-right: 15px;">
+            <!--align-items-center: center items within (for mobile site)-->
+            <div class="col-auto d-flex align-items-center">
+                <a href="mailto:maxloh.register@gmail.com" style="margin-right: 40px;">
                     <div class="social-icon align-middle">
                         <i class="far fa-envelope"></i><br>
                         <span>EMail</span>
                     </div>
                 </a>
-                <a href="mailto:maxloh.register@gmail.com">
+                <a href="https://www.instagram.com/max.loh/" target="_blank">
                     <div class="social-icon align-middle">
                         <i class="fab fa-instagram"></i><br>
                         <span>Instagram</span>
                     </div>
                 </a>
-
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <nav class="col-md-2 col-xs-2">
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Dashboard</a>
-                </li>
-            </ul>
-            <!--<a>About</a>
+        <div class="row">
+            <nav class="col-md-2 col-xs-2">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Dashboard</a>
+                    </li>
+                </ul>
+                <!--<a>About</a>
                 <a>Experience</a>
                 <a>Spare Time</a>
                 <a>Skills</a>
                 <a>Education</a>-->
-        </nav>
-        <div class="col-md-10 col-xs-2">
-            <main>
+            </nav>
 
-                <h1>Hello World</h1>
-            </main>
+            <div class="col-md-10 col-xs-2">
+                <main>
+
+                    <h1>Hello World</h1>
+                </main>
+            </div>
         </div>
     </div>
-
-
-
-    </div>
-
 </body>
 
 </html>
