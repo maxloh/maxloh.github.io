@@ -14,10 +14,11 @@
     <link rel="icon" type="image/png" href="./img/favicon.png" sizes="256x256">
 
     <!--Bootstrap CSS & JS-->
+    <!--For Javascript, jQuery must come first, than bootstrap js-->
     <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <script src="./js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
 
     <!--Font Awesome-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
@@ -40,17 +41,14 @@
         }
 
         .container {
+            /*max-width: width of container*/
             max-width: 1000px;
-            /*Width of container*/
-        }
-
-        .header {
-            margin: 60px 0px;
+            margin: 60px auto;
         }
 
         .logo a {
             font-family: 'Jura', Arial, sans-serif;
-            color: #FFFFFF;
+            color: #b2ccd6;
             font-size: 60px;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -62,7 +60,7 @@
         }
 
         .social-link {
-            color: #FFFFFF;
+            color: #b2ccd6;
             text-align: center;
             text-transform: uppercase;
             margin: 0px 20px;
@@ -70,87 +68,202 @@
 
         .social-link i {
             font-size: 25px;
-            margin-bottom: 5px;
+            margin: 5px 0px;
         }
 
         nav.navbar {
-            padding: 0px;
+            padding: 10px 0px;
             margin: 30px 0px;
+            background-color: #212121;
+        }
+
+        /*width: 100%: stretch navbar width to be the same as parent elemnt(.container)'s width*/
+        .nav.nav-pills {
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        /*Item of current scroll position, use for overriding bootstrap default colors*/
+        .nav-pills .nav-link.active {
+            color: #212121;
+            background-color: #ffcb6b;
+        }
+
+        main {
+            margin: 60px 0px;
         }
 
         .h1 {
             padding-left: 0px;
         }
 
-        /*CSS for phones with width <767px)
+        /*Margin between rows*/
+        main .row {
+            margin: 30px 0px;
+        }
+
+        /*CSS for phones with width <767px
           If device with width >=768px, the desktop site will be rendered
           Somehow I hardcoded this part, but this is the most convenient way*/
         @media (max-width: 767px) {
+            .container {
+                margin: 30px auto;
+            }
+
             .logo {
                 margin-bottom: 20px;
                 text-align: center;
                 display: block;
             }
 
-            .header {
+            /*padding: set padding value to be the same as that of contents*/
+            .nav.nav-pills {
+                justify-content: space-between;
+                padding: 0px 15px;
+            }
+
+            /*smaller padding to avoid navbar item wrapping onto a new line*/
+            a.nav-link {
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+
+            main {
                 margin: 30px 0px;
             }
         }
     </style>
 </head>
 
-<body>
+<!--In order to make scrollspy work, 'data-spy="scroll" data-target=".navbar" data-offset="0"' must be put into body, but not div or main-->
+
+<body data-spy="scroll" data-target=".navbar" data-offset="60">
     <div class="container">
-        <div class="header">
-            <!--justify-content-center: center social-link in mobile site-->
-            <div class="row justify-content-center">
-                <!--col-xs-12: for xs or above, the logo column occupy the whole row
+        <!--justify-content-center: center social-link in mobile site-->
+        <div class="row justify-content-center">
+            <!--col-xs-12: for xs or above, the logo column occupy the whole row
                 col-md-auto: for md or above (overriding the last rule), the logo column sized based on the natural width of contents within
                 mr-md-auto: mr-auto for md or larger device, pushing social links to right site-->
-                <div class="col-xs-12 col-md-auto mr-md-auto logo">
-                    <a href="index.html">Max Loh</a>
-                </div>
-                <!--align-items-center: center items within (for mobile site)-->
-                <div class="col-auto d-flex align-items-center" style="margin: 0px -20px;">
-                    <a href="https://www.instagram.com/max.loh/" target="_blank">
-                        <div class="social-link">
-                            <i class="fab fa-instagram"></i><br>
-                            <span>Instagram</span>
-                        </div>
-                    </a>
-                    <a href="https://www.github.com/maxloh/" target="_blank">
-                        <div class="social-link">
-                            <i class="fab fa-github"></i><br>
-                            <span>Github</span>
-                        </div>
-                    </a>
-                    <a href="mailto:maxloh.register@gmail.com">
-                        <div class="social-link">
-                            <i class="far fa-envelope"></i><br>
-                            <span>EMail</span>
-                        </div>
-                    </a>
-                </div>
+            <div class="col-xs-12 col-md-auto mr-md-auto logo">
+                <a href="index.html">Max Loh</a>
             </div>
-
-            <nav id="navbar" class="navbar navbar-dark">
-                <ul class="nav nav-pills d-flex" style="justify-content: space-around; width: 100%">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#fat">@fat</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#mdo">@mdo</a>
-                    </li>
-                </ul>
-            </nav>
+            <!--d-flex: put items to same row
+                align-items-center: center items within (for mobile site)
+                Negative margin: let social-link to stick to the edge of its parent element-->
+            <div class="col-auto d-flex align-items-center" style="margin: 0px -20px;">
+                <a href="https://www.instagram.com/max.loh/" target="_blank">
+                    <div class="social-link">
+                        <i class="fab fa-instagram"></i><br>
+                        <span>Instagram</span>
+                    </div>
+                </a>
+                <a href="https://www.github.com/maxloh/" target="_blank">
+                    <div class="social-link">
+                        <i class="fab fa-github"></i><br>
+                        <span>Github</span>
+                    </div>
+                </a>
+                <a href="mailto:maxloh.register@gmail.com">
+                    <div class="social-link">
+                        <i class="far fa-envelope"></i><br>
+                        <span>EMail</span>
+                    </div>
+                </a>
+            </div>
         </div>
 
-        <main data-spy="scroll" data-target="#navbar" data-offset="0">
-            <div class="row">
-                <div class="col-md-4 col-xs-2">
-                    <h1>Hello World</h1>
+        <!--sticky-top: position navbar to the top of the window, after user scroll past it-->
+        <nav class="navbar navbar-dark sticky-top">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" href="#about-me">About Me</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#education">Education</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#skills">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#projects">Projects</a>
+                </li>
+            </ul>
+        </nav>
+
+        <main>
+            <div id="about-me" class="row">
+                <div class="col-md-4 col-xs-12">
+                    <h1>About Me</h1>
                 </div>
-                <div class="col-md-8 col-xs-2">
+                <div class="col-md-4 col-xs-12">
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                </div>
+            </div>
+            <div id="education" class="row">
+                <div class="col-md-4 col-xs-12">
+                    <h1>Education</h1>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                </div>
+            </div>
+            <div id="skills" class="row">
+                <div class="col-md-4 col-xs-12">
+                    <h1>Skills</h1>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                </div>
+            </div>
+            <div id="projects" class="row">
+                <div class="col-md-4 col-xs-12">
+                    <h1>Projects</h1>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
+                    <p>Content here</p>
                     <p>Content here</p>
                 </div>
             </div>
