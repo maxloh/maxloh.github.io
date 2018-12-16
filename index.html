@@ -71,35 +71,35 @@
             margin: 5px 0px;
         }
 
+        /*Negative margin: let nav-item stick to the edge of its parent element (container)*/
         nav.navbar {
             padding: 10px 0px;
-            margin: 30px 0px;
+            margin: 30px -15px;
             background-color: #212121;
         }
 
-        /*width: 100%: stretch navbar width to be the same as parent elemnt(.container)'s width*/
-        .nav.nav-pills {
-            justify-content: space-around;
-            width: 100%;
+        .nav-item {
+            margin: 0px 15px;
         }
 
         /*Item of current scroll position, use for overriding bootstrap default colors*/
+        /*.nav-pills must be included in order to override bootstrap CSS*/
         .nav-pills .nav-link.active {
             color: #212121;
             background-color: #ffcb6b;
         }
 
         main {
-            margin: 60px 0px;
-        }
-
-        .h1 {
-            padding-left: 0px;
+            margin: 60px -15px;
         }
 
         /*Margin between rows*/
         main .row {
             margin: 30px 0px;
+        }
+
+        .h1 {
+            padding-left: 0px;
         }
 
         /*CSS for phones with width <767px
@@ -116,10 +116,22 @@
                 display: block;
             }
 
+            /*Override negative margin value of desktop site to 0*/
+            nav.navbar {
+                margin-left: 0px;
+                margin-right: 0px;
+            }
+
             /*padding: set padding value to be the same as that of contents*/
             .nav.nav-pills {
+                width: 100%;
                 justify-content: space-between;
                 padding: 0px 15px;
+                margin: 0px;
+            }
+
+            .nav-item {
+                margin: 0px;
             }
 
             /*smaller padding to avoid navbar item wrapping onto a new line*/
@@ -149,7 +161,7 @@
             </div>
             <!--d-flex: put items to same row
                 align-items-center: center items within (for mobile site)
-                Negative margin: let social-link to stick to the edge of its parent element-->
+                Negative margin: let social-link stick to the edge of its parent element-->
             <div class="col-auto d-flex align-items-center" style="margin: 0px -20px;">
                 <a href="https://www.instagram.com/max.loh/" target="_blank">
                     <div class="social-link">
