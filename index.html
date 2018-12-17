@@ -78,12 +78,22 @@
             background-color: #212121;
         }
 
+        /*Enable the navbar in mobile site to scroll horizontally when needed*/
+        ul.nav {
+            /*flex-wrap -> nowrap: keep elements in same row even there is not enough spqce
+              white-space -> nowrap: keep elements width even there is not enough spqce
+              overflow-x -> scroll: enable horizontal scrolling of the element*/
+            flex-wrap: nowrap;
+            white-space: nowrap;
+            overflow-x: scroll;
+        }
+
         .nav-item {
             margin: 0px 15px;
         }
 
-        /*Item of current scroll position, use for overriding bootstrap default colors*/
-        /*.nav-pills must be included in order to override bootstrap CSS*/
+        /*Item of current scroll position, use for overriding bootstrap default colors
+          .nav-pills must be included in order to override bootstrap CSS*/
         .nav-pills .nav-link.active {
             color: #212121;
             background-color: #ffcb6b;
@@ -121,18 +131,17 @@
                 display: block;
             }
 
-            /*Override negative margin value of desktop site to 0*/
+            /*Set margin to 0, override negative margin value of desktop site*/
             nav.navbar {
                 margin-left: 0px;
                 margin-right: 0px;
             }
 
-            /*padding: set padding value to be the same as that of contents*/
+            /*padding: set padding value to be the same as that of main contents*/
             .nav.nav-pills {
                 width: 100%;
                 justify-content: space-between;
                 padding: 0px 15px;
-                margin: 0px;
             }
 
             .nav-item {
@@ -189,7 +198,8 @@
             </div>
         </div>
 
-        <!--sticky-top: position navbar to the top of the window, after user scroll past it-->
+        <!--sticky-top: position navbar to the top of the window, after user scroll past it
+            For a sticky navbar, .navbar element must be a direct child of body-->
         <nav class="navbar navbar-dark sticky-top">
             <ul class="nav nav-pills">
                 <li class="nav-item">
