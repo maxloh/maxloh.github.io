@@ -19,7 +19,10 @@
     <!--PWA support-->
     <!--APP Manifest-->
     <link rel="manifest" href="/manifest.json">
-    <!--PWA javascript, must be the first imported javascript in order to work-->
+    <!--PWA javascript
+        In order for the service worker to work,
+        1. service worker must be the first javascript imported
+        2. service worker javascript must be put to the same directory as index.heml-->
     <script src="./js/pwabuilder-sw.js"></script>
     <script src="./js/pwabuilder-sw-register.js"></script>
 
