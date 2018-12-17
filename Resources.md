@@ -5,3 +5,9 @@ https://github.com/equinusocio/vsc-material-theme/blob/master/src/themes/setting
 
 favicon: maxcdn icon from font awesome
 https://github.com/FortAwesome/Font-Awesome/blob/master/svgs/brands/maxcdn.svg
+
+Body font choice
+PT SANS
+OPEN SANS
+Abril Fatface
+Source Sans Pro
