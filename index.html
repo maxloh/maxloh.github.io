@@ -19,9 +19,9 @@
     <!--PWA support-->
     <!--APP Manifest-->
     <link rel="manifest" href="/manifest.json">
-    <!--PWA javascript-->
-    <script src="./js/pwabuilder-sw-register.js"></script>
+    <!--PWA javascript, must be the first imported javascript in order to work-->
     <script src="./js/pwabuilder-sw.js"></script>
+    <script src="./js/pwabuilder-sw-register.js"></script>
 
     <!--Bootstrap CSS & JS-->
     <!--For Javascript, jQuery must come first, then bootstrap bundled js (popper included)-->
@@ -33,7 +33,6 @@
     <!--Font Awesome-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
         crossorigin="anonymous">
-
     <!--Google Font-->
     <!--Body Font: Roboto, Logo Font: Jura 300-->
     <link href="https://fonts.googleapis.com/css?family=Roboto|Jura:300" rel="stylesheet">
