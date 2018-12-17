@@ -10,6 +10,9 @@
     <!--Let the website mobile friendly-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!--Chrome for Android theme color (address bar)-->
+    <meta name="theme-color" content="#212121" />
+
     <!--Favicon-->
     <link rel="icon" type="image/png" href="./img/icon/256x256.png" sizes="256x256">
 
@@ -82,10 +85,12 @@
         ul.nav {
             /*flex-wrap -> nowrap: keep elements in same row even there is not enough spqce
               white-space -> nowrap: keep elements width even there is not enough spqce
-              overflow-x -> scroll: enable horizontal scrolling of the element*/
+              overflow-x -> scroll: enable horizontal scrolling of the element
+              -ms-overflow-style -> none: hide scrollbar in Microsoft Edge*/
             flex-wrap: nowrap;
             white-space: nowrap;
             overflow-x: scroll;
+            -ms-overflow-style: none;
         }
 
         .nav-item {
@@ -164,8 +169,8 @@
     <!--APP Manifest-->
     <link rel="manifest" href="/manifest.json">
     <!--PWA javascript-->
-    <script src="./js/pwabuilder-sw-register.js"></script>
-    <script src="./js/pwabuilder-sw.js"></script>
+    <script src="./pwabuilder-sw-register.js"></script>
+    <script src="./pwabuilder-sw.js"></script>
 </head>
 
 <!--In order to make scrollspy work, 'data-spy="scroll" data-target=".navbar" data-offset="0"' must be put into body, but not div or main-->
