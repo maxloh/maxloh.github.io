@@ -147,15 +147,18 @@
                 overflow-x: scroll;
             }
 
-            /*padding: set padding value to be the same as that of main contents*/
+            /*padding: (main contents padding) - (nav-item padding) = 15px - 5px = 10px
+              The text of nav-item would start and end at the same postion as main contents*/
             .nav.nav-pills {
                 width: 100%;
                 justify-content: space-between;
-                padding: 0px 15px;
+                padding: 0px 10px;
             }
 
+            /*padding: add apace between nav-items*/
             .nav-item {
                 margin: 0px;
+                padding: 0px 5px;
             }
 
             /*smaller padding to avoid navbar item wrapping onto a new line*/
