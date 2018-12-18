@@ -1,12 +1,26 @@
-bootstrap
+Bootstrap
+https://getbootstrap.com/
+
+jQuery
+
+
+Popper.js
+
 
 Color from material vscode theme (default dark)
 https://github.com/equinusocio/vsc-material-theme/blob/master/src/themes/settings/specific/darker.json
 
-favicon: maxcdn icon from font awesome
-https://github.com/FortAwesome/Font-Awesome/blob/master/svgs/brands/maxcdn.svg
+favicon
+font: Timmana
+Made by inkscape and libreoffice Draw
 
-Body font choice
+PWA builder
+https://www.pwabuilder.com/
+
+Open color (open-source color scheme)
+https://yeun.github.io/open-color/
+
+Body font choice:
 PT SANS
 OPEN SANS
 Abril Fatface
