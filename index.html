@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!--Chrome for Android theme color (address bar)-->
-    <meta name="theme-color" content="#212121" />
+    <meta name="theme-color" content="#212529" />
 
     <!--Favicon-->
     <link rel="icon" type="image/png" href="./img/icon/256x256.png" sizes="256x256">
@@ -35,30 +35,33 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
         crossorigin="anonymous">
     <!--Google Font-->
-    <!--Body Font: Roboto, Logo Font: Jura 300-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Jura:300" rel="stylesheet">
+    <!--Body Font: Source Sans Pro 400, Logo Font: Jura 300-->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400|Jura:300" rel="stylesheet">
 
     <!--Custom Style-->
     <style>
         body {
-            background-color: #212121;
-            color: #b2ccd6;
+            background-color: #212529;
+            color: #adb5bd;
             font-family: "roboto", "arial", sans-serif;
         }
 
         a {
-            color: #ffcb6b;
+            color: #63e6be;
         }
 
         .container {
             /*max-width: width of container*/
             max-width: 1000px;
             margin: 60px auto;
+            font-family: "Source Sans Pro";
+            font-weight: 400;
+            font-size: 20px;
         }
 
         .logo a {
             font-family: 'Jura', Arial, sans-serif;
-            color: #b2ccd6;
+            color: #adb5bd;
             font-size: 60px;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -70,7 +73,7 @@
         }
 
         .social-link {
-            color: #b2ccd6;
+            color: #adb5bd;
             text-align: center;
             text-transform: uppercase;
             margin: 0px 20px;
@@ -85,7 +88,7 @@
         nav.navbar {
             padding: 10px 0px;
             margin: 30px -15px;
-            background-color: #212121;
+            background-color: #212529;
         }
 
         .nav-item {
@@ -95,8 +98,8 @@
         /*Item of current scroll position, use for overriding bootstrap default colors
           .nav-pills must be included in order to override bootstrap CSS*/
         .nav-pills .nav-link.active {
-            color: #212121;
-            background-color: #ffcb6b;
+            color: #212529;
+            background-color: #63e6be;
         }
 
         main {
@@ -113,8 +116,16 @@
             background-clip: content-box;
         }
 
+        main .content {
+            margin-top: 5px;
+        }
+
         .h1 {
             padding-left: 0px;
+        }
+
+        main p {
+            line-height: 1.7;
         }
 
         /*CSS for phones with width <767px
@@ -123,6 +134,7 @@
         @media (max-width: 767px) {
             .container {
                 margin: 30px auto;
+                font-size: 1rem;
             }
 
             .logo {
@@ -232,29 +244,30 @@
 
         <main>
             <div id="about-me" class="row">
-                <div class="col-md-4 col-xs-12">
+                <div class="col-md-3 col-xs-12">
                     <h1>About Me</h1>
                 </div>
-                <div class="col-md-4 col-xs-12">
-                    <p>Content here</p>
-                    <p>Content here</p>
-                    <p>Content here</p>
-                    <p>Content here</p>
-                    <p>Content here</p>
-                    <p>Content here</p>
-                    <p>Content here</p>
-                    <p>Content here</p>
-                    <p>Content here</p>
-                    <p>Content here</p>
-                    <p>Content here</p>
-                    <p>Content here</p>
+                <div class="content col-md-9 col-xs-12">
+                    <p>I am Loh Ka Hong, a computing student from Hong Kong. I am currently studing
+                        <a href="https://computing.ouhk.edu.hk/web/programme/BCOMPHITJ/Overview">Bachelor of Computing
+                            with Honours in Internet Technology</a> in The Open University of Hong Kong.</p>
+                    <p>I have learnt basics of C, Java, HTML and CSS in college. I found it fun to learn different
+                        programming launguage and so I study some, like Python in my spare time. Found more about my
+                        capabilities in the <a href="#skills">Skills</a> section below.</p>
+                    <p>I am a fan of user interface design. Compare to back-end, I am more a front end developer.
+                        Although I did not learn a lot in my college, I do study about web technology and UI design
+                        in my spare time and read articles on these topics.</p>
+                    <p>In the past, I usually use web templetes when I required to write a web site in projects. This
+                        website, however, is written start from scratch to practice my skills in HTML and CSS. I also
+                        implement cool stuffs and lateset technology such as responsive web design and progressive web
+                        app to this website.</p>
                 </div>
             </div>
             <div id="education" class="row">
-                <div class="col-md-4 col-xs-12">
+                <div class="col-md-3 col-xs-12">
                     <h1>Education</h1>
                 </div>
-                <div class="col-md-4 col-xs-12">
+                <div class="content col-md-9 col-xs-12">
                     <p>Content here</p>
                     <p>Content here</p>
                     <p>Content here</p>
@@ -270,10 +283,10 @@
                 </div>
             </div>
             <div id="skills" class="row">
-                <div class="col-md-4 col-xs-12">
+                <div class="col-md-3 col-xs-12">
                     <h1>Skills</h1>
                 </div>
-                <div class="col-md-4 col-xs-12">
+                <div class="content col-md-9 col-xs-12">
                     <p>Content here</p>
                     <p>Content here</p>
                     <p>Content here</p>
@@ -289,10 +302,10 @@
                 </div>
             </div>
             <div id="projects" class="row">
-                <div class="col-md-4 col-xs-12">
+                <div class="col-md-3 col-xs-12">
                     <h1>Projects</h1>
                 </div>
-                <div class="col-md-4 col-xs-12">
+                <div class="content col-md-9 col-xs-12">
                     <p>Content here</p>
                     <p>Content here</p>
                     <p>Content here</p>
