@@ -15,7 +15,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="favicon.svg">
+   sodipodi:docname="faviconSmall.svg">
   <defs
      id="defs2">
     <clipPath
@@ -57,7 +57,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35355339"
-     inkscape:cx="783.86909"
+     inkscape:cx="427.48727"
      inkscape:cy="630.85387"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -91,31 +91,31 @@
        id="path3729"
        cx="132.29167"
        cy="164.70831"
-       style="fill:#12b886;fill-opacity:1;stroke:none;stroke-width:0.39574429"
-       r="132.29167" />
+       style="fill:#12b886;fill-opacity:1;stroke:none;stroke-width:0.31659544"
+       r="105.83334" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-148.92261"
-       y="132.20236"
+       style="font-style:normal;font-weight:normal;font-size:8.46666622px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.21166664"
+       x="-119.13808"
+       y="165.1619"
        id="text4538"><tspan
          sodipodi:role="line"
          id="tspan4536"
-         x="-148.92261"
-         y="141.56613"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Timmana;-inkscape-font-specification:Timmana;stroke-width:0.26458332" /><tspan
+         x="-119.13808"
+         y="172.65291"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Timmana;-inkscape-font-specification:Timmana;stroke-width:0.21166664" /><tspan
          sodipodi:role="line"
-         x="-148.92261"
-         y="154.7953"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Timmana;-inkscape-font-specification:Timmana;stroke-width:0.26458332"
+         x="-119.13808"
+         y="183.23624"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Timmana;-inkscape-font-specification:Timmana;stroke-width:0.21166664"
          id="tspan4540" /><tspan
          sodipodi:role="line"
-         x="-148.92261"
-         y="168.02446"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Timmana;-inkscape-font-specification:Timmana;stroke-width:0.26458332"
+         x="-119.13808"
+         y="193.81958"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Timmana;-inkscape-font-specification:Timmana;stroke-width:0.21166664"
          id="tspan4542" /></text>
     <g
-       transform="matrix(0.01441113,0,0,0.01441113,-28.479671,19.840432)"
+       transform="matrix(0.0115289,0,0,0.0115289,6.7822968,48.814049)"
        class="SlideGroup"
        id="g169">
       <g
