@@ -108,24 +108,32 @@
 
         main .row {
             /*Margin between rows*/
-            margin: 30px 0px;
+            margin: 50px 0px;
             /*Offset jump links (html anchors) for the sticky navbar, pointing them to the correct position*/
-            padding-top: 66px;
-            margin-top: -66px;
+            padding-top: calc(20px * 1.5 + 0.5rem * 2 + 10px*2);
+            margin-top: calc(-1 * (20px * 1.5 + 0.5rem * 2 + 10px*2));
             -webkit-background-clip: content-box;
             background-clip: content-box;
         }
 
-        main .content {
-            margin-top: 5px;
-        }
-
-        .h1 {
-            padding-left: 0px;
+        /*line-height -> 1: Let headings to be visually the same height as paragraphs*/
+        h1 {
+            line-height: 1;
+            margin-bottom: 1rem;
         }
 
         main p {
             line-height: 1.7;
+        }
+
+        /*Margin between different sections in .content*/
+        .content p+h2 {
+            margin-top: 1.5rem;
+        }
+
+        /*Remove bottom margin on last child (mostly paragraph) of each row, otherwise margin between rows will be larger than expected*/
+        .content>*:last-child {
+            margin-bottom: 0px;
         }
 
         /*CSS for phones with width <767px
