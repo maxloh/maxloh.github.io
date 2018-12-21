@@ -5,10 +5,10 @@
 ### Creating the icon using inkscape
 1. Select pen tool
 2. Press the node of the object which would be used for alignment (e.g. central point of M)
-3. Hold `control` button and drag upward/downward to create a vertical path for alignment
+3. Hold <kbd>control</kbd> button and drag upward/downward to create a vertical path for alignment
 4. Select the vertical path created in `2`
-5. Press `shift` for multi select and select the object to align
-6. Press `Shift`+`Ctrl`+`A` to open `Align and Distribute` panel
+5. Press <kbd>shift</kbd> for multi select and select the object to align
+6. Press <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>A</kbd> to open `Align and Distribute` panel
 7. For the `Relative to:` drop down menu, choose `First selected` (vertical path created in `2`)
 8. Press `Center to vertical axis`
 
