@@ -53,10 +53,20 @@
         .container {
             /*max-width: width of container*/
             max-width: 1000px;
-            margin: 60px auto;
+            margin: 70px auto;
             font-family: "Source Sans Pro";
             font-weight: 400;
             font-size: 20px;
+        }
+
+        .header {
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        /*Let .logo height to be the same as its child element*/
+        .logo {
+            line-height: normal;
         }
 
         .logo a {
@@ -87,7 +97,7 @@
         /*Negative margin: let nav-item stick to the edge of its parent element (container)*/
         nav.navbar {
             padding: 10px 0px;
-            margin: 30px -15px;
+            margin: 40px -15px;
             background-color: #212529;
         }
 
@@ -110,8 +120,8 @@
             /*Margin between rows*/
             margin: 50px 0px;
             /*Offset jump links (html anchors) for the sticky navbar, pointing them to the correct position*/
-            padding-top: calc(20px * 1.5 + 0.5rem * 2 + 10px*2);
-            margin-top: calc(-1 * (20px * 1.5 + 0.5rem * 2 + 10px*2));
+            padding-top: calc(20px*1.5 + 0.5rem*2 + 10px*2);
+            margin-top: calc(-1 * (20px*1.5 + 0.5rem*2 + 10px*2));
             -webkit-background-clip: content-box;
             background-clip: content-box;
         }
@@ -141,20 +151,23 @@
           Somehow I hardcoded this part, but this is the most convenient way*/
         @media (max-width: 767px) {
             .container {
-                margin: 30px auto;
+                margin: 40px auto;
                 font-size: 1rem;
             }
 
+            .header {
+                margin: 30px 0px;
+            }
+
             .logo {
-                margin-bottom: 20px;
+                margin-bottom: 30px;
                 text-align: center;
                 display: block;
             }
 
-            /*Set margin to 0, override negative margin value of desktop site*/
             nav.navbar {
-                margin-left: 0px;
-                margin-right: 0px;
+                /*margin-left, margin-right -> 0px: override negative margin value of desktop site*/
+                margin: 30px 0px;
             }
 
             /*Enable the navbar in mobile site to scroll horizontally when needed*/
@@ -190,6 +203,12 @@
             main {
                 margin: 30px 0px;
             }
+
+
+
+            footer {
+                padding: 0px 15px;
+            }
         }
     </style>
 </head>
@@ -199,11 +218,11 @@
 <body data-spy="scroll" data-target=".navbar" data-offset="60">
     <div class="container">
         <!--justify-content-center: center social-link in mobile site-->
-        <div class="row justify-content-center">
+        <div class="header row justify-content-center">
             <!--col-xs-12: for xs or above, the logo column occupy the whole row
                 col-md-auto: for md or above (overriding the last rule), the logo column sized based on the natural width of contents within
                 mr-md-auto: mr-auto for md or larger device, pushing social links to right site-->
-            <div class="col-xs-12 col-md-auto mr-md-auto logo">
+            <div class="logo col-xs-12 col-md-auto mr-md-auto">
                 <a href="index.html">Max Loh</a>
             </div>
             <!--d-flex: put items to same row
@@ -329,7 +348,11 @@
                 </div>
             </div>
         </main>
+        <footer>
+            Copyright &copy; 2018 Max Loh
+        </footer>
     </div>
+
 </body>
 
 </html>
