@@ -1,18 +1,21 @@
-- Bootstrap
-https://getbootstrap.com/
+- Bootstrap  
+  https://getbootstrap.com/
 
-- jQuery
-https://jquery.com
+- jQuery  
+  https://jquery.com
 
-- Popper.js
-https://popper.js.org
+- Popper.js  
+  https://popper.js.org
 
-- Color scheme adopted from Open color
-https://yeun.github.io/open-color/
+- Color scheme adopted from Open color  
+  https://yeun.github.io/open-color/
 
-- favicon
-font: Timmana
-Made by inkscape
+- Website favicon  
+  Font: Timmana  
+  Software: inkscape
 
-- PWA builder
-https://www.pwabuilder.com/
+- PWA builder  
+  https://www.pwabuilder.com/
+
+- Marked  
+  https://marked.js.org/
