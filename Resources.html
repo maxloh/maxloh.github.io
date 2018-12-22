@@ -296,10 +296,11 @@
                     <h1>Resources</h1>
                 </div>
                 <div id="resources-list" class="content col-md-9 col-xs-12">
+                    <!--Bootstrap use a slimed version of jQuery that does not contain the get() function, so it is required to import the full version here-->
                     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                         crossorigin="anonymous"></script>
+                    <!--import marked.js that parse .md file to HTML code-->
                     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
                     <script>
                         jQuery.get({
                             url: "https://raw.githubusercontent.com/maxloh/maxloh.github.io/master/Resources.md",
