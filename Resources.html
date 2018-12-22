@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Max Loh</title>
+
+    <!--Avoid search engine indexing the page-->
+    <meta name="robots" content="noindex">
+
+    <!--Let the website mobile friendly-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--Chrome for Android theme color (address bar)-->
+    <meta name="theme-color" content="#212529" />
+
+    <!--Favicon-->
+    <link rel="icon" type="image/png" href="./img/icon/256x256.png" sizes="256x256">
+
+    <!--PWA support-->
+    <!--APP Manifest-->
+    <link rel="manifest" href="/manifest.json">
+    <!--PWA javascript
+        In order for the service worker to work, service worker javascript must be put to the same directory as index.heml-->
+    <script src="./pwabuilder-sw.js"></script>
+    <script src="./pwabuilder-sw-register.js"></script>
+
+    <!--Bootstrap CSS & JS-->
+    <!--For Javascript, jQuery must come first, then bootstrap bundled js (popper included)-->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+        crossorigin="anonymous">
+    <!--Google Font-->
+    <!--Body Font: Source Sans Pro 400, Logo Font: Jura 300-->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400|Jura:300" rel="stylesheet">
+
+    <!--Custom Style-->
+    <style>
+        /*Stretch the page to fill browser window (for positioning footer)*/
+        html {
+            height: 100%;
+        }
+
+        body {
+            background-color: #212529;
+            color: #adb5bd;
+            font-family: "roboto", "arial", sans-serif;
+            /*Stretch the page to fill browser window (for positioning footer)
+                  height: 100% - (header margin that do not have contents in it)*/
+            height: calc(100% - 70px);
+        }
+
+        a {
+            color: #63e6be;
+        }
+
+        .container {
+            /*max-width: width of container*/
+            max-width: 1000px;
+            margin: 70px auto;
+            font-family: "Source Sans Pro";
+            font-weight: 400;
+            font-size: 20px;
+            /*Stretch container to fill the whole body (for positioning footer)
+                  min-height: 100% - (header margin collapsed by .container);
+                  position -> relative: required for footer positioning*/
+            min-height: calc(100% - 70px);
+            position: relative;
+        }
+
+        .header {
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        /*Let .logo height to be the same as its child element*/
+        .logo {
+            line-height: normal;
+        }
+
+        .logo a {
+            font-family: 'Jura', Arial, sans-serif;
+            color: #adb5bd;
+            font-size: 60px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 0px;
+        }
+
+        .logo a:hover {
+            text-decoration: none;
+        }
+
+        .social-link {
+            color: #adb5bd;
+            text-align: center;
+            text-transform: uppercase;
+            margin: 0px 20px;
+        }
+
+        .social-link i {
+            font-size: 25px;
+            margin: 5px 0px;
+        }
+
+        /*Negative margin: let nav-item stick to the edge of its parent element (container)*/
+        nav.navbar {
+            padding: 10px 0px;
+            margin: 40px -15px;
+            background-color: #212529;
+        }
+
+        .nav-item {
+            margin: 0px 15px;
+        }
+
+        /*Item of current scroll position, use for overriding bootstrap default colors
+              .nav-pills must be included in order to override bootstrap CSS*/
+        .nav-pills .nav-link.active {
+            color: #212529;
+            background-color: #63e6be;
+        }
+
+        main {
+            margin: 60px -15px;
+        }
+
+        main .row {
+            /*Margin between rows*/
+            margin: 50px 0px;
+            /*Offset jump links (html anchors) for the sticky navbar, pointing them to the correct position*/
+            padding-top: calc(20px*1.5 + 0.5rem*2 + 10px*2);
+            margin-top: calc(-1 * (20px*1.5 + 0.5rem*2 + 10px*2));
+            -webkit-background-clip: content-box;
+            background-clip: content-box;
+        }
+
+        /*line-height -> 1: Let headings to be visually the same height as paragraphs*/
+        h1 {
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        main p {
+            line-height: 1.7;
+        }
+
+        /*Margin between different sections in .content*/
+        .content p+h2 {
+            margin-top: 1.5rem;
+        }
+
+        /*Remove bottom margin on last child (mostly paragraph) of each row, otherwise margin between rows will be larger than expected*/
+        .content>*:last-child {
+            margin-bottom: 0px;
+        }
+
+        /*Add emtry element to preserve space for footer as "position: absolute" footer do not take up space
+              (for positioning footer)*/
+        .container:after {
+            content: "";
+            /*height: font-size * line-spacing*/
+            height: calc(20px * 1.5);
+            display: block;
+        }
+
+        /*Place footer to bootom of .container*/
+        footer {
+            position: absolute;
+            bottom: 0px;
+        }
+
+        /*CSS for phones with width <767px
+              If device with width >=768px, the desktop site will be rendered
+              Somehow I hardcoded this part, but this is the most convenient way*/
+        @media (max-width: 767px) {
+            body {
+                /*height: 100% - (header margin that do not have contents in it) (for positioning footer)*/
+                height: calc(100% - 40px);
+            }
+
+            .container {
+                margin: 40px auto;
+                font-size: 1rem;
+                /*min-height: 100% - (header margin collapsed by .container) (for positioning footer)*/
+                min-height: calc(100% - 40px);
+            }
+
+            .header {
+                margin: 30px 0px;
+            }
+
+            .logo {
+                margin-bottom: 30px;
+                text-align: center;
+                display: block;
+            }
+
+            nav.navbar {
+                /*margin-left, margin-right -> 0px: override negative margin value of desktop site*/
+                margin: 30px 0px;
+            }
+
+            /*Enable the navbar in mobile site to scroll horizontally when needed*/
+            ul.nav {
+                /*flex-wrap -> nowrap: keep elements in same row even there is not enough spqce
+                          white-space -> nowrap: keep elements width even there is not enough spqce
+                          overflow-x -> scroll: enable horizontal scrolling of the element*/
+                flex-wrap: nowrap;
+                white-space: nowrap;
+                overflow-x: scroll;
+            }
+
+            /*padding: (main contents padding) - (nav-item padding) = 15px - 5px = 10px
+                      The text of nav-item would start and end at the same postion as main contents*/
+            .nav.nav-pills {
+                width: 100%;
+                justify-content: space-between;
+                padding: 0px 10px;
+            }
+
+            /*padding: add apace between nav-items*/
+            .nav-item {
+                margin: 0px;
+                padding: 0px 5px;
+            }
+
+            /*smaller padding to avoid navbar horizontal scrolling*/
+            a.nav-link {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+
+            main {
+                margin: 30px 0px;
+            }
+
+            /*Add emtry element to preserve space for footer as "position: absolute" footer do not take up space
+                  (for positioning footer)*/
+            .container:after {
+                /*height: font-size * line-spacing*/
+                height: calc(1rem * 1.5);
+            }
+
+            footer {
+                padding: 0px 15px;
+            }
+        }
+    </style>
+</head>
+
+<!--In order to make scrollspy work, 'data-spy="scroll" data-target=".navbar" data-offset="0"' must be put into body, but not div or main-->
+
+<body data-spy="scroll" data-target=".navbar" data-offset="60">
+    <div class="container">
+        <!--justify-content-center: center social-link in mobile site-->
+        <div class="header row justify-content-center">
+            <!--col-xs-12: for xs or above, the logo column occupy the whole row
+                col-md-auto: for md or above (overriding the last rule), the logo column sized based on the natural width of contents within
+                mr-md-auto: mr-auto for md or larger device, pushing social links to right site-->
+            <div class="logo col-xs-12 col-md-auto mr-md-auto">
+                <a href=".">Max Loh</a>
+            </div>
+            <!--d-flex: put items to same row
+                align-items-center: center items within (for mobile site)
+                Negative margin: let social-link stick to the edge of its parent element-->
+            <div class="col-auto d-flex align-items-center" style="margin: 0px -20px;">
+                <a href="https://www.instagram.com/max.loh/" target="_blank">
+                    <div class="social-link">
+                        <i class="fab fa-instagram"></i><br>
+                        <span>Instagram</span>
+                    </div>
+                </a>
+                <a href="https://www.github.com/maxloh/" target="_blank">
+                    <div class="social-link">
+                        <i class="fab fa-github"></i><br>
+                        <span>Github</span>
+                    </div>
+                </a>
+                <a href="mailto:maxloh.register@gmail.com">
+                    <div class="social-link">
+                        <i class="far fa-envelope"></i><br>
+                        <span>EMail</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <main>
+            <div id="resources" class="row">
+                <div class="col-md-3 col-xs-12">
+                    <h1>Resources</h1>
+                </div>
+                <div id="resources-list" class="content col-md-9 col-xs-12">
+                    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+                        crossorigin="anonymous"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+                    <script>
+                        jQuery.get({
+                            url: "https://raw.githubusercontent.com/maxloh/maxloh.github.io/master/Resources.md",
+                            success: function (data) {
+                                $("#resources-list").html(marked(data));
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </main>
+        <footer>
+            Copyright <i class="far fa-copyright" style="font-size: 15px; vertical-align: 1px;"></i> 2018 Max Loh
+        </footer>
+    </div>
+</body>
+
+</html>
