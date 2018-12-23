@@ -158,6 +158,8 @@
             margin-top: calc(-1 * (var(--font-size)*1.5 + 0.5rem*2 + 10px*2));
             -webkit-background-clip: content-box;
             background-clip: content-box;
+            /*.row is hidden by page load (for CSS animation)*/
+            opacity: 0;
         }
 
         /*line-height -> 1: Let headings to be visually the same height as paragraphs*/
@@ -205,6 +207,26 @@
 
         footer small {
             display: block;
+        }
+
+        /*CSS animation*/
+        @keyframes fade-in-from-bottom {
+            0% {
+                opacity: 0;
+                transform: translateY(var(--row-margin));
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /*CSS animation*/
+        .fade-in-from-bottom {
+            animation-duration: 1.25s;
+            animation-fill-mode: both;
+            animation-name: fade-in-from-bottom;
         }
 
         /*CSS for phones with width <= 767px
@@ -285,6 +307,11 @@
                 margin: var(--header-margin) 0px;
             }
 
+            /*Overide opacity defined in desktop site (for CSS animation)*/
+            main .row {
+                opacity: 1;
+            }
+
             /*Add emtry element to preserve space for footer as "position: absolute" footer do not take up space
               (for positioning footer)*/
             .container:after {
@@ -321,12 +348,39 @@
                 } else {
                     $('#navbar').css("margin-left", "calc(-15px - 1rem)");
                 }
+
+                //Call addAnimation() method on page scroll (for CSS animation)
+                addAnimation()
             });
 
             //When jump links (html anchors) being clicked
             window.onhashchange = function () {
                 $('#navbar').css("margin-left", "calc(-15px)");
             };
+
+            //CSS animation
+
+            //Set rowList as a globel varieable to improve efficiency (only modifiy once)
+            var rowList;
+            //Initialize rowList and call addAnimation() on windows load
+            $(document).ready(function () {
+                rowList = document.getElementsByTagName('main')[0].getElementsByClassName('row');
+                addAnimation();
+            });
+            //Add CSS animation class to main .row (for CSS animation)
+            async function addAnimation() {
+                for (var i = 0; i < rowList.length; i++) {
+                    var row = rowList.item(i);
+                    //document.documentElement.clientHeight can be replaced by $(window).height()
+                    if ($(window).scrollTop() + document.documentElement.clientHeight > $(row).offset().top) {
+                        //or $(row).addClass('fade-in-from-bottom');
+                        row.classList.add('fade-in-from-bottom');
+                        //Wait until the animation end, and than continue loop
+                        const delay = ms => new Promise(_ => setTimeout(_, ms));
+                        await delay(250);
+                    }
+                }
+            }
         }
     </script>
 </head>
