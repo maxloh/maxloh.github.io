@@ -330,17 +330,17 @@
         //Offset jump links (html anchors) for the sticky navbar and amination, pointing them to the correct position
         window.addEventListener("hashchange", function () {
             if ($(window.location.hash).css('opacity') < 1) {
-                window.scrollTo(window.scrollX, window.scrollY - $('#navbar').innerHeight() - parseInt($(':root').css('--row-margin')));
+                window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - 2 * parseInt($(':root').css('--row-margin')));
             }
             else {
-                window.scrollTo(window.scrollX, window.scrollY - $('#navbar').innerHeight());
+                window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--row-margin')));
             }
         });
 
 
         //Initialize bootstrap scrollspy with calculated data-offset
         $(document).ready(function () {
-            var dataOffset = $('#navbar').innerHeight() + parseInt($(':root').css('--row-margin')) + 1;
+            var dataOffset = $('#navbar').innerHeight() + 2 * parseInt($(':root').css('--row-margin'));
             $('body').scrollspy({ target: '#navbar', offset: dataOffset });
         });
 
