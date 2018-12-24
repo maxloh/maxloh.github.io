@@ -153,11 +153,6 @@
         main .row {
             /*Margin between rows*/
             margin: var(--row-margin) 0px;
-            /*Offset jump links (html anchors) for the sticky navbar, pointing them to the correct position*/
-            padding-top: calc(var(--font-size)*1.5 + 0.5rem*2 + 10px*2);
-            margin-top: calc(-1 * (var(--font-size)*1.5 + 0.5rem*2 + 10px*2));
-            -webkit-background-clip: content-box;
-            background-clip: content-box;
             /*.row is hidden by page load (for CSS animation)*/
             opacity: 0;
             transform: translateY(var(--row-margin));
@@ -307,18 +302,19 @@
         }
     </style>
 
-    <!--Let text of .nav-item stick to the edge of its parent element (.container), when navbar is not sticking to top of the page-->
+    <!--Custom JavaScript-->
     <script>
-        //if desktop site is displayed
+        //Let text of .nav-item stick to the edge of its parent element (.container), when navbar is not sticky
+
+        /*if desktop site is displayed*/
         if ($(window).width() >= 768) {
-            //When user scroll
+            /*When user scroll*/
             $(window).scroll(function () {
                 /* Options for scroll tracking statements:
                 1. if(document.getElementsByClassName('active').length != 0)
                 2. var navbar = $('#navbar').offset().top;
-                   if ($(window).scrollTop() >= navbar)
-                */
-                //if one of the .nav-link is active, meaning that navbar is sticking to top of the page
+                   if ($(window).scrollTop() >= navbar)*/
+                /*if one of the .nav-link is active, meaning that navbar is sticking to top of the page*/
                 if ($('.active')[0]) {
                     $('#navbar').css("margin-left", "calc(-15px)");
                 } else {
@@ -326,28 +322,45 @@
                 }
             });
 
-            //When jump links (html anchors) being clicked
-            window.onhashchange = function () {
-                $('#navbar').css("margin-left", "calc(-15px)");
-            };
+            /*When jump links (html anchors) being clicked*/
+            window.addEventListener("hashchange", function () { $('#navbar').css("margin-left", "calc(-15px)"); });
         }
+
+
+        //Offset jump links (html anchors) for the sticky navbar and amination, pointing them to the correct position
+        window.addEventListener("hashchange", function () {
+            if ($(window.location.hash).css('opacity') < 1) {
+                window.scrollTo(window.scrollX, window.scrollY - $('#navbar').innerHeight() - parseInt($(':root').css('--row-margin')));
+            }
+            else {
+                window.scrollTo(window.scrollX, window.scrollY - $('#navbar').innerHeight());
+            }
+        });
+
+
+        //Initialize bootstrap scrollspy with calculated data-offset
+        $(document).ready(function () {
+            var dataOffset = $('#navbar').innerHeight() + parseInt($(':root').css('--row-margin')) + 1;
+            $('body').scrollspy({ target: '#navbar', offset: dataOffset });
+        });
+
 
         //CSS animation
 
-        //Set rowList as a globel varieable to improve efficiency (only modifiy once)
+        /*Set rowList as a globel varieable to improve efficiency (only modifiy once)*/
         var rowList = [];
         var delayms = 0;
 
-        //Initialize rowList and call addAnimation() on windows load
+        /*Initialize rowList and call addAnimation() on windows load*/
         $(document).ready(function () {
             rowList = $("main>.row").map(function () { return this.id; }).get();
             addAnimation();
         });
 
-        //Call addAnimation() method on page scroll (for CSS animation)
+        /*Call addAnimation() method on page scroll (for CSS animation)*/
         $(window).scroll(function () { addAnimation() });
 
-        //Add CSS animation class to main .row (for CSS animation)
+        /*Add CSS animation class to main .row (for CSS animation)*/
         function addAnimation() {
             for (var i = 0; i < rowList.length; i++) {
                 var row = rowList[i];
@@ -362,7 +375,7 @@
                         }, delayms);
                     })(row);
                     delayms += 250;
-                    //remove 1 element start from i from rowList
+                    /*remove 1 element start from i from rowList*/
                     rowList.splice(i, 1);
                     /*After removing rowList[i] from rowList, rowList[i+1] is now rowList[i]
                       in the next turn of loop, rowList[i] (previously rowList[i+1]) should be checked*/
@@ -375,7 +388,7 @@
 
 <!--In order to make scrollspy work, 'data-spy="scroll" data-target=".navbar" data-offset="0"' must be put into body, but not div or main-->
 
-<body data-spy="scroll" data-target=".navbar" data-offset="60">
+<body>
     <div class="container">
         <!--justify-content-center: center social-link in mobile site-->
         <div class="header row justify-content-center">
