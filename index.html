@@ -160,6 +160,7 @@
             background-clip: content-box;
             /*.row is hidden by page load (for CSS animation)*/
             opacity: 0;
+            transform: translateY(var(--row-margin));
         }
 
         /*line-height -> 1: Let headings to be visually the same height as paragraphs*/
@@ -207,26 +208,6 @@
 
         footer small {
             display: block;
-        }
-
-        /*CSS animation*/
-        @keyframes fade-in-from-bottom {
-            0% {
-                opacity: 0;
-                transform: translateY(var(--row-margin));
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /*CSS animation*/
-        .fade-in-from-bottom {
-            animation-duration: 1.25s;
-            animation-fill-mode: both;
-            animation-name: fade-in-from-bottom;
         }
 
         /*CSS for phones with width <= 767px
@@ -307,11 +288,6 @@
                 margin: var(--header-margin) 0px;
             }
 
-            /*Overide opacity defined in desktop site (for CSS animation)*/
-            main .row {
-                opacity: 1;
-            }
-
             /*Add emtry element to preserve space for footer as "position: absolute" footer do not take up space
               (for positioning footer)*/
             .container:after {
@@ -348,37 +324,49 @@
                 } else {
                     $('#navbar').css("margin-left", "calc(-15px - 1rem)");
                 }
-
-                //Call addAnimation() method on page scroll (for CSS animation)
-                addAnimation()
             });
 
             //When jump links (html anchors) being clicked
             window.onhashchange = function () {
                 $('#navbar').css("margin-left", "calc(-15px)");
             };
+        }
 
-            //CSS animation
+        //CSS animation
 
-            //Set rowList as a globel varieable to improve efficiency (only modifiy once)
-            var rowList;
-            //Initialize rowList and call addAnimation() on windows load
-            $(document).ready(function () {
-                rowList = document.getElementsByTagName('main')[0].getElementsByClassName('row');
-                addAnimation();
-            });
-            //Add CSS animation class to main .row (for CSS animation)
-            async function addAnimation() {
-                for (var i = 0; i < rowList.length; i++) {
-                    var row = rowList.item(i);
-                    //document.documentElement.clientHeight can be replaced by $(window).height()
-                    if ($(window).scrollTop() + document.documentElement.clientHeight > $(row).offset().top) {
-                        //or $(row).addClass('fade-in-from-bottom');
-                        row.classList.add('fade-in-from-bottom');
-                        //Wait until the animation end, and than continue loop
-                        const delay = ms => new Promise(_ => setTimeout(_, ms));
-                        await delay(250);
-                    }
+        //Set rowList as a globel varieable to improve efficiency (only modifiy once)
+        var rowList = [];
+        var delayms = 0;
+
+        //Initialize rowList and call addAnimation() on windows load
+        $(document).ready(function () {
+            rowList = $("main>.row").map(function () { return this.id; }).get();
+            addAnimation();
+        });
+
+        //Call addAnimation() method on page scroll (for CSS animation)
+        $(window).scroll(function () { addAnimation() });
+
+        //Add CSS animation class to main .row (for CSS animation)
+        function addAnimation() {
+            for (var i = 0; i < rowList.length; i++) {
+                var row = rowList[i];
+                if ($(window).scrollTop() + $(window).height() > $('#' + row).offset().top) {
+                    /*By the time when statements within setTimeout() executes, variable row has been changed by next turn of loop
+                      so it is required to pass the loop variable to a cimmediately-invoked function to handle the work*/
+                    (function (id) {
+                        setTimeout(function () {
+                            delayms -= 250;
+                            $('#' + id).css({ 'transition': '1.25s', 'opacity': '1' });
+                            $('#' + id).css({ 'transform': 'translateY(0)' });
+                        }, delayms);
+                    })(row);
+                    delayms += 250;
+                    //remove 1 element start from i from rowList
+                    rowList.splice(i, 1);
+                    /*After removing rowList[i] from rowList, rowList[i+1] is now rowList[i]
+                      in the next turn of loop, rowList[i] (previously rowList[i+1]) should be checked*/
+                    i--;
                 }
             }
         }
