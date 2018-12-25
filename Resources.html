@@ -131,6 +131,9 @@
             margin: var(--header-margin) -15px;
             /*Let text of .nav-item stick to the edge of its parent element (.container) before being scroll through*/
             margin-left: calc(-15px - 1rem);
+            /*.navbar is hidden and (--header-margin)px lower by page load (for CSS animation)*/
+            opacity: 0;
+            transform: translateY(var(--header-margin));
         }
 
         /*nav.navbar ul.nav.nav-pills li.nav-item*/
@@ -153,7 +156,7 @@
         main .row {
             /*Margin between rows*/
             margin: var(--row-margin) 0px;
-            /*.row is hidden by page load (for CSS animation)*/
+            /*.row is hidden and (--row-margin)px lower by page load (for CSS animation)*/
             opacity: 0;
             transform: translateY(var(--row-margin));
         }
@@ -184,8 +187,7 @@
           (for positioning footer)*/
         .container:after {
             content: "";
-            /*height: font-size(copyright)*line-spacing(copyright) + font-size(small)*line-spacing(small)
-              while font-size(small) = font-size(copyright)*0.8*/
+            /*height: font-size(copyright)*line-spacing(copyright)*/
             height: calc(var(--font-size)*1.5);
             display: block;
         }
@@ -343,13 +345,14 @@
 
         //CSS animation
 
-        /*Set rowList as a globel varieable to improve efficiency (only modifiy once)*/
-        var rowList = [];
+        /*Set elementList as a globel varieable to improve efficiency (only modifiy once)*/
+        var elementList = [];
         var delayms = 0;
 
-        /*Initialize rowList and call addAnimation() on windows load*/
+        /*Initialize elementList and call addAnimation() on windows load complete*/
         $(document).ready(function () {
-            rowList = $("main>.row").map(function () { return this.id; }).get();
+            elementList.push('navbar');
+            elementList.push.apply(elementList, $("main>.row").map(function () { return this.id; }).get());
             addAnimation();
         });
 
@@ -358,31 +361,32 @@
 
         /*Add CSS animation class to main .row (for CSS animation)*/
         function addAnimation() {
-            for (var i = 0; i < rowList.length; i++) {
-                var row = rowList[i];
+            for (var i = 0; i < elementList.length; i++) {
+                var row = elementList[i];
                 if ($(window).scrollTop() + $(window).height() > $('#' + row).offset().top) {
                     /*By the time when statements within setTimeout() executes, variable row has been changed by next turn of loop
                       so it is required to pass the loop variable to a cimmediately-invoked function to handle the work*/
                     (function (id) {
                         setTimeout(function () {
                             delayms -= 250;
-                            $('#' + id).css({ 'transition': '1.25s', 'opacity': '1' });
+                            $('#' + id).css({ 'transition-duration': '1250ms', 'opacity': '1' });
                             $('#' + id).css({ 'transform': 'translateY(0)' });
+                            /*Reset #navbar animation duration*/
+                            if (id === 'navbar')
+                                setTimeout(function () { $('#navbar').css({ 'transition-duration': '250ms', 'transition-timing-function': 'ease-in-out' }) }, 1250);
                         }, delayms);
                     })(row);
                     delayms += 250;
-                    /*remove 1 element start from i from rowList*/
-                    rowList.splice(i, 1);
-                    /*After removing rowList[i] from rowList, rowList[i+1] is now rowList[i]
-                      in the next turn of loop, rowList[i] (previously rowList[i+1]) should be checked*/
+                    /*remove 1 element start from i from elementList*/
+                    elementList.splice(i, 1);
+                    /*After removing elementList[i] from elementList, elementList[i+1] is now elementList[i]
+                      in the next turn of loop, elementList[i] (previously elementList[i+1]) should be checked*/
                     i--;
                 }
             }
         }
     </script>
 </head>
-
-<!--In order to make scrollspy work, 'data-spy="scroll" data-target=".navbar" data-offset="0"' must be put into body, but not div or main-->
 
 <body>
     <div class="container">
@@ -422,6 +426,7 @@
 
         <main>
             <!--Reminder: After copying CSS, remember to change back height in .container:after for desktop site (mobile site applied automatically)
+                    /*height: font-size(copyright)*line-spacing(copyright)*/
                     height: calc(var(--font-size)*1.5);
                     
                 Also remember to remove the navbar
