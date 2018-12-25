@@ -1,0 +1,254 @@
+:root {
+    --main-margin: 70px;
+    --header-margin: 40px;
+    --font-size: 20px;
+    /*margin between rows*/
+    --row-margin: 50px;
+}
+
+/*Stretch the page to fill browser window (for positioning footer)*/
+html {
+    height: 100%;
+}
+
+body {
+    background-color: #212529;
+    color: #adb5bd;
+    font-family: "roboto", "arial", sans-serif;
+    /*Stretch the page to fill browser window (for positioning footer)
+        height: 100% - (.container margin that do not have contents in it)*/
+    height: calc(100% - var(--main-margin));
+}
+
+a {
+    color: #63e6be;
+}
+
+.container {
+    /*max-width: width of container*/
+    max-width: 1000px;
+    margin: var(--main-margin) auto;
+    font-family: "Source Sans Pro";
+    font-weight: 400;
+    font-size: var(--font-size);
+    /*Stretch container to fill the whole body (for positioning footer)
+        min-height: 100% - (header margin collapsed by .container);
+        position -> relative: required for footer positioning*/
+    min-height: calc(100% - var(--main-margin));
+    position: relative;
+}
+
+.header {
+    margin-top: var(--header-margin);
+    margin-bottom: var(--header-margin);
+}
+
+/*.header .logo*/
+.logo {
+    /*Let .logo height to be the same as its child element (.logo a)*/
+    line-height: normal;
+    /*Let the logo stick to the edge of its parent element (.container)*/
+    margin-left: -5px;
+}
+
+/*.header .logo a*/
+.logo a {
+    font-family: 'Jura', Arial, sans-serif;
+    color: #adb5bd;
+    font-size: 60px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0px;
+}
+
+/*.header .logo a:hover*/
+.logo a:hover {
+    text-decoration: none;
+}
+
+/*.header .col-auto.d-flex.align-items-center a .social-link*/
+.social-link {
+    color: #adb5bd;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0px 20px;
+}
+
+/*.header .col-auto.d-flex.align-items-center a .social-link i*/
+.social-link i {
+    font-size: 25px;
+    margin: 5px 0px;
+}
+
+
+nav.navbar {
+    padding: 10px 0px;
+    background-color: #212529;
+    /*Negative margin: let text of .nav-item stick to the edge of its parent element (.container)*/
+    margin: var(--header-margin) -15px;
+    /*Let text of .nav-item stick to the edge of its parent element (.container) before being scroll through*/
+    margin-left: calc(-15px - 1rem);
+    /*.navbar is hidden and (--header-margin)px lower by page load (for CSS animation)*/
+    opacity: 0;
+    transform: translateY(var(--header-margin));
+}
+
+/*nav.navbar ul.nav.nav-pills li.nav-item*/
+.nav-item {
+    margin: 0px 15px;
+}
+
+/*nav.navbar ul.nav.nav-pills li.nav-item a.nav-link.active
+    Item of current scroll position, use for overriding bootstrap default colors
+    .nav-pills must be included in order to override bootstrap CSS*/
+.nav-pills .nav-link.active {
+    color: #212529;
+    background-color: #63e6be;
+}
+
+main {
+    margin: var(--main-margin) -15px;
+}
+
+main .row {
+    /*Margin between rows*/
+    margin: var(--row-margin) 0px;
+    /*.row is hidden and (--row-margin)px lower by page load (for CSS animation)*/
+    opacity: 0;
+    transform: translateY(var(--row-margin));
+}
+
+/*line-height -> 1: Let headings to be visually the same height as paragraphs*/
+main h1 {
+    line-height: 1;
+    margin-bottom: 1rem;
+}
+
+main p {
+    line-height: 1.7;
+}
+
+/*main .content p+h2
+    Margin between different sections in .content*/
+.content p+h2 {
+    margin-top: 1.5rem;
+}
+
+/*main .content>*:last-child
+    Remove bottom margin on last child (mostly paragraph) of each row, otherwise margin between rows will be larger than expected*/
+.content>*:last-child {
+    margin-bottom: 0px;
+}
+
+/*Add emtry element to preserve space for footer as "position: absolute" footer do not take up space
+    (for positioning footer)*/
+.container:after {
+    content: "";
+    /*height: font-size(copyright)*line-spacing(copyright) + font-size(small)*line-spacing(small)
+        while font-size(small) = font-size(copyright)*0.8*/
+    height: calc(var(--font-size)*1.5 + var(--font-size)*0.8*1.5);
+    display: block;
+}
+
+/*Place footer to bootom of .container*/
+footer {
+    position: absolute;
+    bottom: 0px;
+}
+
+footer i {
+    font-size: 15px;
+    vertical-align: 1px;
+}
+
+footer small {
+    display: block;
+}
+
+/*CSS for phones with width <= 767px
+  If device with width >=768px, the desktop site will be rendered
+  Somehow I hardcoded this part, but this is the most convenient way*/
+@media (max-width: 767px) {
+    :root {
+        --main-margin: 40px;
+        --header-margin: 30px;
+        --font-size: 1rem;
+    }
+
+    body {
+        /*height: 100% - (header margin that do not have contents in it) (for positioning footer)*/
+        height: calc(100% - var(--main-margin));
+    }
+
+    .container {
+        margin: var(--main-margin) auto;
+        font-size: var(--font-size);
+        /*min-height: 100% - (header margin collapsed by .container) (for positioning footer)*/
+        min-height: calc(100% - var(--main-margin));
+    }
+
+    .header {
+        margin: 30px 0px;
+    }
+
+    /*.header .logo*/
+    .logo {
+        margin-bottom: var(--header-margin);
+        text-align: center;
+        display: block;
+        /*Unset negative left margin defined in desktop site*/
+        margin-left: auto;
+    }
+
+    nav.navbar {
+        /*margin-left, margin-right -> 0px: override negative margin value of desktop site*/
+        margin: var(--header-margin) 0px;
+    }
+
+    /*nav.navbar ul.nav
+        Enable the navbar in mobile site to scroll horizontally when needed*/
+    ul.nav {
+        /*flex-wrap -> nowrap: keep elements in same row even there is not enough spqce
+                white-space -> nowrap: keep elements width even there is not enough spqce
+                overflow-x -> scroll: enable horizontal scrolling of the element*/
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        overflow-x: scroll;
+    }
+
+    /*nav.navbar ul.nav.nav-pills
+        padding: (main contents padding) - (nav-item padding) = 15px - 5px = 10px
+        The text of .nav-item would stick to the edge of its parent element (.container) / start and end at the same postion as main contents*/
+    .nav.nav-pills {
+        width: 100%;
+        justify-content: space-between;
+        padding: 0px 10px;
+    }
+
+    /*nav.navbar ul.nav.nav-pills li.nav-item
+        padding: add apace between nav-items*/
+    .nav-item {
+        margin: 0px;
+        padding: 0px 5px;
+    }
+
+    /*nav.navbar ul.nav.nav-pills li.nav-item a.nav-link
+        smaller padding to avoid navbar horizontal scrolling*/
+    a.nav-link {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    main {
+        margin: var(--header-margin) 0px;
+    }
+
+    footer {
+        padding: 0px 15px;
+    }
+
+    footer i {
+        font-size: calc(var(--font-size) * 0.75);
+        vertical-align: 1px;
+    }
+}
