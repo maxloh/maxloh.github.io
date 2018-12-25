@@ -283,14 +283,6 @@
                 margin: var(--header-margin) 0px;
             }
 
-            /*Add emtry element to preserve space for footer as "position: absolute" footer do not take up space
-              (for positioning footer)*/
-            .container:after {
-                /*height: font-size(copyright)*line-spacing(copyright) + font-size(small)*line-spacing(small)
-                          while font-size(small) = font-size(copyright)*0.8*/
-                height: calc(var(--font-size)*1.5 + var(--font-size)*0.8*1.5);
-            }
-
             footer {
                 padding: 0px 15px;
             }
