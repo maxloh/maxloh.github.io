@@ -338,9 +338,11 @@
 
         //Initialize bootstrap scrollspy with calculated data-offset
         $(document).ready(function () {
-            /*2 * --row-margin: one for top margin, and one for translateY(--row-margin) before animation starts*/
-            var dataOffset = $('#navbar').innerHeight() + 2 * parseInt($(':root').css('--row-margin'));
-            $('body').scrollspy({ target: '#navbar', offset: dataOffset });
+            if (document.getElementById('navbar')) {
+                /*2 * --row-margin: one for top margin, and one for translateY(--row-margin) before animation starts*/
+                var dataOffset = $('#navbar').innerHeight() + 2 * parseInt($(':root').css('--row-margin'));
+                $('body').scrollspy({ target: '#navbar', offset: dataOffset });
+            }
         });
 
 
@@ -352,7 +354,7 @@
 
         /*Initialize elementList and call addAnimation() on windows load complete*/
         $(document).ready(function () {
-            elementList.push('navbar');
+            if (document.getElementById('navbar')) elementList.push('navbar');
             elementList.push.apply(elementList, $("main>.row").map(function () { return this.id; }).get());
             addAnimation();
         });
