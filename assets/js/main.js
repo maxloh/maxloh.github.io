@@ -26,13 +26,14 @@ if ($(window).width() >= 768) {
 window.addEventListener("hashchange", function () {
     /*If animation of that element has not been completed yet*/
     if ($(window.location.hash).css('opacity') < 1) {
-        /*2 * --row-margin: one for top margin, and one for translateY(--row-margin) before animation starts*/
-        window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - 2 * parseInt($(':root').css('--row-margin')));
+        let translateY = $(window.location.hash).css('transform').replace(/[^0-9\-.,]/g, '').split(',')[5];
+        window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - translateY - parseInt($(':root').css('--row-margin')));
     }
     /*If animation of that element has been completed*/
     else {
         window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--row-margin')));
     }
+    history.replaceState(null, null, ' ');
 });
 
 
@@ -42,7 +43,7 @@ $(document).ready(function () {
     /*If element with id #navbar exists*/
     if (document.getElementById('navbar')) {
         /*2 * --row-margin: one for top margin, and one for translateY(--row-margin) before animation starts*/
-        var dataOffset = $('#navbar').innerHeight() + 2 * parseInt($(':root').css('--row-margin'));
+        let dataOffset = $('#navbar').innerHeight() + 2 * parseInt($(':root').css('--row-margin'));
         $('body').scrollspy({ target: '#navbar', offset: dataOffset });
     }
 });
@@ -69,7 +70,7 @@ $(window).scroll(function () { addAnimation() });
 /*Add CSS animation class to main .row (for CSS animation)*/
 function addAnimation() {
     for (var i = 0; i < elementList.length; i++) {
-        var row = elementList[i];
+        let row = elementList[i];
         if ($(window).scrollTop() + $(window).height() > $('#' + row).offset().top) {
             /*By the time when statements within setTimeout() executes, variable row has been changed by next turn of loop
               so it is required to pass the loop variable to a cimmediately-invoked function to handle the work*/
