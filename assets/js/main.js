@@ -33,33 +33,23 @@ window.addEventListener("hashchange", function () {
     else {
         window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--row-margin')));
     }
-    /*Fix scrollspy not accurate after clicking jump links in mobile site
-      by adding .active class to the right a.nav-link manually*/
+    /*Fix scrollspy not accurate after clicking jump links in mobile site*/
     if ($(window).width() < 768) {
-        /*turn off scrollspy*/
-        $('body').scrollspy("dispose");
         $('a.nav-link.active').removeClass('active');
         $('a[href="' + window.location.hash + '"]').addClass('active');
-        /*Reactivate scrollspy*/
-        $('body').scrollspy({ target: '#navbar', offset: dataOffset });
     }
     /*Remove #id from URL*/
-    history.replaceState(null, null, ' ');
+    else history.replaceState(null, null, ' ');
 });
 
 
 
 //Initialize bootstrap scrollspy with calculated data-offset
-
-/*define dataOffset as a globel varieable
-  so other function can use the varieable (for fixing scrollspy in mobile site)*/
-var dataOffset;
-
 $(document).ready(function () {
     /*If element with id #navbar exists*/
     if (document.getElementById('navbar')) {
-        dataOffset = $('#navbar').innerHeight() + 2 * parseInt($(':root').css('--row-margin'));
         /*2 * --row-margin: one for top margin, and one for translateY(--row-margin) before animation starts*/
+        let dataOffset = $('#navbar').innerHeight() + 2 * parseInt($(':root').css('--row-margin'));
         $('body').scrollspy({ target: '#navbar', offset: dataOffset });
     }
 });
