@@ -27,12 +27,13 @@ window.addEventListener("hashchange", function () {
     /*If animation of that element has not been completed yet*/
     if ($(window.location.hash).css('opacity') < 1) {
         let translateY = $(window.location.hash).css('transform').replace(/[^0-9\-.,]/g, '').split(',')[5];
-        window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - translateY - parseInt($(':root').css('--row-margin')));
+        window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--row-margin') - translateY));
     }
     /*If animation of that element has been completed*/
     else {
         window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--row-margin')));
     }
+    /*Remove #id from URL*/
     history.replaceState(null, null, ' ');
 });
 
@@ -43,7 +44,7 @@ $(document).ready(function () {
     /*If element with id #navbar exists*/
     if (document.getElementById('navbar')) {
         /*2 * --row-margin: one for top margin, and one for translateY(--row-margin) before animation starts*/
-        let dataOffset = $('#navbar').innerHeight() + 2 * parseInt($(':root').css('--row-margin'));
+        let dataOffset = $('#navbar').innerHeight() + 2 * parseInt($(':root').css('--row-margin')) + 1;
         $('body').scrollspy({ target: '#navbar', offset: dataOffset });
     }
 });
