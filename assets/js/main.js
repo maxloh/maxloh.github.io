@@ -44,7 +44,7 @@ $(document).ready(function () {
     /*If element with id #navbar exists*/
     if (document.getElementById('navbar')) {
         /*2 * --row-margin: one for top margin, and one for translateY(--row-margin) before animation starts*/
-        let dataOffset = $('#navbar').innerHeight() + 2 * parseInt($(':root').css('--row-margin')) + 1;
+        let dataOffset = $('#navbar').innerHeight() + 2 * parseInt($(':root').css('--row-margin'));
         $('body').scrollspy({ target: '#navbar', offset: dataOffset });
     }
 });
