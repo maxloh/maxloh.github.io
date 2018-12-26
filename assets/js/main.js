@@ -35,11 +35,11 @@ window.addEventListener("hashchange", function () {
     }
     /*Fix scrollspy not accurate after clicking jump links in mobile site*/
     if ($(window).width() < 768) {
-        $('a.nav-link.active').removeClass('active');
+        $('nav-link active').removeClass('active');
         $('a[href="' + window.location.hash + '"]').addClass('active');
     }
     /*Remove #id from URL*/
-    else history.replaceState(null, null, ' ');
+    history.replaceState(null, null, ' ');
 });
 
 
