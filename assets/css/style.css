@@ -116,7 +116,6 @@ main .row {
     /*.row is hidden and (--row-margin)px lower by page load (for CSS animation)*/
     opacity: 0;
     transform: translateY(var(--row-margin));
-    background-color: #FFF;
 }
 
 /*line-height -> 1: Let headings to be visually the same height as paragraphs*/
