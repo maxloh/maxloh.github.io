@@ -36,7 +36,8 @@ window.addEventListener("hashchange", function () {
     /*Fix scrollspy not accurate after clicking jump links in mobile site*/
     if ($(window).width() < 768) {
         $('nav-link active').removeClass('active');
-        $('a[href="' + window.location.hash + '"]').addClass('active');
+        $(window.location.hash).addClass('active');
+        console.log('a');
     }
     /*Remove #id from URL*/
     history.replaceState(null, null, ' ');
