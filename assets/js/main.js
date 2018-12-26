@@ -33,12 +33,6 @@ window.addEventListener("hashchange", function () {
     else {
         window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--row-margin')));
     }
-    /*Fix scrollspy not accurate after clicking jump links in mobile site*/
-    if ($(window).width() < 768) {
-        $('nav-link active').removeClass('active');
-        $(window.location.hash).addClass('active');
-        console.log('a');
-    }
     /*Remove #id from URL*/
     history.replaceState(null, null, ' ');
 });
