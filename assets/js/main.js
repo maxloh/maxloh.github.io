@@ -26,8 +26,8 @@ if ($(window).width() >= 768) {
 window.addEventListener("hashchange", function () {
     /*If animation of that element has not been completed yet*/
     if ($(window.location.hash).css('opacity') < 1) {
-        var translateY = $(window.location.hash).css('transform').replace(/[^0-9\-.,]/g, '').split(',')[5];
-        window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--row-margin') - translateY));
+        let translateY = $(window.location.hash).css('transform').replace(/[^0-9\-.,]/g, '').split(',')[5];
+        window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--row-margin')) - translateY);
     }
     /*If animation of that element has been completed*/
     else {
