@@ -35,6 +35,8 @@ window.addEventListener("hashchange", function () {
     }
     /*Remove #id from URL*/
     history.replaceState(null, null, ' ');
+    /*Fix scrollspy not accurate after clicking jump links in mobile site*/
+    if ($(window).width() < 768) window.scrollTo(window.scrollX, window.scrollY + 5);
 });
 
 
