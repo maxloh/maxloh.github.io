@@ -14,7 +14,9 @@ html {
 body {
     background-color: #212529;
     color: #adb5bd;
-    font-family: "roboto", "arial", sans-serif;
+    font-family: "Source Sans Pro", "arial", sans-serif;
+    font-weight: 400;
+    font-size: var(--font-size);
     /*Stretch the page to fill browser window (for positioning footer)
         height: 100% - (.container margin that do not have contents in it)*/
     height: calc(100% - var(--main-margin));
@@ -28,9 +30,6 @@ a {
     /*max-width: width of container*/
     max-width: 1000px;
     margin: var(--main-margin) auto;
-    font-family: "Source Sans Pro";
-    font-weight: 400;
-    font-size: var(--font-size);
     /*Stretch container to fill the whole body (for positioning footer)
         min-height: 100% - (header margin collapsed by .container);
         position -> relative: required for footer positioning*/
@@ -118,8 +117,8 @@ main .row {
     transform: translateY(var(--row-margin));
 }
 
-/*line-height -> 1: Let headings to be visually the same height as paragraphs*/
 main h1 {
+    /*line-height -> 1: Let headings to be visually the same height as paragraphs*/
     line-height: 1;
     margin-bottom: 1rem;
 }
@@ -166,8 +165,8 @@ footer small {
 }
 
 /*CSS for phones with width <= 767px
-  If device with width >=768px, the desktop site will be rendered
-  Somehow I hardcoded this part, but this is the most convenient way*/
+    If device with width >=768px, the desktop site will be rendered
+    Somehow I hardcoded this part, but this is the most convenient way*/
 @media (max-width: 767px) {
     :root {
         --main-margin: 40px;
@@ -179,11 +178,11 @@ footer small {
     body {
         /*height: 100% - (header margin that do not have contents in it) (for positioning footer)*/
         height: calc(100% - var(--main-margin));
+        font-size: var(--font-size);
     }
 
     .container {
         margin: var(--main-margin) auto;
-        font-size: var(--font-size);
         /*min-height: 100% - (header margin collapsed by .container) (for positioning footer)*/
         min-height: calc(100% - var(--main-margin));
     }
