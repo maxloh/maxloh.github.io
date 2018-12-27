@@ -44,7 +44,7 @@ window.addEventListener("hashchange", function () {
 //Initialize bootstrap scrollspy with calculated data-offset
 $(document).ready(function () {
     /*If element with id #navbar exists*/
-    if (document.getElementById('navbar')) {
+    if ($('#navbar')[0]) {
         /*2 * --row-margin: one for top margin, and one for translateY(--row-margin) before animation starts*/
         let dataOffset = $('#navbar').innerHeight() + 2 * parseInt($(':root').css('--row-margin'));
         $('body').scrollspy({ target: '#navbar', offset: dataOffset });
@@ -62,8 +62,8 @@ var delayms = 0;
 /*Initialize elementList and call addAnimation() on windows load complete*/
 $(document).ready(function () {
     /*If element with id #navbar exists*/
-    if (document.getElementById('navbar')) elementList.push('navbar');
-    elementList.push.apply(elementList, $("main>.row").map(function () { return this.id; }).get());
+    if ($('#navbar')[0]) elementList = $('#navbar, main>.row');
+    else elementList = $('main>.row');
     addAnimation();
 });
 
@@ -74,16 +74,16 @@ $(window).scroll(function () { addAnimation() });
 function addAnimation() {
     for (var i = 0; i < elementList.length; i++) {
         let row = elementList[i];
-        if ($(window).scrollTop() + $(window).height() > $('#' + row).offset().top) {
+        if ($(window).scrollTop() + $(window).height() > $(row).offset().top) {
             /*By the time when statements within setTimeout() executes, variable row has been changed by next turn of loop
               so it is required to pass the loop variable to a cimmediately-invoked function to handle the work*/
             (function (id) {
                 setTimeout(function () {
                     delayms -= 250;
-                    $('#' + id).css({ 'transition-duration': '1250ms', 'opacity': '1' });
-                    $('#' + id).css({ 'transform': 'translateY(0)' });
+                    $(id).css({ 'transition-duration': '1250ms', 'opacity': '1' });
+                    $(id).css({ 'transform': 'translateY(0)' });
                     /*Reset #navbar animation duration*/
-                    if (id === 'navbar')
+                    if ($(id).attr('id') === 'navbar')
                         setTimeout(function () { $('#navbar').css({ 'transition-duration': '250ms', 'transition-timing-function': 'ease-in-out' }) }, 1250);
                 }, delayms);
             })(row);
