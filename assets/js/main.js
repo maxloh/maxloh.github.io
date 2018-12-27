@@ -49,6 +49,8 @@ $(document).ready(function () {
         let dataOffset = $('#navbar').innerHeight() + 2 * parseInt($(':root').css('--row-margin'));
         $('body').scrollspy({ target: '#navbar', offset: dataOffset });
     }
+    $('.logo').text(parseInt(getComputedStyle(document.documentElement).fontSize));
+
 });
 
 
