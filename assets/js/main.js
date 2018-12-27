@@ -17,9 +17,7 @@ if ($(window).width() >= 768) {
     });
 
     /*When jump links (html anchors) being clicked*/
-    window.addEventListener("hashchange", function () {
-        $('#navbar').css("margin-left", "calc(-15px)");
-    });
+    window.addEventListener("hashchange", function () { $('#navbar').css("margin-left", "calc(-15px)"); });
 }
 
 
@@ -49,10 +47,7 @@ $(document).ready(function () {
     if ($('#navbar')[0]) {
         /*2 * --row-margin: one for top margin, and one for translateY(--row-margin) before animation starts*/
         let dataOffset = $('#navbar').innerHeight() + 2 * parseInt($(':root').css('--row-margin'));
-        $('body').scrollspy({
-            target: '#navbar',
-            offset: dataOffset
-        });
+        $('body').scrollspy({ target: '#navbar', offset: dataOffset });
     }
 });
 
@@ -87,21 +82,11 @@ function addAnimation() {
             (function (id) {
                 setTimeout(function () {
                     delayms -= 250;
-                    $(id).css({
-                        'transition-duration': '1250ms',
-                        'opacity': '1'
-                    });
-                    $(id).css({
-                        'transform': 'translateY(0)'
-                    });
+                    $(id).css({ 'transition-duration': '1250ms', 'opacity': '1' });
+                    $(id).css({ 'transform': 'translateY(0)' });
                     /*Reset #navbar animation duration*/
                     if ($(id).attr('id') === 'navbar')
-                        setTimeout(function () {
-                            $('#navbar').css({
-                                'transition-duration': '250ms',
-                                'transition-timing-function': 'ease-in-out'
-                            })
-                        }, 1250);
+                        setTimeout(function () { $('#navbar').css({ 'transition-duration': '250ms', 'transition-timing-function': 'ease-in-out' }); }, 1250);
                 }, delayms);
             })(row);
             delayms += 250;
