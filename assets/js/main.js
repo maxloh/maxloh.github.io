@@ -68,9 +68,7 @@ $(document).ready(function () {
 });
 
 /*Call addAnimation() method on page scroll (for CSS animation)*/
-$(window).scroll(function () {
-    addAnimation()
-});
+$(window).scroll(function () { addAnimation() });
 
 /*Add CSS animation class to main .row (for CSS animation)*/
 function addAnimation() {
