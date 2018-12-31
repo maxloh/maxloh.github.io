@@ -1,39 +1,44 @@
 # Library
 
-## Used in the whole website
+- Used in the whole website
 
-- Bootstrap  
-  <https://getbootstrap.com/>
+  - Bootstrap  
+    <https://getbootstrap.com/>
 
-- jQuery  
-  <https://jquery.com>
+  - jQuery  
+    <https://jquery.com>
 
-- Popper.js  
-  <https://popper.js.org>
+  - Popper.js  
+    <https://popper.js.org>
 
-## Used in Home page (index.html)
+- Used in the Home page (index.html)
 
-- baguetteBox.js  
-  Power the screenshot gallery in Project section
-  <https://github.com/feimosi/baguetteBox.js>
+  - baguetteBox.js  
+    Power the screenshot gallery in Project section
+    <https://github.com/feimosi/baguetteBox.js>
 
-## Used in this page
+- Used in this page
 
-- Marked  
-  Parse markdown to HTML  
-  <https://marked.js.org/>
+  - Marked  
+    Parse markdown to HTML  
+    <https://marked.js.org/>
 
 # Design
 
-## Color scheme
+- Color scheme
 
-- Open color  
-  <https://yeun.github.io/open-color/>
+  - Open color  
+    <https://yeun.github.io/open-color/>
 
-## Website favicon
+- Font
+  - Google Fonts
 
-- Font: Timmana
-- Software: inkscape
+- Icons
+  - Font Awesome
+
+- Website favicon
+  - Font: Timmana
+  - Software: inkscape
 
 # Other Resources
 

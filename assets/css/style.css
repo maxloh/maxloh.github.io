@@ -117,10 +117,18 @@ main .row {
     transform: translateY(var(--row-margin));
 }
 
+
+
+main h1, main h2, main h3, main h4, main h5, main h6 {
+    margin-top: calc(var(--font-size) * 1.5);
+    margin-bottom: var(--font-size);
+    text-transform: uppercase;
+}
+
 main h1 {
     /*line-height -> 1: Let headings to be visually the same height as paragraphs*/
     line-height: 1;
-    margin-bottom: 1rem;
+    margin-top: 0px;
 }
 
 main p {
@@ -131,6 +139,12 @@ main p {
   Margin between different sections in .content*/
 .content p+h2 {
     margin-top: 1.5rem;
+}
+
+/*main .content>*:first-child
+  Remove top margin on first child of each row*/
+.content>*:first-child {
+    margin-top: 0px;
 }
 
 /*main .content>*:last-child

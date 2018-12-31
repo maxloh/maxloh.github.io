@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Max Loh</title>
+    <title>Resources</title>
 
     <!--Avoid search engine indexing the page-->
     <meta name="robots" content="noindex">
@@ -111,7 +111,12 @@
                         jQuery.get({
                             url: "https://maxloh.github.io/Resources.md",
                             success: function (data) {
-                                $("#resources-list").html(marked(data));
+                                data = marked(data);
+                                for (var i = 5; i >= 1; i--) {
+                                    data = data.replace(new RegExp('h' + i, 'g'), 'h' + (i + 1));
+                                    console.log((new RegExp('h' + i, 'g'), 'h' + (i + 1)));
+                                }
+                                $("#resources-list").html(data);
                             }
                         });
                     </script>
