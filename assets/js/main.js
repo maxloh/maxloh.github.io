@@ -26,17 +26,17 @@ if ($(window).width() >= 768) {
 window.addEventListener("hashchange", function () {
     /*If animation of that element has not been completed yet*/
     if ($(window.location.hash).css('opacity') < 1) {
-        let translateY = $(window.location.hash).css('transform').match(/matrix.*, (\d+)\)/)[1];
+        let translateY = $(window.location.hash).css('transform').match(/matrix.*, (\d+(\.\d+)*)\)/)[1];
         window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--row-margin')) - translateY);
     }
     /*If animation of that element has been completed*/
     else {
         window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--row-margin')));
     }
-    /*Remove #id from URL*/
-    history.replaceState(null, null, ' ');
     /*Fix scrollspy not accurate after clicking jump links in mobile site*/
     if ($(window).width() < 768) window.scrollTo(window.scrollX, window.scrollY + 2);
+    /*Remove #id from URL*/
+    history.replaceState(null, null, ' ');
 });
 
 
@@ -80,7 +80,7 @@ function addAnimation() {
     let displayTop = ($('#navbar')[0]) ? $(window).scrollTop() + $('#navbar').innerHeight() : $(window).scrollTop();
     elementList = jQuery.grep(elementList, function (row) {
         /*if (display bootom > elememnt top && display top < element bottom)*/
-        if (displayBottom > $(row).offset().top && displayTop < $(row).offset().top + $(row).innerHeight() - $(row).css('transform').match(/matrix.*, (\d+)\)/)[1]) {
+        if (displayBottom > $(row).offset().top && displayTop < $(row).offset().top + $(row).innerHeight() - $(row).css('transform').match(/matrix.*, (\d+(\.\d+)*)\)/)[1]) {
             setTimeout(function () {
                 delayms -= 250;
                 $(row).css({ 'transition-duration': '1250ms', 'opacity': '1', 'transform': 'translateY(0)' });
