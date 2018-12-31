@@ -1,3 +1,7 @@
+# Library
+
+## Used in the whole website
+
 - Bootstrap  
   <https://getbootstrap.com/>
 
@@ -7,15 +11,31 @@
 - Popper.js  
   <https://popper.js.org>
 
-- Color scheme adopted from Open color  
+## Used in Home page (index.html)
+
+- baguetteBox.js  
+  Power the screenshot gallery in Project section
+  <https://github.com/feimosi/baguetteBox.js>
+
+## Used in this page
+
+- Marked  
+  Parse markdown to HTML  
+  <https://marked.js.org/>
+
+# Design
+
+## Color scheme
+
+- Open color  
   <https://yeun.github.io/open-color/>
 
-- Website favicon  
-  Font: Timmana  
-  Software: inkscape
+## Website favicon
+
+- Font: Timmana
+- Software: inkscape
+
+# Other Resources
 
 - PWA builder  
   <https://www.pwabuilder.com/>
-
-- Marked  
-  <https://marked.js.org/>
