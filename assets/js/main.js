@@ -72,27 +72,21 @@ $(window).scroll(function () { addAnimation() });
 
 /*Add CSS animation class to main .row (for CSS animation)*/
 function addAnimation() {
-    for (var i = 0; i < elementList.length; i++) {
-        let row = elementList[i];
+    elementList = jQuery.grep(elementList, function (row) {
         if ($(window).scrollTop() + $(window).height() > $(row).offset().top) {
-            /*By the time when statements within setTimeout() executes, variable row has been changed by next turn of loop
-              so it is required to pass the loop variable to a cimmediately-invoked function to handle the work*/
-            (function (id) {
-                setTimeout(function () {
-                    delayms -= 250;
-                    $(id).css({ 'transition-duration': '1250ms', 'opacity': '1' });
-                    $(id).css({ 'transform': 'translateY(0)' });
-                    /*Reset #navbar animation duration*/
-                    if ($(id).attr('id') === 'navbar')
-                        setTimeout(function () { $('#navbar').css({ 'transition-duration': '250ms', 'transition-timing-function': 'ease-in-out' }); }, 1250);
-                }, delayms);
-            })(row);
+            setTimeout(function () {
+                delayms -= 250;
+                $(row).css({ 'transition-duration': '1250ms', 'opacity': '1' });
+                $(row).css({ 'transform': 'translateY(0)' });
+                /*Reset #navbar animation duration*/
+                if ($(row).attr('id') === 'navbar')
+                    setTimeout(function () { $('#navbar').css({ 'transition-duration': '250ms', 'transition-timing-function': 'ease-in-out' }); }, 1250);
+            }, delayms);
             delayms += 250;
-            /*remove 1 element start from i from elementList*/
-            elementList.splice(i, 1);
-            /*After removing elementList[i] from elementList, elementList[i+1] is now elementList[i]
-              in the next turn of loop, elementList[i] (previously elementList[i+1]) should be checked*/
-            i--;
+            /*Remove row element from elementList*/
+            return false;
         }
-    }
+        /*Keep row element in elementList as it is not yet being scrolled through*/
+        else return true;
+    });
 }
