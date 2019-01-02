@@ -26,8 +26,8 @@ if ($(window).width() >= 768) {
 window.addEventListener("hashchange", function () {
     /*If animation of that element has not been completed yet*/
     if ($(window.location.hash).css('opacity') < 1) {
-        let translateY = $(window.location.hash).css('transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
-        window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--row-margin')) - translateY);
+        let currentTranslateY = $(window.location.hash).css('transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
+        window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--row-margin')) - currentTranslateY);
     }
     /*If animation of that element has been completed*/
     else {
@@ -45,8 +45,7 @@ window.addEventListener("hashchange", function () {
 $(document).ready(function () {
     /*If element with id #navbar exists*/
     if ($('#navbar')[0]) {
-        /*2 * --row-margin: one for top margin, and one for translateY(--row-margin) before animation starts*/
-        let dataOffset = $('#navbar').innerHeight() + 2 * parseInt($(':root').css('--row-margin'));
+        let dataOffset = $('#navbar').innerHeight() + parseInt($(':root').css('--row-margin')) + parseInt($(':root').css('--row-translateY'));
         $('body').scrollspy({ target: '#navbar', offset: dataOffset });
     }
 });

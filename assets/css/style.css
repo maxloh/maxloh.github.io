@@ -4,6 +4,8 @@
     --font-size: 20px;
     /*margin between rows*/
     --row-margin: 50px;
+    --row-translateY: var(--row-margin);
+    --header-translateY: var(--header-margin);
 }
 
 /*Stretch the page to fill browser window (for positioning footer)*/
@@ -87,9 +89,9 @@ nav.navbar {
     margin: var(--header-margin) -15px;
     /*Let text of .nav-item stick to the edge of its parent element (.container) before being scroll through*/
     margin-left: calc(-15px - 1rem);
-    /*.navbar is hidden and (--header-margin)px lower by page load (for CSS animation)*/
+    /*.navbar is hidden and (--header-translateY)px lower by page load (for CSS animation)*/
     opacity: 0;
-    transform: translateY(var(--header-margin));
+    transform: translateY(var(--header-translateY));
 }
 
 /*nav.navbar ul.nav.nav-pills li.nav-item*/
@@ -114,7 +116,7 @@ main .row {
     margin: var(--row-margin) 0px;
     /*.row is hidden and (--row-margin)px lower by page load (for CSS animation)*/
     opacity: 0;
-    transform: translateY(var(--row-margin));
+    transform: translateY(var(--row-translateY));
 }
 
 
