@@ -109,7 +109,7 @@
                     <script src="https://cdn.jsdelivr.net/npm/showdown@latest/dist/showdown.min.js"></script>
                     <script>
                         jQuery.get({
-                            url: "https://maxloh.github.io/Resources.md",
+                            url: "https://maxloh.github.io/resources.md",
                             success: function (data) {
                                 showdown.setFlavor('github');
                                 data = (new showdown.Converter({ 'headerLevelStart': '2' })).makeHtml(data);
