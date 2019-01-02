@@ -153,6 +153,14 @@ footer small {
     display: block;
 }
 
+/*Avoid horizontal scrolling on device with a width between 768px and 900px*/
+@media (max-width: 900px) {
+    .container {
+        /*max-width: width of container*/
+        max-width: 100%;
+    }
+}
+
 @media (min-width: 768px) {
     :root {
         --main-margin: 70px;
@@ -204,8 +212,8 @@ footer small {
     }
 }
 
-/*CSS for phones with width <= 767px
-  If device with width >=768px, the desktop site will be rendered*/
+/*CSS for phones with a width less than 767px
+  For device with its width more than 768px, the desktop site will be rendered*/
 @media (max-width: 767px) {
     :root {
         --main-margin: 40px;
