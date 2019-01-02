@@ -106,16 +106,13 @@
                     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                         crossorigin="anonymous"></script>
                     <!--import marked.js that parse .md file to HTML code-->
-                    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/showdown@latest/dist/showdown.min.js"></script>
                     <script>
                         jQuery.get({
                             url: "https://maxloh.github.io/Resources.md",
                             success: function (data) {
-                                data = marked(data);
-                                for (var i = 5; i >= 1; i--) {
-                                    data = data.replace(new RegExp('h' + i, 'g'), 'h' + (i + 1));
-                                    console.log((new RegExp('h' + i, 'g'), 'h' + (i + 1)));
-                                }
+                                showdown.setFlavor('github');
+                                data = (new showdown.Converter({ 'headerLevelStart': '2' })).makeHtml(data);
                                 $("#resources-list").html(data);
                             }
                         });
