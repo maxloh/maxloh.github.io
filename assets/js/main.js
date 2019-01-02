@@ -10,7 +10,7 @@ if ($(window).width() >= 768) {
            if ($(window).scrollTop() >= navbar)*/
         /*if one of the .nav-link is active, meaning that navbar is sticking to top of the page*/
         if ($('.active')[0]) {
-            $('#navbar').css("margin-left", "calc(-15px)");
+            $('#navbar').css("margin-left", "0px");
         } else {
             $('#navbar').css("margin-left", "calc(-15px - 1rem)");
         }
