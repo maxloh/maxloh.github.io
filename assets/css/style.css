@@ -1,9 +1,4 @@
 :root {
-    --main-margin: 70px;
-    --header-margin: 25px;
-    --font-size: 20px;
-    /*margin between rows*/
-    --row-margin: 50px;
     --row-translateY: var(--row-margin);
     --header-translateY: var(--header-margin);
 }
@@ -20,7 +15,7 @@ body {
     font-weight: 400;
     font-size: var(--font-size);
     /*Stretch the page to fill browser window (for positioning footer)
-      height: 100% - (.container margin that do not have contents in it)*/
+      height: 100% - (.container top margin that do not have contents in it)*/
     height: calc(100% - var(--main-margin));
 }
 
@@ -29,8 +24,6 @@ a {
 }
 
 .container {
-    /*max-width: width of container*/
-    max-width: 1000px;
     margin: var(--main-margin) auto;
     /*Stretch container to fill the whole body (for positioning footer)
       min-height: 100% - (header margin collapsed by .container);
@@ -40,21 +33,18 @@ a {
 }
 
 .header {
-    margin-top: var(--header-margin);
-    margin-bottom: var(--header-margin);
+    margin-top: var(--header-margin) 0px;
 }
 
 /*.header .logo*/
 .logo {
     /*Let .logo height to be the same as its child element (.logo a)*/
     line-height: normal;
-    /*Let the logo stick to the edge of its parent element (.container)*/
-    margin-left: -5px;
 }
 
 /*.header .logo a*/
 .logo a {
-    font-family: 'Jura', Arial, sans-serif;
+    font-family: "Jura", "arial", sans-serif;
     color: #adb5bd;
     font-size: 60px;
     letter-spacing: 2px;
@@ -86,17 +76,10 @@ nav.navbar {
     padding: 10px 0px;
     background-color: #212529;
     /*Negative margin: let text of .nav-item stick to the edge of its parent element (.container)*/
-    margin: var(--header-margin) -15px;
-    /*Let text of .nav-item stick to the edge of its parent element (.container) before being scroll through*/
-    margin-left: calc(-15px - 1rem);
+    margin: var(--header-margin) auto;
     /*.navbar is hidden and (--header-translateY)px lower by page load (for CSS animation)*/
     opacity: 0;
     transform: translateY(var(--header-translateY));
-}
-
-/*nav.navbar ul.nav.nav-pills li.nav-item*/
-.nav-item {
-    margin: 0px 15px;
 }
 
 /*nav.navbar ul.nav.nav-pills li.nav-item a.nav-link.active
@@ -119,19 +102,15 @@ main .row {
     transform: translateY(var(--row-translateY));
 }
 
-
-
-main h1, main h2, main h3, main h4, main h5, main h6 {
+main h1,
+main h2,
+main h3,
+main h4,
+main h5,
+main h6 {
     margin-top: calc(var(--font-size) * 1.5);
     margin-bottom: var(--font-size);
     text-transform: uppercase;
-}
-
-main h1 {
-    /*line-height -> 1: Let headings to be visually the same height as paragraphs*/
-    margin-top: 0px;
-    letter-spacing: -1px;
-    margin-top: -2px;
 }
 
 main p {
@@ -170,18 +149,63 @@ footer {
     bottom: 0px;
 }
 
-footer i {
-    font-size: 15px;
-    vertical-align: 1px;
-}
-
 footer small {
     display: block;
 }
 
+@media (min-width: 768px) {
+    :root {
+        --main-margin: 70px;
+        --header-margin: 25px;
+        --font-size: 20px;
+        --row-margin: 50px;
+    }
+
+    .container {
+        /*max-width: width of container*/
+        max-width: 900px;
+    }
+
+    .logo {
+        /*Let the logo stick to the edge of its parent element (.container)*/
+        margin-left: -5px;
+    }
+
+    nav.navbar {
+        /*Let text of .nav-item stick to the edge of its parent element (.container) before being scroll through*/
+        margin-left: calc(-15px - 1rem);
+        margin-right: -15px;
+    }
+
+    /*nav.navbar ul.nav.nav-pills li.nav-item*/
+    .nav-item {
+        margin: 0px 15px;
+    }
+    
+    .content {
+        padding-left: 40px;
+    }
+
+    main h1 {
+        line-height: 1;
+        font-size: 60px;
+        font-weight: 200;
+        writing-mode: vertical-lr;
+        transform: rotate(180deg);
+        margin: 0px;
+        /*Positioning Heading 1*/
+        padding-bottom: 8px;
+        margin-left: -11px;
+    }
+
+    footer i {
+        font-size: 15px;
+        vertical-align: 1px;
+    }
+}
+
 /*CSS for phones with width <= 767px
-  If device with width >=768px, the desktop site will be rendered
-  Somehow I hardcoded this part, but this is the most convenient way*/
+  If device with width >=768px, the desktop site will be rendered*/
 @media (max-width: 767px) {
     :root {
         --main-margin: 40px;
@@ -190,34 +214,11 @@ footer small {
         --font-size: 1rem;
     }
 
-    body {
-        /*height: 100% - (header margin that do not have contents in it) (for positioning footer)*/
-        height: calc(100% - var(--main-margin));
-        font-size: var(--font-size);
-    }
-
-    .container {
-        margin: var(--main-margin) auto;
-        /*min-height: 100% - (header margin collapsed by .container) (for positioning footer)*/
-        min-height: calc(100% - var(--main-margin));
-    }
-
-    .header {
-        margin: 30px 0px;
-    }
-
     /*.header .logo*/
     .logo {
         margin-bottom: var(--header-margin);
         text-align: center;
         display: block;
-        /*Unset negative left margin defined in desktop site*/
-        margin-left: auto;
-    }
-
-    nav.navbar {
-        /*margin-left, margin-right -> 0px: override negative margin value of desktop site*/
-        margin: var(--header-margin) 0px;
     }
 
     /*nav.navbar ul.nav
@@ -243,8 +244,7 @@ footer small {
     /*nav.navbar ul.nav.nav-pills li.nav-item
       padding: add apace between nav-items*/
     .nav-item {
-        margin: 0px;
-        padding: 0px 5px;
+        margin: 0px 5px;
     }
 
     /*nav.navbar ul.nav.nav-pills li.nav-item a.nav-link
@@ -259,7 +259,6 @@ footer small {
     }
 
     main h1 {
-        letter-spacing: 0px;
         margin-top: 0px;
     }
 
