@@ -1,6 +1,6 @@
 :root {
     --main-margin: 70px;
-    --header-margin: 40px;
+    --header-margin: 25px;
     --font-size: 20px;
     /*margin between rows*/
     --row-margin: 50px;
@@ -122,22 +122,22 @@ main .row {
 main h1, main h2, main h3, main h4, main h5, main h6 {
     margin-top: calc(var(--font-size) * 1.5);
     margin-bottom: var(--font-size);
+    text-transform: uppercase;
 }
 
 main h1 {
     /*line-height -> 1: Let headings to be visually the same height as paragraphs*/
-    line-height: 1;
     margin-top: 0px;
+    letter-spacing: -1px;
+    margin-top: -2px;
 }
 
 main p {
     line-height: 1.7;
 }
 
-/*main .content p+h2
-  Margin between different sections in .content*/
-.content p+h2 {
-    margin-top: 1.5rem;
+main li {
+    margin-bottom: 1rem;
 }
 
 /*main .content>*:first-child
@@ -254,6 +254,11 @@ footer small {
 
     main {
         margin: var(--header-margin) 0px;
+    }
+
+    main h1 {
+        letter-spacing: 0px;
+        margin-top: 0px;
     }
 
     footer {

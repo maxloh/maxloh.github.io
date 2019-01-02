@@ -14,7 +14,7 @@
 - Used in the Home page (index.html)
 
   - baguetteBox.js  
-    Power the screenshot gallery in Project section
+    Power the screenshot gallery in Project section  
     <https://github.com/feimosi/baguetteBox.js>
 
 - Used in this page
@@ -31,13 +31,17 @@
     <https://yeun.github.io/open-color/>
 
 - Font
+
   - Google Fonts
 
 - Icons
+
   - Font Awesome
 
 - Website favicon
+
   - Font: Timmana
+
   - Software: inkscape
 
 # Other Resources
