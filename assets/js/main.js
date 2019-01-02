@@ -56,7 +56,8 @@ $(document).ready(function () {
 
 /*Set elementList as a globel varieable to improve efficiency (only modifiy once)*/
 var elementList;
-var delayms = 0;
+var delayTime = 0;
+var delay = parseInt($(':root').css('--row-margin')) * 5;
 
 /*Initialize elementList and call addAnimation() on windows load complete*/
 $(document).ready(function () {
@@ -64,7 +65,7 @@ $(document).ready(function () {
     if ($('#navbar')[0]) {
         $('#navbar').css({ 'transition-duration': '1250ms', 'opacity': '1', 'transform': 'translateY(0)' });
         setTimeout(function () { $('#navbar').css({ 'transition-duration': '250ms', 'transition-timing-function': 'ease' }); }, 1);
-        delayms += 250;
+        delayTime += delay;
     }
     elementList = $('main>.row');
     addAnimation();
@@ -81,10 +82,10 @@ function addAnimation() {
         /*if (display bootom > elememnt top && display top < element bottom)*/
         if (displayBottom > $(row).offset().top && displayTop < $(row).offset().top + $(row).innerHeight() - $(row).css('transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1]) {
             setTimeout(function () {
-                delayms -= 250;
+                delayTime -= delay;
                 $(row).css({ 'transition-duration': '1250ms', 'opacity': '1', 'transform': 'translateY(0)' });
-            }, delayms);
-            delayms += 250;
+            }, delayTime);
+            delayTime += delay;
             /*Remove row element from elementList*/
             return false;
         }
