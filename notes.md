@@ -12,16 +12,18 @@
 7. For the `Relative to:` drop down menu, choose `First selected` (vertical path created in `2`)
 8. Press `Center to vertical axis`
 
-https://graphicdesign.stackexchange.com/questions/31361/how-to-align-an-object-relative-to-nodes-of-another-object-in-inkscape
+<https://graphicdesign.stackexchange.com/questions/31361/how-to-align-an-object-relative-to-nodes-of-another-object-in-inkscape>
 
 ### Converting the icon to png using ImageMagick
- - `./magick convert -background none favicon.svg -size 256x256 -gravity center -scale 256x256 -extent 256x256 256x256.png`
- - `./magick convert -background none faviconSmall.svg -size 512x512 -gravity center -scale 512x512 -extent 512x512 512x512.png`
- - `./magick convert -background none faviconSmall.svg -size 192x192 -gravity center -scale 192x192 -extent 192x192 192x192.png`
 
-https://stackoverflow.com/questions/13153846/how-to-add-padding-when-using-imagemagick-to-convert-an-eps-into-a-png
+- `./magick convert -background none favicon.svg -size 256x256 -gravity center -scale 256x256 -extent 256x256 256x256.png`
+- `./magick convert -background none faviconSmall.svg -size 512x512 -gravity center -scale 512x512 -extent 512x512 512x512.png`
+- `./magick convert -background none faviconSmall.svg -size 192x192 -gravity center -scale 192x192 -extent 192x192 192x192.png`
 
+<https://stackoverflow.com/questions/13153846/how-to-add-padding-when-using-imagemagick-to-convert-an-eps-into-a-png>
 
-7BE4C2
-8DE8B2
-96E88D
+## Markdown parser performance
+
+- <https://github.com/markedjs/marked/issues/963>
+- <https://jsperf.com/showdown-js-vs-marked/10>
+- <https://jsperf.com/latest-version-markdown-parser-performance-comparison/5>
