@@ -10,20 +10,20 @@ if ($(window).width() >= 768) {
            if ($(window).scrollTop() >= navbar)*/
         /*if one of the .nav-link is active, meaning that navbar is sticking to top of the page*/
         if ($('.active')[0]) {
-            $('#navbar').css("margin-left", "-15px");
+            $('#navbar').css('margin-left', '-15px');
         } else {
-            $('#navbar').css("margin-left", "calc(-15px - 1rem)");
+            $('#navbar').css('margin-left', 'calc(-15px - 1rem)');
         }
     });
 
     /*When jump links (html anchors) being clicked*/
-    window.addEventListener("hashchange", function () { $('#navbar').css("margin-left", "calc(-15px)"); });
+    window.addEventListener('hashchange', function () { $('#navbar').css('margin-left', 'calc(-15px)'); });
 }
 
 
 
 //Offset jump links (html anchors) for the sticky navbar and amination, pointing them to the correct position
-window.addEventListener("hashchange", function () {
+window.addEventListener('hashchange', function () {
     /*If animation of that element has not been completed yet*/
     if ($(window.location.hash).css('opacity') < 1) {
         let currentTranslateY = $(window.location.hash).css('transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
