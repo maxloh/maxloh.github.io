@@ -1,4 +1,6 @@
-# Library
+# Resources and library used to build this site
+
+## Library
 
 - Used in the whole website
 
@@ -19,11 +21,11 @@
 
 - Used in this page
 
-  - Marked  
+  - remarkable  
     Parse markdown to HTML  
-    <https://marked.js.org/>
+    <https://github.com/jonschlinkert/remarkable>
 
-# Design
+## Design
 
 - Color scheme
 
@@ -44,7 +46,7 @@
 
   - Software: inkscape
 
-# Other Resources
+## Other Resources
 
 - PWA builder  
   <https://www.pwabuilder.com/>

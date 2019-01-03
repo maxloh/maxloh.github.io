@@ -105,15 +105,14 @@
                         jquery-3.3.1.min.js tested and proven to work-->
                     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                         crossorigin="anonymous"></script>
-                    <!--import marked.js that parse .md file to HTML code-->
-                    <script src="https://cdn.jsdelivr.net/npm/showdown@latest/dist/showdown.min.js"></script>
+                    <!--import remarkable.js that parse .md file to HTML code-->
+                    <script src="https://cdn.jsdelivr.net/npm/remarkable@1.7.1/dist/remarkable.min.js"></script>
                     <script>
                         jQuery.get({
-                            url: "https://maxloh.github.io/resources.md",
+                            url: 'https://maxloh.github.io/resources.md',
                             success: function (data) {
-                                showdown.setFlavor('github');
-                                data = (new showdown.Converter({ 'headerLevelStart': '2' })).makeHtml(data);
-                                $("#resources-list").html(data);
+                                data = (new window.Remarkable()).render(data.substring(data.indexOf('\n') + 1));
+                                $('#resources-list').html(data);
                             }
                         });
                     </script>
