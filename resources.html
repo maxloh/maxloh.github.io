@@ -36,18 +36,11 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
         crossorigin="anonymous">
     <!--Google Font-->
-    <!--Body Font: Source Sans Pro 400, Logo Font: Jura 300-->
+    <!--Heading 1 font: Source Sans Pro 200, Paragraph font: Source Sans Pro 400, Logo font: Jura 300-->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400|Jura:300" rel="stylesheet">
 
     <!--Custom Style-->
     <link rel="stylesheet" href="./assets/css/style.css">
-    <style>
-        /*Override style.css*/
-        .container:after {
-            /*height: font-size(copyright)*line-spacing(copyright)*/
-            height: calc(var(--font-size)*1.5);
-        }
-    </style>
 
     <!--Custom JavaScript-->
     <script src="./assets/js/main.js"></script>
@@ -57,10 +50,10 @@
     <div class="container">
         <!--justify-content-center: center social-link in mobile site-->
         <div class="header row justify-content-center">
-            <!--col-xs-12: for xs or above, the logo column occupy the whole row
+            <!--col-12: for xs or above, the logo column occupy the whole row
                 col-md-auto: for md or above (overriding the last rule), the logo column sized based on the natural width of contents within
                 mr-md-auto: mr-auto for md or larger device, pushing social links to right site-->
-            <div class="logo col-xs-12 col-md-auto mr-md-auto">
+            <div class="logo col-12 col-md-auto mr-md-auto">
                 <a href=".">Max Loh</a>
             </div>
             <!--col-auto: the column sized based on the natural width of contents within
@@ -90,13 +83,7 @@
         </div>
 
         <main>
-            <!--Reminder: After copying CSS, remember to change back height in .container:after for desktop site (mobile site applied automatically)
-                    /*height: font-size(copyright)*line-spacing(copyright)*/
-                    height: calc(var(--font-size)*1.5);
-                    
-                Also remember to remove the navbar
-            -->
-            <div id="resources" class="row">
+            <div id="resources" class="row section">
                 <div class="col-md-1 col-12">
                     <h1>Resources</h1>
                 </div>
@@ -123,6 +110,14 @@
             Copyright <i class="far fa-copyright"></i> 2018 Max Loh
         </footer>
     </div>
+
+    <style>
+        /*Override style.css (for positioning footer)*/
+        .container:after {
+            /*height: font-size(copyright)*line-spacing(copyright)*/
+            height: calc(var(--font-size)*1.5);
+        }
+    </style>
 
 </body>
 

@@ -1,5 +1,5 @@
 :root {
-    --row-translateY: var(--row-margin);
+    --section-translateY: var(--section-margin);
     --header-translateY: var(--header-margin);
 }
 
@@ -94,12 +94,12 @@ main {
     margin: var(--main-margin) -15px;
 }
 
-main .row {
-    /*Margin between rows*/
-    margin: var(--row-margin) 0px;
-    /*.row is hidden and (--row-margin)px lower by page load (for CSS animation)*/
+main .section {
+    /*Margin between sections*/
+    margin: var(--section-margin) 0px;
+    /*.section is hidden and (--section-margin)px lower by page load (for CSS animation)*/
     opacity: 0;
-    transform: translateY(var(--row-translateY));
+    transform: translateY(var(--section-translateY));
 }
 
 main h1,
@@ -122,13 +122,13 @@ main li {
 }
 
 /*main .content>*:first-child
-  Remove top margin on first child of each row*/
+  Remove top margin on first child of each section*/
 .content>*:first-child {
     margin-top: 0px;
 }
 
 /*main .content>*:last-child
-  Remove bottom margin on last child (mostly paragraph) of each row, otherwise margin between rows will be larger than expected*/
+  Remove bottom margin on last child (mostly paragraph) of each section, otherwise margin between sections will be larger than expected*/
 .content>*:last-child {
     margin-bottom: 0px;
 }
@@ -166,7 +166,7 @@ footer small {
         --main-margin: 70px;
         --header-margin: 25px;
         --font-size: 20px;
-        --row-margin: 50px;
+        --section-margin: 50px;
     }
 
     .container {
@@ -218,7 +218,7 @@ footer small {
     :root {
         --main-margin: 40px;
         --header-margin: 30px;
-        --row-margin: 30px;
+        --section-margin: 30px;
         --font-size: 1rem;
     }
 

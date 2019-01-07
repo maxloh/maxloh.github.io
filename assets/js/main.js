@@ -27,11 +27,11 @@ window.addEventListener('hashchange', function () {
     /*If animation of that element has not been completed yet*/
     if ($(window.location.hash).css('opacity') < 1) {
         let currentTranslateY = $(window.location.hash).css('transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
-        window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--row-margin')) - currentTranslateY);
+        window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--section-margin')) - currentTranslateY);
     }
     /*If animation of that element has been completed*/
     else {
-        window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--row-margin')));
+        window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--section-margin')));
     }
     /*Fix scrollspy not accurate after clicking jump links in mobile site*/
     if ($(window).width() < 768) window.scrollTo(window.scrollX, window.scrollY + 2);
@@ -45,7 +45,7 @@ window.addEventListener('hashchange', function () {
 $(document).ready(function () {
     /*If element with id #navbar exists*/
     if ($('#navbar')[0]) {
-        let dataOffset = $('#navbar').innerHeight() + parseInt($(':root').css('--row-margin')) + parseInt($(':root').css('--row-translateY'));
+        let dataOffset = $('#navbar').innerHeight() + parseInt($(':root').css('--section-margin')) + parseInt($(':root').css('--section-translateY'));
         $('body').scrollspy({ target: '#navbar', offset: dataOffset });
     }
 });
@@ -57,7 +57,7 @@ $(document).ready(function () {
 /*Set elementList as a globel varieable to improve efficiency (only modifiy once)*/
 var elementList;
 var delayTime = 0;
-var delay = parseInt($(':root').css('--row-margin')) * 5;
+var delay = parseInt($(':root').css('--section-margin')) * 5;
 
 /*Initialize elementList and call addAnimation() on windows load complete*/
 $(document).ready(function () {
@@ -67,29 +67,29 @@ $(document).ready(function () {
         setTimeout(function () { $('#navbar').css({ 'transition-duration': '250ms', 'transition-timing-function': 'ease' }); }, 1);
         delayTime += delay;
     }
-    elementList = $('main>.row');
+    elementList = $('main>.section');
     addAnimation();
 });
 
 /*Call addAnimation() method on page scroll (for CSS animation)*/
 $(window).scroll(function () { addAnimation() });
 
-/*Add CSS animation class to main .row (for CSS animation)*/
+/*Add CSS animation class to main .section (for CSS animation)*/
 function addAnimation() {
     let displayBottom = $(window).scrollTop() + $(window).height();
     let displayTop = ($('#navbar')[0]) ? $(window).scrollTop() + $('#navbar').innerHeight() : $(window).scrollTop();
-    elementList = jQuery.grep(elementList, function (row) {
+    elementList = jQuery.grep(elementList, function (section) {
         /*if (display bootom > elememnt top && display top < element bottom)*/
-        if (displayBottom > $(row).offset().top && displayTop < $(row).offset().top + $(row).innerHeight() - $(row).css('transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1]) {
+        if (displayBottom > $(section).offset().top && displayTop < $(section).offset().top + $(section).innerHeight() - $(section).css('transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1]) {
             setTimeout(function () {
                 delayTime -= delay;
-                $(row).css({ 'transition-duration': '1250ms', 'opacity': '1', 'transform': 'translateY(0)' });
+                $(section).css({ 'transition-duration': '1250ms', 'opacity': '1', 'transform': 'translateY(0)' });
             }, delayTime);
             delayTime += delay;
-            /*Remove row element from elementList*/
+            /*Remove section element from elementList*/
             return false;
         }
-        /*Keep row element in elementList as it is not yet being scrolled through*/
+        /*Keep section element in elementList as it is not yet being scrolled through*/
         else return true;
     });
 }
