@@ -170,26 +170,50 @@
                         reorganized into different sections and presented in a more user-friendly way. Different
                         components like alternative text and ‘skip to contents’ navigation was added to the website to
                         make it accessible to people with disability.</p>
-
-                    <div id="gallery" class="row">
-                        <div class="col-12 col-md-4">
-                            <a href=".\assets\img\img1.jpg">
-                                <img src=".\assets\img\img1.jpg">
-                            </a>
+                    <div class="row gallery">
+                        <div class="col-12 col-md-4 gallery-item">
+                            <div>
+                                <a href=".\assets\img\index\projects-secondary-1.jpg">
+                                    <img src=".\assets\img\index\projects-secondary-1.jpg">
+                                </a>
+                            </div>
                         </div>
-                        <div class="col-12 col-md-4">
-                            <a href=".\assets\img\img1.jpg">
-                                <img src=".\assets\img\img1.jpg">
-                            </a>
+                        <div class="col-12 col-md-4 gallery-item">
+                            <div>
+                                <a href=".\assets\img\index\projects-secondary-2.png">
+                                    <img src=".\assets\img\index\projects-secondary-2.png">
+                                </a>
+                            </div>
                         </div>
-                        <div class="col-12 col-md-4">
-                            <a href=".\assets\img\img1.jpg">
-                                <img src=".\assets\img\img1.jpg">
-                            </a>
+                        <div class="col-12 col-md-4 gallery-item">
+                            <div>
+                                <a href=".\assets\img\index\projects-secondary-3.png">
+                                    <img src=".\assets\img\index\projects-secondary-3.png">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 gallery-item">
+                            <div>
+                                <a href=".\assets\img\index\projects-secondary-4.png">
+                                    <img src=".\assets\img\index\projects-secondary-4.png">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 gallery-item">
+                            <div>
+                                <a href=".\assets\img\index\projects-secondary-5.jpg">
+                                    <img src=".\assets\img\index\projects-secondary-5.jpg">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 gallery-item">
+                            <div>
+                                <a href=".\assets\img\index\projects-secondary-6.png">
+                                    <img src=".\assets\img\index\projects-secondary-6.png">
+                                </a>
+                            </div>
                         </div>
                     </div>
-
-
                     <h2>Online shop</h2>
                     <p>Content here</p>
                     <h2>This website</h2>
@@ -206,26 +230,49 @@
         </footer>
     </div>
 
-    <!--Import baguetteBox and run it-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/baguettebox.js@1.11.0/dist/baguetteBox.min.css">
+    <!--Import baguetteBox and run it, version 1.11.0 is fine-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/baguettebox.js@latest/dist/baguetteBox.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/baguettebox.js@latest/dist/baguetteBox.min.js"></script>
+
+    <!--Custom style for this page-->
     <style>
-        #gallery a img {
-            width: 100%;
-            border-radius: 4px;
-            margin-bottom: 30px;
-            transition: 0.2s ease-in-out;
-            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+        /*.gallery .gallery-item*/
+        .gallery-item {
+            padding: 15px;
         }
 
-        #gallery a img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        /*.gallery .gallery-item>div*/
+        .gallery-item>div {
+            position: relative;
+            height: 0;
+            /* .gallery-item have a aspect ratio of 3:2*/
+            padding-bottom: calc(100% * (2/3));
+        }
+
+        /*.gallery .gallery-item>div>a>img*/
+        .gallery-item>div>a>img {
+            /*covers the parent element completely, no matter which size it has*/
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+            object-position: top;
+            border-radius: 4px;
+            transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+        }
+
+        /*.gallery .gallery-item>div>a>img:hover*/
+        .gallery-item>div>a>img:hover {
+            box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/baguettebox.js@1.11.0/dist/baguetteBox.min.js"></script>
-    <script>
-        baguetteBox.run('#gallery');
-    </script>
+    <script>baguetteBox.run('.gallery');</script>
 
 </body>
 
