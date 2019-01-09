@@ -35,7 +35,8 @@
 }
 
 /*Override PhotoSwipe top bar opacity*/
-.pswp__ui--fit .pswp__top-bar {
+.pswp__ui--fit .pswp__top-bar,
+.pswp__top-bar {
     background-color: rgba(0, 0, 0, 0);
 }
 
