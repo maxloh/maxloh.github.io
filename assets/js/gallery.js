@@ -27,13 +27,19 @@ function openPhotoSwipe(imgElement, galleryClass) {
         },
         /*bgOpacity: 0.32 -> Scrim opacity in material design dialogs
           https://material.io/design/components/dialogs.html#theming*/
+        showHideOpacity: true,
         bgOpacity: 0.32,
         shareEl: false,
         closeElClasses: ['item', 'caption', 'zoom-wrap', 'ui'],
     };
 
     //Initializes and opens PhotoSwipe
-    new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options).init();
+    pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+    pswp.init();
+    /*Prevent double shadow of .pswp__img and .pswp__img--placeholder*/
+    pswp.listen('initialZoomInEnd', function () {
+        $('.pswp__img--placeholder').css({ 'display': 'none' });
+    });
 }
 
 //Add PhotoSwipe (.pswp) element to page
