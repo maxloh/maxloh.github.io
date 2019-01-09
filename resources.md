@@ -16,7 +16,7 @@
 - Used in the Home page (index.html)
 
   - PhotoSwipe  
-    Power the screenshot gallery in Project section  
+    Power the screenshot gallery in Projects section  
     <https://photoswipe.com/>
 
 - Used in this page
