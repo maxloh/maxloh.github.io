@@ -15,9 +15,9 @@
 
 - Used in the Home page (index.html)
 
-  - baguetteBox.js  
+  - PhotoSwipe  
     Power the screenshot gallery in Project section  
-    <https://github.com/feimosi/baguetteBox.js>
+    <https://photoswipe.com/>
 
 - Used in this page
 

@@ -173,44 +173,32 @@
                     <div class="row gallery">
                         <div class="col-12 col-md-4 gallery-item">
                             <div>
-                                <a href=".\assets\img\index\projects-secondary-1.jpg">
-                                    <img src=".\assets\img\index\projects-secondary-1.jpg">
-                                </a>
+                                <img src=".\assets\img\index\projects-secondary-1.jpg">
                             </div>
                         </div>
                         <div class="col-12 col-md-4 gallery-item">
                             <div>
-                                <a href=".\assets\img\index\projects-secondary-2.png">
-                                    <img src=".\assets\img\index\projects-secondary-2.png">
-                                </a>
+                                <img src=".\assets\img\index\projects-secondary-2.png">
                             </div>
                         </div>
                         <div class="col-12 col-md-4 gallery-item">
                             <div>
-                                <a href=".\assets\img\index\projects-secondary-3.png">
-                                    <img src=".\assets\img\index\projects-secondary-3.png">
-                                </a>
+                                <img src=".\assets\img\index\projects-secondary-3.png">
                             </div>
                         </div>
                         <div class="col-12 col-md-4 gallery-item">
                             <div>
-                                <a href=".\assets\img\index\projects-secondary-4.png">
-                                    <img src=".\assets\img\index\projects-secondary-4.png">
-                                </a>
+                                <img src=".\assets\img\index\projects-secondary-4.png">
                             </div>
                         </div>
                         <div class="col-12 col-md-4 gallery-item">
                             <div>
-                                <a href=".\assets\img\index\projects-secondary-5.jpg">
-                                    <img src=".\assets\img\index\projects-secondary-5.jpg">
-                                </a>
+                                <img src=".\assets\img\index\projects-secondary-5.jpg">
                             </div>
                         </div>
                         <div class="col-12 col-md-4 gallery-item">
                             <div>
-                                <a href=".\assets\img\index\projects-secondary-6.png">
-                                    <img src=".\assets\img\index\projects-secondary-6.png">
-                                </a>
+                                <img src=".\assets\img\index\projects-secondary-6.png">
                             </div>
                         </div>
                     </div>
@@ -230,49 +218,18 @@
         </footer>
     </div>
 
-    <!--Import baguetteBox and run it, version 1.11.0 is fine-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/baguettebox.js@latest/dist/baguetteBox.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/baguettebox.js@latest/dist/baguetteBox.min.js"></script>
+    <!--Import PhotoSwipe files, v4.1.3 is fine-->
+    <!--photoswipe.css: core CSS file, default-skin.css: skin CSS file-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@latest/dist/photoswipe.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@latest/dist/default-skin/default-skin.min.css">
+    <!--photoswipe.min.js: core JS file, photoswipe-ui-default.min.js: UI JS file-->
+    <script src="https://cdn.jsdelivr.net/npm/photoswipe@latest/dist/photoswipe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/photoswipe@latest/dist/photoswipe-ui-default.min.js"></script>
 
-    <!--Custom style for this page-->
-    <style>
-        /*.gallery .gallery-item*/
-        .gallery-item {
-            padding: 15px;
-        }
-
-        /*.gallery .gallery-item>div*/
-        .gallery-item>div {
-            position: relative;
-            height: 0;
-            /* .gallery-item have a aspect ratio of 3:2*/
-            padding-bottom: calc(100% * (2/3));
-        }
-
-        /*.gallery .gallery-item>div>a>img*/
-        .gallery-item>div>a>img {
-            /*covers the parent element completely, no matter which size it has*/
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-            object-position: top;
-            border-radius: 4px;
-            transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
-        }
-
-        /*.gallery .gallery-item>div>a>img:hover*/
-        .gallery-item>div>a>img:hover {
-            box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
-        }
-    </style>
-    <script>baguetteBox.run('.gallery');</script>
+    <!--Gallery custom style-->
+    <link rel="stylesheet" href="./assets/css/gallery.css">
+    <!--JavaScript to run PhotoSwipe-->
+    <script src="./assets/js/gallery.js"></script>
 
 </body>
 
