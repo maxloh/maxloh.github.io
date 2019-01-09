@@ -1,4 +1,5 @@
 $('.gallery-item img').on('click', function (event) {
+    event.preventDefault();
     openPhotoSwipe(event.target, '.gallery');
 });
 
@@ -23,7 +24,6 @@ function openPhotoSwipe(imgElement, galleryClass) {
             let pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
                 rect = imgElement.getBoundingClientRect();
             return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
-
         },
         /*bgOpacity: 0.32 -> Scrim opacity in material design dialogs
           https://material.io/design/components/dialogs.html#theming*/
