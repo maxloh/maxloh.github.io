@@ -9,8 +9,11 @@ function openPhotoSwipe(imgElement, galleryClass) {
     //build items array
     let index = 0;
     let count = 0;
-    /*$(imgElement).closest(galleryClass).find('img'): all img elements in same level*/
-    let items = jQuery.map($(imgElement).closest(galleryClass).find('img'), function (element) {
+    /*imgElement.closest(galleryClass).querySelectorAll('img'): select all img elements on the same level
+      [...nodeList].map(): use spread operator to convert nodeList to array and call the map function,
+      while having better peroformence than Array.from(nodeList).map or Array.prototype.map.call(nodeList, function)
+      https://measurethat.net/Benchmarks/Show/4507/0/arrayprototypemapcall-vs-arraymap */
+    let items = [...imgElement.closest(galleryClass).querySelectorAll('img')].map(function (element) {
         if (element === imgElement) { index = count; }
         count++;
         /*msrc: prevent PhotoSwipe displaying grey placeholder*/
@@ -25,9 +28,9 @@ function openPhotoSwipe(imgElement, galleryClass) {
                 rect = imgElement.getBoundingClientRect();
             return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
         },
-        /*bgOpacity: 0.32 -> Scrim opacity in material design dialogs
-          https://material.io/design/components/dialogs.html#theming*/
         showHideOpacity: true,
+        /*bgOpacity: 0.32 -> Scrim opacity in material design dialogs
+          https://material.io/design/components/dialogs.html#theming */
         bgOpacity: 0.32,
         shareEl: false,
         closeElClasses: ['item', 'caption', 'zoom-wrap', 'ui'],
