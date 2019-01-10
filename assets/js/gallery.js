@@ -1,24 +1,30 @@
-$('.gallery-item img').on('click', function (event) {
-    event.preventDefault();
-    openPhotoSwipe(event.target, '.gallery');
+[...document.querySelectorAll('.gallery-item img')].forEach(function (element) {
+    element.onclick = function (event) {
+        //Prevent browser opening href links
+        event.preventDefault();
+        openPhotoSwipe(event.target, '.gallery');
+    }
 });
 
 function openPhotoSwipe(imgElement, galleryClass) {
     let pswpElement = document.querySelectorAll('.pswp')[0];
 
-    //build items array
+    //build items array, record element index
     let index = 0;
-    let count = 0;
-    /*imgElement.closest(galleryClass).querySelectorAll('img'): select all img elements on the same level
-      [...nodeList].map(): use spread operator to convert nodeList to array and call the map function,
-      while having better peroformence than Array.from(nodeList).map or Array.prototype.map.call(nodeList, function)
-      https://measurethat.net/Benchmarks/Show/4507/0/arrayprototypemapcall-vs-arraymap */
-    let items = [...imgElement.closest(galleryClass).querySelectorAll('img')].map(function (element) {
-        if (element === imgElement) { index = count; }
-        count++;
-        /*msrc: prevent PhotoSwipe displaying grey placeholder*/
-        return { src: element.currentSrc, msrc: element.currentSrc, w: element.naturalWidth, h: element.naturalHeight };
-    });
+    let items;
+    {
+        let count = 0;
+        /*imgElement.closest(galleryClass).querySelectorAll('img'): select all img elements on the same level
+          [...nodeList].map(): use spread operator to convert nodeList to array and call the map function,
+          while having better peroformence than Array.from(nodeList).map or Array.prototype.map.call(nodeList, function)
+          https://measurethat.net/Benchmarks/Show/4507/0/arrayprototypemapcall-vs-arraymap */
+        items = [...imgElement.closest(galleryClass).querySelectorAll('img')].map(function (element) {
+            if (element === imgElement) { index = count; }
+            count++;
+            /*msrc: prevent PhotoSwipe displaying grey placeholder*/
+            return { src: element.currentSrc, msrc: element.currentSrc, w: element.naturalWidth, h: element.naturalHeight };
+        });
+    }
 
     //define options
     let options = {
@@ -39,7 +45,8 @@ function openPhotoSwipe(imgElement, galleryClass) {
     //Initializes and opens PhotoSwipe
     pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
     pswp.init();
-    /*Prevent double shadow of .pswp__img and .pswp__img--placeholder*/
+
+    //Prevent double shadow of .pswp__img and .pswp__img--placeholder
     pswp.listen('initialZoomInEnd', function () {
         $('.pswp__img--placeholder').css({ 'display': 'none' });
     });
