@@ -98,6 +98,7 @@
                     <script src="https://cdn.jsdelivr.net/npm/remarkable@1.7.1/dist/remarkable.min.js"></script>
                     <script>
                         jQuery.get({
+                            /*https://github.com/maxloh/maxloh.github.io/raw/master/resources.md is also valid*/
                             url: 'https://maxloh.github.io/resources.md',
                             success: function (data) {
                                 data = (new window.Remarkable()).render(data.substring(data.indexOf('\n') + 1));
