@@ -205,11 +205,6 @@ footer small {
         padding-bottom: 8px;
         margin-left: -11px;
     }
-
-    footer i {
-        font-size: 15px;
-        vertical-align: 1px;
-    }
 }
 
 /*CSS for phones with a width less than 767px
@@ -272,10 +267,5 @@ footer small {
 
     footer {
         padding: 0px 15px;
-    }
-
-    footer i {
-        font-size: calc(var(--font-size) * 0.75);
-        vertical-align: 1px;
     }
 }
