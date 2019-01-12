@@ -27,9 +27,7 @@
 
 ## Design
 
-- Color scheme
-
-  - Open color ([MIT License](https://github.com/yeun/open-color/blob/master/LICENSE))  
+- Color scheme: Open color ([MIT License](https://github.com/yeun/open-color/blob/master/LICENSE))  
   <https://yeun.github.io/open-color/>  
 
 - Font
