@@ -36,7 +36,7 @@
   Font weight: heading 1 200, paragraph 400  
   <https://adobe-fonts.github.io/source-sans-pro/>
 
-  - Logo font: Jura 300 ([SIL Open Font License 1.1](https://github.com/google/fonts/blob/master/ofl/jura/OFL.txt))  
+  - Logo font: Jura 300 ([SIL Open Font License 1.1](https://github.com/ossobuffo/jura/blob/master/OFL.txt))  
   <https://github.com/ossobuffo/jura>
 
   - Delivered by [Google Fonts](https://fonts.google.com)  
