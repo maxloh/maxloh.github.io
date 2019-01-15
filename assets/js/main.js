@@ -3,7 +3,7 @@
 /*if desktop site is displayed*/
 if ($(window).width() >= 768) {
     /*When user scroll
-      async function- > fix #navbar not positioning correctly*/
+      async function- > fix #navbar not positioning correctly while clicking jump links*/
     window.addEventListener('scroll', async function () {
         /* Options for scroll tracking statements:
         1. if(document.getElementsByClassName('active').length != 0)
@@ -38,10 +38,10 @@ $(document).ready(function () {
         else {
             window.scrollTo(window.scrollX, $(target).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--section-margin')));
         }
-        /*Fix scrollspy not accurate after clicking jump links in mobile site*/
+        /*Fix scrollspy not accurate after clicking jump links on mobile site*/
         if ($(window).width() < 768) window.scrollTo(window.scrollX, window.scrollY + 2);
 
-        /*Fix #navbar not positioning correctly*/
+        /*Fix #navbar not positioning correctly while clicking jump links*/
         setTimeout(async function () { $('#navbar').css('margin-left', '-15px'); }, 1);
     });
 });
