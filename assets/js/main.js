@@ -2,9 +2,8 @@
 
 /*if desktop site is displayed*/
 if ($(window).width() >= 768) {
-    /*When user scroll
-      async function- > fix #navbar not positioning correctly while clicking jump links*/
-    window.addEventListener('scroll', async function () {
+    /*When user scroll*/
+    window.addEventListener('scroll', function () {
         /* Options for scroll tracking statements:
         1. if(document.getElementsByClassName('active').length != 0)
         2. let navbar = $('#navbar').offset().top;
@@ -42,7 +41,7 @@ $(document).ready(function () {
         if ($(window).width() < 768) window.scrollTo(window.scrollX, window.scrollY + 2);
 
         /*Fix #navbar not positioning correctly while clicking jump links*/
-        setTimeout(async function () { $('#navbar').css('margin-left', '-15px'); }, 1);
+        setTimeout(function () { $('#navbar').css('margin-left', '-15px'); }, 10);
     });
 });
 
