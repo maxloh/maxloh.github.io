@@ -41,7 +41,7 @@ $(document).ready(function () {
         if ($(window).width() < 768) window.scrollTo(window.scrollX, window.scrollY + 2);
 
         /*Fix #navbar not positioning correctly while clicking jump links*/
-        setTimeout(function () { $('#navbar').css('margin-left', '-15px'); }, 10);
+        setTimeout(function () { $('#navbar').css('margin-left', '-15px'); }, 1);
     });
 });
 
