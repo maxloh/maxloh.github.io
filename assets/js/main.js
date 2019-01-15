@@ -2,8 +2,9 @@
 
 /*if desktop site is displayed*/
 if ($(window).width() >= 768) {
-    /*When user scroll*/
-    $(window).scroll(function () {
+    /*When user scroll
+      async function- > fix #navbar not positioning correctly*/
+    window.addEventListener('scroll', async function () {
         /* Options for scroll tracking statements:
         1. if(document.getElementsByClassName('active').length != 0)
         2. let navbar = $('#navbar').offset().top;
@@ -25,7 +26,7 @@ if ($(window).width() >= 768) {
 //Offset jump links (html anchors) for the sticky navbar and amination, pointing them to the correct position
 
 $(document).ready(function () {
-    $('nav.navbar a').on('click', function () {
+    $('#navbar a').on('click', function () {
         event.preventDefault();
         let target = (this.href).substring((this.href).lastIndexOf('#'));
 
@@ -39,6 +40,9 @@ $(document).ready(function () {
         }
         /*Fix scrollspy not accurate after clicking jump links in mobile site*/
         if ($(window).width() < 768) window.scrollTo(window.scrollX, window.scrollY + 2);
+
+        /*Fix #navbar not positioning correctly*/
+        setTimeout(async function () { $('#navbar').css('margin-left', '-15px'); }, 1);
     });
 });
 
