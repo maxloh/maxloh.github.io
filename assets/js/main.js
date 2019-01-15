@@ -24,23 +24,22 @@ if ($(window).width() >= 768) {
 
 //Offset jump links (html anchors) for the sticky navbar and amination, pointing them to the correct position
 
-window.addEventListener('hashchange', function () {
-    /*If hashchange is not caused by opening PhotoSwipe gallery && hashchange is not caused by closing PhotoSwipe gallery*/
-    if (!window.location.hash.includes('gid') && window.location.hash !== '') {
-        /*If animation of that element has not been completed yet*/
-        if ($(window.location.hash).css('opacity') < 1) {
-            let currentTranslateY = $(window.location.hash).css('transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
-            window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--section-margin')) - currentTranslateY);
+$(document).ready(function () {
+    $('nav.navbar a').on('click', function () {
+        event.preventDefault();
+        let target = (this.href).substring((this.href).lastIndexOf('#'));
+
+        if ($(target).css('opacity') < 1) {
+            let currentTranslateY = $(target).css('transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
+            window.scrollTo(window.scrollX, $(target).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--section-margin')) - currentTranslateY);
         }
         /*If animation of that element has been completed*/
         else {
-            window.scrollTo(window.scrollX, $(window.location.hash).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--section-margin')));
+            window.scrollTo(window.scrollX, $(target).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--section-margin')));
         }
         /*Fix scrollspy not accurate after clicking jump links in mobile site*/
         if ($(window).width() < 768) window.scrollTo(window.scrollX, window.scrollY + 2);
-        /*Remove #id from URL*/
-        history.replaceState(null, null, ' ');
-    }
+    });
 });
 
 
