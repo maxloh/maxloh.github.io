@@ -1,7 +1,26 @@
+//Globel varieables
+
+var device = {
+    type: null,
+    scrollOffset: null
+}
+/*if mobile site is displayed
+  Breakpoint: 768*/
+if ($(window).width() < 768) {
+    device.type = 'mobile';
+    device.scrollOffset = 2;
+}
+/*if desktop site is displayed*/
+else {
+    device.type = 'desktop';
+    device.scrollOffset = 0;
+}
+
+
+
 //Let text of .nav-item stick to the edge of its parent element (.container), when navbar is not sticky
 
-/*if desktop site is displayed*/
-if ($(window).width() >= 768) {
+if (device.type === 'desktop') {
     /*When user scroll*/
     window.addEventListener('scroll', function () {
         /* Options for scroll tracking statements:
@@ -32,15 +51,12 @@ $(document).ready(function () {
 
         if ($(target).css('opacity') < 1) {
             let currentTranslateY = $(target).css('transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
-            window.scroll({ top: scrollY - currentTranslateY, behavior: 'smooth' });
+            window.scroll({ top: scrollY - currentTranslateY + device.scrollOffset, behavior: 'smooth' });
         }
         /*If animation of that element has been completed*/
         else {
-            window.scroll({ top: scrollY, behavior: 'smooth' });
+            window.scroll({ top: scrollY + device.scrollOffset, behavior: 'smooth' });
         }
-
-        /*Fix scrollspy not accurate after clicking jump links on mobile site*/
-        if ($(window).width() < 768) window.scrollTo(window.scrollX, window.scrollY + 2);
     });
 });
 
