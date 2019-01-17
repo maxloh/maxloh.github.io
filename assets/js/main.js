@@ -28,20 +28,19 @@ $(document).ready(function () {
     $('#navbar a').on('click', function () {
         event.preventDefault();
         let target = (this.href).substring((this.href).lastIndexOf('#'));
+        let scrollY = $(target).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--section-margin'))
 
         if ($(target).css('opacity') < 1) {
             let currentTranslateY = $(target).css('transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
-            window.scrollTo(window.scrollX, $(target).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--section-margin')) - currentTranslateY);
+            window.scroll({ top: scrollY - currentTranslateY, behavior: 'smooth' });
         }
         /*If animation of that element has been completed*/
         else {
-            window.scrollTo(window.scrollX, $(target).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--section-margin')));
+            window.scroll({ top: scrollY, behavior: 'smooth' });
         }
+
         /*Fix scrollspy not accurate after clicking jump links on mobile site*/
         if ($(window).width() < 768) window.scrollTo(window.scrollX, window.scrollY + 2);
-
-        /*Fix #navbar not positioning correctly while clicking jump links*/
-        setTimeout(function () { $('#navbar').css('margin-left', '-15px'); }, 1);
     });
 });
 
