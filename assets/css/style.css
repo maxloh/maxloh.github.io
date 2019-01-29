@@ -198,6 +198,7 @@ footer small {
         font-size: 60px;
         font-weight: 200;
         text-transform: uppercase;
+        letter-spacing: 1px;
         writing-mode: vertical-lr;
         transform: rotate(180deg);
         margin: 0px;
