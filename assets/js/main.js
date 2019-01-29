@@ -76,42 +76,35 @@ $(document).ready(function () {
 
 //CSS animation
 
-var sectionList;
+const intersectionObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+        /*Animate element when it enter viewport*/
+        if (entry.intersectionRatio > 0) {
+            observer.unobserve(entry.target);
+            animate(entry.target);
+        }
+    });
+});
 var delayTime = 0;
 var delay = parseInt($(':root').css('--section-margin')) * 5;
 
-/*Initialize sectionList and call addAnimation() on windows load complete*/
+/*observe 'main>.section' and animate #navbar on page load*/
 $(document).ready(function () {
-    /*If element with id #navbar exists, add animation to #navbar (for reloading page while $(window).scrollTop() != 0)*/
+    /*If element with id #navbar exists, animate it*/
     if ($('#navbar')[0]) {
         $('#navbar').css({ 'transition-duration': '1250ms', 'opacity': '1', 'transform': 'translateY(0)' });
-        setTimeout(function () { $('#navbar').css({ 'transition-duration': '250ms', 'transition-timing-function': 'ease' }); }, 1);
         delayTime += delay;
+        /*setTimeout -> change transition-duration after animation started*/
+        setTimeout(function () { $('#navbar').css({ 'transition-duration': '250ms', 'transition-timing-function': 'ease' }); }, 1);
     }
-    sectionList = $('main>.section');
-    addAnimation();
 
-    /*Call addAnimation() method on page scroll (for CSS animation)
-      $(window).scroll may be fired accidentally when refreshing the page while window.scrollY != 0*/
-    $(window).scroll(function () { addAnimation() });
+    document.querySelectorAll('main>.section').forEach((element) => intersectionObserver.observe(element));
 });
 
-/*Add CSS animation class to main .section (for CSS animation)*/
-function addAnimation() {
-    let displayBottom = $(window).scrollTop() + $(window).height();
-    let displayTop = ($('#navbar')[0]) ? $(window).scrollTop() + $('#navbar').innerHeight() : $(window).scrollTop();
-    sectionList = jQuery.grep(sectionList, function (section) {
-        /*if (display bootom > elememnt top && display top < element bottom)*/
-        if (displayBottom > $(section).offset().top && displayTop < $(section).offset().top + $(section).innerHeight() - $(section).css('transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1]) {
-            setTimeout(function () {
-                delayTime -= delay;
-                $(section).css({ 'transition-duration': '1250ms', 'opacity': '1', 'transform': 'translateY(0)' });
-            }, delayTime);
-            delayTime += delay;
-            /*Remove section element from sectionList*/
-            return false;
-        }
-        /*Keep section element in sectionList as it is not yet being scrolled through*/
-        else return true;
-    });
+function animate(target) {
+    setTimeout(function () {
+        delayTime -= delay;
+        $(target).css({ 'transition-duration': '1250ms', 'opacity': '1', 'transform': 'translateY(0)' });
+    }, delayTime);
+    delayTime += delay;
 }
