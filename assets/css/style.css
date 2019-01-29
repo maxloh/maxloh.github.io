@@ -184,6 +184,11 @@ footer small {
         margin-right: -15px;
     }
 
+    .nav-pills {
+        transition-duration: 250ms;
+        transition-timing-function: ease;
+    }
+
     /*nav.navbar ul.nav.nav-pills li.nav-item*/
     .nav-item {
         margin: 0px 15px;

@@ -23,15 +23,11 @@ else {
 if (device.type === 'desktop') {
     /*When user scroll*/
     window.addEventListener('scroll', function () {
-        /* Options for scroll tracking statements:
-        1. if(document.getElementsByClassName('active').length != 0)
-        2. let navbar = $('#navbar').offset().top;
-           if ($(window).scrollTop() >= navbar)*/
         /*if one of the .nav-link is active, meaning that navbar is sticking to top of the page*/
-        if ($('.active')[0]) {
-            $('#navbar').css('margin-left', '-15px');
+        if ($('.nav-link.active')[0]) {
+            $('.nav-pills').css('transform', 'translateX(1rem)');
         } else {
-            $('#navbar').css('margin-left', 'calc(-15px - 1rem)');
+            $('.nav-pills').css('transform', 'translateX(0)');
         }
     });
 
@@ -76,7 +72,7 @@ $(document).ready(function () {
 
 //CSS animation
 
-const intersectionObserver = new IntersectionObserver((entries, observer) => {
+const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
         /*Animate element when it enter viewport*/
         if (entry.intersectionRatio > 0) {
@@ -91,14 +87,8 @@ var delay = parseInt($(':root').css('--section-margin')) * 5;
 /*observe 'main>.section' and animate #navbar on page load*/
 $(document).ready(function () {
     /*If element with id #navbar exists, animate it*/
-    if ($('#navbar')[0]) {
-        $('#navbar').css({ 'transition-duration': '1250ms', 'opacity': '1', 'transform': 'translateY(0)' });
-        delayTime += delay;
-        /*setTimeout -> change transition-duration after animation started*/
-        setTimeout(function () { $('#navbar').css({ 'transition-duration': '250ms', 'transition-timing-function': 'ease' }); }, 1);
-    }
-
-    document.querySelectorAll('main>.section').forEach((element) => intersectionObserver.observe(element));
+    if ($('#navbar')[0]) animate('#navbar');
+    document.querySelectorAll('main>.section').forEach((element) => observer.observe(element));
 });
 
 function animate(target) {
