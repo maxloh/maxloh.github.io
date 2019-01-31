@@ -152,14 +152,6 @@ footer small {
     display: block;
 }
 
-/*Avoid horizontal scrolling on device with a width between 768px and 900px*/
-@media (max-width: 900px) {
-    .container {
-        /*max-width: width of container*/
-        max-width: 100%;
-    }
-}
-
 @media (min-width: 768px) {
     :root {
         --main-margin: 70px;
@@ -210,6 +202,14 @@ footer small {
         /*Positioning Heading 1*/
         padding-bottom: 8px;
         margin-left: -11px;
+    }
+}
+
+/*Avoid horizontal scrolling on device with a width between 768px and 900px*/
+@media (max-width: 900px) {
+    .container {
+        /*max-width: width of container*/
+        max-width: 90%;
     }
 }
 
