@@ -24,15 +24,12 @@ if (device.type === 'desktop') {
     /*When user scroll*/
     window.addEventListener('scroll', function () {
         /*if one of the .nav-link is active, meaning that navbar is sticking to top of the page*/
-        if ($('.nav-link.active')[0]) {
-            $('.nav-pills').css('transform', 'translateX(1rem)');
+        if ($('#navbar .nav-link.active')[0]) {
+            $('#navbar .nav-pills').css('transform', 'translateX(1rem)');
         } else {
-            $('.nav-pills').css('transform', 'translateX(0)');
+            $('#navbar .nav-pills').css('transform', '');
         }
     });
-
-    /*When jump links (html anchors) being clicked*/
-    window.addEventListener('hashchange', function () { $('#navbar').css('margin-left', 'calc(-15px)'); });
 }
 
 
