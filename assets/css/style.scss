@@ -1,240 +1,237 @@
 //sass style.scss:style.css --style=compressed --source-map
+
 $accent-color: #63e6be;
 $base-color: #212529;
 $font-color: #adb5bd;
 
 :root {
-	--section-translateY: var(--section-margin);
-	--header-translateY: var(--header-margin);
+    --section-translateY: var(--section-margin);
+    --header-translateY: var(--header-margin);
 }
 
 html {
-	height: 100%;
+    height: 100%;
 }
 
 body {
-	background-color: $base-color;
-	color: $font-color;
-	font-family: "Source Sans Pro", "arial", sans-serif;
-	font-weight: 400;
-	font-size: var(--font-size);
-	height: calc(100% - var(--main-margin));
+    background-color: $base-color;
+    color: $font-color;
+    font-family: "Source Sans Pro", "arial", sans-serif;
+    font-weight: 400;
+    font-size: var(--font-size);
+    height: calc(100% - var(--main-margin));
 
-	a {
-		color: $accent-color;
-	}
+    a {
+        color: $accent-color;
+    }
 }
 
 .container {
-	margin: var(--main-margin) auto;
-	min-height: calc(100% - var(--main-margin));
-	position: relative;
+    margin: var(--main-margin) auto;
+    min-height: calc(100% - var(--main-margin));
+    position: relative;
 
-	&:after {
-		content: "";
-		height: calc(var(--font-size)*1.5 + var(--font-size)*0.8*1.5);
-		display: block;
-	}
+    &:after {
+        content: "";
+        height: calc(var(--font-size)*1.5 + var(--font-size)*0.8*1.5);
+        display: block;
+    }
 
-	.header {
-		margin-top: var(--header-margin) 0px;
+    .header {
+        margin-top: var(--header-margin) 0px;
 
-		.logo {
-			line-height: normal;
+        .logo {
+            line-height: normal;
 
-			a {
-				font-family: "Jura", "arial", sans-serif;
-				color: $font-color;
-				font-size: 60px;
-				letter-spacing: 2px;
-				text-transform: uppercase;
-				padding: 0px;
+            a {
+                font-family: "Jura", "arial", sans-serif;
+                color: $font-color;
+                font-size: 60px;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                padding: 0px;
 
-				&:hover {
-					text-decoration: none;
-				}
-			}
-		}
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
 
-		.social-link {
-			color: $font-color;
-			text-align: center;
-			text-transform: uppercase;
-			margin: 0px 20px;
+        .social-link {
+            color: $font-color;
+            text-align: center;
+            text-transform: uppercase;
+            margin: 0px 20px;
 
-			i {
-				font-size: 25px;
-				margin: 5px 0px;
-			}
-		}
-	}
+            i {
+                font-size: 25px;
+                margin: 5px 0px;
+            }
+        }
+    }
 
-	nav.navbar {
-		padding: 10px 0px;
-		background-color: $base-color;
-		margin: var(--header-margin) auto;
-		opacity: 0;
-		transform: translateY(var(--header-translateY));
+    nav.navbar {
+        padding: 10px 0px;
+        background-color: $base-color;
+        margin: var(--header-margin) auto;
+        opacity: 0;
+        transform: translateY(var(--header-translateY));
 
-		.nav-link.active {
-			color: $base-color;
-			background-color: $accent-color;
-		}
-	}
+        a.nav-link.active {
+            color: $base-color;
+            background-color: $accent-color;
+        }
+    }
 
+    main {
+        margin: var(--main-margin) -15px;
 
-	main {
-		margin: var(--main-margin) -15px;
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin-top: calc(var(--font-size) * 1.5);
+            margin-bottom: var(--font-size);
+        }
 
-		h1,
-		h2,
-		h3,
-		h4,
-		h5,
-		h6 {
-			margin-top: calc(var(--font-size) * 1.5);
-			margin-bottom: var(--font-size);
-		}
+        .section {
+            margin: var(--section-margin) 0px;
+            opacity: 0;
+            transform: translateY(var(--section-translateY));
 
-		.section {
-			margin: var(--section-margin) 0px;
-			opacity: 0;
-			transform: translateY(var(--section-translateY));
+            .content {
+                &>*:first-child {
+                    margin-top: 0px;
+                }
 
-			.content {
-				&>*:first-child {
-					margin-top: 0px;
-				}
+                &>*:last-child {
+                    margin-bottom: 0px;
+                }
 
-				&>*:last-child {
-					margin-bottom: 0px;
-				}
+                p {
+                    line-height: 1.7;
+                }
 
-				p {
-					line-height: 1.7;
-				}
+                li {
+                    margin-bottom: 1rem;
+                }
+            }
+        }
+    }
 
-				li {
-					margin-bottom: 1rem;
-				}
-			}
-		}
-	}
+    footer {
+        position: absolute;
+        bottom: 0px;
 
-	footer {
-		position: absolute;
-		bottom: 0px;
-
-		small {
-			display: block;
-		}
-	}
+        small {
+            display: block;
+        }
+    }
 }
 
 @media (min-width: 768px) {
-	:root {
-		--main-margin: 70px;
-		--header-margin: 25px;
-		--font-size: 20px;
-		--section-margin: 50px;
-	}
+    :root {
+        --main-margin: 70px;
+        --header-margin: 25px;
+        --font-size: 20px;
+        --section-margin: 50px;
+    }
 
-	.container {
-		max-width: 900px;
+    .container {
+        max-width: 900px;
 
-		.logo {
-			margin-left: -5px;
-		}
+        .logo {
+            margin-left: -5px;
+        }
 
-		nav.navbar {
-			margin-left: calc(-15px - 1rem);
-			margin-right: -15px;
+        nav.navbar {
+            margin-left: calc(-15px - 1rem);
+            margin-right: -15px;
 
-			.nav-pills {
-				transition-duration: 250ms;
-				transition-timing-function: ease;
+            ul.nav.nav-pills {
+                transition-duration: 250ms;
+                transition-timing-function: ease;
 
-				.nav-item {
-					margin: 0px 15px;
-				}
-			}
-		}
+                li.nav-item {
+                    margin: 0px 15px;
+                }
+            }
+        }
 
-		main {
-			h1 {
-				line-height: 1;
-				font-size: 60px;
-				font-weight: 200;
-				text-transform: uppercase;
-				letter-spacing: 1px;
-				writing-mode: vertical-lr;
-				transform: rotate(180deg);
-				margin: 0px;
-				padding-bottom: 8px;
-				margin-left: -11px;
-			}
+        main {
+            h1 {
+                line-height: 1;
+                font-size: 60px;
+                font-weight: 200;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                writing-mode: vertical-lr;
+                transform: rotate(180deg);
+                margin: 0px;
+                padding-bottom: 8px;
+                margin-left: -11px;
+            }
 
-			.content {
-				padding-left: 40px;
-			}
-		}
-	}
+            .content {
+                padding-left: 40px;
+            }
+        }
+    }
 }
 
 @media (max-width: 900px) {
-	.container {
-		max-width: 90%;
-	}
+    .container {
+        max-width: 90%;
+    }
 }
 
 @media (max-width: 767px) {
-	:root {
-		--main-margin: 40px;
-		--header-margin: 30px;
-		--section-margin: 30px;
-		--font-size: 1rem;
-	}
+    :root {
+        --main-margin: 40px;
+        --header-margin: 30px;
+        --section-margin: 30px;
+        --font-size: 1rem;
+    }
 
-	.container {
-		padding: 0;
+    .container {
+        padding: 0;
 
-		.logo {
-			margin-bottom: var(--header-margin);
-			text-align: center;
-			display: block;
-		}
+        .logo {
+            margin-bottom: var(--header-margin);
+            text-align: center;
+            display: block;
+        }
 
-		ul.nav {
-			flex-wrap: nowrap;
-			white-space: nowrap;
-			overflow-x: scroll;
+        ul.nav.nav-pills {
+            flex-wrap: nowrap;
+            white-space: nowrap;
+            overflow-x: scroll;
+            width: 100%;
+            justify-content: space-between;
+            padding: 0px 10px;
 
-			.nav-pills {
-				width: 100%;
-				justify-content: space-between;
-				padding: 0px 10px;
+            li.nav-item {
+                margin: 0px 5px;
 
-				.nav-item {
-					margin: 0px 5px;
+                a.nav-link {
+                    padding-left: 0.5rem;
+                    padding-right: 0.5rem;
+                }
+            }
+        }
 
-					a.nav-link {
-						padding-left: 0.5rem;
-						padding-right: 0.5rem;
-					}
-				}
-			}
-		}
+        main {
+            margin: var(--header-margin) 0px;
 
-		main {
-			margin: var(--header-margin) 0px;
+            h1 {
+                margin-top: 0px;
+            }
 
-			h1 {
-				margin-top: 0px;
-			}
-
-			footer {
-				padding: 0px 15px;
-			}
-		}
-	}
+            footer {
+                padding: 0px 15px;
+            }
+        }
+    }
 }
