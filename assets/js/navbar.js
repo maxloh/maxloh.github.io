@@ -21,10 +21,9 @@ else {
 //Let text of .nav-item stick to the edge of its parent element (.container), when navbar is not sticky
 
 if (device.type === 'desktop') {
-    $(document).ready(function() {
+    $(document).ready(function () {
         /*When user scroll*/
-        var navbarObserver = new MutationObserver(function() {
-            console.log('a');
+        var navbarObserver = new MutationObserver(function () {
             /*if one of the .nav-link is active, meaning that navbar is sticking to top of the page*/
             if ($('a.nav-link.active')[0]) {
                 $('ul.nav.nav-pills').css('padding-left', '15px');
@@ -44,8 +43,8 @@ if (device.type === 'desktop') {
 
 //Offset jump links (html anchors) for the sticky navbar and amination, pointing them to the correct position
 
-$(document).ready(function() {
-    $('#navbar a').on('click', function() {
+$(document).ready(function () {
+    $('#navbar a').on('click', function () {
         event.preventDefault();
         let target = (this.href).substring((this.href).lastIndexOf('#'));
         let scrollY = $(target).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--section-margin'))
@@ -71,7 +70,7 @@ $(document).ready(function() {
 
 //Initialize bootstrap scrollspy with calculated data-offset
 
-$(document).ready(function() {
+$(document).ready(function () {
     /*If element with id #navbar exists*/
     if ($('#navbar')[0]) {
         let dataOffset = $('#navbar').innerHeight() + parseInt($(':root').css('--section-margin')) + parseInt($(':root').css('--section-translateY'));
