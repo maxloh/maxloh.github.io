@@ -15,7 +15,7 @@ var delay = parseInt($(':root').css('--section-margin')) * 5;
 /*observe 'main>.section' and animate #navbar on page load*/
 $(document).ready(function() {
     /*If element with id #navbar exists, animate it*/
-    if ($('#navbar')[0]) animate('#navbar');
+    //if ($('#navbar')[0]) animate('#navbar');
     document.querySelectorAll('main>.section').forEach((element) => animationObserver.observe(element));
 });
 

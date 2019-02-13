@@ -74,8 +74,8 @@ body {
         padding: 10px 0px;
         background-color: $base-color;
         margin: var(--header-margin) auto;
-        opacity: 0;
-        transform: translateY(var(--header-translateY));
+        /*opacity: 0;*/
+        /*transform: translateY(var(--header-translateY));*/
 
         a.nav-link.active {
             color: $base-color;
@@ -114,7 +114,7 @@ body {
 
         .section {
             margin: var(--section-margin) 0px;
-            opacity: 0;
+            /*opacity: 0;*/
             transform: translateY(var(--section-translateY));
 
             .content {
