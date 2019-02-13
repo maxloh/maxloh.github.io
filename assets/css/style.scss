@@ -96,6 +96,22 @@ body {
             margin-bottom: var(--font-size);
         }
 
+        h2 {
+            small {
+                &.programme {
+                    display: block;
+                    margin-top: 10px;
+                    font-size: 90%;
+                }
+
+                &.university {
+                    display: block;
+                    margin-top: 10px;
+                    font-size: 60%;
+                }
+            }
+        }
+
         .section {
             margin: var(--section-margin) 0px;
             opacity: 0;
@@ -116,6 +132,64 @@ body {
 
                 li {
                     margin-bottom: 1rem;
+                }
+
+                .table-container {
+                    div.table-header {
+                        display: flex;
+                        flex-wrap: nowrap;
+                        width: 100%;
+                        border-bottom: 1px solid #adb5bd;
+
+                        div.term {
+                            font-weight: 700;
+                            flex-grow: 2;
+                        }
+
+                        & div {
+                            padding: .75rem;
+                        }
+                    }
+
+                    table.table {
+
+                        tbody {
+
+                            th,
+                            td {
+                                border: 0px;
+
+                                &:first-child {
+                                    width: 100%;
+                                }
+
+                                &:last-child {
+                                    text-align: center;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                p.tags-heading {
+                    margin-bottom: 0.5rem;
+                    width: 100%;
+                }
+
+                .tags-container {
+                    display: flex;
+                    flex-wrap: wrap;
+                    margin: 0px -0.3rem;
+
+                    .tag {
+                        display: inline-flex;
+                        list-style: none;
+                        margin: 0.3rem 0.25rem;
+                        padding: 0.25rem 0.75rem;
+                        background-color: #343a40;
+                        border-radius: 100px;
+                        font-size: 80%;
+                    }
                 }
             }
         }
@@ -140,7 +214,7 @@ body {
     }
 
     .container {
-        max-width: 900px;
+        width: 900px;
 
         .logo {
             margin-left: -5px;
@@ -178,12 +252,6 @@ body {
                 padding-left: 40px;
             }
         }
-    }
-}
-
-@media (max-width: 900px) {
-    .container {
-        max-width: 90%;
     }
 }
 
