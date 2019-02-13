@@ -31,10 +31,11 @@ if (device.type === 'desktop') {
                 $('ul.nav.nav-pills').css('padding-left', '');
             }
         });
-
-        navbarObserver.observe(document.querySelector('li.nav-item:first-child>a.nav-link'), {
-            attributes: true,
-            attributeFilter: ['class']
+        document.querySelectorAll('li.nav-item:first-child>a.nav-link').forEach(function (element) {
+            navbarObserver.observe(element, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
         });
     });
 }
