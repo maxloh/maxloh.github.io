@@ -1,5 +1,5 @@
 //CSS animation
-
+try {
 const animationObserver = new IntersectionObserver((entries, animationObserver) => {
     entries.forEach((entry) => {
         /*Animate element when it enter viewport*/
@@ -15,7 +15,7 @@ var delay = parseInt($(':root').css('--section-margin')) * 5;
 /*observe 'main>.section' and animate #navbar on page load*/
 $(document).ready(function() {
     /*If element with id #navbar exists, animate it*/
-    //if ($('#navbar')[0]) animate('#navbar');
+    if ($('#navbar')[0]) animate('#navbar');
     document.querySelectorAll('main>.section').forEach((element) => animationObserver.observe(element));
 });
 
@@ -29,4 +29,11 @@ function animate(target) {
         });
     }, delayTime);
     delayTime += delay;
+}
+}
+
+//Add partial support for old browsers that do not support IntersectionObserver
+catch (exception) {
+    console.log(exception);
+    errorHandler();
 }
