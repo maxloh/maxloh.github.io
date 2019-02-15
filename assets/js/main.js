@@ -33,12 +33,10 @@ try {
         delayTime += delay;
     }
 }
-
 //Add partial support for old browsers that do not support IntersectionObserver
 catch (exception) {
-    console.log(exception);
-    document.onreadystatechange = function () {
-        console.log('Animation disabled');
+    console.log('Animation disabled\n' + exception);
+    document.addEventListener("DOMContentLoaded", function () {
         var navbar = document.querySelector('.navbar');
         navbar.style.opacity = 1;
         navbar.style.transform = "translateY(0)";
@@ -46,5 +44,5 @@ catch (exception) {
             element.style.opacity = 1;
             element.style.transform = "translateY(0)";
         });
-    }
+    });
 }
