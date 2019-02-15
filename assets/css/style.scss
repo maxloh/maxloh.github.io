@@ -97,6 +97,11 @@ body {
         }
 
         h2 {
+            span.github-button {
+                vertical-align: middle;
+                margin-left: 0.5rem;
+            }
+
             small {
                 &.programme {
                     display: block;
