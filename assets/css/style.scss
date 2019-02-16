@@ -275,10 +275,15 @@ body {
     .container {
         padding: 0;
 
-        .logo {
-            margin-bottom: var(--header-margin);
-            text-align: center;
-            display: block;
+        .header {
+            margin-left: 0px;
+            margin-right: 0px;
+
+            .logo {
+                margin-bottom: var(--header-margin);
+                text-align: center;
+                display: block;
+            }
         }
 
         ul.nav.nav-pills {
