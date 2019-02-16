@@ -1,26 +1,20 @@
 //Globel varieables
 
-var device = {
-    type: null,
-    scrollOffset: null
-}
-/*if mobile site is displayed
-  Breakpoint: 768*/
+var deviceType = null;
+/*if mobile site is displayed, breakpoint: 768*/
 if ($(window).width() < 768) {
-    device.type = 'mobile';
-    device.scrollOffset = 2;
+    deviceType = 'mobile';
 }
 /*if desktop site is displayed*/
 else {
-    device.type = 'desktop';
-    device.scrollOffset = 0;
+    deviceType = 'desktop';
 }
 
 
 
 //Let text of .nav-item stick to the edge of its parent element (.container), when navbar is not sticky
 
-if (device.type === 'desktop') {
+if (deviceType === 'desktop') {
     $(document).ready(function () {
         /*When user scroll*/
         var navbarObserver = new MutationObserver(function () {
@@ -53,14 +47,14 @@ $(document).ready(function () {
         if ($(target).css('opacity') < 1) {
             let currentTranslateY = $(target).css('transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
             window.scroll({
-                top: scrollY - currentTranslateY + device.scrollOffset,
+                top: Math.ceil(scrollY) - Math.floor(currentTranslateY),
                 behavior: 'smooth'
             });
         }
         /*If animation of that element has been completed*/
         else {
             window.scroll({
-                top: scrollY + device.scrollOffset,
+                top: Math.ceil(scrollY),
                 behavior: 'smooth'
             });
         }
