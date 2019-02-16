@@ -18,7 +18,6 @@ body {
     color: $font-color;
     font-family: "Source Sans Pro", "arial", sans-serif;
     font-weight: 400;
-    font-size: var(--font-size);
     height: calc(100% - var(--main-margin));
 
     a {
@@ -33,7 +32,7 @@ body {
 
     &:after {
         content: "";
-        height: calc(var(--font-size)*1.5 + var(--font-size)*0.8*1.5);
+        height: calc(1rem*1.5 + 1rem*0.8*1.5);
         display: block;
     }
 
@@ -84,7 +83,6 @@ body {
     }
 
     main {
-        margin: var(--main-margin) -15px;
 
         h1,
         h2,
@@ -92,8 +90,8 @@ body {
         h4,
         h5,
         h6 {
-            margin-top: calc(var(--font-size) * 1.5);
-            margin-bottom: var(--font-size);
+            margin-top: calc(1rem * 1.5);
+            margin-bottom: 1rem;
         }
 
         h2 {
@@ -214,8 +212,12 @@ body {
     :root {
         --main-margin: 70px;
         --header-margin: 25px;
-        --font-size: 20px;
         --section-margin: 50px;
+        font-size: 16px;
+    }
+
+    body {
+        font-size: 1.25rem;
     }
 
     .container {
@@ -240,6 +242,8 @@ body {
         }
 
         main {
+            margin: var(--main-margin) -15px;
+
             h1 {
                 line-height: 1;
                 font-size: 60px;
@@ -266,18 +270,10 @@ body {
         --main-margin: 40px;
         --header-margin: 30px;
         --section-margin: 30px;
-        --font-size: 1rem;
     }
 
     .container {
         padding: 0;
-
-        /*Fix horizontal scrolling*/
-        .header {
-            margin-left: 0px;
-            margin-right: 0px;
-            width: 100%;
-        }
 
         .logo {
             margin-bottom: var(--header-margin);
