@@ -70,18 +70,27 @@ body {
     }
 
     nav.navbar {
-        padding: 10px 0px;
         background-color: $base-color;
         margin: var(--header-margin) auto;
         opacity: 0;
         transform: translateY(var(--header-translateY));
 
-        a.nav-link {
-            border-radius: 0.5rem;
+        li.nav-item {
+            &:first-child {
+                margin-left: 0px !important;
+            }
 
-            &.active {
-                color: $base-color;
-                background-color: $accent-color;
+            &:last-child {
+                margin-right: 0px !important;
+            }
+
+            a.nav-link {
+                border-radius: 0.5rem;
+
+                &.active {
+                    color: $base-color;
+                    background-color: $accent-color;
+                }
             }
         }
     }
@@ -120,7 +129,8 @@ body {
         }
 
         .section {
-            margin: var(--section-margin) 0px;
+            margin-top: var(--section-margin);
+            margin-bottom: var(--section-margin);
             opacity: 0;
             transform: translateY(var(--section-translateY));
 
@@ -234,8 +244,7 @@ body {
         nav.navbar {
             margin-left: -15px;
             margin-right: -15px;
-            padding-left: 15px;
-            padding-right: 15px;
+            padding: 1rem 15px;
 
             ul.nav.nav-pills {
                 margin-left: -1rem;
@@ -244,16 +253,12 @@ body {
 
                 li.nav-item {
                     margin: 0px 15px;
-
-                    &:first-child {
-                        margin-left: 0px;
-                    }
                 }
             }
         }
 
         main {
-            margin: var(--main-margin) -15px;
+            margin: var(--main-margin) 0px;
 
             h1 {
                 line-height: 1;
@@ -284,33 +289,30 @@ body {
     }
 
     .container {
-        padding: 0;
-
-        .header {
-            margin-left: 0px;
-            margin-right: 0px;
-
-            .logo {
-                margin-bottom: var(--header-margin);
-                text-align: center;
-                display: block;
-            }
+        .logo {
+            margin-bottom: var(--header-margin);
+            text-align: center;
+            display: block;
         }
 
-        ul.nav.nav-pills {
-            flex-wrap: nowrap;
-            white-space: nowrap;
-            overflow-x: scroll;
-            width: 100%;
-            justify-content: space-between;
-            padding: 0px 10px;
+        nav.navbar {
+            padding-left: 0px;
+            padding-right: 0px;
 
-            li.nav-item {
-                margin: 0px 5px;
+            ul.nav.nav-pills {
+                flex-wrap: nowrap;
+                white-space: nowrap;
+                overflow-x: scroll;
+                width: 100%;
+                justify-content: space-between;
 
-                a.nav-link {
-                    padding-left: 0.5rem;
-                    padding-right: 0.5rem;
+                li.nav-item {
+                    margin: 0px 5px;
+
+                    a.nav-link {
+                        padding-left: 0.5rem;
+                        padding-right: 0.5rem;
+                    }
                 }
             }
         }
