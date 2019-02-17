@@ -1,3 +1,8 @@
+.gallery {
+    margin-left: -10px !important;
+    margin-right: -10px !important;
+}
+
 /*.gallery .gallery-item*/
 .gallery-item {
     padding: 10px;
