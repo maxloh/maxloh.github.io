@@ -23,18 +23,27 @@ body {
     a {
         color: $accent-color;
     }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-top: calc(1rem * 1.5);
+        margin-bottom: 1rem;
+        font-weight: 400;
+    }
+
+    h2 {
+        font-weight: 600;
+    }
 }
 
 .container {
     margin: var(--main-margin) auto;
     min-height: calc(100% - var(--main-margin));
     position: relative;
-
-    &:after {
-        content: "";
-        height: calc(1rem*1.5 + 1rem*0.8*1.5);
-        display: block;
-    }
 
     .header {
         margin-top: var(--header-margin) 0px;
@@ -96,17 +105,6 @@ body {
     }
 
     main {
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            margin-top: calc(1rem * 1.5);
-            margin-bottom: 1rem;
-        }
-
         h2 {
             span.github-button {
                 vertical-align: middle;
@@ -117,13 +115,13 @@ body {
                 &.programme {
                     display: block;
                     margin-top: 10px;
-                    font-size: 90%;
+                    font-size: 1.75rem;
                 }
 
                 &.university {
                     display: block;
                     margin-top: 10px;
-                    font-size: 60%;
+                    font-size: 1.2rem;
                 }
             }
         }
@@ -159,7 +157,7 @@ body {
                         border-bottom: 1px solid #adb5bd;
 
                         div.term {
-                            font-weight: 700;
+                            font-weight: 600;
                             flex-grow: 2;
                         }
 
@@ -213,11 +211,51 @@ body {
     }
 
     footer {
-        position: absolute;
-        bottom: 0px;
-
         small {
             display: block;
+        }
+    }
+}
+
+.scrim {
+    visibility: hidden;
+    opacity: 0;
+    z-index: 2000;
+    background-color: rgba(0, 0, 0, 0.90);
+    transition: .25s linear;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: hidden;
+
+    .overlay-container {
+        overflow-y: auto;
+        height: 100%;
+
+        .close-btn {
+            padding: .5rem;
+            position: sticky;
+            top: 0px;
+            margin-right: 0px;
+            margin-left: auto;
+            float: right;
+        }
+
+        #resources-list {
+            h2 {
+                margin-top: 3rem;
+            }
+
+            h3 {
+                margin-top: 1.5rem;
+            }
+
+            li {
+                word-break: break-word;
+                margin-bottom: 1rem;
+            }
         }
     }
 }
@@ -284,8 +322,8 @@ body {
 @media (max-width: 767px) {
     :root {
         --main-margin: 40px;
+        --section-margin: 40px;
         --header-margin: 30px;
-        --section-margin: 30px;
     }
 
     .container {
@@ -302,7 +340,7 @@ body {
             ul.nav.nav-pills {
                 flex-wrap: nowrap;
                 white-space: nowrap;
-                overflow-x: scroll;
+                overflow-x: auto;
                 width: 100%;
                 justify-content: space-between;
 
@@ -322,11 +360,16 @@ body {
 
             h1 {
                 margin-top: 0px;
+                letter-spacing: -0.05rem;
             }
-        }
 
-        footer {
-            padding: 0px 15px;
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                letter-spacing: -0.01rem;
+            }
         }
     }
 }
