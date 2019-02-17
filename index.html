@@ -414,18 +414,21 @@
         <footer>
             Copyright &copy; 2019 Loh Ka Hong
             <Small><a
-                    href="javascript:(function () {$('.scrim').css({'visibility': 'visible', 'opacity': '1'});$('body').css({'overflow': 'hidden'});})()">
+                    href="javascript:(function () {$('.overlay').css({'visibility': 'visible', 'opacity': '1'});$('body').css({'overflow': 'hidden'});})()">
                     Resources and library</a> used to build this site</Small>
         </footer>
     </div>
 
-    <div class='scrim'>
+    <div class='overlay'>
         <div class="overlay-container">
             <a class='close-btn'
-                href="javascript:(function () { $('.scrim').css({'visibility': '', 'opacity': ''}); $('body').css({'overflow': ''});})()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="#adb5bd"/></svg>
+                href="javascript:(function () { $('.overlay').css({'visibility': '', 'opacity': ''}); $('body').css({'overflow': ''});})()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                        fill="#adb5bd" />
+                </svg>
             </a>
-
             <div id="resources-list" class="container">
                 <!--import remarkable.js that parse .md file to HTML code-->
                 <script src="https://cdn.jsdelivr.net/npm/remarkable@1.7.1/dist/remarkable.min.js"></script>

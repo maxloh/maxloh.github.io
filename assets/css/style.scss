@@ -217,7 +217,7 @@ body {
     }
 }
 
-.scrim {
+.overlay {
     visibility: hidden;
     opacity: 0;
     z-index: 2000;
@@ -234,12 +234,9 @@ body {
         overflow-y: auto;
         height: 100%;
 
-        .close-btn {
-            padding: .5rem;
+        a.close-btn {
             position: sticky;
-            top: 0px;
-            margin-right: 0px;
-            margin-left: auto;
+            top: 0;
             float: right;
         }
 
@@ -317,6 +314,17 @@ body {
             }
         }
     }
+
+    .overlay {
+        a.close-btn {
+            padding: 1.5rem;
+
+            svg {
+                width: 2rem;
+                height: 2rem;
+            }
+        }
+    }
 }
 
 @media (max-width: 767px) {
@@ -369,6 +377,17 @@ body {
             h5,
             h6 {
                 letter-spacing: -0.01rem;
+            }
+        }
+    }
+
+    .overlay {
+        a.close-btn {
+            padding: 1rem;
+
+            svg {
+                width: 1.5rem;
+                height: 1.5rem;
             }
         }
     }
