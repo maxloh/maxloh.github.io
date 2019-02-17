@@ -20,9 +20,9 @@ if (deviceType === 'desktop') {
         var navbarObserver = new MutationObserver(function () {
             /*if one of the .nav-link is active, meaning that navbar is sticking to top of the page*/
             if ($('a.nav-link.active')[0]) {
-                $('ul.nav.nav-pills').css('padding-left', '15px');
+                $('ul.nav.nav-pills').css('margin-left', '0px');
             } else {
-                $('ul.nav.nav-pills').css('padding-left', '');
+                $('ul.nav.nav-pills').css('margin-left', '');
             }
         });
         document.querySelectorAll('li.nav-item:first-child>a.nav-link').forEach(function (element) {
@@ -42,7 +42,7 @@ $(document).ready(function () {
     $('#navbar a').on('click', function () {
         event.preventDefault();
         let target = (this.href).substring((this.href).lastIndexOf('#'));
-        let scrollY = $(target).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--section-margin'))
+        let scrollY = $(target).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--header-margin'))
 
         if ($(target).css('opacity') < 1) {
             let currentTranslateY = $(target).css('transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
