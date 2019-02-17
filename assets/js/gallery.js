@@ -7,11 +7,12 @@
 });
 
 function openPhotoSwipe(imgElement, galleryClass) {
-    let pswpElement = document.querySelectorAll('.pswp')[0];
+    let pswpElement = document.querySelector('.pswp');
 
     //build items array, record element index
     let index = 0;
     let items;
+
     {
         let count = 0;
         /*imgElement.closest(galleryClass).querySelectorAll('img'): select all img elements on the same level

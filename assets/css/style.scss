@@ -99,6 +99,7 @@ body {
                 &.active {
                     color: $base-color;
                     background-color: $accent-color;
+                    font-weight: 600;
                 }
             }
         }
