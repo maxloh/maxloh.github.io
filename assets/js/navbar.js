@@ -42,7 +42,7 @@ $(document).ready(function () {
     $('#navbar a').on('click', function () {
         event.preventDefault();
         let target = (this.href).substring((this.href).lastIndexOf('#'));
-        let scrollY = $(target).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--header-margin'))
+        let scrollY = $(target).offset().top - $('#navbar').innerHeight() - parseInt($(':root').css('--navbar-margin'))
 
         if ($(target).css('opacity') < 1) {
             let currentTranslateY = $(target).css('transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];

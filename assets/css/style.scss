@@ -6,7 +6,7 @@ $font-color: #adb5bd;
 
 :root {
     --section-translateY: var(--section-margin);
-    --header-translateY: var(--header-margin);
+    --navbar-translateY: var(--navbar-margin);
 }
 
 html {
@@ -46,7 +46,7 @@ body {
     position: relative;
 
     .header {
-        margin-top: var(--header-margin) 0px;
+        margin-top: var(--navbar-margin) 0px;
 
         .logo {
             line-height: normal;
@@ -80,9 +80,9 @@ body {
 
     nav.navbar {
         background-color: $base-color;
-        margin: var(--header-margin) auto;
+        margin: var(--navbar-margin) auto;
         opacity: 0;
-        transform: translateY(var(--header-translateY));
+        transform: translateY(var(--navbar-translateY));
 
         li.nav-item {
             &:first-child {
@@ -261,8 +261,8 @@ body {
 @media (min-width: 768px) {
     :root {
         --main-margin: 70px;
-        --header-margin: 25px;
-        --section-margin: 50px;
+        --navbar-margin: 25px;
+        --section-margin: 70px;
         font-size: 16px;
     }
 
@@ -332,12 +332,12 @@ body {
     :root {
         --main-margin: 40px;
         --section-margin: 40px;
-        --header-margin: 30px;
+        --navbar-margin: 20px;
     }
 
     .container {
         .logo {
-            margin-bottom: var(--header-margin);
+            margin-bottom: var(--navbar-margin);
             text-align: center;
             display: block;
         }
@@ -365,11 +365,12 @@ body {
         }
 
         main {
-            margin: var(--header-margin) 0px;
+            margin: var(--navbar-margin) 0px;
 
             h1 {
                 margin-top: 0px;
                 letter-spacing: -0.05rem;
+                font-weight: 600;
             }
 
             h2,
