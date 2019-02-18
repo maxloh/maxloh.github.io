@@ -68,7 +68,8 @@ $(document).ready(function () {
 $(document).ready(function () {
     /*If element with id #navbar exists*/
     if ($('#navbar')[0]) {
-        let dataOffset = $('#navbar').innerHeight() + parseInt($(':root').css('--section-margin')) + parseInt($(':root').css('--section-translateY'));
+        let sectionTranslateY = eval($(':root').css('--section-translateY').replace(/[A-z()]/g, ''));
+        let dataOffset = $('#navbar').innerHeight() + parseInt($(':root').css('--section-margin')) + sectionTranslateY;
         $('body').scrollspy({
             target: '#navbar',
             offset: dataOffset
