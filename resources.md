@@ -25,7 +25,7 @@
 
   - Material Design icons by Google ([Apache License 2.0](https://github.com/google/material-design-icons/blob/master/LICENSE))  
   Close button on top right of Resources section  
-  https://github.com/google/material-design-icons
+  <https://github.com/google/material-design-icons>
 
 ## Design
 
