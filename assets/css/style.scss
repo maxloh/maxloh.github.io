@@ -237,8 +237,11 @@ body {
 
         a.close-btn {
             position: sticky;
-            top: 0;
             float: right;
+
+            svg {
+                fill: $font-color;
+            }
         }
 
         #resources-list {
@@ -318,11 +321,13 @@ body {
 
     .overlay {
         a.close-btn {
-            padding: 1.5rem;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem;
 
             svg {
-                width: 2rem;
-                height: 2rem;
+                width: 1.75rem;
+                height: 1.75rem;
             }
         }
     }
@@ -385,7 +390,9 @@ body {
 
     .overlay {
         a.close-btn {
-            padding: 1rem;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.5rem;
 
             svg {
                 width: 1.5rem;
