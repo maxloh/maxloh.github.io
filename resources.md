@@ -2,7 +2,7 @@
 
 ## Library
 
-- Used in the whole website
+- Used in the website
 
   - Bootstrap ([MIT License](https://github.com/twbs/bootstrap/blob/master/LICENSE))  
   <https://getbootstrap.com/>
@@ -13,17 +13,19 @@
   - Popper.js ([MIT License](https://github.com/FezVrasta/popper.js/blob/master/LICENSE.md))  
   <https://popper.js.org>
 
-- Used in the Home page (index.html)
-
-  - PhotoSwipe ([MIT License](https://github.com/dimsemenov/PhotoSwipe/blob/master/LICENSE))  
-  Power the screenshot gallery in Projects section  
-  <https://photoswipe.com/>
-
 - Used in this page
 
+  - PhotoSwipe ([MIT License](https://github.com/dimsemenov/PhotoSwipe/blob/master/LICENSE))  
+  Power the screenshot gallery in Projects section 
+  <https://photoswipe.com/>
+
   - remarkable ([MIT License](https://github.com/jonschlinkert/remarkable/blob/master/LICENSE))  
-  Parse markdown to HTML  
+  Parse markdown to HTML in Resources section 
   <https://github.com/jonschlinkert/remarkable>
+
+  - Material Design icons by Google ([Apache License 2.0](https://github.com/google/material-design-icons/blob/master/LICENSE))  
+  Close button on top right of Resources section
+  https://github.com/google/material-design-icons
 
 ## Design
 
@@ -32,8 +34,8 @@
 
 - Font
 
-  - Main Font: Source Sans Pro ([SIL Open Font License 1.1](https://github.com/adobe-fonts/source-sans-pro/blob/release/LICENSE.md))  
-  Font weight: heading 1 200, paragraph 400  
+  - Main font: Source Sans Pro ([SIL Open Font License 1.1](https://github.com/adobe-fonts/source-sans-pro/blob/release/LICENSE.md))  
+  Font weight: heading 1 200, heading 2 600, paragraph 400 
   <https://adobe-fonts.github.io/source-sans-pro/>
 
   - Logo font: Jura 300 ([SIL Open Font License 1.1](https://github.com/ossobuffo/jura/blob/master/OFL.txt))  
@@ -41,7 +43,7 @@
 
   - Delivered by [Google Fonts](https://fonts.google.com)  
 
-- Icons
+- Social icons
 
   - Font Awesome ([SIL Open Font License 1.1](https://github.com/FortAwesome/Font-Awesome/blob/master/LICENSE.txt))  
   <https://fontawesome.com/>
