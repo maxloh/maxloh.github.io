@@ -10,7 +10,7 @@ try {
         });
     });
     var delayTime = 0;
-    var delay = parseInt($(':root').css('--section-margin')) * 5;
+    var delay = 500;
 
     /*observe 'main>.section' and animate #navbar on page load*/
     $(document).ready(function () {
