@@ -5,7 +5,7 @@ $base-color: #212529;
 $font-color: #adb5bd;
 
 :root {
-    --section-translateY: var(--section-margin);
+    --section-translateY: calc(var(--section-margin) * 0.6);
     --navbar-translateY: var(--navbar-margin);
 }
 
@@ -365,7 +365,7 @@ body {
         }
 
         main {
-            margin: var(--navbar-margin) 0px;
+            margin: var(--main-margin) 0px;
 
             h1 {
                 margin-top: 0px;
