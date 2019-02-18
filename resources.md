@@ -16,15 +16,15 @@
 - Used in this page
 
   - PhotoSwipe ([MIT License](https://github.com/dimsemenov/PhotoSwipe/blob/master/LICENSE))  
-  Power the screenshot gallery in Projects section 
+  Power the screenshot gallery in Projects section  
   <https://photoswipe.com/>
 
   - remarkable ([MIT License](https://github.com/jonschlinkert/remarkable/blob/master/LICENSE))  
-  Parse markdown to HTML in Resources section 
+  Parse markdown to HTML in Resources section  
   <https://github.com/jonschlinkert/remarkable>
 
   - Material Design icons by Google ([Apache License 2.0](https://github.com/google/material-design-icons/blob/master/LICENSE))  
-  Close button on top right of Resources section
+  Close button on top right of Resources section  
   https://github.com/google/material-design-icons
 
 ## Design
@@ -35,7 +35,7 @@
 - Font
 
   - Main font: Source Sans Pro ([SIL Open Font License 1.1](https://github.com/adobe-fonts/source-sans-pro/blob/release/LICENSE.md))  
-  Font weight: heading 1 200, heading 2 600, paragraph 400 
+  Font weight: heading 1 200, heading 2 600, paragraph 400  
   <https://adobe-fonts.github.io/source-sans-pro/>
 
   - Logo font: Jura 300 ([SIL Open Font License 1.1](https://github.com/ossobuffo/jura/blob/master/OFL.txt))  
