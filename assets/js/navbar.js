@@ -20,7 +20,7 @@ if (deviceType === 'desktop') {
         var navbarObserver = new MutationObserver(function () {
             /*if one of the .nav-link is active, meaning that navbar is sticking to top of the page*/
             if ($('a.nav-link.active')[0]) {
-                $('#navbar').css('margin-left', '0px');
+                $('#navbar').css('margin-left', 'calc(-1 * var(--navbar-strech))');
             } else {
                 $('#navbar').css('margin-left', '');
             }
