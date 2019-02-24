@@ -3,6 +3,20 @@
 $accent-color: #63e6be;
 $base-color: #212529;
 $font-color: #adb5bd;
+$desktop-width: 768px;
+
+@mixin mobile {
+    @media (max-width: $desktop-width - 1) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktop-width) {
+        @content;
+    }
+}
+
 @mixin mainTransition ($property: null) {
     transition: transform 1250ms, opacity 1250ms, $property;
 }
@@ -10,6 +24,20 @@ $font-color: #adb5bd;
 :root {
     --section-translateY: calc(var(--section-margin) * 0.6);
     --navbar-translateY: var(--navbar-margin);
+
+    @include mobile {
+        --main-margin: 40px;
+        --section-margin: 40px;
+        --navbar-margin: 20px;
+    }
+
+    @include desktop {
+        --main-margin: 70px;
+        --navbar-margin: 25px;
+        --section-margin: 70px;
+
+        font-size: 16px;
+    }
 }
 
 html {
@@ -22,6 +50,10 @@ body {
     font-family: "Source Sans Pro", "arial", sans-serif;
     font-weight: 400;
     height: calc(100% - var(--main-margin));
+
+    @include desktop {
+        font-size: 1.25rem;
+    }
 
     a {
         color: $accent-color;
@@ -48,11 +80,25 @@ body {
     min-height: calc(100% - var(--main-margin));
     position: relative;
 
+    @include desktop {
+        width: 900px;
+    }
+
     .header {
         margin-top: var(--navbar-margin) 0px;
 
         .logo {
             line-height: normal;
+
+            @include mobile {
+                margin-bottom: var(--navbar-margin);
+                text-align: center;
+                display: block;
+            }
+
+            @include desktop {
+                margin-left: -5px;
+            }
 
             a {
                 font-family: "Jura", "arial", sans-serif;
@@ -86,30 +132,88 @@ body {
         margin: var(--navbar-margin) auto;
         opacity: 0;
         transform: translateY(var(--navbar-translateY));
-        @include mainTransition ();
 
-        li.nav-item {
-            &:first-child {
-                margin-left: 0px !important;
+        @include mobile {
+            padding-left: 0px;
+            padding-right: 0px;
+            @include mainTransition ();
+        }
+
+        @include desktop {
+            padding: 1rem 0px;
+            margin-left: -1rem;
+            @include mainTransition (margin-left 250ms ease);
+        }
+
+        ul.nav.nav-pills {
+            @include mobile {
+                flex-wrap: nowrap;
+                white-space: nowrap;
+                overflow-x: auto;
+                width: 100%;
+                justify-content: space-between;
             }
 
-            &:last-child {
-                margin-right: 0px !important;
-            }
+            li.nav-item {
+                @include mobile {
+                    margin: 0px 5px;
+                }
 
-            a.nav-link {
-                border-radius: 0.5rem;
+                @include desktop {
+                    margin: 0px 15px;
+                }
 
-                &.active {
-                    color: $base-color;
-                    background-color: $accent-color;
-                    font-weight: 600;
+                &:first-child {
+                    margin-left: 0px !important;
+                }
+
+                &:last-child {
+                    margin-right: 0px !important;
+                }
+
+                a.nav-link {
+                    border-radius: 0.5rem;
+
+                    @include mobile {
+                        padding-left: 0.5rem;
+                        padding-right: 0.5rem;
+                    }
+
+                    &.active {
+                        color: $base-color;
+                        background-color: $accent-color;
+                        font-weight: 600;
+                    }
                 }
             }
         }
     }
 
     main {
+        margin: var(--main-margin) 0px;
+
+        h1 {
+            @include mobile {
+                margin-top: 0px;
+                letter-spacing: -0.05rem;
+                font-weight: 600;
+            }
+
+            @include desktop {
+                line-height: 1;
+                font-size: 3.75rem;
+                font-weight: 200;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                writing-mode: vertical-lr;
+                transform: rotate(180deg);
+                margin: 0px;
+                padding-bottom: 8px;
+                margin-left: -11px;
+                white-space: nowrap;
+            }
+        }
+
         h2 {
             span.github-button {
                 vertical-align: middle;
@@ -131,6 +235,16 @@ body {
             }
         }
 
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            @include mobile {
+                letter-spacing: -0.01rem;
+            }
+        }
+
         .section {
             margin-top: var(--section-margin);
             margin-bottom: var(--section-margin);
@@ -139,6 +253,10 @@ body {
             @include mainTransition ();
 
             .content {
+                @include desktop {
+                    padding-left: 40px;
+                }
+
                 &>*:first-child {
                     margin-top: 0px;
                 }
@@ -173,7 +291,6 @@ body {
                     }
 
                     table.table {
-
                         tbody {
 
                             th,
@@ -244,8 +361,30 @@ body {
             position: sticky;
             float: right;
 
+            @include mobile {
+                top: 0.5rem;
+                right: 0.5rem;
+                padding: 0.5rem;
+            }
+
+            @include desktop {
+                top: 1rem;
+                right: 1rem;
+                padding: 0.5rem;
+            }
+
             svg {
                 fill: $font-color;
+
+                @include mobile {
+                    width: 1.5rem;
+                    height: 1.5rem;
+                }
+
+                @include desktop {
+                    width: 1.75rem;
+                    height: 1.75rem;
+                }
             }
         }
 
@@ -261,144 +400,6 @@ body {
             li {
                 word-break: break-word;
                 margin-bottom: 1rem;
-            }
-        }
-    }
-}
-
-@media (min-width: 768px) {
-    :root {
-        --main-margin: 70px;
-        --navbar-margin: 25px;
-        --section-margin: 70px;
-        
-        font-size: 16px;
-    }
-
-    body {
-        font-size: 1.25rem;
-    }
-
-    .container {
-        width: 900px;
-
-        .logo {
-            margin-left: -5px;
-        }
-
-        nav.navbar {
-            padding: 1rem 0px;
-            margin-left: -1rem;
-            @include mainTransition (margin-left 250ms ease);
-
-            ul.nav.nav-pills {
-                li.nav-item {
-                    margin: 0px 15px;
-                }
-            }
-        }
-
-        main {
-            margin: var(--main-margin) 0px;
-
-            h1 {
-                line-height: 1;
-                font-size: 3.75rem;
-                font-weight: 200;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                writing-mode: vertical-lr;
-                transform: rotate(180deg);
-                margin: 0px;
-                padding-bottom: 8px;
-                margin-left: -11px;
-                white-space: nowrap;
-            }
-
-            .content {
-                padding-left: 40px;
-            }
-        }
-    }
-
-    .overlay {
-        a.close-btn {
-            top: 1rem;
-            right: 1rem;
-            padding: 0.5rem;
-
-            svg {
-                width: 1.75rem;
-                height: 1.75rem;
-            }
-        }
-    }
-}
-
-@media (max-width: 767px) {
-    :root {
-        --main-margin: 40px;
-        --section-margin: 40px;
-        --navbar-margin: 20px;
-    }
-
-    .container {
-        .logo {
-            margin-bottom: var(--navbar-margin);
-            text-align: center;
-            display: block;
-        }
-
-        nav.navbar {
-            padding-left: 0px;
-            padding-right: 0px;
-
-            ul.nav.nav-pills {
-                flex-wrap: nowrap;
-                white-space: nowrap;
-                overflow-x: auto;
-                width: 100%;
-                justify-content: space-between;
-
-                li.nav-item {
-                    margin: 0px 5px;
-
-                    a.nav-link {
-                        padding-left: 0.5rem;
-                        padding-right: 0.5rem;
-                    }
-                }
-            }
-        }
-
-        main {
-            margin: var(--main-margin) 0px;
-
-            h1 {
-                margin-top: 0px;
-                letter-spacing: -0.05rem;
-                font-weight: 600;
-            }
-
-            h2,
-            h3,
-            h4,
-            h5,
-            h6 {
-                letter-spacing: -0.01rem;
-            }
-        }
-    }
-
-    .overlay {
-        a.close-btn {
-            top: 0.5rem;
-            right: 0.5rem;
-            padding: 0.5rem;
-
-            svg {
-                width: 1.5rem;
-                height: 1.5rem;
             }
         }
     }
