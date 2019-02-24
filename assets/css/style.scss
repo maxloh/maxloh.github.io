@@ -24,6 +24,7 @@ $desktop-width: 768px;
 :root {
     --section-translateY: calc(var(--section-margin) * 0.6);
     --navbar-translateY: var(--navbar-margin);
+    --navbar-strech: 15px;
 
     @include mobile {
         --main-margin: 40px;
@@ -36,7 +37,6 @@ $desktop-width: 768px;
         --navbar-margin: 25px;
         --section-margin: 70px;
 
-        --navbar-strech: 5px;
         font-size: 16px;
     }
 }
@@ -131,19 +131,21 @@ body {
     nav.navbar {
         background-color: $base-color;
         margin: var(--navbar-margin) auto;
+        padding-left: var(--navbar-strech);
+        padding-right: var(--navbar-strech);
+        margin-left: calc(-1 * var(--navbar-strech));
+        margin-right: calc(-1 * var(--navbar-strech));
         opacity: 0;
         transform: translateY(var(--navbar-translateY));
 
         @include mobile {
-            padding-left: 0px;
-            padding-right: 0px;
             @include mainTransition ();
         }
 
         @include desktop {
-            padding: 1rem var(--navbar-strech);
+            padding-top: 1rem;
+            padding-bottom: 1rem;
             margin-left: calc(-1 * var(--navbar-strech) - 1rem);
-            margin-right: calc(-1 * var(--navbar-strech));
             @include mainTransition (margin-left 250ms ease);
         }
 
