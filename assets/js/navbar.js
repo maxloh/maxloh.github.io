@@ -20,9 +20,9 @@ if (deviceType === 'desktop') {
         var navbarObserver = new MutationObserver(function () {
             /*if one of the .nav-link is active, meaning that navbar is sticking to top of the page*/
             if ($('a.nav-link.active')[0]) {
-                $('ul.nav.nav-pills').css('margin-left', '0px');
+                $('#navbar').css('margin-left', '0px');
             } else {
-                $('ul.nav.nav-pills').css('margin-left', '');
+                $('#navbar').css('margin-left', '');
             }
         });
         document.querySelectorAll('li.nav-item:first-child>a.nav-link').forEach(function (element) {
