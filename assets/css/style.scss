@@ -195,21 +195,20 @@ body {
         h1 {
             @include mobile {
                 margin-top: 0px;
-                letter-spacing: -0.05rem;
                 font-weight: 600;
             }
 
             @include desktop {
-                line-height: 1;
                 font-size: 3.75rem;
                 font-weight: 200;
+                line-height: 1;
+                margin: 0px;
+                margin-left: -11px;
+                padding-bottom: 8px;
                 text-transform: uppercase;
                 letter-spacing: 1px;
                 writing-mode: vertical-lr;
                 transform: rotate(180deg);
-                margin: 0px;
-                padding-bottom: 8px;
-                margin-left: -11px;
                 white-space: nowrap;
             }
         }
@@ -232,16 +231,6 @@ body {
                     margin-top: 10px;
                     font-size: 1.2rem;
                 }
-            }
-        }
-
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            @include mobile {
-                letter-spacing: -0.01rem;
             }
         }
 
