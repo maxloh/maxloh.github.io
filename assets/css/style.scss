@@ -4,6 +4,8 @@ $accent-color: #63e6be;
 $base-color: #212529;
 $font-color: #adb5bd;
 $desktop-width: 768px;
+$container-width: 900px;
+$navbar-padding: 15px;
 
 @mixin mobile {
     @media (max-width: $desktop-width - 1) {
@@ -17,6 +19,13 @@ $desktop-width: 768px;
     }
 }
 
+@mixin tablet {
+    @media (min-width: $desktop-width) and (max-width: $container-width - 1) {
+        $container-width: 720px !global;
+        @content;
+    }
+}
+
 @mixin mainTransition ($property: null) {
     transition: transform 1250ms, opacity 1250ms, $property;
 }
@@ -24,20 +33,25 @@ $desktop-width: 768px;
 :root {
     --section-translateY: calc(var(--section-margin) * 0.6);
     --navbar-translateY: var(--navbar-margin);
-    --navbar-strech: 15px;
 
     @include mobile {
         --main-margin: 40px;
         --section-margin: 40px;
         --navbar-margin: 20px;
+        --navbar-strech: calc(-1 * #{$navbar-padding});
     }
 
     @include desktop {
         --main-margin: 70px;
         --navbar-margin: 25px;
         --section-margin: 70px;
+        --navbar-strech: calc(-1 * ((100vw - #{$container-width}) / 2 + #{$navbar-padding}));
 
         font-size: 16px;
+    }
+
+    @include tablet {
+        --navbar-strech: calc(-1 * ((100vw - #{$container-width}) / 2 + #{$navbar-padding}));
     }
 }
 
@@ -130,11 +144,9 @@ body {
 
     nav.navbar {
         background-color: $base-color;
-        margin: var(--navbar-margin) auto;
-        padding-left: var(--navbar-strech);
-        padding-right: var(--navbar-strech);
-        margin-left: calc(-1 * var(--navbar-strech));
-        margin-right: calc(-1 * var(--navbar-strech));
+        margin: var(--navbar-margin) var(--navbar-strech);
+        padding-right: calc(-1 * var(--navbar-strech));
+        padding-left: calc(-1 * var(--navbar-strech));
         opacity: 0;
         transform: translateY(var(--navbar-translateY));
 
@@ -143,9 +155,9 @@ body {
         }
 
         @include desktop {
+            margin-left: calc(var(--navbar-strech) - 1rem);
             padding-top: 1rem;
             padding-bottom: 1rem;
-            margin-left: calc(-1 * var(--navbar-strech) - 1rem);
             @include mainTransition (margin-left 250ms ease);
         }
 
