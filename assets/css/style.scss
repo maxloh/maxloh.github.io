@@ -258,6 +258,22 @@ body {
             @include mainTransition ();
 
             .content {
+                a {
+                    text-decoration: none;
+                    color: $font-color;
+                    background-image: linear-gradient($accent-color 100%);
+                    background-repeat: no-repeat;
+                    background-size: 100% 10%;
+                    background-position: 0 95%;
+                    transition: 0.35s ease;
+
+                    &:hover {
+                        border-radius: 2px;
+                        color: #495057;
+                        background-size: 100% 100%;
+                    }
+                }
+
                 @include desktop {
                     padding-left: 40px;
                 }
