@@ -27,3 +27,15 @@
 - <https://github.com/markedjs/marked/issues/963>
 - <https://jsperf.com/showdown-js-vs-marked/10>
 - <https://jsperf.com/latest-version-markdown-parser-performance-comparison/5>
+
+## Chrome overlay scrollbar styles
+```
+border-left: 1px solid rgba(0, 0, 0, 0.3);
+border-top: 1px solid rgba(0, 0, 0, 0.3);
+border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+
+background: rgba(0, 0, 0, 0.5);
+border-left: 1px solid rgba(255,255,255,0.3);
+border-top: 1px solid rgba(255,255,255,0.3);
+border-bottom: 1px solid rgba(255,255,255,0.3);
+```
