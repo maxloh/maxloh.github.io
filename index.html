@@ -68,7 +68,7 @@
     <!--Simplebar custom style-->
     <link rel="stylesheet" href="./assets/css/scrollbar.css">
     <!--Initialize simplebar-->
-    <script>document.addEventListener("DOMContentLoaded", function () { new SimpleBar(document.body); });</script>
+    <script>document.addEventListener("DOMContentLoaded", function () { if (!/Android|iPhone|iPad/g.test(navigator.userAgent)) new SimpleBar(document.body); });</script>
 </head>
 
 <body>
