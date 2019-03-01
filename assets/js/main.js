@@ -1,4 +1,6 @@
-//CSS animation
+/* ----------------------------------------------------------------------------------------------------
+   CSS animation
+   ---------------------------------------------------------------------------------------------------- */
 const animationCSS = { 'opacity': '1', 'transform': 'translateY(0)' };
 const delay = 400;
 const navbarSelector = '#navbar';
@@ -7,7 +9,7 @@ const sectionSelector = 'main>.section';
 try {
     const animationObserver = new IntersectionObserver(function (entries, animationObserver) {
         entries.forEach(function (entry) {
-            /*Animate element when it enter viewport*/
+            // Animate element when it enter viewport
             if (entry.intersectionRatio > 0) {
                 animationObserver.unobserve(entry.target);
                 $(entry.target).css(animationCSS);
@@ -15,9 +17,9 @@ try {
         });
     });
 
-    /*observe 'main>.section' and animate #navbar on page load*/
+    // observe 'main>.section' and animate #navbar on page load
     $(document).ready(function () {
-        /*If element with id #navbar exists, animate it*/
+        // If element with id #navbar exists, animate it
         if ($(navbarSelector)[0]) $(navbarSelector).css(animationCSS);
         setTimeout(function () {
             document.querySelectorAll(sectionSelector).forEach(function (element) {
@@ -26,7 +28,10 @@ try {
         }, delay);
     });
 }
-//Add partial support for old browsers that do not support IntersectionObserver
+
+/* ----------------------------------------------------------------------------------------------------
+   Add partial support for old browsers that do not support IntersectionObserver
+   ---------------------------------------------------------------------------------------------------- */
 catch (exception) {
     console.log('Compatibility mode, IntersectionObserver not supported');
 
@@ -41,7 +46,7 @@ catch (exception) {
     });
     $(window).scroll(addAnimation);
 
-    function addAnimation() {
+    function addAnimation () {
         let displayBottom = $(window).scrollTop() + $(window).height();
         let displayTop = ($(navbarSelector)[0]) ? $(window).scrollTop() + $(navbarSelector).innerHeight() : $(window).scrollTop();
 
