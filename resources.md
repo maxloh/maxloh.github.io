@@ -13,6 +13,9 @@
   - Popper.js ([MIT License](https://github.com/FezVrasta/popper.js/blob/master/LICENSE.md))  
   <https://popper.js.org>
 
+  - SimpleBar ([MIT License](https://github.com/Grsmto/simplebar/blob/master/LICENSE))  
+  <https://grsmto.github.io/simplebar/>
+
 - Used in this page
 
   - PhotoSwipe ([MIT License](https://github.com/dimsemenov/PhotoSwipe/blob/master/LICENSE))  
@@ -31,6 +34,9 @@
 
 - Color scheme: Open color ([MIT License](https://github.com/yeun/open-color/blob/master/LICENSE))  
   <https://yeun.github.io/open-color/>  
+
+- Shadow: Material Components Web ([MIT License](https://github.com/material-components/material-components-web/blob/master/LICENSE))  
+  <https://material-components.github.io/material-components-web-catalog/#/component/elevation>  
 
 - Font
 
@@ -59,7 +65,13 @@
   - Converted to PNG with: ImageMagick  
   <https://magick.imagemagick.org/>
 
-## Other Resources
+## Tools and Programs
+
+- SASS  
+  <https://sass-lang.com/>
+  
+- Visual Studio Code Insiders  
+  <https://code.visualstudio.com/>
 
 - PWA builder  
   <https://www.pwabuilder.com/>
