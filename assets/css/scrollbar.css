@@ -1,0 +1,23 @@
+.simplebar-track.simplebar-vertical .simplebar-scrollbar {
+    right: 0px;
+    transition: width 200ms ease-out, background-color 200ms ease-out;
+}
+
+.simplebar-track.simplebar-vertical .simplebar-scrollbar.simplebar-hover {
+    width: 17px;
+}
+
+.simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
+    border-radius: 0px;
+    background: rgba(255, 255, 255, 0.5);
+    top: 0px;
+    bottom: 0px;
+}
+
+.simplebar-track.simplebar-vertical .simplebar-scrollbar.simplebar-hover:before {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.simplebar-track.simplebar-vertical .simplebar-scrollbar.simplebar-visible:before {
+    opacity: 1;
+}
