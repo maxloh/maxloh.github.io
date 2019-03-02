@@ -30,12 +30,32 @@
 
 ## Chrome overlay scrollbar styles
 ```
-border-left: 1px solid rgba(0, 0, 0, 0.3);
-border-top: 1px solid rgba(0, 0, 0, 0.3);
-border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+.scrollbar {
+    width: 7px;
+    transition: width 200ms ease-out, background-color 200ms ease-out;
 
-background: rgba(0, 0, 0, 0.5);
-border-left: 1px solid rgba(255,255,255,0.3);
-border-top: 1px solid rgba(255,255,255,0.3);
-border-bottom: 1px solid rgba(255,255,255,0.3);
+    &:hover {
+        width: 17px;
+    }
+
+    &.dark-background {
+        background-color: rgba(255, 255, 255, 0.5);
+        border-left: 1px solid rgba(0, 0, 0, 0.3);
+        border-top: 1px solid rgba(0, 0, 0, 0.3);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+    }
+
+    &.light-background {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+    }
+}
 ```
