@@ -76,17 +76,19 @@ $(document).ready(function () {
    Add scrollapy to page
    ---------------------------------------------------------------------------------------------------- */
 
+// Horizontal center of the page
+var pageCenter = Math.ceil(window.innerWidth / 2);
+var navbarHeight;
+$(document).ready(function () { navbarHeight = $('#navbar').innerHeight(); });
+
 addEventListener('scroll', function () {
     $('a.nav-link.active').removeClass('active');
+    if (document.querySelector('#navbar').getBoundingClientRect().top !== 0) return;
 
-    // Horizontal center of the page
-    let pageCenter = Math.ceil(window.innerWidth / 2);
-    if (document.elementFromPoint(pageCenter, 0).id !== 'navbar') return;
-
-    let viewport = $('#navbar').innerHeight() + 1;
-    let element = document.elementFromPoint(pageCenter, viewport).closest(".row.section");
-    if (element === null) {
-        element = document.elementFromPoint(pageCenter, viewport + parseInt($(':root').css('--section-margin'))).closest(".row.section");
+    let viewport = navbarHeight + 1;
+    let element;
+    while ((element = document.elementFromPoint(pageCenter, viewport).closest(".row.section")) === null) {
+        viewport += 100;
     }
     $('a.nav-link[href="#' + element.id + '"]').addClass('active');
 });
