@@ -19,7 +19,6 @@ else {
    ---------------------------------------------------------------------------------------------------- */
 
 $(document).ready(function () {
-    // When user scroll
     var navbarObserver = new MutationObserver(function () {
         // if one of the .nav-link is active, meaning that navbar is sticking to top of the page
         if ($('a.nav-link.active')[0]) {
@@ -87,9 +86,9 @@ $(document).ready(function () {
     if ($('#navbar')[0]) {
         let sectionTranslateY = eval($(':root').css('--section-translateY').replace(/[A-z() ]/g, ''));
         let dataOffset = $('#navbar').innerHeight() + parseInt($(':root').css('--section-margin')) + sectionTranslateY;
-        $('body').scrollspy({
+        $('.simplebar-content').scrollspy({
             target: '#navbar',
-            offset: dataOffset
+            offset: 0
         });
     }
 });
