@@ -4,14 +4,9 @@
 
 var deviceType = null;
 // if mobile site is displayed, breakpoint: 768
-if ($(window).width() < 768) {
-    deviceType = 'mobile';
-}
+if ($(window).width() < 768) deviceType = 'mobile';
 // if desktop site is displayed
-else {
-    deviceType = 'desktop';
-}
-
+else deviceType = 'desktop';
 
 /* ----------------------------------------------------------------------------------------------------
    Let text of .nav-item stick to the edge of its parent element (.container), 
@@ -81,14 +76,16 @@ $(document).ready(function () {
    Initialize bootstrap scrollspy with calculated data-offset
    ---------------------------------------------------------------------------------------------------- */
 
-$(document).ready(function () {
-    // If element with id #navbar exists
-    if ($('#navbar')[0]) {
-        let sectionTranslateY = eval($(':root').css('--section-translateY').replace(/[A-z() ]/g, ''));
-        let dataOffset = $('#navbar').innerHeight() + parseInt($(':root').css('--section-margin')) + sectionTranslateY;
-        $('.simplebar-content').scrollspy({
-            target: '#navbar',
-            offset: 0
-        });
+addEventListener('scroll', function () {
+    $('a.nav-link.active').removeClass('active');
+
+    let pageCenter = window.innerWidth / 2;
+    if (document.elementFromPoint(pageCenter, 0).id !== 'navbar') return;
+
+    let viewport = $('#navbar').innerHeight() + 1;
+    let element = document.elementFromPoint(pageCenter, viewport).closest(".row.section");
+    if (element === null) {
+        element = document.elementFromPoint(pageCenter, viewport + parseInt($(':root').css('--section-margin'))).closest(".row.section");
     }
+    $('a.nav-link[href="#' + element.id + '"]').addClass('active');
 });
