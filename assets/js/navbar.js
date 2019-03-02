@@ -73,13 +73,14 @@ $(document).ready(function () {
 
 
 /* ----------------------------------------------------------------------------------------------------
-   Initialize bootstrap scrollspy with calculated data-offset
+   Add scrollapy to page
    ---------------------------------------------------------------------------------------------------- */
 
 addEventListener('scroll', function () {
     $('a.nav-link.active').removeClass('active');
 
-    let pageCenter = window.innerWidth / 2;
+    // Horizontal center of the page
+    let pageCenter = Math.ceil(window.innerWidth / 2);
     if (document.elementFromPoint(pageCenter, 0).id !== 'navbar') return;
 
     let viewport = $('#navbar').innerHeight() + 1;
