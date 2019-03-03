@@ -41,7 +41,7 @@ function openPhotoSwipe(imgElement, galleryClass) {
 
     //Prevent double shadow of .pswp__img and .pswp__img--placeholder
     pswp.listen('initialZoomInEnd', function () {
-        $('.pswp__img--placeholder').css({ 'display': 'none' });
+        css('.pswp__img--placeholder', { 'display': 'none' });
     });
 }
 

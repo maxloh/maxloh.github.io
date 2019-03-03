@@ -62,3 +62,26 @@ catch (exception) {
         });
     }
 }
+
+/* ----------------------------------------------------------------------------------------------------
+   Replacement for jQuery $(...).css() method
+   ---------------------------------------------------------------------------------------------------- */
+
+function css (selector, styles) {
+    let element = document.querySelector(selector);
+    if (typeof styles === 'string') {
+        return eval('getComputedStyle(element).' + getProperty(styles));
+    } else {
+        for (var key in styles) {
+            eval('element.style.' + getProperty(key) + '="' + styles[key] + '";');
+        }
+    }
+
+    function getProperty (property) {
+        return property.replace(/-[a-z]/g, function (match) { return match.substring(1).toUpperCase(); })
+    }
+}
+
+function cssVar (property) {
+    return getComputedStyle(document.documentElement).getPropertyValue(property);
+}
