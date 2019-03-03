@@ -4,7 +4,6 @@ $accent-color: #63e6be;
 $base-color: #212529;
 $font-color: #adb5bd;
 $desktop-width: 768px;
-$container-width: 900px;
 $navbar-padding: 15px;
 
 @mixin mobile {
@@ -13,15 +12,14 @@ $navbar-padding: 15px;
     }
 }
 
-@mixin desktop {
+@mixin desktop-tablet {
     @media (min-width: $desktop-width) {
         @content;
     }
 }
 
 @mixin tablet {
-    @media (min-width: $desktop-width) and (max-width: $container-width - 1) {
-        $container-width: 720px !global;
+    @media (min-width: $desktop-width) and (max-width: 992px - 1) {
         @content;
     }
 }
@@ -41,17 +39,17 @@ $navbar-padding: 15px;
         --navbar-strech: calc(-1 * #{$navbar-padding});
     }
 
-    @include desktop {
+    @include desktop-tablet {
         --main-margin: 70px;
         --navbar-margin: 25px;
         --section-margin: 70px;
-        --navbar-strech: calc(-1 * ((100vw - #{$container-width}) / 2 + #{$navbar-padding}));
-
+        --navbar-strech: calc(-1 * ((100vw - var(--container-width)) / 2 + #{$navbar-padding}));
+        --container-width: 900px;
         font-size: 16px;
     }
 
     @include tablet {
-        --navbar-strech: calc(-1 * ((100vw - #{$container-width}) / 2 + #{$navbar-padding}));
+        --container-width: 720px;
     }
 }
 
@@ -65,8 +63,9 @@ body {
     font-family: "Source Sans Pro", "arial", sans-serif;
     font-weight: 400;
     height: calc(100% - var(--main-margin));
+    overflow-x: hidden;
 
-    @include desktop {
+    @include desktop-tablet {
         font-size: 1.25rem;
     }
 
@@ -95,7 +94,7 @@ body {
     min-height: calc(100% - var(--main-margin));
     position: relative;
 
-    @include desktop {
+    @include desktop-tablet {
         width: 900px;
     }
 
@@ -111,7 +110,7 @@ body {
                 display: block;
             }
 
-            @include desktop {
+            @include desktop-tablet {
                 margin-left: -5px;
             }
 
@@ -154,7 +153,7 @@ body {
             @include mainTransition ();
         }
 
-        @include desktop {
+        @include desktop-tablet {
             margin-left: calc(var(--navbar-strech) - 1rem);
             padding-top: 1rem;
             padding-bottom: 1rem;
@@ -175,7 +174,7 @@ body {
                     margin: 0px 5px;
                 }
 
-                @include desktop {
+                @include desktop-tablet {
                     margin: 0px 15px;
                 }
 
@@ -214,7 +213,7 @@ body {
                 font-weight: 600;
             }
 
-            @include desktop {
+            @include desktop-tablet {
                 font-size: 3.75rem;
                 font-weight: 200;
                 line-height: 1;
@@ -274,7 +273,7 @@ body {
                     }
                 }
 
-                @include desktop {
+                @include desktop-tablet {
                     padding-left: 40px;
                 }
 
@@ -388,7 +387,7 @@ body {
                 padding: 0.5rem;
             }
 
-            @include desktop {
+            @include desktop-tablet {
                 top: 1rem;
                 right: 1rem;
                 padding: 0.5rem;
@@ -402,7 +401,7 @@ body {
                     height: 1.5rem;
                 }
 
-                @include desktop {
+                @include desktop-tablet {
                     width: 1.75rem;
                     height: 1.75rem;
                 }
