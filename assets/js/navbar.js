@@ -52,29 +52,29 @@ addEventListener('DOMContentLoaded', function () {
    ---------------------------------------------------------------------------------------------------- */
 
 addEventListener('DOMContentLoaded', function () {
-document.querySelectorAll('#navbar a').forEach(function () {
-    addEventListener('click', function (event) {
-        event.preventDefault();
-        let target = (event.target.href).substring((event.target.href).lastIndexOf('#'));
-        let offsetTop = document.querySelector(target).getBoundingClientRect().top + window.scrollY;
-        let scrollY = offsetTop - navbarHeight - parseInt(cssVar('--navbar-margin'));
+    document.querySelectorAll('#navbar a').forEach(function () {
+        addEventListener('click', function (event) {
+            event.preventDefault();
+            let target = (event.target.href).substring((event.target.href).lastIndexOf('#'));
+            let offsetTop = document.querySelector(target).getBoundingClientRect().top + window.scrollY;
+            let scrollY = offsetTop - navbarHeight - parseInt(cssVar('--navbar-margin'));
 
-        if (css(target, 'opacity') < 1) {
-            let currentTranslateY = css(target, 'transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
-            window.scroll({
-                top: Math.ceil(scrollY) - Math.floor(currentTranslateY),
-                behavior: 'smooth'
-            });
-        }
-        // If animation of that element has been completed
-        else {
-            window.scroll({
-                top: Math.ceil(scrollY),
-                behavior: 'smooth'
-            });
-        }
-    })
-});
+            if (css(target, 'opacity') < 1) {
+                let currentTranslateY = css(target, 'transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
+                window.scroll({
+                    top: Math.ceil(scrollY) - Math.floor(currentTranslateY),
+                    behavior: 'smooth'
+                });
+            }
+            // If animation of that element has been completed
+            else {
+                window.scroll({
+                    top: Math.ceil(scrollY),
+                    behavior: 'smooth'
+                });
+            }
+        })
+    });
 });
 
 
