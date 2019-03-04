@@ -59,3 +59,9 @@
     }
 }
 ```
+
+## jQuery dependency
+
+Commit 8af640d9e1d054413fcf7de8251fa13c7ae1855c is the last version of repo with full jQuery dependency
+
+https://github.com/maxloh/maxloh.github.io/commit/8af640d9e1d054413fcf7de8251fa13c7ae1855c
