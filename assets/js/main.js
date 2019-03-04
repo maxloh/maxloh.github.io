@@ -18,7 +18,7 @@ try {
     });
 
     // observe 'main>.section' and animate #navbar on page load
-    $(document).ready(function () {
+    addEventListener('DOMContentLoaded',function () {
         // If element with id #navbar exists, animate it
         if ($(navbarSelector)[0]) $(navbarSelector).css(animationCSS);
         setTimeout(function () {
@@ -37,7 +37,7 @@ catch (exception) {
 
     var sectionList;
 
-    $(document).ready(function () {
+    addEventListener('DOMContentLoaded',function () {
         if ($(navbarSelector)[0]) {
             $(navbarSelector).css(animationCSS);
         }

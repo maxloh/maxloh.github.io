@@ -4,19 +4,22 @@
 
 var deviceType = null;
 // if mobile site is displayed, breakpoint: 768
-if ($(window).width() < 768) deviceType = 'mobile';
+if (window.innerWidth < 768) deviceType = 'mobile';
 // if desktop site is displayed
 else deviceType = 'desktop';
+
+var navbarHeight;
+addEventListener('DOMContentLoaded', function () { navbarHeight = document.querySelector('#navbar').getBoundingClientRect().height; });
 
 /* ----------------------------------------------------------------------------------------------------
    Let text of .nav-item stick to the edge of its parent element (.container), 
    when navbar is not sticky
    ---------------------------------------------------------------------------------------------------- */
 
-$(document).ready(function () {
+addEventListener('DOMContentLoaded', function () {
     var navbarObserver = new MutationObserver(function () {
         // if one of the .nav-link is active, meaning that navbar is sticking to top of the page
-        if ($('a.nav-link.active')[0]) {
+        if (document.querySelector('a.nav-link.active')) {
             if (deviceType === 'desktop') {
                 css('#navbar', {
                     'margin-left': 'var(--navbar-strech)',
@@ -48,12 +51,14 @@ $(document).ready(function () {
    pointing them to the correct position
    ---------------------------------------------------------------------------------------------------- */
 
-$(document).ready(function () {
-    $('#navbar a').on('click', function () {
+addEventListener('DOMContentLoaded', function () {
+document.querySelectorAll('#navbar a').forEach(function () {
+    addEventListener('click', function (event) {
         event.preventDefault();
-        let target = (this.href).substring((this.href).lastIndexOf('#'));
-        let scrollY = $(target).offset().top - $('#navbar').innerHeight() - parseInt(cssVar('--navbar-margin'));
-        
+        let target = (event.target.href).substring((event.target.href).lastIndexOf('#'));
+        let offsetTop = document.querySelector(target).getBoundingClientRect().top + window.scrollY;
+        let scrollY = offsetTop - navbarHeight - parseInt(cssVar('--navbar-margin'));
+
         if (css(target, 'opacity') < 1) {
             let currentTranslateY = css(target, 'transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
             window.scroll({
@@ -68,7 +73,8 @@ $(document).ready(function () {
                 behavior: 'smooth'
             });
         }
-    });
+    })
+});
 });
 
 
@@ -78,11 +84,10 @@ $(document).ready(function () {
 
 // Horizontal center of the page
 var pageCenter = Math.ceil(window.innerWidth / 2);
-var navbarHeight;
-$(document).ready(function () { navbarHeight = $('#navbar').innerHeight(); });
 
 addEventListener('scroll', function () {
-    $('a.nav-link.active').removeClass('active');
+    var activeLink = document.querySelector('a.nav-link.active')
+    if (activeLink) activeLink.classList.remove('active');
     if (document.querySelector('#navbar').getBoundingClientRect().top !== 0) return;
 
     let viewport = navbarHeight + 1;
@@ -90,5 +95,5 @@ addEventListener('scroll', function () {
     while ((element = document.elementFromPoint(pageCenter, viewport).closest(".row.section")) === null) {
         viewport += 100;
     }
-    $('a.nav-link[href="#' + element.id + '"]').addClass('active');
+    document.querySelector('a.nav-link[href="#' + element.id + '"]').classList.add('active');
 });
