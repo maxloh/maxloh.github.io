@@ -11,7 +11,7 @@ addEventListener('DOMContentLoaded', function () {
     sectionList = document.querySelectorAll('main>.section');
 });
 
-try {
+if (typeof IntersectionObserver !== 'undefined') {
     const animationObserver = new IntersectionObserver(function (entries, animationObserver) {
         entries.forEach(function (entry) {
             // Animate element when it enter viewport
@@ -35,17 +35,15 @@ try {
 }
 
 /* ----------------------------------------------------------------------------------------------------
-   Add partial support for old browsers that do not support IntersectionObserver
+   Add partial support for old browsers that do not support IntersectionObserver, e.g. Safari
    ---------------------------------------------------------------------------------------------------- */
-catch (exception) {
+else {
     console.log('Compatibility mode, IntersectionObserver not supported');
 
     addEventListener('DOMContentLoaded', function () {
+        sectionList = [...sectionList];
         if (navbar) css(navbar, animationCSS);
-        setTimeout(function () {
-            sectionList = [...sectionList];
-            addAnimation();
-        }, delay);
+        setTimeout(addAnimation, delay);
     });
     addEventListener('scroll', addAnimation);
 
