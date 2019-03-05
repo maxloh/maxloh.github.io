@@ -40,13 +40,12 @@ try {
 catch (exception) {
     console.log('Compatibility mode, IntersectionObserver not supported');
 
-    var sectionList;
-
     addEventListener('DOMContentLoaded', function () {
-        if (navbar) {
-            css(navbar, animationCSS);
-        }
-        setTimeout(addAnimation, delay);
+        if (navbar) css(navbar, animationCSS);
+        setTimeout(function () {
+            sectionList = [...sectionList];
+            addAnimation();
+        }, delay);
     });
     addEventListener('scroll', addAnimation);
 
@@ -54,7 +53,7 @@ catch (exception) {
         let displayBottom = window.scrollY + window.innerHeight;
         let displayTop = (navbar) ? window.scrollY + navbar.getBoundingClientRect().height : window.scrollY;
 
-        sectionList = [...sectionList].filter(function (section) {
+        sectionList = sectionList.filter(function (section) {
             let sectionTranslateY = css(section, 'transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
             let sectionTop = (section.getBoundingClientRect().top + window.scrollY) - sectionTranslateY;
             let sectionBottom = sectionTop + section.getBoundingClientRect().height;
