@@ -12,15 +12,15 @@ try {
             // Animate element when it enter viewport
             if (entry.intersectionRatio > 0) {
                 animationObserver.unobserve(entry.target);
-                $(entry.target).css(animationCSS);
+                css('#' + entry.target.id, animationCSS);
             }
         });
     });
 
     // observe 'main>.section' and animate #navbar on page load
-    addEventListener('DOMContentLoaded',function () {
+    addEventListener('DOMContentLoaded', function () {
         // If element with id #navbar exists, animate it
-        if ($(navbarSelector)[0]) $(navbarSelector).css(animationCSS);
+        if (document.querySelector(navbarSelector)) css(navbarSelector, animationCSS);
         setTimeout(function () {
             document.querySelectorAll(sectionSelector).forEach(function (element) {
                 animationObserver.observe(element);
@@ -37,14 +37,14 @@ catch (exception) {
 
     var sectionList;
 
-    addEventListener('DOMContentLoaded',function () {
-        if ($(navbarSelector)[0]) {
-            $(navbarSelector).css(animationCSS);
+    addEventListener('DOMContentLoaded', function () {
+        if (document.querySelector(navbarSelector)) {
+            css(navbarSelector, animationCSS);
         }
-        sectionList = $(sectionSelector);
+        sectionList = document.querySelectorAll(sectionSelector);
         setTimeout(addAnimation, delay);
     });
-    $(window).scroll(addAnimation);
+    addEventListener('scroll', addAnimation);
 
     function addAnimation () {
         let displayBottom = $(window).scrollTop() + $(window).height();
@@ -56,7 +56,7 @@ catch (exception) {
             let sectionBottom = sectionTop + $(section).innerHeight();
 
             if (displayBottom > sectionTop && displayTop < sectionBottom) {
-                $(section).css(animationCSS);
+                css(section, animationCSS);
                 return false;
             } else return true;
         });
@@ -67,8 +67,8 @@ catch (exception) {
    Replacement for jQuery $(...).css() method
    ---------------------------------------------------------------------------------------------------- */
 
-function css (selector, styles) {
-    let element = document.querySelector(selector);
+function css (element, styles) {
+    if (typeof element === 'string') element = document.querySelector(element);
     if (typeof styles === 'string') {
         return eval('getComputedStyle(element).' + getCssPropertyName(styles));
     } else {
