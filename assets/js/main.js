@@ -3,8 +3,13 @@
    ---------------------------------------------------------------------------------------------------- */
 const animationCSS = { 'opacity': '1', 'transform': 'translateY(0)' };
 const delay = 400;
-const navbarSelector = '#navbar';
-const sectionSelector = 'main>.section';
+
+var navbar;
+var sectionList;
+addEventListener('DOMContentLoaded', function () {
+    navbar = document.getElementById('navbar');
+    sectionList = document.querySelectorAll('main>.section');
+});
 
 try {
     const animationObserver = new IntersectionObserver(function (entries, animationObserver) {
@@ -20,9 +25,9 @@ try {
     // observe 'main>.section' and animate #navbar on page load
     addEventListener('DOMContentLoaded', function () {
         // If element with id #navbar exists, animate it
-        if (document.querySelector(navbarSelector)) css(navbarSelector, animationCSS);
+        if (navbar) css(navbar, animationCSS);
         setTimeout(function () {
-            document.querySelectorAll(sectionSelector).forEach(function (element) {
+            sectionList.forEach(function (element) {
                 animationObserver.observe(element);
             });
         }, delay);
@@ -38,22 +43,21 @@ catch (exception) {
     var sectionList;
 
     addEventListener('DOMContentLoaded', function () {
-        if (document.querySelector(navbarSelector)) {
-            css(navbarSelector, animationCSS);
+        if (navbar) {
+            css(navbar, animationCSS);
         }
-        sectionList = document.querySelectorAll(sectionSelector);
         setTimeout(addAnimation, delay);
     });
     addEventListener('scroll', addAnimation);
 
     function addAnimation () {
-        let displayBottom = $(window).scrollTop() + $(window).height();
-        let displayTop = ($(navbarSelector)[0]) ? $(window).scrollTop() + $(navbarSelector).innerHeight() : $(window).scrollTop();
+        let displayBottom = window.scrollY + window.innerHeight;
+        let displayTop = (navbar) ? window.scrollY + navbar.getBoundingClientRect().height : window.scrollY;
 
-        sectionList = jQuery.grep(sectionList, function (section) {
-            let sectionTranslateY = $(section).css('transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
-            let sectionTop = $(section).offset().top - sectionTranslateY;
-            let sectionBottom = sectionTop + $(section).innerHeight();
+        sectionList = [...sectionList].filter(function (section) {
+            let sectionTranslateY = css(section, 'transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
+            let sectionTop = (section.getBoundingClientRect().top + window.scrollY) - sectionTranslateY;
+            let sectionBottom = sectionTop + section.getBoundingClientRect().height;
 
             if (displayBottom > sectionTop && displayTop < sectionBottom) {
                 css(section, animationCSS);
