@@ -4,12 +4,9 @@
 const animationCSS = { 'opacity': '1', 'transform': 'translateY(0)' };
 const delay = 400;
 
-var navbar;
-var sectionList;
 addEventListener('DOMContentLoaded', function () {
-    navbar = document.getElementById('navbar');
-    sectionList = document.querySelectorAll('main>.section');
-});
+    const navbar = document.getElementById('navbar');
+    var sectionList = document.querySelectorAll('main>.section');
 
     if (typeof IntersectionObserver !== 'undefined') {
         const animationObserver = new IntersectionObserver(function (entries, animationObserver) {
@@ -22,16 +19,14 @@ addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        // observe 'main>.section' and animate #navbar on page load
-        addEventListener('DOMContentLoaded', function () {
         // If element with id #navbar exists, animate it
         if (navbar) css(navbar, animationCSS);
+        // observe 'main>.section' and animate #navbar on page load
         setTimeout(function () {
             sectionList.forEach(function (element) {
                 animationObserver.observe(element);
             });
         }, delay);
-        });
     }
 
     /* ----------------------------------------------------------------------------------------------------
@@ -40,6 +35,7 @@ addEventListener('DOMContentLoaded', function () {
     else {
         console.log('Compatibility mode, IntersectionObserver not supported');
 
+        var sectionList = [...sectionList];
         let addAnimation = function () {
             let displayBottom = window.scrollY + window.innerHeight;
             let displayTop = (navbar) ? window.scrollY + navbar.getBoundingClientRect().height : window.scrollY;
@@ -56,13 +52,11 @@ addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        addEventListener('DOMContentLoaded', function () {
-        sectionList = [...sectionList];
         if (navbar) css(navbar, animationCSS);
         setTimeout(addAnimation, delay);
-        });
         addEventListener('scroll', addAnimation);
     }
+});
 
 /* ----------------------------------------------------------------------------------------------------
    Replacement for jQuery $(...).css() method
