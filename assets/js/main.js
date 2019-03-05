@@ -11,19 +11,19 @@ addEventListener('DOMContentLoaded', function () {
     sectionList = document.querySelectorAll('main>.section');
 });
 
-if (typeof IntersectionObserver !== 'undefined') {
-    const animationObserver = new IntersectionObserver(function (entries, animationObserver) {
-        entries.forEach(function (entry) {
-            // Animate element when it enter viewport
-            if (entry.intersectionRatio > 0) {
-                animationObserver.unobserve(entry.target);
-                css('#' + entry.target.id, animationCSS);
-            }
+    if (typeof IntersectionObserver !== 'undefined') {
+        const animationObserver = new IntersectionObserver(function (entries, animationObserver) {
+            entries.forEach(function (entry) {
+                // Animate element when it enter viewport
+                if (entry.intersectionRatio > 0) {
+                    animationObserver.unobserve(entry.target);
+                    css('#' + entry.target.id, animationCSS);
+                }
+            });
         });
-    });
 
-    // observe 'main>.section' and animate #navbar on page load
-    addEventListener('DOMContentLoaded', function () {
+        // observe 'main>.section' and animate #navbar on page load
+        addEventListener('DOMContentLoaded', function () {
         // If element with id #navbar exists, animate it
         if (navbar) css(navbar, animationCSS);
         setTimeout(function () {
@@ -31,38 +31,38 @@ if (typeof IntersectionObserver !== 'undefined') {
                 animationObserver.observe(element);
             });
         }, delay);
-    });
-}
-
-/* ----------------------------------------------------------------------------------------------------
-   Add partial support for old browsers that do not support IntersectionObserver, e.g. Safari
-   ---------------------------------------------------------------------------------------------------- */
-else {
-    console.log('Compatibility mode, IntersectionObserver not supported');
-
-    let addAnimation = function () {
-        let displayBottom = window.scrollY + window.innerHeight;
-        let displayTop = (navbar) ? window.scrollY + navbar.getBoundingClientRect().height : window.scrollY;
-
-        sectionList = sectionList.filter(function (section) {
-            let sectionTranslateY = css(section, 'transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
-            let sectionTop = (section.getBoundingClientRect().top + window.scrollY) - sectionTranslateY;
-            let sectionBottom = sectionTop + section.getBoundingClientRect().height;
-
-            if (displayBottom > sectionTop && displayTop < sectionBottom) {
-                css(section, animationCSS);
-                return false;
-            } else return true;
         });
     }
 
-    addEventListener('DOMContentLoaded', function () {
+    /* ----------------------------------------------------------------------------------------------------
+    Add partial support for old browsers that do not support IntersectionObserver, e.g. Safari
+    ---------------------------------------------------------------------------------------------------- */
+    else {
+        console.log('Compatibility mode, IntersectionObserver not supported');
+
+        let addAnimation = function () {
+            let displayBottom = window.scrollY + window.innerHeight;
+            let displayTop = (navbar) ? window.scrollY + navbar.getBoundingClientRect().height : window.scrollY;
+
+            sectionList = sectionList.filter(function (section) {
+                let sectionTranslateY = css(section, 'transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
+                let sectionTop = (section.getBoundingClientRect().top + window.scrollY) - sectionTranslateY;
+                let sectionBottom = sectionTop + section.getBoundingClientRect().height;
+
+                if (displayBottom > sectionTop && displayTop < sectionBottom) {
+                    css(section, animationCSS);
+                    return false;
+                } else return true;
+            });
+        }
+
+        addEventListener('DOMContentLoaded', function () {
         sectionList = [...sectionList];
         if (navbar) css(navbar, animationCSS);
         setTimeout(addAnimation, delay);
-    });
-    addEventListener('scroll', addAnimation);
-}
+        });
+        addEventListener('scroll', addAnimation);
+    }
 
 /* ----------------------------------------------------------------------------------------------------
    Replacement for jQuery $(...).css() method
