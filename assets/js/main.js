@@ -1,12 +1,13 @@
 /* ----------------------------------------------------------------------------------------------------
    CSS animation
    ---------------------------------------------------------------------------------------------------- */
+
 const animationCSS = { 'opacity': '1', 'transform': 'translateY(0)' };
 const delay = 400;
 
 addEventListener('DOMContentLoaded', function () {
     const navbar = document.getElementById('navbar');
-    var sectionList = document.querySelectorAll('main>.section');
+    const section = document.querySelectorAll('main>.section');
 
     if (typeof IntersectionObserver !== 'undefined') {
         const animationObserver = new IntersectionObserver(function (entries, animationObserver) {
@@ -23,19 +24,17 @@ addEventListener('DOMContentLoaded', function () {
         if (navbar) css(navbar, animationCSS);
         // observe 'main>.section' and animate #navbar on page load
         setTimeout(function () {
-            sectionList.forEach(function (element) {
+            section.forEach(function (element) {
                 animationObserver.observe(element);
             });
         }, delay);
     }
 
-    /* ----------------------------------------------------------------------------------------------------
-    Add partial support for old browsers that do not support IntersectionObserver, e.g. Safari
-    ---------------------------------------------------------------------------------------------------- */
+    // Add partial support for old browsers that do not support IntersectionObserver, e.g. Safari
     else {
         console.log('Compatibility mode, IntersectionObserver not supported');
 
-        var sectionList = [...sectionList];
+        let sectionList = [...section];
         let addAnimation = function () {
             let displayBottom = window.scrollY + window.innerHeight;
             let displayTop = (navbar) ? window.scrollY + navbar.getBoundingClientRect().height : window.scrollY;
