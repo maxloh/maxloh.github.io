@@ -40,14 +40,7 @@ if (typeof IntersectionObserver !== 'undefined') {
 else {
     console.log('Compatibility mode, IntersectionObserver not supported');
 
-    addEventListener('DOMContentLoaded', function () {
-        sectionList = [...sectionList];
-        if (navbar) css(navbar, animationCSS);
-        setTimeout(addAnimation, delay);
-    });
-    addEventListener('scroll', addAnimation);
-
-    function addAnimation () {
+    let addAnimation = function () {
         let displayBottom = window.scrollY + window.innerHeight;
         let displayTop = (navbar) ? window.scrollY + navbar.getBoundingClientRect().height : window.scrollY;
 
@@ -62,6 +55,13 @@ else {
             } else return true;
         });
     }
+
+    addEventListener('DOMContentLoaded', function () {
+        sectionList = [...sectionList];
+        if (navbar) css(navbar, animationCSS);
+        setTimeout(addAnimation, delay);
+    });
+    addEventListener('scroll', addAnimation);
 }
 
 /* ----------------------------------------------------------------------------------------------------
