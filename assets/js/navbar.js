@@ -54,8 +54,8 @@ addEventListener('DOMContentLoaded', function () {
    ---------------------------------------------------------------------------------------------------- */
 
 addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('#navbar a.nav-link').forEach(function () {
-        addEventListener('click', function (event) {
+    document.querySelectorAll('#navbar a.nav-link').forEach(function (element) {
+        element.addEventListener('click', function (event) {
             event.preventDefault();
             let target = document.getElementById((event.target.href).substring((event.target.href).lastIndexOf('#') + 1));
             let offsetTop = target.getBoundingClientRect().top + window.scrollY;

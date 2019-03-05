@@ -30,10 +30,6 @@
     <!--Bootstrap CSS-->
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
 
-    <!--jQuery-->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
-
     <!--Font Awesome-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
         integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -415,18 +411,16 @@
         <footer>
             Copyright &copy; 2019 Loh Ka Hong
             <Small><a
-                    href="javascript:(function () {$('.overlay').css({'visibility': 'visible', 'opacity': '1'});$('body').css({'overflow': 'hidden'});})()">
+                    href="javascript:(function () {css('.overlay', {'visibility': 'visible', 'opacity': '1'});css('body', {'overflow': 'hidden'});})()">
                     Resources and library</a> used to build this site</Small>
         </footer>
     </div>
 
     <div class='overlay'>
         <div class="overlay-container">
-            <a class='close-btn'
-                href="javascript:(function () { $('.overlay').css({'visibility': '', 'opacity': ''}); $('body').css({'overflow': ''});})()">
+            <a class='close-btn' href="javascript:(function () { css('.overlay', {'visibility': '', 'opacity': ''}); css('body', {'overflow': ''});})()">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path
-                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
                 </svg>
             </a>
             <div id="resources-list" class="container">
@@ -439,8 +433,8 @@
                     request.onload = function () {
                         if (request.status === 200) {
                             let data = request.responseText;
-                            html = (new window.Remarkable()).render(data.substring(data.indexOf('\n') + 1));
-                            $('#resources-list').html('<h1>Resources</h1>' + html);
+                            html = (new window.Remarkable()).render(data);
+                            document.getElementById('resources-list').innerHTML = html;
                         }
                     };
                     request.send();
