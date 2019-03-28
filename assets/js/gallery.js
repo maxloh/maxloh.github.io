@@ -1,4 +1,4 @@
-function openPhotoSwipe(imgElement, galleryClass) {
+function openPhotoSwipe (imgElement, galleryClass) {
     let pswpElement = document.querySelector('.pswp');
 
     //build items array, record element index
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
             openPhotoSwipe(event.target, '.gallery');
         }
     });
-    
+
     document.querySelector('body').insertAdjacentHTML('beforeend', '<!-- Root element of PhotoSwipe. Must have class pswp. -->' +
         '<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">' +
         '' +
