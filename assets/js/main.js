@@ -63,17 +63,12 @@ addEventListener('DOMContentLoaded', function () {
 
 function css (element, styles) {
     if (typeof element === 'string') element = document.querySelector(element);
-    if (typeof styles === 'string') {
-        return eval('getComputedStyle(element).' + getCssPropertyName(styles));
-    } else {
+    if (typeof styles === 'string')
+        return window.getComputedStyle(element).getPropertyValue(styles);
+    else
         for (var key in styles) {
-            eval('element.style.' + getCssPropertyName(key) + '="' + styles[key] + '";');
+            element.style.setProperty(key, styles[key]);
         }
-    }
-
-    function getCssPropertyName (property) {
-        return property.replace(/-[a-z]/g, function (match) { return match.substring(1).toUpperCase(); })
-    }
 }
 
 function cssVar (varName) {
