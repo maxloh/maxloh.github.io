@@ -58,7 +58,7 @@ addEventListener('DOMContentLoaded', function () {
 });
 
 /* ----------------------------------------------------------------------------------------------------
-   Replacement for jQuery $(...).css() method
+   Replacement for jQuery $(...).css() method, only accept a single element at a time
    ---------------------------------------------------------------------------------------------------- */
 
 function css (element, styles) {
