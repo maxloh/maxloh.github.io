@@ -27,7 +27,7 @@
   - Logo font: Jura 300 ([SIL Open Font License 1.1](https://github.com/ossobuffo/jura/blob/master/OFL.txt))  
   <https://github.com/ossobuffo/jura>
 
-  - Delivered by [Google Fonts](https://fonts.google.com)  
+  - Delivered by [Google Fonts](https://fonts.google.com)
 
 - Website favicon
 
@@ -40,13 +40,18 @@
   - Converted to PNG with: ImageMagick  
   <https://magick.imagemagick.org/>
 
-- Social icons
+- Social 
 
   - Font Awesome ([SIL Open Font License 1.1](https://github.com/FortAwesome/Font-Awesome/blob/master/LICENSE.txt))  
+  GIthub and Email icon in header  
   <https://fontawesome.com/>
 
+  - github-buttons ([BSD 2-Clause License](https://github.com/ntkme/github-buttons/blob/master/LICENSE))  
+  Github star button in Projects section  
+  <https://github.com/ntkme/github-buttons>
+
 - Material Components Web ([MIT License](https://github.com/material-components/material-components-web/blob/master/LICENSE))  
-  Shadows on gallery images  
+  Image shadows in gallery   
   <https://material-components.github.io/material-components-web-catalog/#/component/elevation>  
 
 - Material Design icons by Google ([Apache License 2.0](https://github.com/google/material-design-icons/blob/master/LICENSE))  
