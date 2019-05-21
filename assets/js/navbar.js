@@ -23,20 +23,15 @@ addEventListener('DOMContentLoaded', function () {
         // if one of the .nav-link is active, meaning that navbar is sticking to top of the page
         if (deviceType === 'desktop') {
             if (document.querySelector('a.nav-link.active')) {
-                css(navbar, {
-                    // 8 dp shadow in material design
-                    'box-shadow': '0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12)',
-                    'margin-left': 'var(--navbar-strech)'
-                });
+                navbar.classList.add('sticky');
             } else {
-                css(navbar, { 'box-shadow': '', 'margin-left': '' });
+                navbar.classList.remove('sticky');
             }
         } else {
             if (document.querySelector('a.nav-link.active')) {
-                // 4 dp shadow in material design
-                css(navbar, { 'box-shadow': '0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)' });
+                navbar.classList.add('sticky');
             } else {
-                css(navbar, { 'box-shadow': '' });
+                navbar.classList.remove('sticky');
             }
         }
     });
