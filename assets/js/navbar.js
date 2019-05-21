@@ -35,7 +35,7 @@ addEventListener('DOMContentLoaded', function () {
             }
         }
     });
-    document.querySelectorAll('li.nav-item:first-child>a.nav-link').forEach(function (element) {
+    [...document.getElementsByClassName('nav-link')].forEach(function (element) {
         navbarObserver.observe(element, {
             attributes: true,
             attributeFilter: ['class']
