@@ -1,4 +1,4 @@
-//sass style.scss:style.css --style=compressed --source-map
+// sass style.scss:style.css --style=compressed --source-map
 
 $accent-color: #63e6be;
 $base-color: #212529;
@@ -62,7 +62,6 @@ body {
     color: $font-color;
     font-family: "Source Sans Pro", "arial", sans-serif;
     font-weight: 400;
-    height: calc(100% - var(--main-margin));
     overflow-x: hidden;
 
     @include desktop-tablet {
@@ -91,8 +90,6 @@ body {
 
 .container {
     margin: var(--main-margin) auto;
-    min-height: calc(100% - var(--main-margin));
-    position: relative;
 
     @include desktop-tablet {
         width: 900px;

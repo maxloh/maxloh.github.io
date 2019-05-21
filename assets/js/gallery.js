@@ -43,6 +43,10 @@ function openPhotoSwipe (imgElement, galleryClass) {
     pswp.listen('initialZoomInEnd', function () {
         css('.pswp__img--placeholder', { 'display': 'none' });
     });
+
+    pswp.listen('close', function() {
+        css('body', {'overflow': ''});
+    });
 }
 
 //Add PhotoSwipe (.pswp) element to page
@@ -52,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
             //Prevent browser opening href links
             event.preventDefault();
             openPhotoSwipe(event.target, '.gallery');
+            css('body', {'overflow': 'hidden'});
         }
     });
 
