@@ -143,8 +143,11 @@ body {
         margin: var(--navbar-margin) var(--navbar-strech);
         padding-right: calc(-1 * var(--navbar-strech));
         padding-left: calc(-1 * var(--navbar-strech));
-        opacity: 0;
-        transform: translateY(var(--navbar-translateY));
+
+        &.before-animation {
+            opacity: 0;
+            transform: translateY(var(--navbar-translateY));
+        }
 
         @include mobile {
             @include mainTransition ();
@@ -249,9 +252,12 @@ body {
         .section {
             margin-top: var(--section-margin);
             margin-bottom: var(--section-margin);
-            opacity: 0;
-            transform: translateY(var(--section-translateY));
             @include mainTransition ();
+
+            &.before-animation {
+                opacity: 0;
+                transform: translateY(var(--section-translateY));
+            }
 
             .content {
                 a {

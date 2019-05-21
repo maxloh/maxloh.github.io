@@ -15,13 +15,12 @@ addEventListener('DOMContentLoaded', function () {
                 // Animate element when it enter viewport
                 if (entry.intersectionRatio > 0) {
                     animationObserver.unobserve(entry.target);
-                    css('#' + entry.target.id, animationCSS);
+                    entry.target.classList.remove('before-animation');
                 }
             });
         });
 
-        // If element with id #navbar exists, animate it
-        if (navbar) css(navbar, animationCSS);
+        navbar.classList.remove('before-animation');
         // observe 'main>.section' and animate #navbar on page load
         setTimeout(function () {
             section.forEach(function (element) {
@@ -45,13 +44,13 @@ addEventListener('DOMContentLoaded', function () {
                 let sectionBottom = sectionTop + section.getBoundingClientRect().height;
 
                 if (displayBottom > sectionTop && displayTop < sectionBottom) {
-                    css(section, animationCSS);
+                    section.classList.remove('before-animation');
                     return false;
                 } else return true;
             });
         }
 
-        if (navbar) css(navbar, animationCSS);
+        navbar.classList.remove('before-animation');
         setTimeout(addAnimation, delay);
         addEventListener('scroll', addAnimation);
     }
