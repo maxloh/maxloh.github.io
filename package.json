@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Copyright &copy; 2019 Loh Ka Hong. All rights reserved.",
   "scripts": {
-    "build": "sass ./assets/css/style.scss:./assets/css/style.css --style=compressed --source-map "
+    "build": "./node_modules/.bin/sass ./assets/css/style.scss:./assets/css/style.css --style=compressed --source-map"
   },
   "repository": {
     "type": "git",
@@ -12,5 +12,10 @@
   "author": "Loh Ka Hong",
   "license": "UNLICENSED",
   "homepage": "https://github.com/maxloh/maxloh.github.io-v2",
-  "private": true
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "sass": "^1.20.3",
+    "terser": "^4.0.0"
+  }
 }
