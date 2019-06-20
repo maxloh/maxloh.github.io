@@ -1,21 +1,21 @@
 {
-  "name": "maxloh.github.io-v2",
+  "name": "maxloh.github.io",
   "version": "2.0.0",
   "description": "Copyright &copy; 2019 Loh Ka Hong. All rights reserved.",
-  "scripts": {
-    "build": "./node_modules/.bin/sass ./assets/css/style.scss:./assets/css/style.css --style=compressed --source-map && .\\node_modules\\.bin\\terser .\\assets\\js\\main.js .\\assets\\js\\navbar.js .\\assets\\js\\gallery.js --compress --mangle reserved=['css'] --toplevel --source-map --output .\\assets\\js\\app.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/maxloh/maxloh.github.io-v2.git"
-  },
-  "author": "Loh Ka Hong",
-  "license": "UNLICENSED",
-  "homepage": "https://github.com/maxloh/maxloh.github.io-v2",
-  "private": true,
   "dependencies": {},
   "devDependencies": {
     "sass": "^1.20.3",
     "terser": "^4.0.0"
-  }
+  },
+  "scripts": {
+    "build": ".\\node_modules\\.bin\\sass .\\assets\\css\\style.scss:.\\assets\\css\\style.css --style=compressed --source-map && .\\node_modules\\.bin\\terser .\\assets\\js\\main.js .\\assets\\js\\navbar.js .\\assets\\js\\gallery.js --compress --mangle reserved=['css'] --toplevel --source-map --output .\\assets\\js\\app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxloh/maxloh.github.io.git"
+  },
+  "author": "Loh Ka Hong",
+  "license": "UNLICENSED",
+  "private": true,
+  "homepage": "https://github.com/maxloh/maxloh.github.io#readme"
 }
