@@ -1,4 +1,5 @@
 @import "gallery.scss";
+@import "latolatinfonts.scss";
 
 $accent-color: #63e6be;
 $base-color: #212529;
@@ -60,12 +61,13 @@ html {
 body {
     background-color: $base-color;
     color: $font-color;
-    font-family: "Source Sans Pro", "arial", sans-serif;
+    font-family: "Lato", "arial", sans-serif;
+    letter-spacing: 0.5px;
     font-weight: 400;
     overflow-x: hidden;
 
     @include desktop-tablet {
-        font-size: 1.25rem;
+        font-size: 1.2rem;
     }
 
     a {
@@ -186,7 +188,7 @@ body {
                 }
 
                 @include desktop-tablet {
-                    margin: 0px 15px;
+                    margin: 0px 10px;
                 }
 
                 &:first-child {
@@ -225,11 +227,11 @@ body {
             }
 
             @include desktop-tablet {
-                font-size: 3.75rem;
+                font-size: 3.4rem;
                 font-weight: 200;
                 line-height: 1;
                 margin: 0px;
-                margin-left: -11px;
+                margin-top: -3.5px;
                 padding-bottom: 8px;
                 text-transform: uppercase;
                 letter-spacing: 1px;
