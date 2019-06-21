@@ -1,4 +1,5 @@
-// sass style.scss:style.css --style=compressed --source-map
+@import "gallery.scss";
+@import "latolatinfonts.scss";
 
 $accent-color: #63e6be;
 $base-color: #212529;
@@ -12,14 +13,15 @@ $navbar-padding: 15px;
     }
 }
 
-@mixin desktop-tablet {
-    @media (min-width: $desktop-width) {
+@mixin tablet {
+    @media (min-width: $desktop-width) and (max-width: 992px - 1) {
         @content;
     }
 }
 
-@mixin tablet {
-    @media (min-width: $desktop-width) and (max-width: 992px - 1) {
+/* Desktop and tablet */
+@mixin desktop {
+    @media (min-width: $desktop-width) {
         @content;
     }
 }
@@ -39,17 +41,18 @@ $navbar-padding: 15px;
         --navbar-strech: calc(-1 * #{$navbar-padding});
     }
 
-    @include desktop-tablet {
+    @include tablet {
+        /* !important: overwrite desktop's value */
+        --container-width: 720px !important;
+    }
+
+    @include desktop {
         --main-margin: 70px;
         --navbar-margin: 25px;
         --section-margin: 70px;
         --navbar-strech: calc(-1 * ((100vw - var(--container-width)) / 2 + #{$navbar-padding}));
         --container-width: 900px;
         font-size: 16px;
-    }
-
-    @include tablet {
-        --container-width: 720px;
     }
 }
 
@@ -60,12 +63,17 @@ html {
 body {
     background-color: $base-color;
     color: $font-color;
-    font-family: "Source Sans Pro", "arial", sans-serif;
+    font-family: "Lato", "arial", sans-serif;
     font-weight: 400;
     overflow-x: hidden;
 
-    @include desktop-tablet {
-        font-size: 1.25rem;
+    @include mobile {
+        letter-spacing: 0.4px;
+    }
+
+    @include desktop {
+        letter-spacing: 0.5px;
+        font-size: 1.2rem;
     }
 
     a {
@@ -91,7 +99,7 @@ body {
 .container {
     margin: var(--main-margin) auto;
 
-    @include desktop-tablet {
+    @include desktop {
         width: 900px;
     }
 
@@ -107,7 +115,7 @@ body {
                 display: block;
             }
 
-            @include desktop-tablet {
+            @include desktop {
                 margin-left: -5px;
             }
 
@@ -153,7 +161,7 @@ body {
             // 4 dp shadow in material design
             box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
 
-            @include desktop-tablet {
+            @include desktop {
                 margin-left: var(--navbar-strech);
                 // 8 dp shadow in material design
                 box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
@@ -164,7 +172,7 @@ body {
             @include mainTransition ();
         }
 
-        @include desktop-tablet {
+        @include desktop {
             margin-left: calc(var(--navbar-strech) - 1rem);
             padding-top: 1rem;
             padding-bottom: 1rem;
@@ -185,8 +193,8 @@ body {
                     margin: 0px 5px;
                 }
 
-                @include desktop-tablet {
-                    margin: 0px 15px;
+                @include desktop {
+                    margin: 0px 10px;
                 }
 
                 &:first-child {
@@ -224,12 +232,12 @@ body {
                 font-weight: 600;
             }
 
-            @include desktop-tablet {
-                font-size: 3.75rem;
+            @include desktop {
+                font-size: 3.4rem;
                 font-weight: 200;
                 line-height: 1;
                 margin: 0px;
-                margin-left: -11px;
+                margin-top: -3.5px;
                 padding-bottom: 8px;
                 text-transform: uppercase;
                 letter-spacing: 1px;
@@ -287,7 +295,7 @@ body {
                     }
                 }
 
-                @include desktop-tablet {
+                @include desktop {
                     padding-left: 40px;
                 }
 
@@ -401,7 +409,7 @@ body {
                 padding: 0.5rem;
             }
 
-            @include desktop-tablet {
+            @include desktop {
                 top: 1rem;
                 right: 1rem;
                 padding: 0.5rem;
@@ -415,7 +423,7 @@ body {
                     height: 1.5rem;
                 }
 
-                @include desktop-tablet {
+                @include desktop {
                     width: 1.75rem;
                     height: 1.75rem;
                 }
