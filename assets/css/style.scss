@@ -52,7 +52,6 @@ $navbar-padding: 15px;
         --section-margin: 70px;
         --navbar-strech: calc(-1 * ((100vw - var(--container-width)) / 2 + #{$navbar-padding}));
         --container-width: 900px;
-        font-size: 16px;
     }
 }
 
@@ -66,13 +65,9 @@ body {
     font-family: "Lato", "arial", sans-serif;
     font-weight: 400;
     overflow-x: hidden;
-
-    @include mobile {
-        letter-spacing: 0.4px;
-    }
+    letter-spacing: 0.0075em;
 
     @include desktop {
-        letter-spacing: 0.5px;
         font-size: 1.2rem;
     }
 
