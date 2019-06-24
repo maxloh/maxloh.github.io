@@ -1,11 +1,26 @@
-@import "gallery.scss";
-@import "latolatinfonts.scss";
-
 $accent-color: #63e6be;
 $base-color: #212529;
 $font-color: #adb5bd;
 $desktop-width: 768px;
 $navbar-padding: 15px;
+
+// Override Bootstrap's variables
+$body-bg: $base-color;
+$body-color: $font-color;
+
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/mixins";
+
+@import "../../../node_modules/bootstrap/scss/bootstrap-grid";
+@import "../../../node_modules/bootstrap/scss/nav";
+@import "../../../node_modules/bootstrap/scss/navbar";
+@import "../../../node_modules/bootstrap/scss/reboot";
+@import "../../../node_modules/bootstrap/scss/tables";
+@import "../../../node_modules/bootstrap/scss/utilities/position";
+
+@import "gallery.scss";
+@import "latolatinfonts.scss";
 
 @mixin mobile {
     @media (max-width: $desktop-width - 1) {
