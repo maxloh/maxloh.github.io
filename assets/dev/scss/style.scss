@@ -107,289 +107,289 @@ body {
 }
 
 .container {
-    margin: var(--main-margin) auto;
+margin: var(--main-margin) auto;
 
-    @include desktop {
-        width: 900px;
-    }
+@include desktop {
+    width: 900px;
+}
 
-    .header {
-        margin-top: var(--navbar-margin) 0px;
+.header {
+    margin-top: var(--navbar-margin) 0px;
 
-        .logo {
-            line-height: normal;
-
-            @include mobile {
-                margin-bottom: var(--navbar-margin);
-                text-align: center;
-                display: block;
-            }
-
-            @include desktop {
-                margin-left: -5px;
-            }
-
-            a {
-                font-family: "Jura", "arial", sans-serif;
-                color: $font-color;
-                font-size: 60px;
-                letter-spacing: 2px;
-                text-transform: uppercase;
-                padding: 0px;
-
-                &:hover {
-                    text-decoration: none;
-                }
-            }
-        }
-
-        .social-link {
-            color: $font-color;
-            text-align: center;
-            text-transform: uppercase;
-            margin: 0px 20px;
-
-            i {
-                font-size: 25px;
-                margin: 5px 0px;
-            }
-        }
-    }
-
-    nav.navbar {
-        background-color: $base-color;
-        margin: var(--navbar-margin) var(--navbar-strech);
-        padding-right: calc(-1 * var(--navbar-strech));
-        padding-left: calc(-1 * var(--navbar-strech));
-
-        &.before-animation {
-            opacity: 0;
-            transform: translateY(var(--navbar-translateY));
-        }
-
-        &.sticky {
-            // 4 dp shadow in material design
-            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
-
-            @include desktop {
-                margin-left: var(--navbar-strech);
-                // 8 dp shadow in material design
-                box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
-            }
-        }
+    .logo {
+        line-height: normal;
 
         @include mobile {
-            @include mainTransition ();
+            margin-bottom: var(--navbar-margin);
+            text-align: center;
+            display: block;
         }
 
         @include desktop {
-            margin-left: calc(var(--navbar-strech) - 1rem);
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-            @include mainTransition (margin-left 250ms ease);
+            margin-left: -5px;
         }
 
-        ul.nav.nav-pills {
-            @include mobile {
-                flex-wrap: nowrap;
-                white-space: nowrap;
-                overflow-x: auto;
-                width: 100%;
-                justify-content: space-between;
-            }
+        a {
+            font-family: "Jura", "arial", sans-serif;
+            color: $font-color;
+            font-size: 60px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 0px;
 
-            li.nav-item {
-                @include mobile {
-                    margin: 0px 5px;
-                }
-
-                @include desktop {
-                    margin: 0px 10px;
-                }
-
-                &:first-child {
-                    margin-left: 0px !important;
-                }
-
-                &:last-child {
-                    margin-right: 0px !important;
-                }
-
-                a.nav-link {
-                    border-radius: 0.5rem;
-
-                    @include mobile {
-                        padding-left: 0.5rem;
-                        padding-right: 0.5rem;
-                    }
-
-                    &.active {
-                        color: $base-color;
-                        background-color: $accent-color;
-                        font-weight: 600;
-                    }
-                }
+            &:hover {
+                text-decoration: none;
             }
         }
     }
 
-    main {
-        margin: var(--main-margin) 0px;
+    .social-link {
+        color: $font-color;
+        text-align: center;
+        text-transform: uppercase;
+        margin: 0px 20px;
 
-        h1 {
+        i {
+            font-size: 25px;
+            margin: 5px 0px;
+        }
+    }
+}
+
+nav.navbar {
+    background-color: $base-color;
+    margin: var(--navbar-margin) var(--navbar-strech);
+    padding-right: calc(-1 * var(--navbar-strech));
+    padding-left: calc(-1 * var(--navbar-strech));
+
+    &.before-animation {
+        opacity: 0;
+        transform: translateY(var(--navbar-translateY));
+    }
+
+    &.sticky {
+        // 4 dp shadow in material design
+        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
+
+        @include desktop {
+            margin-left: var(--navbar-strech);
+            // 8 dp shadow in material design
+            box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+        }
+    }
+
+    @include mobile {
+        @include mainTransition ();
+    }
+
+    @include desktop {
+        margin-left: calc(var(--navbar-strech) - 1rem);
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        @include mainTransition (margin-left 250ms ease);
+    }
+
+    ul.nav.nav-pills {
+        @include mobile {
+            flex-wrap: nowrap;
+            white-space: nowrap;
+            overflow-x: auto;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        li.nav-item {
             @include mobile {
-                margin-top: 0px;
-                font-weight: 600;
+                margin: 0px 5px;
             }
 
             @include desktop {
-                font-size: 3.4rem;
-                font-weight: 200;
-                line-height: 1;
-                margin: 0px;
-                margin-top: -3.5px;
-                padding-bottom: 8px;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                writing-mode: vertical-lr;
-                transform: rotate(180deg);
-                white-space: nowrap;
-            }
-        }
-
-        h2 {
-            span.github-button {
-                vertical-align: middle;
-                margin-left: 0.5rem;
+                margin: 0px 10px;
             }
 
-            small {
-                &.programme {
-                    display: block;
-                    margin-top: 10px;
-                    font-size: 1.75rem;
-                }
-
-                &.university {
-                    display: block;
-                    margin-top: 10px;
-                    font-size: 1.2rem;
-                }
-            }
-        }
-
-        .section {
-            margin-top: var(--section-margin);
-            margin-bottom: var(--section-margin);
-            @include mainTransition ();
-
-            &.before-animation {
-                opacity: 0;
-                transform: translateY(var(--section-translateY));
+            &:first-child {
+                margin-left: 0px !important;
             }
 
-            .content {
-                a {
-                    text-decoration: none;
-                    color: $font-color;
-                    background-image: linear-gradient($accent-color, $accent-color);
-                    background-repeat: no-repeat;
-                    background-size: 100% 10%;
-                    background-position: 0 95%;
-                    transition: 0.35s ease;
+            &:last-child {
+                margin-right: 0px !important;
+            }
 
-                    &:hover {
-                        border-radius: 2px;
-                        color: #495057;
-                        background-size: 100% 100%;
-                    }
+            a.nav-link {
+                border-radius: 0.5rem;
+
+                @include mobile {
+                    padding-left: 0.5rem;
+                    padding-right: 0.5rem;
                 }
 
-                @include desktop {
-                    padding-left: 40px;
-                }
-
-                &>*:first-child {
-                    margin-top: 0px;
-                }
-
-                &>*:last-child {
-                    margin-bottom: 0px;
-                }
-
-                p {
-                    line-height: 1.7;
-                }
-
-                li {
-                    margin-bottom: 1rem;
-                }
-
-                .table-container {
-                    div.table-header {
-                        display: flex;
-                        flex-wrap: nowrap;
-                        width: 100%;
-                        border-bottom: 1px solid #adb5bd;
-
-                        div.term {
-                            font-weight: 600;
-                            flex-grow: 2;
-                        }
-
-                        & div {
-                            padding: .75rem;
-                        }
-                    }
-
-                    table.table {
-                        tbody {
-
-                            th,
-                            td {
-                                border: 0px;
-
-                                &:first-child {
-                                    width: 100%;
-                                }
-
-                                &:last-child {
-                                    text-align: center;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                p.tags-heading {
-                    margin-bottom: 0.5rem;
-                    width: 100%;
-                }
-
-                .tags-container {
-                    display: flex;
-                    flex-wrap: wrap;
-                    margin: 0px -0.3rem;
-
-                    .tag {
-                        display: inline-flex;
-                        list-style: none;
-                        margin: 0.3rem 0.25rem;
-                        padding: 0.25rem 0.75rem;
-                        background-color: #343a40;
-                        border-radius: 100px;
-                        font-size: 1rem;
-                    }
+                &.active {
+                    color: $base-color;
+                    background-color: $accent-color;
+                    font-weight: 600;
                 }
             }
         }
     }
+}
 
-    footer {
+main {
+    margin: var(--main-margin) 0px;
+
+    h1 {
+        @include mobile {
+            margin-top: 0px;
+            font-weight: 600;
+        }
+
+        @include desktop {
+            font-size: 3.4rem;
+            font-weight: 200;
+            line-height: 1;
+            margin: 0px;
+            margin-top: -3.5px;
+            padding-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
+            white-space: nowrap;
+        }
+    }
+
+    h2 {
+        span.github-button {
+            vertical-align: middle;
+            margin-left: 0.5rem;
+        }
+
         small {
-            display: block;
+            &.programme {
+                display: block;
+                margin-top: 10px;
+                font-size: 1.75rem;
+            }
+
+            &.university {
+                display: block;
+                margin-top: 10px;
+                font-size: 1.2rem;
+            }
         }
     }
+
+    .section {
+        margin-top: var(--section-margin);
+        margin-bottom: var(--section-margin);
+        @include mainTransition ();
+
+        &.before-animation {
+            opacity: 0;
+            transform: translateY(var(--section-translateY));
+        }
+
+        .content {
+        a {
+            text-decoration: none;
+            color: $font-color;
+            background-image: linear-gradient($accent-color, $accent-color);
+            background-repeat: no-repeat;
+            background-size: 100% 10%;
+            background-position: 0 95%;
+            transition: 0.35s ease;
+
+            &:hover {
+                border-radius: 2px;
+                color: #495057;
+                background-size: 100% 100%;
+            }
+        }
+
+        @include desktop {
+            padding-left: 40px;
+        }
+
+        &>*:first-child {
+            margin-top: 0px;
+        }
+
+        &>*:last-child {
+            margin-bottom: 0px;
+        }
+
+        p {
+            line-height: 1.7;
+        }
+
+        li {
+            margin-bottom: 1rem;
+        }
+
+        .table-container {
+            div.table-header {
+                display: flex;
+                flex-wrap: nowrap;
+                width: 100%;
+                border-bottom: 1px solid #adb5bd;
+
+                div.term {
+                    font-weight: 600;
+                    flex-grow: 2;
+                }
+
+                & div {
+                    padding: .75rem;
+                }
+            }
+
+            table.table {
+                tbody {
+
+                    th,
+                    td {
+                        border: 0px;
+
+                        &:first-child {
+                            width: 100%;
+                        }
+
+                        &:last-child {
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+        }
+
+        p.tags-heading {
+            margin-bottom: 0.5rem;
+            width: 100%;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0px -0.3rem;
+
+            .tag {
+                display: inline-flex;
+                list-style: none;
+                margin: 0.3rem 0.25rem;
+                padding: 0.25rem 0.75rem;
+                background-color: #343a40;
+                border-radius: 100px;
+                font-size: 1rem;
+            }
+        }
+        }
+    }
+}
+
+footer {
+    small {
+        display: block;
+    }
+}
 }
 
 .overlay {
