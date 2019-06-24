@@ -90,7 +90,7 @@ addEventListener('scroll', function () {
 
     let viewport = navbarHeight + 1;
     let element;
-    while ((element = document.elementFromPoint(pageCenter, viewport).closest(".row.section")) === null) {
+    while ((element = document.elementFromPoint(pageCenter, viewport).closest(".section")) === null) {
         viewport += 100;
     }
     document.querySelector('a.nav-link[href="#' + element.id + '"]').classList.add('active');
