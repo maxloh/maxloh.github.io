@@ -8,7 +8,7 @@
     "terser": "^4.0.0"
   },
   "scripts": {
-    "build": ".\\node_modules\\.bin\\sass .\\assets\\css\\style.scss:.\\assets\\css\\style.css --style=compressed --source-map && cd .\\assets\\js\\ && ..\\..\\node_modules\\.bin\\terser main.js navbar.js gallery.js --compress --mangle reserved=['css'] --toplevel --source-map url='app.js.map' --output app.js"
+    "build": ".\\node_modules\\.bin\\sass .\\assets\\dev\\scss\\style.scss:.\\assets\\css\\style.css --style=compressed --source-map && cd .\\assets\\js\\ && ..\\..\\node_modules\\.bin\\terser ..\\dev\\js\\main.js ..\\dev\\js\\navbar.js ..\\dev\\js\\gallery.js --compress --mangle reserved=['css'] --toplevel --source-map url='app.js.map' --output app.js"
   },
   "repository": {
     "type": "git",
