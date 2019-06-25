@@ -20,7 +20,7 @@ $body-color: $font-color;
 @import "../../../node_modules/bootstrap/scss/utilities/position";
 
 // import PhotoSwipe CSS
-@import "./default-skin";
+@import "../../css/default-skin";
 @import "../../../node_modules/photoswipe/dist/photoswipe";
 
 @import "gallery.scss";

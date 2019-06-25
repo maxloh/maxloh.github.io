@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "npm run css-compile && npm run js-compile",
-    "css-compile": "npx inline-assets .\\node_modules\\photoswipe\\dist\\default-skin\\default-skin.css .\\assets\\dev\\scss\\default-skin.css && npx sass .\\assets\\dev\\scss\\style.scss:.\\assets\\css\\style.css --style=compressed --source-map && del .\\assets\\dev\\scss\\default-skin.css",
+    "css-compile": "npx inline-assets .\\node_modules\\photoswipe\\dist\\default-skin\\default-skin.css .\\assets\\css\\default-skin.css && npx sass .\\assets\\dev\\scss\\style.scss:.\\assets\\css\\style.css --style=compressed --source-map && del .\\assets\\css\\default-skin.css",
     "js-compile": "cd .\\assets\\js\\ && npx terser ..\\..\\node_modules\\photoswipe\\dist\\photoswipe.js ..\\..\\node_modules\\photoswipe\\dist\\photoswipe-ui-default.js ..\\dev\\js\\main.js ..\\dev\\js\\navbar.js ..\\dev\\js\\gallery.js --compress --mangle reserved=['css'] --toplevel --source-map url='app.js.map' --output app.js",
     "watch": "npx npm-run-all --parallel watch-*",
     "watch-css": "npx nodemon --watch assets/dev/scss/ --ext scss --exec \"npm run css-compile\"",
