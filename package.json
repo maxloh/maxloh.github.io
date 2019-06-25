@@ -5,13 +5,18 @@
   "dependencies": {},
   "devDependencies": {
     "bootstrap": "^4.3.1",
+    "nodemon": "^1.19.1",
+    "npm-run-all": "^4.1.5",
     "sass": "^1.20.3",
     "terser": "^4.0.0"
   },
   "scripts": {
     "build": "npm run css-compile && npm run js-compile",
     "css-compile": "npx sass .\\assets\\dev\\scss\\style.scss:.\\assets\\css\\style.css --style=compressed --source-map",
-    "js-compile": "cd .\\assets\\js\\ && npx terser ..\\dev\\js\\main.js ..\\dev\\js\\navbar.js ..\\dev\\js\\gallery.js --compress --mangle reserved=['css'] --toplevel --source-map url='app.js.map' --output app.js"
+    "js-compile": "cd .\\assets\\js\\ && npx terser ..\\dev\\js\\main.js ..\\dev\\js\\navbar.js ..\\dev\\js\\gallery.js --compress --mangle reserved=['css'] --toplevel --source-map url='app.js.map' --output app.js",
+    "watch": "npx npm-run-all --parallel watch-*",
+    "watch-css": "npx nodemon --watch assets/dev/scss/ --ext scss --exec \"npm run css-compile\"",
+    "watch-js": "npx nodemon --watch assets/dev/js/ --ext js --exec \"npm run js-compile\""
   },
   "repository": {
     "type": "git",
