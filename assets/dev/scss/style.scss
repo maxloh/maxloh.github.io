@@ -372,6 +372,16 @@ main {
                 font-size: 1rem;
             }
         }
+
+        .section-item {
+            display: block;
+            width: 70%;
+            margin-right: 5%;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
     }
 }
 

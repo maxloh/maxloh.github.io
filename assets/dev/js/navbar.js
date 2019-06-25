@@ -55,7 +55,7 @@ addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
             let target = document.getElementById((event.target.href).substring((event.target.href).lastIndexOf('#') + 1));
             let offsetTop = target.getBoundingClientRect().top + window.scrollY;
-            let scrollY = offsetTop - navbarHeight - parseInt(cssVar('--navbar-margin'));
+            let scrollY = offsetTop - navbarHeight;
 
             if (css(target, 'opacity') < 1) {
                 let currentTranslateY = css(target, 'transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
