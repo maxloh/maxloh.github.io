@@ -1,25 +1,30 @@
-function openPhotoSwipe (imgElement, galleryClass) {
+import {css} from './functions';
+import * as PhotoSwipe from 'photoswipe'
+import * as PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default'
+
+export const initPhotoSwipe = () => {
+const openPhotoSwipe = (imgElement, galleryClass) => {
     let pswpElement = document.querySelector('.pswp');
 
-    //build items array, record element index
+    // build items array, record element index
     let index = 0;
     let items;
 
     {
         let count = 0;
-        /*imgElement.closest(galleryClass).querySelectorAll('img'): select all img elements on the same level
-          [...nodeList].map(): use spread operator to convert nodeList to array and call the map function,
-          while having better peroformence than Array.from(nodeList).map or Array.prototype.map.call(nodeList, function)
-          https://measurethat.net/Benchmarks/Show/4507/0/arrayprototypemapcall-vs-arraymap */
+        /* imgElement.closest(galleryClass).querySelectorAll('img'): select all img elements on the same level
+           [...nodeList].map(): use spread operator to convert nodeList to array and call the map function,
+           while having better peroformence than Array.from(nodeList).map or Array.prototype.map.call(nodeList, function)
+           https://measurethat.net/Benchmarks/Show/4507/0/arrayprototypemapcall-vs-arraymap */
         items = [...imgElement.closest(galleryClass).querySelectorAll('img')].map(function (element) {
             if (element === imgElement) { index = count; }
             count++;
-            /*msrc: prevent PhotoSwipe displaying grey placeholder*/
+            // msrc: prevent PhotoSwipe displaying grey placeholder
             return { src: element.currentSrc, msrc: element.currentSrc, w: element.naturalWidth, h: element.naturalHeight };
         });
     }
 
-    //define options
+    // define options
     let options = {
         index: index,
         getThumbBoundsFn: function () {
@@ -28,39 +33,38 @@ function openPhotoSwipe (imgElement, galleryClass) {
             return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
         },
         showHideOpacity: true,
-        /*bgOpacity: 0.32 -> Scrim opacity in material design dialogs
-          https://material.io/design/components/dialogs.html#theming */
+        /* bgOpacity: 0.32 -> Scrim opacity in material design dialogs
+           https://material.io/design/components/dialogs.html#theming */
         bgOpacity: 0.32,
         shareEl: false,
         closeElClasses: ['item', 'caption', 'zoom-wrap', 'ui'],
     };
 
-    //Initializes and opens PhotoSwipe
-    pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+    // Initializes and opens PhotoSwipe
+    let pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
     pswp.init();
 
-    //Prevent double shadow of .pswp__img and .pswp__img--placeholder
+    // Prevent double shadow of .pswp__img and .pswp__img--placeholder
     pswp.listen('initialZoomInEnd', function () {
         css('.pswp__img--placeholder', { 'display': 'none' });
     });
 
-    pswp.listen('close', function() {
-        css('body', {'overflow': ''});
+    pswp.listen('close', function () {
+        css('body', { 'overflow': '' });
     });
 }
 
-//Add PhotoSwipe (.pswp) element to page
-document.addEventListener("DOMContentLoaded", function () {
     [...document.querySelectorAll('.gallery-item img')].forEach(function (element) {
         element.onclick = function (event) {
-            //Prevent browser opening href links
+            // Prevent browser opening href links
             event.preventDefault();
             openPhotoSwipe(event.target, '.gallery');
-            css('body', {'overflow': 'hidden'});
+            css('body', { 'overflow': 'hidden' });
         }
     });
 
-    document.body.insertAdjacentHTML('beforeend', 
+    // Add PhotoSwipe (.pswp) element to page
+    document.body.insertAdjacentHTML('beforeend',
         '<!-- Root element of PhotoSwipe. Must have class pswp. -->' +
         '<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">' +
         '' +
@@ -128,4 +132,4 @@ document.addEventListener("DOMContentLoaded", function () {
         '' +
         '</div>'
     );
-});
+};

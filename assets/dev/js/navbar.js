@@ -1,6 +1,9 @@
-/* ----------------------------------------------------------------------------------------------------
-   Globel varieables
-   ---------------------------------------------------------------------------------------------------- */
+import {css} from './functions';
+
+export const initNavbar = () => {
+/*
+ * Globel varieables
+ */
 
 var deviceType = null;
 if (window.innerWidth < 768) deviceType = 'mobile'; // if mobile site is displayed, breakpoint: 768
@@ -8,17 +11,13 @@ else deviceType = 'desktop'; // if desktop site is displayed
 
 var navbar;
 var navbarHeight;
-addEventListener('DOMContentLoaded', function () {
     navbar = document.getElementById('navbar');
     navbarHeight = navbar.getBoundingClientRect().height;
-});
 
-/* ----------------------------------------------------------------------------------------------------
-   Let text of .nav-item stick to the edge of its parent element (.container), 
-   when navbar is not sticky
-   ---------------------------------------------------------------------------------------------------- */
+/*
+ * Let text of .nav-item stick to the edge of its parent element (.container), when navbar is not sticky
+ */
 
-addEventListener('DOMContentLoaded', function () {
     var navbarObserver = new MutationObserver(function () {
         // if one of the .nav-link is active, meaning that navbar is sticking to top of the page
         if (deviceType === 'desktop') {
@@ -41,15 +40,12 @@ addEventListener('DOMContentLoaded', function () {
             attributeFilter: ['class']
         });
     });
-});
 
+/* 
+ * Offset jump links (html anchors) for the sticky navbar and amination, 
+ * pointing them to the correct position
+ */
 
-/* ----------------------------------------------------------------------------------------------------
-   Offset jump links (html anchors) for the sticky navbar and amination, 
-   pointing them to the correct position
-   ---------------------------------------------------------------------------------------------------- */
-
-addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('#navbar a.nav-link').forEach(function (element) {
         element.addEventListener('click', function (event) {
             event.preventDefault();
@@ -73,12 +69,10 @@ addEventListener('DOMContentLoaded', function () {
             }
         })
     });
-});
 
-
-/* ----------------------------------------------------------------------------------------------------
-   Add scrollapy to page
-   ---------------------------------------------------------------------------------------------------- */
+/* 
+ * Add scrollapy to page
+ */
 
 // Horizontal center of the page
 var pageCenter = Math.ceil(window.innerWidth / 2);
@@ -95,3 +89,4 @@ addEventListener('scroll', function () {
     }
     document.querySelector('a.nav-link[href="#' + element.id + '"]').classList.add('active');
 });
+};
