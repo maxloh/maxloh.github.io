@@ -1,6 +1,6 @@
+import * as PhotoSwipe from 'photoswipe';
+import * as PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default';
 import { css } from './functions';
-import * as PhotoSwipe from 'photoswipe'
-import * as PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default'
 
 export const initPhotoSwipe = () => {
     const openPhotoSwipe = (imgElement, galleryClass) => {
