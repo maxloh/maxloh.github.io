@@ -7,9 +7,6 @@ module.exports = {
         filename: 'app.bundle.js',
         path: path.resolve(__dirname, './assets/js/'),
     },
-    optimization: {
-        minimizer: [new TerserPlugin({ sourceMap: true })],
-    },
     mode: 'production',
     devtool: 'source-map'
 };
