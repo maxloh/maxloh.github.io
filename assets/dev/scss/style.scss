@@ -17,13 +17,12 @@ $body-color: $font-color;
 @import "../../../node_modules/bootstrap/scss/navbar";
 @import "../../../node_modules/bootstrap/scss/reboot";
 @import "../../../node_modules/bootstrap/scss/tables";
-@import "../../../node_modules/bootstrap/scss/utilities/position";
 
 // import PhotoSwipe CSS
 @import "../../css/default-skin";
 @import "../../../node_modules/photoswipe/dist/photoswipe";
 
-@import "gallery.scss";
+@import "gallery";
 @import "latolatinfonts";
 
 @mixin mobile {
@@ -162,6 +161,23 @@ nav.navbar {
     margin: var(--navbar-margin) var(--navbar-strech);
     padding-right: calc(-1 * var(--navbar-strech));
     padding-left: calc(-1 * var(--navbar-strech));
+    z-index: 1000;
+
+    @include mobile {
+        @include mainTransition ();
+        position: sticky;
+        top: 0;
+    }
+
+    @include desktop {
+        position: fixed;
+        bottom: 0;
+        margin-left: calc(var(--navbar-strech) - 1rem);
+        margin-bottom: 0;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        @include mainTransition (margin-left 250ms ease);
+    }
 
     &.before-animation {
         opacity: 0;
@@ -177,17 +193,6 @@ nav.navbar {
             // 8 dp shadow in material design
             box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
         }
-    }
-
-    @include mobile {
-        @include mainTransition ();
-    }
-
-    @include desktop {
-        margin-left: calc(var(--navbar-strech) - 1rem);
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-        @include mainTransition (margin-left 250ms ease);
     }
 
     ul.nav.nav-pills {
