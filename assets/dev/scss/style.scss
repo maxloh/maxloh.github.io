@@ -9,19 +9,19 @@ $body-bg: $base-color;
 $body-color: $font-color;
 
 // import Bootstrap CSS
-@import "../../../node_modules/bootstrap/scss/functions";
-@import "../../../node_modules/bootstrap/scss/variables";
-@import "../../../node_modules/bootstrap/scss/mixins";
-@import "../../../node_modules/bootstrap/scss/bootstrap-grid";
-@import "../../../node_modules/bootstrap/scss/nav";
-@import "../../../node_modules/bootstrap/scss/navbar";
-@import "../../../node_modules/bootstrap/scss/reboot";
-@import "../../../node_modules/bootstrap/scss/tables";
-@import "../../../node_modules/bootstrap/scss/utilities/position";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/bootstrap-grid";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/navbar";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/tables";
+@import "~bootstrap/scss/utilities/position";
 
 // import PhotoSwipe CSS
-@import "../../css/default-skin";
-@import "../../../node_modules/photoswipe/dist/photoswipe";
+@import "~photoswipe/dist/default-skin/default-skin";
+@import "~photoswipe/dist/photoswipe";
 
 @import "gallery.scss";
 @import "latolatinfonts";
