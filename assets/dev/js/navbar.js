@@ -5,14 +5,9 @@ export const initNavbar = () => {
      * Globel varieables
      */
 
-    var deviceType = null;
-    if (window.innerWidth < 768) deviceType = 'mobile'; // if mobile site is displayed, breakpoint: 768
-    else deviceType = 'desktop'; // if desktop site is displayed
-
-    var navbar;
-    var navbarHeight;
-    navbar = document.getElementById('navbar');
-    navbarHeight = navbar.getBoundingClientRect().height;
+    const deviceType = (window.innerWidth < 768) ? 'mobile' : 'desktop';
+    const navbar = document.getElementById('navbar');
+    const navbarHeight = navbar.getBoundingClientRect().height;
 
     /*
      * Let text of .nav-item stick to the edge of its parent element (.container), when navbar is not sticky
@@ -75,18 +70,20 @@ export const initNavbar = () => {
      */
 
     // Horizontal center of the page
-    var pageCenter = Math.ceil(window.innerWidth / 2);
+    const pageCenter = Math.ceil(window.innerWidth / 2);
 
-    addEventListener('scroll', function () {
-        var activeLink = document.querySelector('a.nav-link.active')
+    addEventListener('scroll', () => {
+        if (deviceType === 'mobile' && navbar.getBoundingClientRect().top !== 0) return;
+
+        let activeLink = document.querySelector('a.nav-link.active');
         if (activeLink) activeLink.classList.remove('active');
-        if (navbar.getBoundingClientRect().top !== 0) return;
 
-        let viewport = navbarHeight + 1;
         let element;
+        let viewport = deviceType === 'desktop' ? 1 : navbarHeight + 1;
         while ((element = document.elementFromPoint(pageCenter, viewport).closest(".section")) === null) {
             viewport += 100;
         }
+        console.log(element);
         document.querySelector('a.nav-link[href="#' + element.id + '"]').classList.add('active');
     });
-};
+}
