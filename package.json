@@ -10,11 +10,9 @@
   "devDependencies": {
     "css-loader": "^3.0.0",
     "file-loader": "^4.0.0",
-    "inline-assets": "^1.4.3",
     "mini-css-extract-plugin": "^0.7.0",
     "node-sass": "^4.12.0",
-    "nodemon": "^1.19.1",
-    "npm-run-all": "^4.1.5",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "resolve-url-loader": "^3.1.0",
     "sass-loader": "^7.1.0",
     "url-loader": "^2.0.1",
@@ -22,12 +20,8 @@
     "webpack-cli": "^3.3.5"
   },
   "scripts": {
-    "build": "npm run css-compile && npm run js-compile",
-    "css-compile": "npx inline-assets .\\node_modules\\photoswipe\\dist\\default-skin\\default-skin.css .\\assets\\css\\default-skin.css && npx sass .\\assets\\dev\\scss\\style.scss:.\\assets\\css\\style.css --style=compressed --source-map && del .\\assets\\css\\default-skin.css",
-    "js-compile": "webpack",
-    "watch": "npx npm-run-all --parallel watch-*",
-    "watch-css": "npx nodemon --watch assets/dev/scss/ --ext scss --exec \"npm run css-compile\"",
-    "watch-js": "npx nodemon --watch assets/dev/js/ --ext js --exec \"npm run js-compile\""
+    "build": "webpack",
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",

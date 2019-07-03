@@ -1,5 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
     entry: ['./assets/dev/js/app.js', './assets/dev/scss/style.scss'],
@@ -9,28 +10,17 @@ module.exports = {
     },
     mode: 'production',
     devtool: 'source-map',
+    optimization: {
+        minimizer: [new OptimizeCSSAssetsPlugin({ cssProcessorOptions: { map: { inline: false } } })],
+    },
     module: {
         rules: [{
                 test: /\.scss$/,
-                use: [{
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {}
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {}
-                    },
-                    {
-                        loader: 'resolve-url-loader',
-                        options: {}
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            sourceMap: true,
-                            sourceMapContents: false
-                        }
-                    }
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'resolve-url-loader',
+                    { loader: 'sass-loader', options: { sourceMap: true, sourceMapContents: false } }
                 ]
             },
             {
