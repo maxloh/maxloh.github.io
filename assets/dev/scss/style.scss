@@ -19,7 +19,7 @@ $body-color: $font-color;
 @import "../../../node_modules/bootstrap/scss/tables";
 
 // import PhotoSwipe CSS
-@import "../../css/default-skin";
+@import "../../../node_modules/photoswipe/dist/default-skin/default-skin";
 @import "../../../node_modules/photoswipe/dist/photoswipe";
 
 @import "gallery";

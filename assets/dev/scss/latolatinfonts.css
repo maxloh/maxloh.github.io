@@ -1,6 +1,6 @@
 /* Webfont: LatoLatin-Black */@font-face {
     font-family: 'Lato';
-    src: url('../font/LatoLatin-Black.woff2');
+    src: url('/assets/font/LatoLatin-Black.woff2');
     font-style: normal;
     font-weight: 900;
     text-rendering: optimizeLegibility;
@@ -8,7 +8,7 @@
 
 /* Webfont: LatoLatin-BlackItalic */@font-face {
     font-family: 'Lato';
-    src: url('../font/LatoLatin-BlackItalic.woff2');
+    src: url('/assets/font/LatoLatin-BlackItalic.woff2');
     font-style: italic;
     font-weight: 900;
     text-rendering: optimizeLegibility;
@@ -16,7 +16,7 @@
 
 /* Webfont: LatoLatin-Bold */@font-face {
     font-family: 'Lato';
-    src: url('../font/LatoLatin-Bold.woff2');
+    src: url('/assets/font/LatoLatin-Bold.woff2');
     font-style: normal;
     font-weight: 700;
     text-rendering: optimizeLegibility;
@@ -24,7 +24,7 @@
 
 /* Webfont: LatoLatin-BoldItalic */@font-face {
     font-family: 'Lato';
-    src: url('../font/LatoLatin-BoldItalic.woff2');
+    src: url('/assets/font/LatoLatin-BoldItalic.woff2');
     font-style: italic;
     font-weight: 700;
     text-rendering: optimizeLegibility;
@@ -32,7 +32,7 @@
 
 /* Webfont: LatoLatin-Hairline */@font-face {
     font-family: 'Lato';
-    src: url('../font/LatoLatin-Hairline.woff2');
+    src: url('/assets/font/LatoLatin-Hairline.woff2');
     font-style: normal;
     font-weight: 100;
     text-rendering: optimizeLegibility;
@@ -40,7 +40,7 @@
 
 /* Webfont: LatoLatin-HairlineItalic */@font-face {
     font-family: 'Lato';
-    src: url('../font/LatoLatin-HairlineItalic.woff2');
+    src: url('/assets/font/LatoLatin-HairlineItalic.woff2');
     font-style: italic;
     font-weight: 100;
     text-rendering: optimizeLegibility;
@@ -48,7 +48,7 @@
 
 /* Webfont: LatoLatin-Heavy */@font-face {
     font-family: 'Lato';
-    src: url('../font/LatoLatin-Heavy.woff2');
+    src: url('/assets/font/LatoLatin-Heavy.woff2');
     font-style: normal;
     font-weight: 800;
     text-rendering: optimizeLegibility;
@@ -56,7 +56,7 @@
 
 /* Webfont: LatoLatin-HeavyItalic */@font-face {
     font-family: 'Lato';
-    src: url('../font/LatoLatin-HeavyItalic.woff2');
+    src: url('/assets/font/LatoLatin-HeavyItalic.woff2');
     font-style: italic;
     font-weight: 800;
     text-rendering: optimizeLegibility;
@@ -64,7 +64,7 @@
 
 /* Webfont: LatoLatin-Italic */@font-face {
     font-family: 'Lato';
-    src: url('../font/LatoLatin-Italic.woff2');
+    src: url('/assets/font/LatoLatin-Italic.woff2');
     font-style: italic;
     font-weight: 400;
     text-rendering: optimizeLegibility;
@@ -72,7 +72,7 @@
 
 /* Webfont: LatoLatin-Light */@font-face {
     font-family: 'Lato';
-    src: url('../font/LatoLatin-Light.woff2');
+    src: url('/assets/font/LatoLatin-Light.woff2');
     font-style: normal;
     font-weight: 300;
     text-rendering: optimizeLegibility;
@@ -80,7 +80,7 @@
 
 /* Webfont: LatoLatin-LightItalic */@font-face {
     font-family: 'Lato';
-    src: url('../font/LatoLatin-LightItalic.woff2');
+    src: url('/assets/font/LatoLatin-LightItalic.woff2');
     font-style: italic;
     font-weight: 300;
     text-rendering: optimizeLegibility;
@@ -88,7 +88,7 @@
 
 /* Webfont: LatoLatin-Medium */@font-face {
     font-family: 'Lato';
-    src: url('../font/LatoLatin-Medium.woff2');
+    src: url('/assets/font/LatoLatin-Medium.woff2');
     font-style: normal;
     font-weight: 500;
     text-rendering: optimizeLegibility;
@@ -96,7 +96,7 @@
 
 /* Webfont: LatoLatin-MediumItalic */@font-face {
     font-family: 'Lato';
-    src: url('../font/LatoLatin-MediumItalic.woff2');
+    src: url('/assets/font/LatoLatin-MediumItalic.woff2');
     font-style: italic;
     font-weight: 500;
     text-rendering: optimizeLegibility;
@@ -104,7 +104,7 @@
 
 /* Webfont: LatoLatin-Regular */@font-face {
     font-family: 'Lato';
-    src: url('../font/LatoLatin-Regular.woff2');
+    src: url('/assets/font/LatoLatin-Regular.woff2');
     font-style: normal;
     font-weight: 400;
     text-rendering: optimizeLegibility;
@@ -112,7 +112,7 @@
 
 /* Webfont: LatoLatin-Semibold */@font-face {
     font-family: 'Lato';
-    src: url('../font/LatoLatin-Semibold.woff2');
+    src: url('/assets/font/LatoLatin-Semibold.woff2');
     font-style: normal;
     font-weight: 600;
     text-rendering: optimizeLegibility;
@@ -120,7 +120,7 @@
 
 /* Webfont: LatoLatin-SemiboldItalic */@font-face {
     font-family: 'Lato';
-    src: url('../font/LatoLatin-SemiboldItalic.woff2');
+    src: url('/assets/font/LatoLatin-SemiboldItalic.woff2');
     font-style: italic;
     font-weight: 600;
     text-rendering: optimizeLegibility;
@@ -128,7 +128,7 @@
 
 /* Webfont: LatoLatin-Thin */@font-face {
     font-family: 'Lato';
-    src: url('../font/LatoLatin-Thin.woff2');
+    src: url('/assets/font/LatoLatin-Thin.woff2');
     font-style: normal;
     font-weight: 200;
     text-rendering: optimizeLegibility;
@@ -136,7 +136,7 @@
 
 /* Webfont: LatoLatin-ThinItalic */@font-face {
     font-family: 'Lato';
-    src: url('../font/LatoLatin-ThinItalic.woff2');
+    src: url('/assets/font/LatoLatin-ThinItalic.woff2');
     font-style: italic;
     font-weight: 200;
     text-rendering: optimizeLegibility;
