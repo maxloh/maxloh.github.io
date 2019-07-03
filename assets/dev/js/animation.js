@@ -7,23 +7,23 @@ export const initAnimation = () => {
     const section = document.querySelectorAll('main>.section');
 
     if (typeof IntersectionObserver !== 'undefined') {
-        const animationObserver = new IntersectionObserver(function (entries, animationObserver) {
-            entries.forEach(function (entry) {
-                // Animate element when it enter viewport
-                if (entry.intersectionRatio > 0) {
-                    animationObserver.unobserve(entry.target);
-                    entry.target.classList.remove('before-animation');
-                }
-            });
+    const animationObserver = new IntersectionObserver(function (entries, animationObserver) {
+        entries.forEach(function (entry) {
+            // Animate element when it enter viewport
+            if (entry.intersectionRatio > 0) {
+                animationObserver.unobserve(entry.target);
+                entry.target.classList.remove('before-animation');
+            }
         });
+    });
 
-        navbar.classList.remove('before-animation');
-        // observe 'main>.section' and animate #navbar on page load
-        setTimeout(function () {
-            section.forEach(function (element) {
-                animationObserver.observe(element);
-            });
-        }, delay);
+    navbar.classList.remove('before-animation');
+    // observe 'main>.section' and animate #navbar on page load
+    setTimeout(function () {
+        section.forEach(function (element) {
+            animationObserver.observe(element);
+        });
+    }, delay);
     }
 
     // Add partial support for old browsers that do not support IntersectionObserver, e.g. Safari
