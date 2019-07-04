@@ -83,7 +83,6 @@ export const initNavbar = () => {
         while ((element = document.elementFromPoint(pageCenter, viewport).closest(".section")) === null) {
             viewport += 100;
         }
-        console.log(element);
         document.querySelector('a.nav-link[href="#' + element.id + '"]').classList.add('active');
     });
 }
