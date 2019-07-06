@@ -44,9 +44,9 @@ export const initNavbar = () => {
     document.querySelectorAll('#navbar a.nav-link').forEach(function (element) {
         element.addEventListener('click', function (event) {
             event.preventDefault();
-            let target = document.getElementById((event.target.href).substring((event.target.href).lastIndexOf('#') + 1));
+            let target = document.getElementById(event.target.href.split('#')[1]);
             let offsetTop = target.getBoundingClientRect().top + window.scrollY;
-            let scrollY = offsetTop - navbarHeight;
+            let scrollY = (deviceType === 'mobile') ? (offsetTop - navbarHeight) : (offsetTop - parseInt(getComputedStyle(target).marginTop));
 
             if (css(target, 'opacity') < 1) {
                 let currentTranslateY = css(target, 'transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
