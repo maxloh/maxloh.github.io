@@ -1,8 +1,9 @@
 $accent-color: #63e6be;
-$base-color: #212529;
-$font-color: #adb5bd;
+$base-color: #FFFFFF;
+$font-color: #000000;
 $desktop-width: 768px;
 $navbar-padding: 15px;
+$navbar-height: 1.2rem*1.5+0.5rem*2+1rem*2;
 
 // Override Bootstrap's variables
 $body-bg: $base-color;
@@ -31,13 +32,6 @@ $body-color: $font-color;
     }
 }
 
-@mixin tablet {
-    @media (min-width: $desktop-width) and (max-width: 992px - 1) {
-        @content;
-    }
-}
-
-/* Desktop and tablet */
 @mixin desktop {
     @media (min-width: $desktop-width) {
         @content;
@@ -59,16 +53,10 @@ $body-color: $font-color;
         --navbar-strech: calc(-1 * #{$navbar-padding});
     }
 
-    @include tablet {
-        /* !important: overwrite desktop's value */
-        --container-width: 720px !important;
-    }
-
     @include desktop {
         --main-margin: 70px;
         --navbar-margin: 25px;
         --section-margin: 70px;
-        --navbar-strech: calc(-1 * ((100vw - var(--container-width)) / 2 + #{$navbar-padding}));
         --container-width: 900px;
     }
 }
@@ -158,22 +146,22 @@ body {
 
 nav.navbar {
     background-color: $base-color;
-    margin: var(--navbar-margin) var(--navbar-strech);
-    padding-right: calc(-1 * var(--navbar-strech));
-    padding-left: calc(-1 * var(--navbar-strech));
+    width: 100%;
     z-index: 1000;
 
     @include mobile {
         @include mainTransition ();
         position: sticky;
         top: 0;
+        margin: var(--navbar-margin) var(--navbar-strech);
+        padding-right: calc(-1 * var(--navbar-strech));
+        padding-left: calc(-1 * var(--navbar-strech));    
     }
 
     @include desktop {
         position: fixed;
         bottom: 0;
-        margin-left: calc(var(--navbar-strech) - 1rem);
-        margin-bottom: 0;
+        margin-top: var(--navbar-margin);
         padding-top: 1rem;
         padding-bottom: 1rem;
         @include mainTransition (margin-left 250ms ease);
@@ -240,7 +228,14 @@ nav.navbar {
 }
 
 main {
-    margin: var(--main-margin) 0px;
+
+    @include mobile {
+        margin: var(--main-margin) 0px;
+    }
+
+    @include desktop {
+        margin: var(--main-margin);
+    }
 
     h1 {
         font-weight: 300;
@@ -275,13 +270,13 @@ main {
         }
     }
 
-    .section {
+    section {
         margin-top: var(--section-margin);
         margin-bottom: var(--section-margin);
         @include mainTransition ();
 
         @include desktop {
-            height: calc(100vh - (1.2rem*1.5 + 0.5rem*2 + 1rem*2));
+            min-height: calc(100vh - #{$navbar-height});
             display: flex;
             overflow-y: scroll;
             flex-direction: column;
@@ -376,19 +371,21 @@ main {
                 list-style: none;
                 margin: 0.3rem 0.25rem;
                 padding: 0.25rem 0.75rem;
-                background-color: #343a40;
+                background-color: #E0E0E0;
                 border-radius: 100px;
                 font-size: 1rem;
             }
         }
 
-        .section-item {
-            display: block;
-            width: 70%;
-            margin-right: 5%;
+        @include desktop {
+            .section-item {
+                display: block;
+                width: 70%;
+                margin-right: 5%;
 
-            &:last-child {
-                margin-right: 0;
+                &:last-child {
+                    margin-right: 0;
+                }
             }
         }
     }

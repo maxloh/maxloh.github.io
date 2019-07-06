@@ -4,7 +4,7 @@ import 'intersection-observer';
 export const initAnimation = () => {
     const delay = 400;
     const navbar = document.getElementById('navbar');
-    const section = [...document.getElementsByClassName('section')];
+    const section = [...document.getElementsByTagName('section')];
 
     const animationObserver = new IntersectionObserver(function (entries, animationObserver) {
         entries.forEach(function (entry) {
