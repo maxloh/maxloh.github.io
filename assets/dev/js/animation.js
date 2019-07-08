@@ -17,7 +17,7 @@ export const initAnimation = () => {
     });
 
     navbar.classList.remove('before-animation');
-    // observe 'main>.section' and animate #navbar on page load
+    // observe 'main>section' and animate #navbar on page load
     setTimeout(function () {
         section.forEach(function (element) {
             animationObserver.observe(element);

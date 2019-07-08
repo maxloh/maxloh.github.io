@@ -80,9 +80,11 @@ export const initNavbar = () => {
 
         let element;
         let viewport = deviceType === 'desktop' ? 1 : navbarHeight + 1;
-        while ((element = document.elementFromPoint(pageCenter, viewport).closest(".section")) === null) {
+        do {
+            element = document.elementFromPoint(pageCenter, viewport).closest("section");
             viewport += 100;
-        }
+        } while (element === null)
+
         document.querySelector('a.nav-link[href="#' + element.id + '"]').classList.add('active');
     });
 }
