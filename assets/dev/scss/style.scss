@@ -155,16 +155,17 @@ nav.navbar {
         top: 0;
         margin: var(--navbar-margin) var(--navbar-strech);
         padding-right: calc(-1 * var(--navbar-strech));
-        padding-left: calc(-1 * var(--navbar-strech));    
+        padding-left: calc(-1 * var(--navbar-strech));
     }
 
     @include desktop {
         position: fixed;
         bottom: 0;
         margin-top: var(--navbar-margin);
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+        padding: 1rem;
         @include mainTransition (margin-left 250ms ease);
+        // 8 dp shadow in material design
+        box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
     }
 
     &.before-animation {
@@ -172,14 +173,10 @@ nav.navbar {
         transform: translateY(var(--navbar-translateY));
     }
 
-    &.sticky {
-        // 4 dp shadow in material design
-        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
-
-        @include desktop {
-            margin-left: var(--navbar-strech);
-            // 8 dp shadow in material design
-            box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+    @include mobile {
+        &.sticky {
+            // 4 dp shadow in material design
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
         }
     }
 
@@ -271,8 +268,7 @@ main {
     }
 
     section {
-        margin-top: var(--section-margin);
-        margin-bottom: var(--section-margin);
+        margin: var(--section-margin) 0;
         @include mainTransition ();
 
         @include desktop {
@@ -364,7 +360,6 @@ main {
         .tags-container {
             display: flex;
             flex-wrap: wrap;
-            margin: 0px -0.3rem;
 
             .tag {
                 display: inline-flex;
@@ -392,6 +387,19 @@ main {
 }
 
 footer {
+    @include desktop {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        z-index: 1100;
+        height: $navbar-height;
+        padding-right: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        flex-direction: column;
+    }
+
     small {
         display: block;
     }
