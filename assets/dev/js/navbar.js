@@ -10,18 +10,12 @@ export const initNavbar = () => {
     const navbarHeight = navbar.getBoundingClientRect().height;
 
     /*
-     * Let text of .nav-item stick to the edge of its parent element (.container), when navbar is not sticky
+     * Add shadow to navbar when it is sticky
      */
 
     var navbarObserver = new MutationObserver(function () {
         // if one of the .nav-link is active, meaning that navbar is sticking to top of the page
-        if (deviceType === 'desktop') {
-            if (document.querySelector('a.nav-link.active')) {
-                navbar.classList.add('sticky');
-            } else {
-                navbar.classList.remove('sticky');
-            }
-        } else {
+        if (deviceType === 'mobile') {
             if (document.querySelector('a.nav-link.active')) {
                 navbar.classList.add('sticky');
             } else {
@@ -48,15 +42,14 @@ export const initNavbar = () => {
             let offsetTop = target.getBoundingClientRect().top + window.scrollY;
             let scrollY = (deviceType === 'mobile') ? (offsetTop - navbarHeight) : (offsetTop - parseInt(getComputedStyle(target).marginTop));
 
+            // If animation of that element has not yet completed yet
             if (css(target, 'opacity') < 1) {
                 let currentTranslateY = css(target, 'transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
                 window.scroll({
                     top: Math.ceil(scrollY) - Math.floor(currentTranslateY),
                     behavior: 'smooth'
                 });
-            }
-            // If animation of that element has been completed
-            else {
+            } else {
                 window.scroll({
                     top: Math.ceil(scrollY),
                     behavior: 'smooth'
@@ -66,25 +59,56 @@ export const initNavbar = () => {
     });
 
     /* 
-     * Add scrollapy to page
+     * Scrollapy and desktop section navigation
      */
 
     // Horizontal center of the page
     const pageCenter = Math.ceil(window.innerWidth / 2);
-
-    addEventListener('scroll', () => {
-        if (deviceType === 'mobile' && navbar.getBoundingClientRect().top !== 0) return;
-
-        let activeLink = document.querySelector('a.nav-link.active');
-        if (activeLink) activeLink.classList.remove('active');
-
+    const getCurrentSection = () => {
         let element;
         let viewport = deviceType === 'desktop' ? 1 : navbarHeight + 1;
+        console.log(pageCenter + ', ' +viewport);
         do {
             element = document.elementFromPoint(pageCenter, viewport).closest("section");
             viewport += 100;
-        } while (element === null)
+        } while (element === null);
+        console.log(element);
+        return element;
+    };
+    let previousScrollY = window.scrollY;
 
-        document.querySelector('a.nav-link[href="#' + element.id + '"]').classList.add('active');
+    addEventListener('scroll', () => {
+        // Add scrollapy to page
+        if (deviceType === 'mobile' && navbar.getBoundingClientRect().top !== 0) return;
+        let activeLink = document.querySelector('a.nav-link.active');
+        if (activeLink) activeLink.classList.remove('active');
+        document.querySelector('a.nav-link[href="#' + getCurrentSection().id + '"]').classList.add('active');
+
+        // Scroll to next/previous section on scroll on desktop
+        // if (deviceType === 'desktop') {
+        //     console.log(window.scrollY + ' ' + previousScrollY);
+        //     if (window.screenY > previousScrollY) {
+        //         let nextSection = getCurrentSection().nextSibling;
+        //         do {nextSection = getCurrentSection().nextSibling;} while (nextSection.tagName !== 'section');
+        //         console.log(nextSection);
+        //         if (nextSection && nextSection.getBoundingClientRect().top < window.scrollY + window.innerHeight - navbarHeight) {
+        //             window.scroll({
+        //                 top: nextSection.getBoundingClientRect().top,
+        //                 behavior: 'smooth'
+        //             });
+        //         }
+        //     } else {
+        //         let previousSection;
+        //         do {previousSection = getCurrentSection().previousSibling;} while (previousSection.tagName !== 'section');
+        //         console.log(previousSection);
+        //         if (previousSection && previousSection.getBoundingClientRect().bottom < window.scrollY) {
+        //             window.scroll({
+        //                 top: previousSection.getBoundingClientRect().top,
+        //                 behavior: 'smooth'
+        //             });
+        //         }
+        //     }
+        //     previousScrollY = window.scrollY;
+        // }
     });
 }
