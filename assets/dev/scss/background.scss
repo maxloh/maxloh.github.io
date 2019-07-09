@@ -1,0 +1,199 @@
+/*!
+// Copyright 2015 The Chromium Authors. All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are
+// met:
+//
+//    * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+//    * Redistributions in binary form must reproduce the above
+// copyright notice, this list of conditions and the following disclaimer
+// in the documentation and/or other materials provided with the
+// distribution.
+//    * Neither the name of Google Inc. nor the names of its
+// contributors may be used to endorse or promote products derived from
+// this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+*/
+
+@keyframes blue-circle-anim-x {
+    50% {
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateX(44px);
+    }
+}
+
+@keyframes blue-circle-anim-y {
+    50% {
+        animation-timing-function: cubic-bezier(0.55, 0, 0.2, 1);
+        transform: translateY(17px);
+    }
+}
+
+@keyframes green-rectangle-anim {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes red-triangle-anim {
+    50% {
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateY(25px) rotate(-53deg);
+    }
+}
+
+@keyframes yellow-semicircle-anim {
+    40% {
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateY(40px) rotate(-1deg);
+    }
+}
+
+@keyframes grey-rounded-rectangle-anim {
+    65% {
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateY(-48px) rotate(-75deg);
+    }
+}
+
+/* The container is necessary in order for :host to hide overflowing SVGs
+ correctly without disturbing their positions. */
+#container {
+    height: 100%;
+    left: 50%;
+    min-height: 700px;
+    min-width: 1024px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+
+#container>span {
+    position: absolute;
+}
+
+#blue-circle-container {
+    animation: blue-circle-anim-x 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    left: calc(13% - 50px);
+    /* Relative to #yellow-dots. */
+    top: calc(18% - 26px);
+    /* Relative to #yellow-dots. */
+}
+
+#blue-circle-container::after {
+    $blue-circle-container: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDMiIGhlaWdodD0iNDMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGN4PSIyMS41IiBjeT0iMjEuNSIgcj0iMjEuNSIvPjwvc3ZnPgo=") no-repeat top left;
+    -webkit-mask: $blue-circle-container;
+    mask: $blue-circle-container;
+    animation: blue-circle-anim-y 9s cubic-bezier(0.25, 0, 0.2, 1) infinite;
+    background-color: rgb(26, 115, 232);
+    content: ' ';
+    /* Content needs to be non-empty */
+    height: 43px;
+    position: absolute;
+    width: 43px;
+}
+
+#yellow-dots {
+    $yellow-dots: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzYiIGhlaWdodD0iNTciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbC1ydWxlPSJldmVub2RkIj48Y2lyY2xlIGN4PSIxNCIgY3k9IjEzIiByPSIyIi8+PGNpcmNsZSBjeD0iMTQiIGN5PSIyIiByPSIyIi8+PGNpcmNsZSBjeD0iMTQiIGN5PSIyMyIgcj0iMiIvPjxjaXJjbGUgY3g9IjE0IiBjeT0iMzQiIHI9IjIiLz48Y2lyY2xlIGN4PSIxNCIgY3k9IjQ1IiByPSIyIi8+PGNpcmNsZSBjeD0iMTQiIGN5PSI1NSIgcj0iMiIvPjxjaXJjbGUgY3g9IjIiIGN5PSIxMyIgcj0iMiIvPjxjaXJjbGUgY3g9IjIiIGN5PSIyIiByPSIyIi8+PGNpcmNsZSBjeD0iMiIgY3k9IjIzIiByPSIyIi8+PGNpcmNsZSBjeD0iMiIgY3k9IjM0IiByPSIyIi8+PGNpcmNsZSBjeD0iMiIgY3k9IjQ1IiByPSIyIi8+PGNpcmNsZSBjeD0iMiIgY3k9IjU1IiByPSIyIi8+PGNpcmNsZSBjeD0iMjYiIGN5PSIxMyIgcj0iMiIvPjxjaXJjbGUgY3g9IjI2IiBjeT0iMiIgcj0iMiIvPjxjaXJjbGUgY3g9IjI2IiBjeT0iMjMiIHI9IjIiLz48Y2lyY2xlIGN4PSIyNiIgY3k9IjM0IiByPSIyIi8+PGNpcmNsZSBjeD0iMjYiIGN5PSI0NSIgcj0iMiIvPjxjaXJjbGUgY3g9IjI2IiBjeT0iNTUiIHI9IjIiLz48Y2lyY2xlIGN4PSIzOCIgY3k9IjEzIiByPSIyIi8+PGNpcmNsZSBjeD0iMzgiIGN5PSIyIiByPSIyIi8+PGNpcmNsZSBjeD0iMzgiIGN5PSIyMyIgcj0iMiIvPjxjaXJjbGUgY3g9IjM4IiBjeT0iMzQiIHI9IjIiLz48Y2lyY2xlIGN4PSIzOCIgY3k9IjQ1IiByPSIyIi8+PGNpcmNsZSBjeD0iMzgiIGN5PSI1NSIgcj0iMiIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iMTMiIHI9IjIiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjIiIHI9IjIiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjIzIiByPSIyIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSIzNCIgcj0iMiIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNDUiIHI9IjIiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjU1IiByPSIyIi8+PGNpcmNsZSBjeD0iNjIiIGN5PSIxMyIgcj0iMiIvPjxjaXJjbGUgY3g9IjYyIiBjeT0iMiIgcj0iMiIvPjxjaXJjbGUgY3g9IjYyIiBjeT0iMjMiIHI9IjIiLz48Y2lyY2xlIGN4PSI2MiIgY3k9IjM0IiByPSIyIi8+PGNpcmNsZSBjeD0iNjIiIGN5PSI0NSIgcj0iMiIvPjxjaXJjbGUgY3g9IjYyIiBjeT0iNTUiIHI9IjIiLz48Y2lyY2xlIGN4PSI3NCIgY3k9IjEzIiByPSIyIi8+PGNpcmNsZSBjeD0iNzQiIGN5PSIyIiByPSIyIi8+PGNpcmNsZSBjeD0iNzQiIGN5PSIyMyIgcj0iMiIvPjxjaXJjbGUgY3g9Ijc0IiBjeT0iMzQiIHI9IjIiLz48Y2lyY2xlIGN4PSI3NCIgY3k9IjQ1IiByPSIyIi8+PGNpcmNsZSBjeD0iNzQiIGN5PSI1NSIgcj0iMiIvPjwvZz48L3N2Zz4K") no-repeat top left;
+    -webkit-mask: $yellow-dots;
+    mask: $yellow-dots;
+    background-color: rgb(253, 214, 99);
+    content: ' ';
+    /* Content needs to be non-empty */
+    height: 57px;
+    left: 13%;
+    top: 18%;
+    width: 76px;
+}
+
+#grey-rounded-rectangle {
+    $grey-rounded-rectangle: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzIiIGhlaWdodD0iMTMyIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik04MS42MDMgMTRsMzYuMzk2IDM2LjM5N2MxOC42NjggMTguNjY4IDE4LjY2OCA0OC45MzUgMCA2Ny42MDItMTguNjY3IDE4LjY2OC00OC45MzQgMTguNjY4LTY3LjYwMiAwTDE0LjAwMSA4MS42MDNDLTQuNjY3IDYyLjkzNS00LjY2NyAzMi42NjggMTQgMTQgMzIuNjY4LTQuNjY3IDYyLjkzNS00LjY2NyA4MS42MDMgMTR6Ii8+PC9zdmc+Cg==") no-repeat top left;
+    -webkit-mask: $grey-rounded-rectangle;
+    mask: $grey-rounded-rectangle;
+    animation: grey-rounded-rectangle-anim 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    background-color: rgb(241, 243, 244);
+    content: ' ';
+    /* Content needs to be non-empty */
+    height: 132px;
+    left: -42px;
+    top: 45%;
+    width: 132px;
+}
+
+#red-triangle {
+    $red-triangle: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NSIgaGVpZ2h0PSI3NCI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNNjQuNTQzIDcuMjkzbC0uMTc5IDYwLjY0MWMtLjIwMiAzLjQwNy0zLjA5MyA2LjAwMy02LjQ1OCA1Ljc5OGE2LjA1IDYuMDUgMCAwIDEtMi42ODYtLjgxN0wzLjYwNyA0Mi43NTFjLTIuOTItMS43MDYtMy45Mi01LjQ4NS0yLjIzNC04LjQ0YTYuMTQ5IDYuMTQ5IDAgMCAxIDEuOTIzLTIuMDY3bDUxLjc5LTMwLjQ3N2MyLjgxNC0xLjg4IDYuNi0xLjA5NiA4LjQ1OCAxLjc1MWE2LjIzNiA2LjIzNiAwIDAgMSAuOTk5IDMuNzc1eiIvPjwvc3ZnPgo=") no-repeat bottom left;
+    -webkit-mask: $red-triangle;
+    mask: $red-triangle;
+    animation: red-triangle-anim 9.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    background-color: rgb(233, 66, 53);
+    bottom: 15%;
+    content: ' ';
+    /* Content needs to be non-empty */
+    height: 74px;
+    left: 12%;
+    width: 65px;
+}
+
+#yellow-semicircle {
+    $yellow-semicircle: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMTEiIGhlaWdodD0iMTcxIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNTIuOTU1IDE1NS4zMjNjLTUwLjQ5NCAyOS4zNTktMTEzLjc5IDE2LjE2LTE0OC45MzctMjguNTQ2LTMuNDktNC40NC05LjE4LTE0LjQ4IDUuODY2LTIzLjIyN0wxODIuNjEyIDMuMTJjMTMuNjM2LTcuOTMgMTcuNDQ0IDEuMjMyIDE5LjMxMSA1LjY4OCAyMi40MTggNTMuNTE3IDIuMjczIDExNi43MjItNDguOTY4IDE0Ni41MTV6Ii8+PC9zdmc+Cg==") no-repeat top right;
+    -webkit-mask: $yellow-semicircle;
+    mask: $yellow-semicircle;
+    animation: yellow-semicircle-anim 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    background-color: rgb(250, 207, 76);
+    content: ' ';
+    /* Content needs to be non-empty */
+    height: 171px;
+    right: 28.5%;
+    top: -50px;
+    transform: rotate(-7deg);
+    width: 211px;
+}
+
+#green-rectangle {
+    $green-rectangle: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNzEiIGhlaWdodD0iMzcxIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik03LjYxIDE2Ni44OTVMMTY2Ljg5NiA3LjYxMWMxMC4xNDgtMTAuMTQ4IDI2LjYtMTAuMTQ4IDM2Ljc0OCAwbDE1OS4yOTMgMTU5LjI5MmMxMC4xNDcgMTAuMTQ4IDEwLjE0NyAyNi42IDAgMzYuNzQ4TDIwMy42NSAzNjIuOTM2Yy0xMC4xNDcgMTAuMTQ3LTI2LjYgMTAuMTQ3LTM2Ljc0OCAwTDcuNjExIDIwMy42NDNjLTEwLjE0OC0xMC4xNDctMTAuMTQ4LTI2LjYgMC0zNi43NDh6Ii8+PC9zdmc+Cg==") no-repeat bottom right;
+    -webkit-mask: $green-rectangle;
+    mask: $green-rectangle;
+    animation: green-rectangle-anim 40s infinite linear;
+    background-color: rgb(49, 167, 83);
+    bottom: 8%;
+    content: ' ';
+    /* Content needs to be non-empty */
+    height: 371px;
+    right: -255px;
+    width: 371px;
+}
+
+#grey-oval {
+    $grey-oval: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGZpbGwtcnVsZT0iZXZlbm9kZCIgY3g9IjUwIiBjeT0iNTAiIHI9IjUwIi8+PC9zdmc+Cg==") no-repeat bottom right;
+    -webkit-mask: $grey-oval;
+    mask: $grey-oval;
+    background-color: rgb(241, 243, 244);
+    bottom: calc(8% + 24px);
+    /* Relative to green-rectangle. */
+    content: ' ';
+    /* Content needs to be non-empty */
+    height: 100px;
+    mix-blend-mode: multiply;
+    right: 48px;
+    width: 100px;
+}
+
+@media (prefers-color-scheme: dark) {
+    #grey-oval {
+        mix-blend-mode: screen;
+    }
+}
