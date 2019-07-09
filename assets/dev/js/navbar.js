@@ -65,15 +65,13 @@ export const initNavbar = () => {
     // Horizontal center of the page
     const pageCenter = Math.ceil(window.innerWidth / 2);
     const getCurrentSection = () => {
-        let element;
-        let viewport = deviceType === 'desktop' ? 1 : navbarHeight + 1;
-        console.log(pageCenter + ', ' +viewport);
-        do {
-            element = document.elementFromPoint(pageCenter, viewport).closest("section");
-            viewport += 100;
-        } while (element === null);
-        console.log(element);
-        return element;
+        let currentSection;
+        for (let element of document.getElementsByTagName('section')) {
+            if (element.getBoundingClientRect().top <= window.innerWidth - navbarHeight) {
+                currentSection = element;
+            }
+        }
+        return currentSection !== 'undefined' ? currentSection : null;
     };
     let previousScrollY = window.scrollY;
 
@@ -82,33 +80,33 @@ export const initNavbar = () => {
         if (deviceType === 'mobile' && navbar.getBoundingClientRect().top !== 0) return;
         let activeLink = document.querySelector('a.nav-link.active');
         if (activeLink) activeLink.classList.remove('active');
+        console.log(getCurrentSection().id);
         document.querySelector('a.nav-link[href="#' + getCurrentSection().id + '"]').classList.add('active');
 
         // Scroll to next/previous section on scroll on desktop
-        // if (deviceType === 'desktop') {
-        //     console.log(window.scrollY + ' ' + previousScrollY);
-        //     if (window.screenY > previousScrollY) {
-        //         let nextSection = getCurrentSection().nextSibling;
-        //         do {nextSection = getCurrentSection().nextSibling;} while (nextSection.tagName !== 'section');
-        //         console.log(nextSection);
-        //         if (nextSection && nextSection.getBoundingClientRect().top < window.scrollY + window.innerHeight - navbarHeight) {
-        //             window.scroll({
-        //                 top: nextSection.getBoundingClientRect().top,
-        //                 behavior: 'smooth'
-        //             });
-        //         }
-        //     } else {
-        //         let previousSection;
-        //         do {previousSection = getCurrentSection().previousSibling;} while (previousSection.tagName !== 'section');
-        //         console.log(previousSection);
-        //         if (previousSection && previousSection.getBoundingClientRect().bottom < window.scrollY) {
-        //             window.scroll({
-        //                 top: previousSection.getBoundingClientRect().top,
-        //                 behavior: 'smooth'
-        //             });
-        //         }
-        //     }
-        //     previousScrollY = window.scrollY;
-        // }
+        if (deviceType === 'desktop') {
+            let currentSection = getCurrentSection();
+            console.log(currentSection);
+            if (currentSection && window.screenY > previousScrollY) {
+                let nextSection = currentSection.nextSibling;
+                while (nextSection !== null && nextSection.tagName !== 'section') { nextSection = nextSection.nextSibling; }
+                if (nextSection.getBoundingClientRect().top < window.scrollY + window.innerHeight - navbarHeight) {
+                    window.scroll({
+                        top: nextSection.getBoundingClientRect().top,
+                        behavior: 'smooth'
+                    });
+                }
+            } else {
+                let previousSection = currentSection.previousSibling;
+                while (previousSection !== null && previousSection.tagName !== 'section') { previousSection = previousSection.previousSibling; }
+                if (previousSection.getBoundingClientRect().bottom < window.scrollY) {
+                    window.scroll({
+                        top: previousSection.getBoundingClientRect().top,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+            previousScrollY = window.scrollY;
+        }
     });
 }
