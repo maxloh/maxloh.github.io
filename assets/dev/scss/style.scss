@@ -23,6 +23,7 @@ $body-color: $font-color;
 @import "../../../node_modules/photoswipe/dist/photoswipe";
 
 @import "latolatinfonts";
+@import "background";
 
 @mixin mobile {
     @media (max-width: $desktop-width - 1) {
