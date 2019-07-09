@@ -36,19 +36,11 @@
 </head>
 
 <body>
-    <!--justify-content-center: center social-link in mobile site-->
-    <section class="header row justify-content-center">
-        <!--col-12: for xs or above, the logo column occupy the whole row
-                col-md-auto: for md or above (overriding the last rule), the logo column sized based on the natural width of contents within
-                mr-md-auto: mr-auto for md or larger device, pushing social links to right site-->
-        <div class="logo col-12 col-md-auto mr-md-auto">
+    <header>
+        <div class="logo">
             <a href=".">Max Loh</a>
         </div>
-        <!--col-auto: the column sized based on the natural width of contents within
-                d-flex: put items to same row
-                align-items-center: center items within (for mobile site)
-                Negative margin: let social-link stick to the edge of its parent element-->
-        <div class="col-auto d-flex align-items-center" style="margin: 0px -20px;">
+        <div class="social">
             <a href="https://www.github.com/maxloh/" target="_blank">
                 <div class="social-link">
                     <i class="fab fa-github"></i><br>
@@ -62,7 +54,7 @@
                 </div>
             </a>
         </div>
-    </section>
+    </header>
 
     <!--For a sticky navbar, .navbar element must be a direct child of body-->
     <nav id="navbar" class="navbar navbar-dark before-animation">
