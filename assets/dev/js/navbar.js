@@ -67,46 +67,59 @@ export const initNavbar = () => {
     const getCurrentSection = () => {
         let currentSection;
         for (let element of document.getElementsByTagName('section')) {
-            if (element.getBoundingClientRect().top <= window.innerWidth - navbarHeight) {
+            if (getSectionTop(element) <= window.innerWidth - navbarHeight) {
                 currentSection = element;
             }
         }
-        return currentSection !== 'undefined' ? currentSection : null;
+        return currentSection !== undefined ? currentSection : null;
     };
+    const getSectionTop = (section) => getSectionTop(section) + parseFloat(getComputedStyle(section).marginTop);
     let previousScrollY = window.scrollY;
+    let targetSection;
 
-    addEventListener('scroll', () => {
+    addEventListener('scroll', (event) => {
         // Add scrollapy to page
-        if (deviceType === 'mobile' && navbar.getBoundingClientRect().top !== 0) return;
+        if (deviceType === 'mobile' && getSectionTop(navbar) !== 0) return;
         let activeLink = document.querySelector('a.nav-link.active');
         if (activeLink) activeLink.classList.remove('active');
-        console.log(getCurrentSection().id);
-        document.querySelector('a.nav-link[href="#' + getCurrentSection().id + '"]').classList.add('active');
+        if (getCurrentSection()) document.querySelector('a.nav-link[href="#' + getCurrentSection().id + '"]').classList.add('active');
 
         // Scroll to next/previous section on scroll on desktop
         if (deviceType === 'desktop') {
+            setInterval(() => {
+                if (targetSection && getSectionTop(targetSection) === 0) css('body', { 'overflow': '' });
+            }, 10);
+            if (targetSection && getSectionTop(targetSection) !== 0) return;
+
             let currentSection = getCurrentSection();
-            console.log(currentSection);
-            if (currentSection && window.screenY > previousScrollY) {
-                let nextSection = currentSection.nextSibling;
-                while (nextSection !== null && nextSection.tagName !== 'section') { nextSection = nextSection.nextSibling; }
-                if (nextSection.getBoundingClientRect().top < window.scrollY + window.innerHeight - navbarHeight) {
-                    window.scroll({
-                        top: nextSection.getBoundingClientRect().top,
-                        behavior: 'smooth'
-                    });
+            if (currentSection && getSectionTop(currentSection) >= 0) {
+                if (window.scrollY > previousScrollY) {
+                    console.log('scrolling down');
+                    let nextSection = currentSection.nextElementSibling;
+                    console.log(getSectionTop(nextSection) + ' ' + window.innerHeight);
+                    if (nextSection && getSectionTop(nextSection) < window.innerHeight - navbarHeight) {
+                        targetSection = nextSection;
+                        css('body', { 'overflow': 'hidden' });
+                        window.scroll({
+                            top: getSectionTop(nextSection),
+                            behavior: 'smooth'
+                        });
+                    }
+                } else {
+                    console.log('scrolling up');
+                    let previousSection = currentSection.previousElementSibling;
+                    console.log(previousSection.getBoundingClientRect().bottom);
+                    if (previousSection && previousSection.getBoundingClientRect().bottom > 0) {
+                        targetSection = previousSection;
+                        css('body', { 'overflow': 'hidden' });
+                        window.scroll({
+                            top: getSectionTop(previousSection),
+                            behavior: 'smooth'
+                        });
+                    }
                 }
-            } else {
-                let previousSection = currentSection.previousSibling;
-                while (previousSection !== null && previousSection.tagName !== 'section') { previousSection = previousSection.previousSibling; }
-                if (previousSection.getBoundingClientRect().bottom < window.scrollY) {
-                    window.scroll({
-                        top: previousSection.getBoundingClientRect().top,
-                        behavior: 'smooth'
-                    });
-                }
+                previousScrollY = window.scrollY;
             }
-            previousScrollY = window.scrollY;
         }
     });
 }
