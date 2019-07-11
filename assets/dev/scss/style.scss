@@ -241,7 +241,7 @@ main {
     }
 
     @include desktop {
-        margin: var(--main-margin);
+        margin: 0 var(--main-margin);
     }
 
     h1 {
@@ -278,7 +278,7 @@ main {
     }
 
     section {
-        margin: var(--section-margin) 0;
+        padding: var(--section-margin) 0;
         @include mainTransition ();
 
         @include desktop {
