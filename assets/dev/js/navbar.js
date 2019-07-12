@@ -65,9 +65,10 @@ export const initNavbar = () => {
     // Horizontal center of the page
     const getCurrentSection = () => {
         let currentSection;
-        let screenBottom = (deviceType === 'desktop') ? window.innerHeight - navbarHeight : window.innerHeight;
+        // getBoundingClientRect().height and getBoundingClientRect().top may return float number, so we need to floor screenBottom for desktop
+        let screenBottom = (deviceType === 'desktop') ? Math.floor(window.innerHeight - navbarHeight) : window.innerHeight;
         for (let element of document.getElementsByTagName('section')) {
-            if (element.getBoundingClientRect().top <= screenBottom) {
+            if (element.getBoundingClientRect().top < screenBottom) {
                 currentSection = element;
             }
         }
@@ -91,11 +92,11 @@ export const initNavbar = () => {
             // if (targetSection && targetSection.getBoundingClientRect().top !== 0) return;
 
             let currentSection = getCurrentSection();
-            console.log(window.scrollY + ' ' + previousScrollY);
-            console.log(getCurrentSection());
+            // console.log(window.scrollY + ' ' + previousScrollY);
+            // console.log(getCurrentSection());
 
-            // if (window.scrollY > previousScrollY) {
-            //     console.log('scrolling down');
+            if (window.scrollY > previousScrollY) {
+                // console.log('scrolling down');
             //     let nextSection = currentSection.nextElementSibling;
             //     console.log(nextSection);
             //     console.log(nextSection.getBoundingClientRect().top + ' ' + window.innerHeight);
@@ -107,8 +108,8 @@ export const initNavbar = () => {
             //             behavior: 'smooth'
             //         });
             //     }
-            // } else {
-            //     console.log('scrolling up');
+            } else {
+                // console.log('scrolling up');
             //     let previousSection = currentSection.previousElementSibling;
             //     console.log(previousSection);
             //     console.log(previousSection.getBoundingClientRect().bottom);
@@ -120,7 +121,7 @@ export const initNavbar = () => {
             //             behavior: 'smooth'
             //         });
             //     }
-            // }
+            }
             previousScrollY = window.scrollY;
         }
     });

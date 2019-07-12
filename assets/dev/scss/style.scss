@@ -278,15 +278,19 @@ main {
     }
 
     section {
-        padding: var(--section-margin) 0;
         @include mainTransition ();
 
         @include desktop {
             min-height: calc(100vh - #{$navbar-height});
+            padding: var(--section-margin) 0;
             display: flex;
-            overflow-y: scroll;
             flex-direction: column;
             flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        @include mobile {
+            margin: var(--section-margin) 0;
         }
 
         &.before-animation {
