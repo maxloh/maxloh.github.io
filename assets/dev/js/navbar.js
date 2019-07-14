@@ -64,15 +64,16 @@ export const initNavbar = () => {
 
     // Horizontal center of the page
     const getCurrentSection = () => {
-        let currentSection;
-        // getBoundingClientRect().height and getBoundingClientRect().top may return float number, so we need to floor screenBottom for desktop
+        // getBoundingClientRect().height may return float number, so we need to floor screenBottom for desktop
         let screenBottom = (deviceType === 'desktop') ? Math.floor(window.innerHeight - navbarHeight) : window.innerHeight;
         for (let element of document.getElementsByTagName('section')) {
-            if (element.getBoundingClientRect().top < screenBottom) {
-                currentSection = element;
+            /* element.getBoundingClientRect().top may return -0.XXXXX, which !== 0,
+               even if the element is scrolled into view by the window.scroll() function */
+            let elementTop = Math.trunc(element.getBoundingClientRect().top);
+            if (elementTop >= 0 && elementTop < screenBottom) {
+                return element;
             }
         }
-        return currentSection;
     };
     addEventListener('scroll', () => {
         // Add scrollapy to page
@@ -106,28 +107,25 @@ export const initNavbar = () => {
 
             let currentSection = getCurrentSection();
             if (currentSection !== targetSection) {
+                // scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
                 css('body', { 'overflow': 'hidden' });
+                // Scrolling down
                 if (window.scrollY > previousScrollY) {
-                    console.log('scrolling down');
                     let currentSectionTop = currentSection.getBoundingClientRect().top;
                     if (currentSection && currentSectionTop > 0) {
                         clearOverFlowInterval();
                         targetSection = currentSection;
                         window.scroll({ top: currentSectionTop + window.scrollY, behavior: 'smooth' });
                     }
-                } else {
-                    console.log('scrolling up');
-                    //     let previousSection = currentSection.previousElementSibling;
-                    //     console.log(previousSection);
-                    //     console.log(previousSection.getBoundingClientRect().bottom);
-                    //     if (previousSection && previousSection.getBoundingClientRect().bottom > 0) {
-                    //         targetSection = previousSection;
-                    //         css('body', { 'overflow': 'hidden' });
-                    //         window.scroll({
-                    //             top: previousSection.getBoundingClientRect().top,
-                    //             behavior: 'smooth'
-                    //         });
-                    //     }
+                }
+                // Scrolling up
+                else {
+                    let previousSection = currentSection.previousElementSibling;
+                    if (previousSection && previousSection.getBoundingClientRect().bottom > 0) {
+                        clearOverFlowInterval();
+                        targetSection = previousSection;
+                        window.scroll({ top: previousSection.getBoundingClientRect().top, behavior: 'smooth' });
+                    }
                 }
             }
             previousScrollY = window.scrollY;
