@@ -106,8 +106,8 @@ export const initNavbar = () => {
                     css('body', { 'overflow': 'hidden' });
                     targetSection = currentSection;
                     window.removeEventListener('scroll', scrollHandler);
-                    window.addEventListener('scroll', waitForScrollFinish);
                     window.scroll({ top: currentSection.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
+                    waitForScrollFinish();
                     console.log('c ' + currentSection.id);
                 }
             }
@@ -120,22 +120,21 @@ export const initNavbar = () => {
                     css('body', { 'overflow': 'hidden' });
                     targetSection = previousSection;
                     window.removeEventListener('scroll', scrollHandler);
-                    window.addEventListener('scroll', waitForScrollFinish);
                     window.scroll({ top: previousSection.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
+                    waitForScrollFinish();
                 }
             }
 
             previousScrollY = window.scrollY;
         };
         const waitForScrollFinish = () => {
-            console.log('d ' + targetSection.getBoundingClientRect().top);
-            if (!reachtargetSection()) return;
-            else {
-                css('body', { 'overflow': '' });
-                window.removeEventListener('scroll', waitForScrollFinish);
-                window.addEventListener('scroll', scrollHandler);
-                console.log('e');
-            }
+            let resetOverflow = setInterval(() => {
+                if (reachtargetSection()) {
+                    css('body', { 'overflow': '' });
+                    clearInterval(resetOverflow);
+                    window.addEventListener('scroll', scrollHandler);
+                }
+            }, 10);
         }
 
         window.addEventListener('scroll', scrollHandler);
