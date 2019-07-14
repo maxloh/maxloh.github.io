@@ -59,7 +59,7 @@ export const initNavbar = () => {
     });
 
     /* 
-     * Scrollapy and desktop section navigation
+     * Scrollapy
      */
 
     // Horizontal center of the page
@@ -74,33 +74,39 @@ export const initNavbar = () => {
         }
         return currentSection;
     };
-    const reachtargetSection = () => targetSection === null || Math.floor(targetSection.getBoundingClientRect().top) <= 0;
-    const clearOverFlowInterval = () => {
-        let resetOverflow = setInterval(() => {
-            if (reachtargetSection()) {
-                css('body', { 'overflow': '' });
-                clearInterval(resetOverflow);
-            }
-        }, 10);
-    }
-    let previousScrollY = window.scrollY;
-    let targetSection = null;
-
     addEventListener('scroll', () => {
         // Add scrollapy to page
         if (deviceType === 'mobile' && navbar.getBoundingClientRect().top !== 0) return;
         let activeLink = document.querySelector('a.nav-link.active');
         if (activeLink) activeLink.classList.remove('active');
         if (getCurrentSection()) document.querySelector('a.nav-link[href="#' + getCurrentSection().id + '"]').classList.add('active');
+    });
 
-        // Scroll to next/previous section on scroll on desktop
-        if (deviceType === 'desktop') {
+
+    /*
+     * Desktop section navigation
+     * Scroll to next/previous section on scroll on desktop
+     */
+
+    if (deviceType === 'desktop') {
+        const reachtargetSection = () => targetSection === null || Math.floor(targetSection.getBoundingClientRect().top) <= 0;
+        const clearOverFlowInterval = () => {
+            let resetOverflow = setInterval(() => {
+                if (reachtargetSection()) {
+                    css('body', { 'overflow': '' });
+                    clearInterval(resetOverflow);
+                }
+            }, 10);
+        }
+        let previousScrollY = window.scrollY;
+        let targetSection = null;
+
+        addEventListener('scroll', () => {
             if (!reachtargetSection()) return;
 
             let currentSection = getCurrentSection();
             if (currentSection !== targetSection) {
                 css('body', { 'overflow': 'hidden' });
-
                 if (window.scrollY > previousScrollY) {
                     console.log('scrolling down');
                     let currentSectionTop = currentSection.getBoundingClientRect().top;
@@ -111,7 +117,6 @@ export const initNavbar = () => {
                     }
                 } else {
                     console.log('scrolling up');
-                    // console.log(currentSection);
                     //     let previousSection = currentSection.previousElementSibling;
                     //     console.log(previousSection);
                     //     console.log(previousSection.getBoundingClientRect().bottom);
@@ -126,6 +131,6 @@ export const initNavbar = () => {
                 }
             }
             previousScrollY = window.scrollY;
-        }
-    });
+        });
+    }
 }
