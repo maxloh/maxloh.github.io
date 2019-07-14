@@ -293,10 +293,10 @@ main {
             margin: var(--section-margin) 0;
         }
 
-        &.before-animation {
-            opacity: 0;
-            transform: translateY(var(--section-translateY));
-        }
+        // &.before-animation {
+        //     opacity: 0;
+        //     transform: translateY(var(--section-translateY));
+        // }
 
         a {
             text-decoration: none;

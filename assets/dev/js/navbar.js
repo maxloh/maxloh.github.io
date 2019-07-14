@@ -90,46 +90,54 @@ export const initNavbar = () => {
 
     if (deviceType === 'desktop') {
         // getBoundingClientRect().bottom and getBoundingClientRect().height may return float number, so we need to floor screenBottom for desktop
-        const reachtargetSection = () => targetSection === null || (Math.floor(targetSection.getBoundingClientRect().top) <= 0 && Math.floor(targetSection.getBoundingClientRect().bottom) >= Math.floor(screenBottom));
-        const clearOverFlowInterval = () => {
-            let resetOverflow = setInterval(() => {
-                if (reachtargetSection()) {
-                    css('body', { 'overflow': '' });
-                    clearInterval(resetOverflow);
-                }
-            }, 10);
-        }
+        const reachtargetSection = () => targetSection === null || Math.floor(targetSection.getBoundingClientRect().top) === 0 || Math.floor(targetSection.getBoundingClientRect().bottom) === Math.floor(screenBottom);
         let previousScrollY = window.scrollY;
         let targetSection = null;
 
-        addEventListener('scroll', () => {
-            if (!reachtargetSection()) return;
-
-            // scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
-            css('body', { 'overflow': 'hidden' });
+        const scrollHandler = () => {
             // Scrolling down
             if (window.scrollY > previousScrollY) {
                 let currentSection = getCurrentSection();
-                let currentSectionTop = currentSection.getBoundingClientRect().top;
-                if (currentSection && currentSectionTop > 0) {
-                    clearOverFlowInterval();
+                console.log('a');
+                // if scroll through next section top
+                if (currentSection && currentSection.getBoundingClientRect().top > 0) {
+                    console.log('b');
+                    // scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
+                    css('body', { 'overflow': 'hidden' });
                     targetSection = currentSection;
-                    window.scroll({ top: currentSectionTop + window.scrollY, behavior: 'smooth' });
+                    window.removeEventListener('scroll', scrollHandler);
+                    window.addEventListener('scroll', waitForScrollFinish);
+                    window.scroll({ top: currentSection.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
+                    console.log('c ' + currentSection.id);
                 }
             }
             // Scrolling up
             else {
-                console.log('scrolling up')
                 let previousSection = getCurrentSection().previousElementSibling;
-                let previousSectionTop = previousSection.getBoundingClientRect().top;
+                // if scroll through previous section bottom
                 if (previousSection && previousSection.getBoundingClientRect().bottom > 0) {
-                    clearOverFlowInterval();
+                    // scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
+                    css('body', { 'overflow': 'hidden' });
                     targetSection = previousSection;
-                    window.scroll({ top: previousSectionTop + window.scrollY, behavior: 'smooth' });
+                    window.removeEventListener('scroll', scrollHandler);
+                    window.addEventListener('scroll', waitForScrollFinish);
+                    window.scroll({ top: previousSection.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
                 }
             }
 
             previousScrollY = window.scrollY;
-        });
+        };
+        const waitForScrollFinish = () => {
+            console.log('d ' + targetSection.getBoundingClientRect().top);
+            if (!reachtargetSection()) return;
+            else {
+                css('body', { 'overflow': '' });
+                window.removeEventListener('scroll', waitForScrollFinish);
+                window.addEventListener('scroll', scrollHandler);
+                console.log('e');
+            }
+        }
+
+        window.addEventListener('scroll', scrollHandler);
     }
 }
