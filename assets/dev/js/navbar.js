@@ -74,9 +74,12 @@ export const initNavbar = () => {
         }
         return currentSection;
     };
-    const reachtargetSection = () => targetScrollY === Math.floor(window.scrollY);
+    const reachtargetSection = () => {
+        if (targetSection === null) return true;
+        else return Math.floor(targetSection.getBoundingClientRect().top) === 0;
+    }
     let previousScrollY = window.scrollY;
-    let targetScrollY;
+    let targetSection = null;
 
     addEventListener('scroll', (event) => {
         // Add scrollapy to page
@@ -87,40 +90,43 @@ export const initNavbar = () => {
 
         // Scroll to next/previous section on scroll on desktop
         if (deviceType === 'desktop') {
-            let resetOverflow = setInterval(() => {
-                if (reachtargetSection()) {
-                    css('body', { 'overflow': '' });
-                    clearInterval(resetOverflow);
-                }
-            }, 10);
-            if (targetScrollY) {
-                console.log(reachtargetSection())
-                if(!reachtargetSection()) return;}
+            console.log(Boolean(targetSection === null) + ' ' + reachtargetSection());
+            if (!reachtargetSection()) return;
+            else targetSection = null;
 
+            // keep condition?
             let currentSection = getCurrentSection();
-            if (window.scrollY === previousScrollY){console.log('equal')}
-            else if (window.scrollY > previousScrollY) {
-                console.log('scrolling down');
-                let currentSectionTop = currentSection.getBoundingClientRect().top;
-                if (currentSection && currentSectionTop > 0 && currentSectionTop < window.innerHeight - navbarHeight) {
-                    targetScrollY = Math.floor(currentSectionTop);
-                    css('body', { 'overflow': 'hidden' });
-                    window.scroll({ top: currentSectionTop, behavior: 'smooth' });
+            if (currentSection !== targetSection) {
+                css('body', { 'overflow': 'hidden' });
+                let resetOverflow = setInterval(() => {
+                    if (reachtargetSection()) {
+                        css('body', { 'overflow': '' });
+                        clearInterval(resetOverflow);
+                    }
+                }, 10);
+
+                if (window.scrollY > previousScrollY) {
+                    console.log('scrolling down');
+                    let currentSectionTop = currentSection.getBoundingClientRect().top;
+                    if (currentSection && currentSectionTop > 0) {
+                        targetSection = currentSection;
+                        window.scroll({ top: currentSectionTop + window.scrollY, behavior: 'smooth' });
+                    }
+                } else {
+                    console.log('scrolling up');
+                    // console.log(currentSection);
+                    //     let previousSection = currentSection.previousElementSibling;
+                    //     console.log(previousSection);
+                    //     console.log(previousSection.getBoundingClientRect().bottom);
+                    //     if (previousSection && previousSection.getBoundingClientRect().bottom > 0) {
+                    //         targetSection = previousSection;
+                    //         css('body', { 'overflow': 'hidden' });
+                    //         window.scroll({
+                    //             top: previousSection.getBoundingClientRect().top,
+                    //             behavior: 'smooth'
+                    //         });
+                    //     }
                 }
-            } else {
-                console.log('scrolling up');
-                console.log(currentSection);
-                //     let previousSection = currentSection.previousElementSibling;
-                //     console.log(previousSection);
-                //     console.log(previousSection.getBoundingClientRect().bottom);
-                //     if (previousSection && previousSection.getBoundingClientRect().bottom > 0) {
-                //         targetSection = previousSection;
-                //         css('body', { 'overflow': 'hidden' });
-                //         window.scroll({
-                //             top: previousSection.getBoundingClientRect().top,
-                //             behavior: 'smooth'
-                //         });
-                //     }
             }
             previousScrollY = window.scrollY;
         }
