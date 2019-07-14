@@ -12,11 +12,10 @@ export const initPhotoSwipe = () => {
 
         {
             let count = 0;
-            /* imgElement.closest(galleryClass).querySelectorAll('img'): select all img elements on the same level
-               [...nodeList].map(): use spread operator to convert nodeList to array and call the map function,
+            /* [...HTMLCollection].map(): use spread operator to convert nodeList to array and call the map function,
                while having better peroformence than Array.from(nodeList).map or Array.prototype.map.call(nodeList, function)
                https://measurethat.net/Benchmarks/Show/4507/0/arrayprototypemapcall-vs-arraymap */
-            items = [...imgElement.closest(galleryClass).querySelectorAll('img')].map(function (element) {
+            items = [...imgElement.closest(galleryClass).getElementsByTagName('img')].map(function (element) {
                 if (element === imgElement) { index = count; }
                 count++;
                 // msrc: prevent PhotoSwipe displaying grey placeholder
