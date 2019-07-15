@@ -3,7 +3,7 @@ $base-color: #FFFFFF;
 $font-color: #000000;
 $desktop-width: 768px;
 $navbar-padding: 15px;
-$navbar-height: 1.2rem*1.5+0.5rem*2+1rem*2;
+$navbar-height: (1.2rem * 1.5)+(0.5rem * 2)+(1rem * 2);
 
 // Override Bootstrap's variables
 $body-bg: $base-color;
@@ -104,7 +104,7 @@ header {
     margin-top: var(--navbar-margin) 0px;
 
     @include desktop {
-        height: calc(100vh - #{$navbar-height});
+        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -158,9 +158,9 @@ nav.navbar {
     background-color: $base-color;
     width: 100%;
     z-index: 1000;
+    @include mainTransition ();
 
     @include mobile {
-        @include mainTransition ();
         position: sticky;
         top: 0;
         margin: var(--navbar-margin) var(--navbar-strech);
@@ -173,7 +173,6 @@ nav.navbar {
         bottom: 0;
         margin-top: var(--navbar-margin);
         padding: 1rem;
-        @include mainTransition (margin-left 250ms ease);
         // 8 dp shadow in material design
         box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
     }
@@ -181,10 +180,15 @@ nav.navbar {
     &.before-animation {
         opacity: 0;
         transform: translateY(var(--navbar-translateY));
+
+        @include desktop {
+            // 8 dp shadow in material design
+            box-shadow: none;
+        }
     }
 
-    @include mobile {
-        &.sticky {
+    &.sticky {
+        @include mobile {
             // 4 dp shadow in material design
             box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
         }
@@ -293,10 +297,14 @@ main {
             margin: var(--section-margin) 0;
         }
 
-        // &.before-animation {
-        //     opacity: 0;
-        //     transform: translateY(var(--section-translateY));
-        // }
+        &>* {
+            @include mainTransition ();
+        }
+
+        &.before-animation>* {
+            opacity: 0;
+            transform: translateY(var(--section-translateY));
+        }
 
         a {
             text-decoration: none;

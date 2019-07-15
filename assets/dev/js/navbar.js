@@ -96,18 +96,23 @@ export const initNavbar = () => {
             window.scroll({ top: targetSection.offsetTop, behavior: 'smooth' });
             window.removeEventListener('scroll', headerscrollHandler);
             waitForScrollFinish(sectionScrollHandler);
+
+            navbar.classList.remove('before-animation');
         };
         const sectionScrollHandler = () => {
             // Page reload
             if (window.scrollY === previousScrollY) return;
             // Scrolling down
             else if (window.scrollY > previousScrollY) {
-                let currentSection = getCurrentSection();
+                let nextSection = getCurrentSection();
                 // If next section exists and user scroll through topmost pixel of next section
-                if (currentSection && currentSection.getBoundingClientRect().top > 0) {
+                if (nextSection && nextSection.getBoundingClientRect().top > 0) {
                     // Scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
                     css('body', { 'overflow': 'hidden' });
-                    targetSection = currentSection;
+                    // Add 'before-animation' class for current section
+                    targetSection.classList.add('before-animation');
+
+                    targetSection = nextSection;
                     window.scroll({ top: targetSection.offsetTop, behavior: 'smooth' });
                     window.removeEventListener('scroll', sectionScrollHandler);
                     waitForScrollFinish(sectionScrollHandler);
@@ -120,6 +125,9 @@ export const initNavbar = () => {
                 if (previousSection && previousSection.getBoundingClientRect().bottom > 0) {
                     // Scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
                     css('body', { 'overflow': 'hidden' });
+                    // Add 'before-animation' class for current section
+                    targetSection.classList.add('before-animation');
+
                     targetSection = previousSection;
                     window.scroll({ top: targetSection.offsetTop, behavior: 'smooth' });
                     window.removeEventListener('scroll', sectionScrollHandler);
@@ -129,6 +137,9 @@ export const initNavbar = () => {
                 else if (!previousSection) {
                     // Scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
                     css('body', { 'overflow': 'hidden' });
+                    // Add 'before-animation' class for navbar
+                    navbar.classList.add('before-animation');
+
                     targetSection = document.getElementsByTagName('header')[0];
                     window.scroll({ top: targetSection.offsetTop, behavior: 'smooth' });
                     window.removeEventListener('scroll', sectionScrollHandler);
@@ -146,6 +157,8 @@ export const initNavbar = () => {
                     css('body', { 'overflow': '' });
                     clearInterval(resetOverflow);
                     window.addEventListener('scroll', scrollHandler);
+                    // Remove 'before-animation' class while scroll reach target section
+                    targetSection.classList.remove('before-animation');
                 }
             }, 10);
         };
