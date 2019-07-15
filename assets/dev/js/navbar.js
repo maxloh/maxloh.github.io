@@ -90,7 +90,14 @@ export const initNavbar = () => {
         let previousScrollY = window.scrollY;
         let targetSection;
 
-        const scrollHandler = () => {
+        const headerscrollHandler = () => {
+            css('body', { 'overflow': 'hidden' });
+            targetSection = getCurrentSection();
+            window.scroll({ top: targetSection.offsetTop, behavior: 'smooth' });
+            window.removeEventListener('scroll', headerscrollHandler);
+            waitForScrollFinish(sectionScrollHandler);
+        };
+        const sectionScrollHandler = () => {
             // Page reload
             if (window.scrollY === previousScrollY) return;
             // Scrolling down
@@ -102,8 +109,8 @@ export const initNavbar = () => {
                     css('body', { 'overflow': 'hidden' });
                     targetSection = currentSection;
                     window.scroll({ top: targetSection.offsetTop, behavior: 'smooth' });
-                    window.removeEventListener('scroll', scrollHandler);
-                    waitForScrollFinish();
+                    window.removeEventListener('scroll', sectionScrollHandler);
+                    waitForScrollFinish(sectionScrollHandler);
                 }
             }
             // Scrolling up
@@ -115,18 +122,27 @@ export const initNavbar = () => {
                     css('body', { 'overflow': 'hidden' });
                     targetSection = previousSection;
                     window.scroll({ top: targetSection.offsetTop, behavior: 'smooth' });
-                    window.removeEventListener('scroll', scrollHandler);
-                    waitForScrollFinish();
+                    window.removeEventListener('scroll', sectionScrollHandler);
+                    waitForScrollFinish(sectionScrollHandler);
+                }
+                // Scroll to header as currentSection is the first section
+                else if (!previousSection) {
+                    // Scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
+                    css('body', { 'overflow': 'hidden' });
+                    targetSection = document.getElementsByTagName('header')[0];
+                    window.scroll({ top: targetSection.offsetTop, behavior: 'smooth' });
+                    window.removeEventListener('scroll', sectionScrollHandler);
+                    waitForScrollFinish(headerscrollHandler);
                 }
             }
 
             previousScrollY = window.scrollY;
         };
-        const waitForScrollFinish = () => {
+        const waitForScrollFinish = (scrollHandler) => {
             let resetOverflow = setInterval(() => {
                 /* If window reach target section 
-                   getBoundingClientRect() may return float number so we floor the returned number */
-                if (Math.floor(targetSection.getBoundingClientRect().top) === 0) {
+                   getBoundingClientRect() may return float number so we trunc the returned number */
+                if (Math.trunc(targetSection.getBoundingClientRect().top) === 0) { // To do: && navbarBottom === 0
                     css('body', { 'overflow': '' });
                     clearInterval(resetOverflow);
                     window.addEventListener('scroll', scrollHandler);
@@ -134,6 +150,6 @@ export const initNavbar = () => {
             }, 10);
         };
 
-        window.addEventListener('scroll', scrollHandler);
+        window.addEventListener('scroll', headerscrollHandler);
     }
 }

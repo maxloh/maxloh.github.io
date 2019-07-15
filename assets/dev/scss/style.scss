@@ -104,7 +104,7 @@ header {
     margin-top: var(--navbar-margin) 0px;
 
     @include desktop {
-        height: 100vh;
+        height: calc(100vh - #{$navbar-height});
         display: flex;
         justify-content: center;
         align-items: center;
