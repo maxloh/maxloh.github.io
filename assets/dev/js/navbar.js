@@ -88,35 +88,35 @@ export const initNavbar = () => {
      */
 
     if (deviceType === 'desktop') {
-        // getBoundingClientRect().top, bottom and height may return float number
-        const reachtargetSection = () => targetSection === null || Math.floor(targetSection.getBoundingClientRect().top) === 0 || Math.floor(targetSection.getBoundingClientRect().bottom) === Math.floor(screenBottom);
         let previousScrollY = window.scrollY;
-        let targetSection = null;
+        let targetSection;
 
         const scrollHandler = () => {
+            // Page reload
+            if (window.scrollY === previousScrollY) return;
             // Scrolling down
-            if (window.scrollY > previousScrollY) {
+            else if (window.scrollY > previousScrollY) {
                 let currentSection = getCurrentSection();
-                // if next section exists and user scroll through next section top
+                // If next section exists and user scroll through topmost pixel of next section
                 if (currentSection && currentSection.getBoundingClientRect().top > 0) {
-                    // scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
+                    // Scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
                     css('body', { 'overflow': 'hidden' });
                     targetSection = currentSection;
+                    window.scroll({ top: targetSection.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
                     window.removeEventListener('scroll', scrollHandler);
-                    window.scroll({ top: currentSection.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
                     waitForScrollFinish();
                 }
             }
             // Scrolling up
             else {
                 let previousSection = getCurrentSection().previousElementSibling;
-                // if previous section exists and user scroll through previous section bottom
+                // If previous section exists and user scroll through bottommost pixel of previous section
                 if (previousSection && previousSection.getBoundingClientRect().bottom > 0) {
-                    // scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
+                    // Scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
                     css('body', { 'overflow': 'hidden' });
                     targetSection = previousSection;
+                    window.scroll({ top: targetSection.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
                     window.removeEventListener('scroll', scrollHandler);
-                    window.scroll({ top: previousSection.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
                     waitForScrollFinish();
                 }
             }
@@ -125,7 +125,10 @@ export const initNavbar = () => {
         };
         const waitForScrollFinish = () => {
             let resetOverflow = setInterval(() => {
-                if (reachtargetSection()) {
+                /* If window reach target section 
+                   getBoundingClientRect() may return float number so we floor the returned number */
+                if (Math.floor(targetSection.getBoundingClientRect().top) === 0 ||
+                    Math.floor(targetSection.getBoundingClientRect().bottom) === Math.floor(screenBottom)) {
                     css('body', { 'overflow': '' });
                     clearInterval(resetOverflow);
                     window.addEventListener('scroll', scrollHandler);
