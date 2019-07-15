@@ -39,8 +39,7 @@ export const initNavbar = () => {
         element.addEventListener('click', function (event) {
             event.preventDefault();
             let target = document.getElementById(event.target.href.split('#')[1]);
-            let offsetTop = target.getBoundingClientRect().top + window.scrollY;
-            let scrollY = (deviceType === 'mobile') ? (offsetTop - navbarHeight) : (offsetTop - parseInt(getComputedStyle(target).marginTop));
+            let scrollY = (deviceType === 'mobile') ? (target.offsetTop - navbarHeight) : (target.offsetTop - parseInt(getComputedStyle(target).marginTop));
 
             // If animation of that element has not yet completed yet
             if (css(target, 'opacity') < 1) {
@@ -102,7 +101,7 @@ export const initNavbar = () => {
                     // Scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
                     css('body', { 'overflow': 'hidden' });
                     targetSection = currentSection;
-                    window.scroll({ top: targetSection.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
+                    window.scroll({ top: targetSection.offsetTop, behavior: 'smooth' });
                     window.removeEventListener('scroll', scrollHandler);
                     waitForScrollFinish();
                 }
@@ -115,7 +114,7 @@ export const initNavbar = () => {
                     // Scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
                     css('body', { 'overflow': 'hidden' });
                     targetSection = previousSection;
-                    window.scroll({ top: targetSection.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
+                    window.scroll({ top: targetSection.offsetTop, behavior: 'smooth' });
                     window.removeEventListener('scroll', scrollHandler);
                     waitForScrollFinish();
                 }
@@ -127,8 +126,7 @@ export const initNavbar = () => {
             let resetOverflow = setInterval(() => {
                 /* If window reach target section 
                    getBoundingClientRect() may return float number so we floor the returned number */
-                if (Math.floor(targetSection.getBoundingClientRect().top) === 0 ||
-                    Math.floor(targetSection.getBoundingClientRect().bottom) === Math.floor(screenBottom)) {
+                if (Math.floor(targetSection.getBoundingClientRect().top) === 0) {
                     css('body', { 'overflow': '' });
                     clearInterval(resetOverflow);
                     window.addEventListener('scroll', scrollHandler);
