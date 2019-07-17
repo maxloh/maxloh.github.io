@@ -1,3 +1,5 @@
+// Add partial support for old browsers that do not support IntersectionObserver, e.g. Safari
+import 'intersection-observer';
 import { css } from './functions';
 
 export const initNavbar = () => {
@@ -8,54 +10,6 @@ export const initNavbar = () => {
     const deviceType = (window.innerWidth < 768) ? 'mobile' : 'desktop';
     const navbar = document.getElementById('navbar');
     const navbarHeight = navbar.getBoundingClientRect().height;
-
-    /*
-     * Add shadow to navbar when it is sticky
-     */
-
-    var navbarObserver = new MutationObserver(function () {
-        // if one of the .nav-link is active, meaning that navbar is sticking to top of the page
-        if (deviceType === 'mobile') {
-            if (document.querySelector('a.nav-link.active')) {
-                navbar.classList.add('sticky');
-            } else {
-                navbar.classList.remove('sticky');
-            }
-        }
-    });
-    [...document.getElementsByClassName('nav-link')].forEach(function (element) {
-        navbarObserver.observe(element, {
-            attributes: true,
-            attributeFilter: ['class']
-        });
-    });
-
-    /* 
-     * Offset jump links (html anchors) for the sticky navbar and amination, 
-     * pointing them to the correct position
-     */
-
-    document.querySelectorAll('#navbar a.nav-link').forEach(function (element) {
-        element.addEventListener('click', function (event) {
-            event.preventDefault();
-            let target = document.getElementById(event.target.href.split('#')[1]);
-            let scrollY = (deviceType === 'mobile') ? (target.offsetTop - navbarHeight) : (target.offsetTop - parseInt(getComputedStyle(target).marginTop));
-
-            // If animation of that element has not yet completed yet
-            if (css(target, 'opacity') < 1) {
-                let currentTranslateY = css(target, 'transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
-                window.scroll({
-                    top: Math.ceil(scrollY) - Math.floor(currentTranslateY),
-                    behavior: 'smooth'
-                });
-            } else {
-                window.scroll({
-                    top: Math.ceil(scrollY),
-                    behavior: 'smooth'
-                });
-            }
-        })
-    });
 
     /* 
      * Scrollapy
@@ -75,18 +29,75 @@ export const initNavbar = () => {
 
     addEventListener('scroll', () => {
         // Add scrollapy to page
-        if (deviceType === 'mobile' && navbar.getBoundingClientRect().top !== 0) return;
         let activeLink = document.querySelector('a.nav-link.active');
         if (activeLink) activeLink.classList.remove('active');
+        if (deviceType === 'mobile' && navbar.getBoundingClientRect().top !== 0) return;
         if (getCurrentSection()) document.querySelector('a.nav-link[href="#' + getCurrentSection().id + '"]').classList.add('active');
     });
 
-    /*
-     * Desktop section navigation
-     * Scroll to next/previous section on scroll on desktop
+    /* 
+     * Mobile only JavaScript
      */
 
-    if (deviceType === 'desktop') {
+    if (deviceType === 'mobile') {
+
+        /*
+         * Animation
+         * Animate navbar on page load and animate section when it enter viewport
+         */
+
+        const delay = 400;
+        const animationObserver = new IntersectionObserver(function (entries, animationObserver) {
+            entries.forEach(function (entry) {
+                // Animate element when it enter viewport
+                if (entry.intersectionRatio > 0) {
+                    animationObserver.unobserve(entry.target);
+                    entry.target.classList.remove('before-animation');
+                }
+            });
+        });
+
+        navbar.classList.remove('before-animation');
+        // observe section and animate navbar on page load
+        setTimeout(function () {
+            [...document.getElementsByTagName('section')].forEach(function (element) {
+                animationObserver.observe(element);
+            });
+        }, delay);
+
+        /*
+         * Add shadow to navbar when it is sticky
+         */
+
+        window.addEventListener('scroll', () => {
+            if (navbar.getBoundingClientRect().top === 0) navbar.classList.add('sticky');
+            else navbar.classList.remove('sticky');
+        });
+
+        /* 
+         * Navbar jump links handling
+         * Offset jump links (html anchors) for the sticky navbar, pointing them to the correct position
+         */
+
+        [...document.getElementsByClassName('nav-link')].forEach(function (element) {
+            element.addEventListener('click', function (event) {
+                event.preventDefault();
+                let target = document.getElementById(event.target.href.split('#')[1]);
+                window.scroll({ top: target.offsetTop - navbarHeight - parseInt(getComputedStyle(target).marginTop), behavior: 'smooth' });
+            })
+        });
+    }
+
+    /* 
+     * Desktop only JavaScript
+     */
+    else {
+
+        /*
+         * Desktop section navigation
+         * Scroll to next/previous section on scroll on desktop
+         */
+
         let previousScrollY = window.scrollY;
         let targetSection;
 
@@ -156,5 +167,17 @@ export const initNavbar = () => {
             targetSection.classList.remove('before-animation');
             window.addEventListener('scroll', sectionScrollHandler);
         }
+
+        /* 
+         * Navbar jump links handling
+         * Making navbar jump links compatible with section navigation JavaScript
+         */
+
+        document.querySelectorAll('#navbar a.nav-link').forEach(function (element) {
+            element.addEventListener('click', function (event) {
+                event.preventDefault();
+                scrollToSection(document.getElementById(event.target.href.split('#')[1]), sectionScrollHandler, sectionScrollHandler);
+            })
+        });
     }
 }

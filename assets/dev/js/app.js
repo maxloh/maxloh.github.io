@@ -1,11 +1,9 @@
-import { initAnimation } from './animation';
-import { initNavbar } from './navbar';
+import { initNavigation } from './navigation';
 import { initPhotoSwipe } from './gallery';
 import { initResourcesList } from './resources';
 
 addEventListener('DOMContentLoaded', function () {
-    // initAnimation();
-    initNavbar();
+    initNavigation();
     initPhotoSwipe();
     initResourcesList();
 });
