@@ -12,7 +12,7 @@ export const initNavigation = () => {
     const navbarHeight = navbar.getBoundingClientRect().height;
 
     // Height to determine current section 
-    const currentSectionHeight = (deviceType === 'desktop') ? Math.floor(window.innerHeight - navbarHeight) : 0;
+    const currentSectionHeight = (deviceType === 'desktop') ? Math.floor(window.innerHeight - navbarHeight) : navbarHeight + parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--section-margin')) + 1;
     const getCurrentSection = () => {
         let currentSection;
         for (let element of document.getElementsByTagName('section')) {
@@ -91,6 +91,7 @@ export const initNavigation = () => {
     /* 
      * Desktop only JavaScript
      */
+    
     else {
 
         /*
