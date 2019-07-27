@@ -2,7 +2,7 @@
 import 'intersection-observer';
 import { css } from './functions';
 
-export const initNavbar = () => {
+export const initNavigation = () => {
     /*
      * Globel varieables
      */
@@ -11,24 +11,24 @@ export const initNavbar = () => {
     const navbar = document.getElementById('navbar');
     const navbarHeight = navbar.getBoundingClientRect().height;
 
-    /* 
-     * Scrollapy
-     */
-
-    // Horizontal center of the page
+    // Height to determine current section 
+    const currentSectionHeight = (deviceType === 'desktop') ? Math.floor(window.innerHeight - navbarHeight) : 0;
     const getCurrentSection = () => {
         let currentSection;
         for (let element of document.getElementsByTagName('section')) {
-            if (element.getBoundingClientRect().top < screenBottom) {
+            if (element.getBoundingClientRect().top < currentSectionHeight) {
                 currentSection = element;
             }
         }
         return currentSection;
     };
-    const screenBottom = (deviceType === 'desktop') ? Math.floor(window.innerHeight - navbarHeight) : window.innerHeight;
+
+    /* 
+     * Scrollspy
+     */
 
     addEventListener('scroll', () => {
-        // Add scrollapy to page
+        // Add scrollspy to page
         let activeLink = document.querySelector('a.nav-link.active');
         if (activeLink) activeLink.classList.remove('active');
         if (deviceType === 'mobile' && navbar.getBoundingClientRect().top !== 0) return;
@@ -57,8 +57,8 @@ export const initNavbar = () => {
             });
         });
 
+        // Animate navbar and observe section on page load
         navbar.classList.remove('before-animation');
-        // observe section and animate navbar on page load
         setTimeout(function () {
             [...document.getElementsByTagName('section')].forEach(function (element) {
                 animationObserver.observe(element);
