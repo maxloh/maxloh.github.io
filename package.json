@@ -17,8 +17,8 @@
   },
   "scripts": {
     "build": "npm run css-inline-assets && npm run css-compile && npm run js-compile",
-    "css-inline-assets": "npx inline-assets .\\node_modules\\photoswipe\\dist\\default-skin\\default-skin.css .\\assets\\dev\\scss\\default-skin.css",
-    "css-compile": "npx node-sass .\\assets\\dev\\scss\\style.scss .\\assets\\css\\style.css --output-style=\"compressed\" --source-map true",
+    "css-inline-assets": "npx inline-assets node_modules/photoswipe/dist/default-skin/default-skin.css assets/dev/scss/default-skin.css",
+    "css-compile": "npx node-sass assets/dev/scss/style.scss assets/css/style.css --output-style=\"compressed\" --source-map true",
     "js-compile": "webpack",
     "watch": "npx npm-run-all --parallel watch-*",
     "watch-css": "npm run css-compile -- --watch",
