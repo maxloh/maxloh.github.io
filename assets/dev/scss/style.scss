@@ -25,6 +25,10 @@ $body-color: $font-color;
 @import "latolatinfonts";
 @import "background";
 
+/*!
+ * Copyright (c) 2019 Loh Ka Hong. All rights reserved.
+ */
+
 @mixin mobile {
     @media (max-width: $desktop-width - 1) {
         @content;
