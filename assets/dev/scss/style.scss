@@ -56,10 +56,6 @@ $body-color: $font-color;
     }
 }
 
-html {
-    height: 100%;
-}
-
 body {
     background-color: $base-color;
     color: $font-color;
@@ -73,7 +69,7 @@ body {
     }
 
     @include desktop {
-        font-size: 1.2rem;
+        font-size: 20px;
     }
 
     a {
@@ -242,10 +238,12 @@ main {
         margin: 0;
     }
 
-    &:after {
-        content: "";
-        height: $navbar-height;
-        display: block;
+    @include desktop {
+        &:after {
+            content: "";
+            height: $navbar-height;
+            display: block;
+        }
     }
 
     h1 {
@@ -280,7 +278,6 @@ main {
             min-height: calc(100vh - #{$navbar-height});
             margin: 0 auto;
             padding: var(--section-margin) 10vw;
-            background-color: rgba(255, 255, 255, .5);
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
