@@ -1,6 +1,5 @@
 // Add partial support for old browsers that do not support IntersectionObserver, e.g. Safari
 import 'intersection-observer';
-import { css } from './functions';
 
 export const initNavigation = () => {
     /*
@@ -91,7 +90,6 @@ export const initNavigation = () => {
     /* 
      * Desktop only JavaScript
      */
-    
     else {
 
         /*
@@ -135,7 +133,7 @@ export const initNavigation = () => {
         };
         const scrollToSection = (sectionToScroll, listenerToRemove, listenerToAddAfterScroll) => {
             // Scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
-            css('body', { 'overflow': 'hidden' });
+            document.body.style.overflow = 'hidden';
             // Add 'before-animation' class for current section
             targetSection.classList.add('before-animation');
 
@@ -149,7 +147,7 @@ export const initNavigation = () => {
                    getBoundingClientRect().top may be float number so we need to floor() it 
                    trunc() is not the suitable function to use as it will clear the interval too early (before the scroll actually finish) while scrolling up */
                 if (Math.floor(targetSection.getBoundingClientRect().top) === 0) { // To do: && navbarBottom === 0
-                    css('body', { 'overflow': '' });
+                    document.body.style.overflow = '';
                     clearInterval(resetOverflow);
                     window.addEventListener('scroll', listenerToAddAfterScroll);
                     // Remove 'before-animation' class while scroll reach target section

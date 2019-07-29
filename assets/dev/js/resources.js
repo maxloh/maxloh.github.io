@@ -1,5 +1,4 @@
 import * as Remarkable from 'remarkable';
-import { css } from './functions';
 
 export const initResourcesList = () => {
     fetch(`${location.origin}/assets/md/resources.md`)
@@ -9,12 +8,14 @@ export const initResourcesList = () => {
         });
 
     document.getElementById('resources-btn').onclick = () => {
-        css('.overlay', { 'visibility': 'visible', 'opacity': '1' });
-        css('body', { 'overflow': 'hidden' });
+        document.getElementsByClassName('overlay')[0].style.visibility = 'visible';
+        document.getElementsByClassName('overlay')[0].style.opacity = '1';
+        document.body.style.overflow = 'hidden';
     }
 
     document.getElementById('close-btn').onclick = () => {
-        css('.overlay', { 'visibility': '', 'opacity': '' });
-        css('body', { 'overflow': '' });
+        document.getElementsByClassName('overlay')[0].style.visibility = '';
+        document.getElementsByClassName('overlay')[0].style.opacity = '';
+        document.body.style.overflow = '';
     }
 }

@@ -1,6 +1,5 @@
 import * as PhotoSwipe from 'photoswipe';
 import * as PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default';
-import { css } from './functions';
 
 export const initPhotoSwipe = () => {
     const openPhotoSwipe = (imgElement, galleryClass) => {
@@ -45,11 +44,11 @@ export const initPhotoSwipe = () => {
 
         // Prevent double shadow of .pswp__img and .pswp__img--placeholder
         pswp.listen('initialZoomInEnd', function () {
-            css('.pswp__img--placeholder', { 'display': 'none' });
+            document.getElementsByClassName('pswp__img--placeholder')[0].style.display = 'none';
         });
 
         pswp.listen('close', function () {
-            css('body', { 'overflow': '' });
+            document.body.style.overflow = '';
         });
     }
 
@@ -58,7 +57,7 @@ export const initPhotoSwipe = () => {
             // Prevent browser opening href links
             event.preventDefault();
             openPhotoSwipe(event.target, '.gallery');
-            css('body', { 'overflow': 'hidden' });
+            document.body.style.overflow = 'hidden';
         }
     });
 
