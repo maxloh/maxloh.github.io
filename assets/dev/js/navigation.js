@@ -1,5 +1,6 @@
 // Add partial support for old browsers that do not support IntersectionObserver, e.g. Safari
 import 'intersection-observer';
+import SmoothScroll from 'smooth-scroll';
 
 export const initNavigation = () => {
     /*
@@ -11,13 +12,13 @@ export const initNavigation = () => {
     const navbarHeight = navbar.getBoundingClientRect().height;
 
     // Height to determine current section 
-    const currentSectionHeight = (deviceType === 'desktop') ? Math.floor(window.innerHeight - navbarHeight) : navbarHeight + parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--section-margin')) + 1;
+    const currentSectionPoint = (deviceType === 'desktop') ? Math.floor(window.innerHeight - navbarHeight) : navbarHeight + parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--section-margin')) + 1;
     const getCurrentSection = () => {
         let currentSection;
         for (let element of document.getElementsByTagName('section')) {
-            if (element.getBoundingClientRect().top < currentSectionHeight) {
+            if (element.getBoundingClientRect().top < currentSectionPoint) {
                 currentSection = element;
-            }
+            } else break;
         }
         return currentSection;
     };
@@ -98,12 +99,11 @@ export const initNavigation = () => {
          */
 
         let previousScrollY = window.scrollY;
-        let targetSection;
+        let previousDestination;
 
         const headerScrollHandler = () => {
-            targetSection = getCurrentSection();
             navbar.classList.remove('before-animation');
-            if (typeof getCurrentSection() !== 'undefined') scrollToSection(getCurrentSection(), headerScrollHandler, sectionScrollHandler);
+            scrollToSection(document.getElementsByTagName('section')[0], headerScrollHandler, sectionScrollHandler);
         };
         const sectionScrollHandler = () => {
             // Scrolling down
@@ -131,39 +131,34 @@ export const initNavigation = () => {
 
             previousScrollY = window.scrollY;
         };
-        const scrollToSection = (sectionToScroll, listenerToRemove, listenerToAddAfterScroll) => {
+        const scrollToSection = (destination, listenerToRemove, listenerToAddAfterScroll) => {
             // Scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
             document.body.style.overflow = 'hidden';
-            // Add 'before-animation' class for current section
-            targetSection.classList.add('before-animation');
-
-            targetSection = sectionToScroll;
-            window.scroll({ top: targetSection.offsetTop, behavior: 'smooth' });
             window.removeEventListener('scroll', listenerToRemove);
+            if (previousDestination) previousDestination.classList.add('before-animation');
+            new SmoothScroll().animateScroll(destination);
 
-            // Wait for scroll finish
-            let resetOverflow = setInterval(() => {
-                /* If window reach target section 
-                   getBoundingClientRect().top may be float number so we need to floor() it 
-                   trunc() is not the suitable function to use as it will clear the interval too early (before the scroll actually finish) while scrolling up */
-                if (Math.floor(targetSection.getBoundingClientRect().top) === 0) { // To do: && navbarBottom === 0
-                    document.body.style.overflow = '';
-                    clearInterval(resetOverflow);
-                    window.addEventListener('scroll', listenerToAddAfterScroll);
-                    // Remove 'before-animation' class while scroll reach target section
-                    targetSection.classList.remove('before-animation');
-                }
-            }, 10);
+            const scrollFinishCallback = () => {
+                // Scrolling finish
+                document.removeEventListener('scrollStop', scrollFinishCallback);
+                document.body.style.overflow = '';
+                window.addEventListener('scroll', listenerToAddAfterScroll);
+                destination.classList.remove('before-animation');
+                previousDestination = destination;
+            }
+
+            document.addEventListener('scrollStop', scrollFinishCallback, false);
         };
 
         // Normal page load
-        if (window.scrollY === previousScrollY) {
+        if (window.scrollY === 0) {
             window.addEventListener('scroll', headerScrollHandler);
         }
         // Page reload
         else {
-            targetSection = getCurrentSection();
-            targetSection.classList.remove('before-animation');
+            getCurrentSection().classList.remove('before-animation');
+            navbar.classList.remove('before-animation');
+            previousDestination = getCurrentSection();
             window.addEventListener('scroll', sectionScrollHandler);
         }
 
