@@ -24,7 +24,7 @@ $body-color: $font-color;
 @import "./default-skin";
 @import "photoswipe/dist/photoswipe";
 
-@import "./latolatinfonts";
+@import "./manropefont";
 @import "./background";
 
 /*!
@@ -58,7 +58,7 @@ $body-color: $font-color;
 body {
     background-color: $base-color;
     color: $font-color;
-    font-family: "Lato", "arial", sans-serif;
+    font-family: "Manrope", "arial", sans-serif;
     font-weight: 400;
     overflow-x: hidden;
     letter-spacing: 0.0075em;
@@ -316,7 +316,8 @@ main {
         }
 
         p {
-            line-height: 1.7;
+            line-height: 1.8;
+            letter-spacing: 0.01em;
         }
 
         li {
