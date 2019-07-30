@@ -11,21 +11,21 @@ $body-bg: $base-color;
 $body-color: $font-color;
 
 // import Bootstrap CSS
-@import "../../../node_modules/bootstrap/scss/functions";
-@import "../../../node_modules/bootstrap/scss/variables";
-@import "../../../node_modules/bootstrap/scss/mixins";
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
 
-@import "../../../node_modules/bootstrap/scss/reboot";
-@import "../../../node_modules/bootstrap/scss/type"; //Headings
-@import "../../../node_modules/bootstrap/scss/nav";
-@import "../../../node_modules/bootstrap/scss/tables";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type"; //Headings
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/tables";
 
 // import PhotoSwipe CSS
 @import "./default-skin";
-@import "../../../node_modules/photoswipe/dist/photoswipe";
+@import "photoswipe/dist/photoswipe";
 
-@import "latolatinfonts";
-@import "background";
+@import "./latolatinfonts";
+@import "./background";
 
 /*!
  * Copyright (c) 2019 Loh Ka Hong. All rights reserved.
