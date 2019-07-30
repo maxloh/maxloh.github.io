@@ -159,8 +159,9 @@ export const initNavigation = () => {
         }
         // Page reload
         else {
-            getCurrentSection().classList.remove('before-animation');
             navbar.classList.remove('before-animation');
+            document.getElementById('background').style.opacity = 0.5;
+            getCurrentSection().classList.remove('before-animation');
             previousDestination = getCurrentSection();
             window.addEventListener('scroll', sectionScrollHandler);
         }

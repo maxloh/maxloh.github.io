@@ -15,10 +15,9 @@ $body-color: $font-color;
 @import "../../../node_modules/bootstrap/scss/variables";
 @import "../../../node_modules/bootstrap/scss/mixins";
 
+@import "../../../node_modules/bootstrap/scss/reboot";
 @import "../../../node_modules/bootstrap/scss/type"; //Headings
 @import "../../../node_modules/bootstrap/scss/nav";
-@import "../../../node_modules/bootstrap/scss/navbar";
-@import "../../../node_modules/bootstrap/scss/reboot";
 @import "../../../node_modules/bootstrap/scss/tables";
 
 // import PhotoSwipe CSS
@@ -112,13 +111,15 @@ header {
             display: block;
         }
 
+        @include desktop {
+            margin-bottom: 10px;
+        }
+
         a {
-            font-family: "Jura", "arial", sans-serif;
             color: $font-color;
-            font-size: 60px;
-            letter-spacing: 2px;
+            font-weight: 600;
+            font-size: 4rem;
             text-transform: uppercase;
-            padding: 0px;
 
             &:hover {
                 text-decoration: none;
@@ -155,12 +156,18 @@ nav.navbar {
         position: sticky;
         top: 0;
         margin: var(--navbar-margin) 0;
+        padding: .5rem 1rem;
+
+        &.sticky {
+            background-color: $base-color;
+            // 4 dp shadow in material design
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
+        }
     }
 
     @include desktop {
         position: fixed;
         bottom: 0;
-        margin-top: var(--navbar-margin);
         padding: 1rem;
         background-color: $base-color;
         // 8 dp shadow in material design
@@ -177,14 +184,6 @@ nav.navbar {
         }
     }
 
-    &.sticky {
-        @include mobile {
-            background-color: $base-color;
-            // 4 dp shadow in material design
-            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
-        }
-    }
-
     ul.nav.nav-pills {
         @include mobile {
             flex-wrap: nowrap;
@@ -195,13 +194,7 @@ nav.navbar {
         }
 
         li.nav-item {
-            @include mobile {
-                margin: 0px 5px;
-            }
-
-            @include desktop {
-                margin: 0px 10px;
-            }
+            margin: 0 0.25rem;
 
             &:first-child {
                 margin-left: 0px !important;
@@ -212,6 +205,7 @@ nav.navbar {
             }
 
             a.nav-link {
+                color: rgba(0, 0, 0, .6);
                 border-radius: 0.5rem;
 
                 @include mobile {
@@ -220,8 +214,8 @@ nav.navbar {
                 }
 
                 &.active {
-                    color: $base-color;
-                    background-color: $accent-color;
+                    color: $accent-color;
+                    background-color: rgba(255, 255, 255, 0);
                     font-weight: 600;
                 }
             }
