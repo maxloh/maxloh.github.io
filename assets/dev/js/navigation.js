@@ -102,15 +102,19 @@ export const initNavigation = () => {
         let previousDestination;
 
         const headerScrollHandler = () => {
-            navbar.classList.remove('before-animation');
-            scrollToSection(document.getElementsByTagName('section')[0], headerScrollHandler, sectionScrollHandler);
+            if (window.scrollY > 0) {
+                navbar.classList.remove('before-animation');
+                document.getElementById('background').style.opacity = 0.5;
+                scrollToSection(document.getElementsByTagName('section')[0], headerScrollHandler, sectionScrollHandler);
+                previousScrollY = 0;
+            }
         };
         const sectionScrollHandler = () => {
             // Scrolling down
             if (window.scrollY > previousScrollY) {
                 let nextSection = getCurrentSection();
                 // If next section exists and user scroll through topmost pixel of next section
-                if (nextSection && nextSection.getBoundingClientRect().top > 0) {
+                if (nextSection && Math.floor(nextSection.getBoundingClientRect().top) > 0) {
                     scrollToSection(nextSection, sectionScrollHandler, sectionScrollHandler);
                 }
             }
@@ -118,13 +122,14 @@ export const initNavigation = () => {
             else {
                 let previousSection = getCurrentSection().previousElementSibling;
                 // If previous section exists and user scroll through bottommost pixel of previous section
-                if (previousSection && previousSection.getBoundingClientRect().bottom > 0) {
+                if (previousSection && Math.floor(previousSection.getBoundingClientRect().bottom) > 0) {
                     scrollToSection(previousSection, sectionScrollHandler, sectionScrollHandler);
                 }
                 // Scroll to header as current section is the first section
-                else if (!previousSection) {
+                else if (!previousSection && Math.floor(getCurrentSection().getBoundingClientRect().top) > 0) {
                     // Add 'before-animation' class for navbar
                     navbar.classList.add('before-animation');
+                    document.getElementById('background').style.opacity = '';
                     scrollToSection(document.getElementsByTagName('header')[0], sectionScrollHandler, headerScrollHandler);
                 }
             }
@@ -136,18 +141,16 @@ export const initNavigation = () => {
             document.body.style.overflow = 'hidden';
             window.removeEventListener('scroll', listenerToRemove);
             if (previousDestination) previousDestination.classList.add('before-animation');
-            new SmoothScroll().animateScroll(destination);
+            new SmoothScroll().animateScroll(destination, 0, { speed: 600, speedAsDuration: true });
 
-            const scrollFinishCallback = () => {
+            document.addEventListener('scrollStop', function scrollFinish () {
                 // Scrolling finish
-                document.removeEventListener('scrollStop', scrollFinishCallback);
                 document.body.style.overflow = '';
-                window.addEventListener('scroll', listenerToAddAfterScroll);
+                document.removeEventListener('scrollStop', scrollFinish);
                 destination.classList.remove('before-animation');
+                window.addEventListener('scroll', listenerToAddAfterScroll);
                 previousDestination = destination;
-            }
-
-            document.addEventListener('scrollStop', scrollFinishCallback, false);
+            }, false);
         };
 
         // Normal page load

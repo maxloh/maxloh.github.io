@@ -168,8 +168,8 @@ nav.navbar {
     }
 
     &.before-animation {
-        opacity: 0;
-        transform: translateY(var(--navbar-margin));
+        visibility: hidden;
+        transform: translateY($navbar-height);
 
         @include desktop {
             // 8 dp shadow in material design
