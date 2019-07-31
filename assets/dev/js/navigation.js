@@ -114,7 +114,7 @@ export const initNavigation = () => {
             if (window.scrollY > previousScrollY) {
                 let nextSection = getCurrentSection();
                 // If next section exists and user scroll through topmost pixel of next section
-                if (nextSection && Math.floor(nextSection.getBoundingClientRect().top) > 0) {
+                if (nextSection && nextSection.getBoundingClientRect().top >= 1) {
                     scrollToSection(nextSection, sectionScrollHandler, sectionScrollHandler);
                 }
             }
@@ -122,11 +122,13 @@ export const initNavigation = () => {
             else {
                 let previousSection = getCurrentSection().previousElementSibling;
                 // If previous section exists and user scroll through bottommost pixel of previous section
-                if (previousSection && Math.floor(previousSection.getBoundingClientRect().bottom) > 0) {
+                if (previousSection && previousSection.getBoundingClientRect().bottom >= 1) {
                     scrollToSection(previousSection, sectionScrollHandler, sectionScrollHandler);
                 }
-                // Scroll to header as current section is the first section
-                else if (!previousSection && Math.floor(getCurrentSection().getBoundingClientRect().top) > 0) {
+                /* Scroll to header as current section is the first section
+                   sectionScrollHandler may be triggered on scrollStop so we need to check 
+                   if user scroll through topmost pixel of current section */
+                else if (!previousSection && getCurrentSection().getBoundingClientRect().top >= 1) {
                     // Add 'before-animation' class for navbar
                     navbar.classList.add('before-animation');
                     document.getElementById('background').style.opacity = '';
