@@ -1,0 +1,39 @@
+/* hind-300 - latin */
+@font-face {
+    font-family: 'Hind';
+    font-style: normal;
+    font-weight: 300;
+    src: url('../font/Hind-Latin-Light.woff2') format('woff2');
+}
+
+/* hind-regular - latin */
+@font-face {
+    font-family: 'Hind';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../font/Hind-Latin-Regular.woff2') format('woff2');
+}
+
+/* hind-500 - latin */
+@font-face {
+    font-family: 'Hind';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../font/Hind-Latin-Medium.woff2') format('woff2');
+}
+
+/* hind-600 - latin */
+@font-face {
+    font-family: 'Hind';
+    font-style: normal;
+    font-weight: 600;
+    src: url('../font/Hind-Latin-SemiBold.woff2') format('woff2');
+}
+
+/* hind-700 - latin */
+@font-face {
+    font-family: 'Hind';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../font/Hind-Latin-Bold.woff2') format('woff2');
+}
