@@ -1,13 +1,23 @@
 /*!
+Source
+https://github.com/chromium/chromium/tree/9797cc66ad6e9987f00272120835b840d7c132b5/chrome/browser/resources/welcome/shared
+
 Original CSS
-https://github.com/chromium/chromium/blob/4a043cc948fcfd1121eb1bc8e21c9714a686360e/chrome/browser/resources/welcome/onboarding_welcome/shared/onboarding_background.html#L6
-https://github.com/chromium/chromium/blob/4a043cc948fcfd1121eb1bc8e21c9714a686360e/chrome/browser/resources/welcome/onboarding_welcome/shared/navi_colors_css.html#L17
+https://github.com/chromium/chromium/blob/9797cc66ad6e9987f00272120835b840d7c132b5/chrome/browser/resources/welcome/shared/onboarding_background.html#L6
+https://github.com/chromium/chromium/blob/9797cc66ad6e9987f00272120835b840d7c132b5/chrome/browser/resources/welcome/shared/navi_colors_css.html#L9
 
 Original SVG (compiled with https://www.npmjs.com/package/inline-assets)
-https://github.com/chromium/chromium/tree/4a043cc948fcfd1121eb1bc8e21c9714a686360e/chrome/browser/resources/welcome/onboarding_welcome/images/background_svgs
+https://github.com/chromium/chromium/tree/9797cc66ad6e9987f00272120835b840d7c132b5/chrome/browser/resources/welcome/images/background_svgs
 
-Original LICENSE
-https://github.com/chromium/chromium/blob/4a043cc948fcfd1121eb1bc8e21c9714a686360e/LICENSE
+Add firefox support (using VS Code)
+Find: \#(.+(?<!::after))(::after)? {\n *-webkit-mask: (.+);\n
+Replace: #$1$2 {\n$$$1: $3;\n-webkit-mask: $$$1;\nmask: $$$1;\n
+*/
+
+/*!
+LICENSE
+https://github.com/chromium/chromium/blob/9797cc66ad6e9987f00272120835b840d7c132b5/LICENSE
+
 // Copyright 2015 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -34,7 +44,7 @@ https://github.com/chromium/chromium/blob/4a043cc948fcfd1121eb1bc8e21c9714a68636
 // DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 @keyframes blue-circle-anim-x {
@@ -79,6 +89,7 @@ https://github.com/chromium/chromium/blob/4a043cc948fcfd1121eb1bc8e21c9714a68636
 }
 
 #background {
+    transform: translate(-50%, -50%);
     position: fixed;
     top: 0;
     left: 0;
