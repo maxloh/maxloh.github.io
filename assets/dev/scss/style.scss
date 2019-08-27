@@ -5,7 +5,6 @@ $desktop-width: 768px;
 
 $navbar-margin-mobile: 20px;
 $navbar-height: (1.2rem * 1.5)+(0.5rem * 2)+(1rem * 2);
-$h1-font-size-desktop: 3.5rem;
 $main-transition: transform 1250ms,
 opacity 1250ms;
 
@@ -246,7 +245,7 @@ main {
 
     h1 {
         @include desktop {
-            font-size: $h1-font-size-desktop;
+            font-size: 3.5rem;
         }
     }
 
@@ -271,6 +270,11 @@ main {
         }
     }
 
+    p {
+        line-height: 1.7;
+    }
+
+
     section {
         @include desktop {
             min-height: calc(100vh - #{$navbar-height});
@@ -289,6 +293,14 @@ main {
 
         &>* {
             transition: $main-transition;
+        }
+
+        &>*:first-child {
+            margin-top: 0px;
+        }
+
+        &>*:last-child {
+            margin-bottom: 0px;
         }
 
         &.before-animation>* {
@@ -310,22 +322,6 @@ main {
                 color: #495057;
                 background-size: 100% 100%;
             }
-        }
-
-        &>*:first-child {
-            margin-top: 0px;
-        }
-
-        &>*:last-child {
-            margin-bottom: 0px;
-        }
-
-        p {
-            line-height: 1.7;
-        }
-
-        li {
-            margin-bottom: 1rem;
         }
 
         &#education {
@@ -354,23 +350,58 @@ main {
         }
 
         &#skills {
-            height: calc(100vh -  #{$navbar-height});
-            flex-direction: column;
-            flex-wrap: nowrap;
+            @include desktop {
+                height: calc(100vh - #{$navbar-height});
+                flex-direction: column;
+                flex-wrap: nowrap;
+            }
 
             #skills-container {
-                display: flex;
-                overflow-x: scroll;
-                flex-direction: column;
-                flex-wrap: wrap;
+                @include desktop {
+                    display: flex;
+                    overflow-x: scroll;
+                    flex-direction: column;
+                    flex-wrap: wrap;
+                }
 
                 .skill {
-                    height: calc(100% / 3);
-                    width: 40%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
 
-                    p.tags-heading {
-                        margin-bottom: 0.5rem;
+                    @include desktop {
+                        height: calc(100% / 3);
+                        width: 40%;
+                        padding-right: 2rem;
+
+                        &:last-child {
+                            padding: 0;
+                        }
+                    }
+
+                    h3 {
+                        margin-top: 0;
                         width: 100%;
+                    }
+
+                    .skill-level {
+                        width: 100%;
+                        height: 1rem;
+                        background-color: #e6e6e6;
+                        border-radius: 1000px;
+
+                        &>.skill-level-inner {
+                            height: 100%;
+                            color: white;
+                            font-size: .75rem;
+                            line-height: 1;
+                            background-color: $accent-color;
+                            display: flex;
+                            justify-content: flex-end;
+                            align-items: center;
+                            padding-right: 1rem;
+                            border-radius: 1000px;
+                        }
                     }
 
                     .tags-container {
