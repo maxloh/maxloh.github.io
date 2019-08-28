@@ -1,7 +1,6 @@
 $accent-color: #4285f4;
 $base-color: #FFFFFF;
 $font-color: #000000;
-$desktop-width: 768px;
 
 $navbar-margin-mobile: 20px;
 $navbar-height: (1.2rem * 1.5)+(0.5rem * 2)+(1rem * 2);
@@ -34,13 +33,13 @@ $body-color: $font-color;
  */
 
 @mixin mobile {
-    @media (max-width: $desktop-width - 1) {
+    @include media-breakpoint-down(sm) {
         @content;
     }
 }
 
 @mixin desktop {
-    @media (min-width: $desktop-width) {
+    @include media-breakpoint-up(md) {
         @content;
     }
 }
