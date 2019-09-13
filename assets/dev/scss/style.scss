@@ -12,6 +12,12 @@ $body-bg: $base-color;
 $body-color: $font-color;
 
 // import Bootstrap CSS
+/*!
+ * Bootstrap v4.3.1 (https://getbootstrap.com/)
+ * Copyright 2011-2019 The Bootstrap Authors
+ * Copyright 2011-2019 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/mixins";
@@ -318,14 +324,16 @@ main {
 
             &:hover {
                 border-radius: 2px;
-                color: #495057;
+                color: #FFFFFF;
                 background-size: 100% 100%;
             }
         }
 
         &#education {
             table.table {
-                width: 70%;
+                @include desktop {
+                    width: 70%;
+                }
 
                 tr {
                     &:first-child {
@@ -356,12 +364,13 @@ main {
             }
 
             #skills-container {
+                margin: 0 -1rem;
+
                 @include desktop {
                     display: flex;
                     overflow-x: scroll;
                     flex-direction: column;
                     flex-wrap: wrap;
-                    margin: 0 -1rem;
                 }
 
                 .skill {
@@ -373,7 +382,7 @@ main {
                     border-radius: 0.5rem;
                     background-color: #ffffff;
 
-                                                /*2 dp shadow in material design*/
+                    /*2 dp shadow in material design*/
                     box-shadow: 0 0px 1px -2px rgba(0, 0, 0, .2),
                         0 0px 2px 0 rgba(0, 0, 0, .14),
                         0 0px 5px 0 rgba(0, 0, 0, .12);

@@ -98,6 +98,18 @@ export const initNavigation = () => {
          * Scroll to next/previous section on scroll on desktop
          */
 
+        const background = document.getElementById('background');
+        const footer = document.getElementsByTagName('footer')[0];
+        const scrollbarWidth = (() => {
+            const div = document.createElement('div');
+            div.style.visibility = 'hidden';
+            div.style.overflow = 'scroll';
+            document.body.appendChild(div);
+            const scrollbarWidth = div.offsetWidth - div.clientWidth;
+            document.body.removeChild(div);
+            return scrollbarWidth;
+        })();
+
         let previousScrollY = window.scrollY;
         let previousDestination;
 
@@ -141,6 +153,9 @@ export const initNavigation = () => {
         const scrollToSection = (destination, listenerToRemove, listenerToAddAfterScroll) => {
             // Scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
             document.body.style.overflow = 'hidden';
+            document.body.style.paddingRight = `${scrollbarWidth}px`;
+            background.style.width = `calc(100% - ${scrollbarWidth}px)`;
+            footer.style.paddingRight = `${parseFloat(getComputedStyle(footer).paddingRight) + scrollbarWidth}px`;
             window.removeEventListener('scroll', listenerToRemove);
             if (previousDestination) previousDestination.classList.add('before-animation');
             new SmoothScroll().animateScroll(destination, 0, { speed: 600, speedAsDuration: true });
@@ -148,6 +163,9 @@ export const initNavigation = () => {
             document.addEventListener('scrollStop', function scrollFinish () {
                 // Scrolling finish
                 document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
+                background.style.width = '';
+                footer.style.paddingRight = '';
                 document.removeEventListener('scrollStop', scrollFinish);
                 destination.classList.remove('before-animation');
                 window.addEventListener('scroll', listenerToAddAfterScroll);
