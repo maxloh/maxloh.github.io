@@ -363,37 +363,63 @@ main {
             }
 
             #skills-container {
-                margin: 0 -1rem;
+                margin: -1rem;
 
                 @include desktop {
                     display: flex;
                     overflow-x: scroll;
                     flex-direction: column;
                     flex-wrap: wrap;
+                    justify-content: space-between;
                 }
 
                 .skill {
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
-                    margin: 1rem;
                     padding: 1rem;
-                    border-radius: 0.5rem;
                     background-color: #ffffff;
-
                     /*2 dp shadow in material design*/
                     box-shadow: 0 0px 1px -2px rgba(0, 0, 0, .2),
                         0 0px 2px 0 rgba(0, 0, 0, .14),
                         0 0px 5px 0 rgba(0, 0, 0, .12);
+                    border-radius: 0.5rem;
 
                     @include desktop {
-                        height: calc((100% / 3) - 1rem - 1rem);
+                        height: calc(((100% - 4rem) / 3));
                         width: 40%;
+                        margin: 1rem 1rem 1rem 0;
+
+                        // The first three child
+                        &:nth-child(-n+3) {
+                            margin-left: 1rem;
+                        }
+
+                        // The 2nd, 5th, 8th...child
+                        &:nth-child(3n-1) {
+                            margin-top: 0;
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    @include mobile {
+                        margin: 1rem 1rem 0;
+
+                        &:last-child {
+                            margin-bottom: 1rem;
+                        }
                     }
 
                     h3 {
                         margin-top: 0;
                         width: 100%;
+
+                        small {
+                            // Meterial Design helper text color https://material.io/design/color/text-legibility.html#text-types
+                            color: rgba(0, 0, 0, .6);
+                            margin-left: 0.5rem;
+                            font-weight: 100;
+                        }
                     }
 
                     .skill-level {
@@ -404,14 +430,7 @@ main {
 
                         &>.skill-level-inner {
                             height: 100%;
-                            color: white;
-                            font-size: .75rem;
-                            line-height: 1;
                             background-color: $accent-color;
-                            display: flex;
-                            justify-content: flex-end;
-                            align-items: center;
-                            padding-right: 1rem;
                             border-radius: 1000px;
                         }
                     }
