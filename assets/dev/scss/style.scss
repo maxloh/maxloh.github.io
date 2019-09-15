@@ -364,25 +364,34 @@ main {
 
             #skills-container {
                 @include desktop {
-                    display: flex;
                     overflow-x: scroll;
-                    flex-direction: column;
-                    flex-wrap: wrap;
+                    display: grid;
+                    grid-auto-flow: column;
+                    grid-template-rows: repeat(3, calc(40% - 2rem));
+                    grid-template-columns: repeat(3, 60%);
                 }
 
                 .skill {
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
-                    margin: 1rem;
                     padding: 1rem;
                     /* Needed so that the :before element will size correctly
                        as any element is position: static by default */
                     position: relative;
 
                     @include desktop {
-                        height: calc((100% / 3) - 1rem - 1rem);
-                        width: 40%;
+                        margin-left: 1rem;
+                        margin-right: 1rem;
+
+                        &:nth-child(-n+3) {
+                            margin-left: 0;
+                        }
+
+                        &:nth-child(3n+1):nth-last-child(-n+3),
+                        &:nth-child(3n+1):nth-last-child(-n+3)~& {
+                            margin-right: 0;
+                        }
                     }
 
                     // let shadow overflow .skills-container
