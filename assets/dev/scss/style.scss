@@ -111,6 +111,10 @@ header {
 
     .logo {
         line-height: normal;
+        color: $font-color;
+        font-weight: 600;
+        font-size: 4rem;
+        text-transform: uppercase;
 
         @include mobile {
             margin-bottom: $navbar-margin-mobile;
@@ -120,17 +124,6 @@ header {
 
         @include desktop {
             margin-bottom: 10px;
-        }
-
-        a {
-            color: $font-color;
-            font-weight: 600;
-            font-size: 4rem;
-            text-transform: uppercase;
-
-            &:hover {
-                text-decoration: none;
-            }
         }
     }
 
@@ -395,8 +388,8 @@ main {
                             margin-left: 1rem;
                         }
 
-                        // The 2nd, 5th, 8th...child
-                        &:nth-child(3n-1) {
+                        // Not the 1st, 4th, 7th... child and not the 3rd, 6th, 9th... child
+                        &:not(:nth-child(3n-2)):not(:nth-child(3n)) {
                             margin-top: 0;
                             margin-bottom: 0;
                         }
@@ -541,6 +534,11 @@ footer {
 
     small {
         display: block;
+
+        #resources-btn {
+            color: $accent-color;
+            cursor: pointer;
+        }
     }
 }
 
@@ -562,9 +560,10 @@ footer {
         overflow-y: auto;
         height: 100%;
 
-        a#close-btn {
+        #close-btn {
             position: sticky;
             float: right;
+            cursor: pointer;
 
             @include mobile {
                 top: 0.5rem;
