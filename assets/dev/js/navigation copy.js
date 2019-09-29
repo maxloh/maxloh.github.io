@@ -16,7 +16,9 @@ export const initNavigation = () => {
     const sectionList = [...document.getElementsByTagName('section')];
     const getCurrentSection = () => {
         for (let element of document.getElementsByTagName('section')) {
-            if (Math.trunc(element.getBoundingClientRect().top) >= 0) return element;
+            if (Math.trunc(element.getBoundingClientRect().top) >= 0 && Math.trunc(element.getBoundingClientRect().top) <= currentSectionPoint) {
+                return element;
+            }
         }
         return null;
     };
@@ -110,15 +112,18 @@ export const initNavigation = () => {
 
         document.addEventListener('wheel', (event) => {
             let currentSection = getCurrentSection();
+            console.log(currentSection);
             if (currentSection) {
-                event.preventDefault();
-                if (event.deltaY > 0) {
-                    scrollToSection(currentSection.nextElementSibling);
-                } else {
-                    if (currentSection.previousElementSibling) scrollToSection(currentSection.previousElementSibling);
-                    else scrollToSection(document.getElementsByTagName('header')[0]);
+                if (currentSection.getBoundingClientRect.bottom <= currentSectionPoint) {
+                    event.preventDefault();
+                    if (event.deltaY > 0) {
+                        scrollToSection(currentSection.nextElementSibling);
+                    } else {
+                        if (currentSection.previousElementSibling) scrollToSection(currentSection.previousElementSibling);
+                        else scrollToSection(document.getElementsByTagName('header')[0]);
+                    }
                 }
-            } 
+            }
             // Current scroll position is header
             else {
                 scrollToSection(sectionList[0]);
