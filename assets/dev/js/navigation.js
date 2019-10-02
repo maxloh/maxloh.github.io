@@ -14,7 +14,7 @@ export const initNavigation = () => {
     // Height to determine current section 
     const sectionList = [...document.getElementsByTagName('section')];
     const getCurrentSection = () => {
-        for (let element of document.getElementsByTagName('section')) {
+        for (let element of sectionList) {
             let elementTop = Math.trunc(element.getBoundingClientRect().top);
             let elementBottom = Math.trunc(element.getBoundingClientRect().bottom);
             if (elementTop === 0 || (elementTop < 0 && elementBottom > 0)) {
@@ -48,8 +48,8 @@ export const initNavigation = () => {
          */
 
         const delay = 400;
-        const animationObserver = new IntersectionObserver(function (entries, animationObserver) {
-            entries.forEach(function (entry) {
+        const animationObserver = new IntersectionObserver((entries, animationObserver) => {
+            entries.forEach((entry) => {
                 // Animate element when it enter viewport
                 if (entry.intersectionRatio > 0) {
                     animationObserver.unobserve(entry.target);
@@ -60,8 +60,8 @@ export const initNavigation = () => {
 
         // Animate navbar and observe section on page load
         navbar.classList.remove('before-animation');
-        setTimeout(function () {
-            [...document.getElementsByTagName('section')].forEach(function (element) {
+        setTimeout(() => {
+            sectionList.forEach((element) => {
                 animationObserver.observe(element);
             });
         }, delay);
@@ -80,8 +80,8 @@ export const initNavigation = () => {
          * Offset jump links (html anchors) for the sticky navbar, pointing them to the correct position
          */
 
-        [...document.getElementsByClassName('nav-link')].forEach(function (element) {
-            element.addEventListener('click', function (event) {
+        [...document.getElementsByClassName('nav-link')].forEach((element) => {
+            element.addEventListener('click', (event) => {
                 event.preventDefault();
                 let target = document.getElementById(event.target.href.split('#')[1]);
                 window.scroll({ top: target.offsetTop - navbarHeight - parseInt(getComputedStyle(target).marginTop), behavior: 'smooth' });

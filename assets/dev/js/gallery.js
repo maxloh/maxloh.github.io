@@ -14,7 +14,7 @@ export const initPhotoSwipe = () => {
             /* [...HTMLCollection].map(): use spread operator to convert nodeList to array and call the map function,
                while having better peroformence than Array.from(nodeList).map or Array.prototype.map.call(nodeList, function)
                https://measurethat.net/Benchmarks/Show/4507/0/arrayprototypemapcall-vs-arraymap */
-            items = [...imgElement.closest(galleryClass).getElementsByTagName('img')].map(function (element) {
+            items = [...imgElement.closest(galleryClass).getElementsByTagName('img')].map((element) => {
                 if (element === imgElement) { index = count; }
                 count++;
                 // msrc: prevent PhotoSwipe displaying grey placeholder
@@ -25,7 +25,7 @@ export const initPhotoSwipe = () => {
         // define options
         let options = {
             index: index,
-            getThumbBoundsFn: function () {
+            getThumbBoundsFn: () => {
                 let pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
                     rect = imgElement.getBoundingClientRect();
                 return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
@@ -43,17 +43,17 @@ export const initPhotoSwipe = () => {
         pswp.init();
 
         // Prevent double shadow of .pswp__img and .pswp__img--placeholder
-        pswp.listen('initialZoomInEnd', function () {
+        pswp.listen('initialZoomInEnd', () => {
             document.getElementsByClassName('pswp__img--placeholder')[0].style.display = 'none';
         });
 
-        pswp.listen('close', function () {
+        pswp.listen('close', () => {
             document.body.style.overflow = '';
         });
     }
 
-    [...document.querySelectorAll('.gallery-item img')].forEach(function (element) {
-        element.onclick = function (event) {
+    [...document.querySelectorAll('.gallery-item img')].forEach((element) => {
+        element.onclick = (event) => {
             // Prevent browser opening href links
             event.preventDefault();
             openPhotoSwipe(event.target, '.gallery');
