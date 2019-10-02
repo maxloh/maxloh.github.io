@@ -12,7 +12,6 @@ export const initNavigation = () => {
     const navbarHeight = navbar.getBoundingClientRect().height;
 
     // Height to determine current section 
-    const currentSectionPoint = (deviceType === 'desktop') ? Math.floor(window.innerHeight - navbarHeight) : navbarHeight + parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--section-margin')) + 1;
     const sectionList = [...document.getElementsByTagName('section')];
     const getCurrentSection = () => {
         for (let element of document.getElementsByTagName('section')) {
@@ -111,29 +110,38 @@ export const initNavigation = () => {
             document.body.removeChild(div);
             return scrollbarWidth;
         })();
+        const screenBottom = Math.floor(window.innerHeight - navbarHeight);
 
         document.addEventListener('wheel', (event) => {
             let currentSection = getCurrentSection();
             if (currentSection) {
-                if (event.deltaY > 0 && Math.trunc(currentSection.getBoundingClientRect().bottom) <= currentSectionPoint) {
+                let currentSectionTop = Math.trunc(currentSection.getBoundingClientRect().top);
+                let currentSectionBottom = Math.trunc(currentSection.getBoundingClientRect().bottom);
+
+                if (event.deltaY > 0 && currentSectionBottom <= screenBottom) {
                     event.preventDefault();
-                    // if not scrolled to the bottomest pixel of the page, where sectionBottom === currentSectionPoint
+                    // if not scrolled to the bottomest pixel of the last section, where currentSectionBottom === screenBottom
                     if (currentSection !== sectionList[sectionList.length - 1]) {
                         scrollToSection(currentSection.nextElementSibling);
                     }
-                } else if (event.deltaY < 0 && Math.trunc(currentSection.getBoundingClientRect().top) >= 0) {
-                    event.preventDefault();
-                    if (currentSection.previousElementSibling) {
-                        scrollToSection(currentSection.previousElementSibling);
-                    } else {
-                        navbar.classList.add('before-animation');
-                        scrollToSection(document.getElementsByTagName('header')[0]);
+                } else if (event.deltaY < 0) {
+                    if (currentSectionTop === 0) {
+                        event.preventDefault();
+                        if (currentSection.previousElementSibling) {
+                            scrollToSection(currentSection.previousElementSibling);
+                        } else {
+                            navbar.classList.add('before-animation');
+                            scrollToSection(document.getElementsByTagName('header')[0]);
+                        }
+                    } else if (currentSectionBottom < window.innerHeight / 2 && currentSectionTop < 0) {
+                        // Scrolling to previous section from last section
+                        scrollToSection(currentSection);
                     }
                 }
-                // Scrolling in a section
+                // Scrolling within a section
                 else return;
             }
-            // User scrolling to header
+            // Scrolling to header
             else {
                 navbar.classList.remove('before-animation');
                 scrollToSection(sectionList[0]);
