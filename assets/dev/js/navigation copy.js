@@ -16,7 +16,9 @@ export const initNavigation = () => {
     const sectionList = [...document.getElementsByTagName('section')];
     const getCurrentSection = () => {
         for (let element of document.getElementsByTagName('section')) {
-            if (Math.trunc(element.getBoundingClientRect().top) >= 0 && Math.trunc(element.getBoundingClientRect().top) <= currentSectionPoint) {
+            let elementTop = Math.trunc(element.getBoundingClientRect().top);
+            let elementBottom = Math.trunc(element.getBoundingClientRect().bottom);
+            if (elementTop === 0 || (elementTop < 0 && elementBottom > 0)) {
                 return element;
             }
         }
@@ -112,20 +114,32 @@ export const initNavigation = () => {
 
         document.addEventListener('wheel', (event) => {
             let currentSection = getCurrentSection();
-            console.log(currentSection);
             if (currentSection) {
-                if (currentSection.getBoundingClientRect.bottom <= currentSectionPoint) {
+                if (event.deltaY > 0 && Math.trunc(currentSection.getBoundingClientRect().bottom) <= currentSectionPoint) {
                     event.preventDefault();
-                    if (event.deltaY > 0) {
+                    // if not scrolled to the bottomest pixel of the page, where sectionBottom === currentSectionPoint
+                    if (currentSection !== sectionList[sectionList.length - 1]) {
                         scrollToSection(currentSection.nextElementSibling);
+                    }
+                } else if (event.deltaY < 0 && (Math.trunc(currentSection.getBoundingClientRect().top) >= 0 || Math.trunc(currentSection.getBoundingClientRect().bottom) <= currentSectionPoint)) {
+                    console.log('abc');
+                    event.preventDefault();
+                    if (currentSection.previousElementSibling) {
+                        scrollToSection(currentSection.previousElementSibling);
                     } else {
-                        if (currentSection.previousElementSibling) scrollToSection(currentSection.previousElementSibling);
-                        else scrollToSection(document.getElementsByTagName('header')[0]);
+                        navbar.classList.add('before-animation');
+                        scrollToSection(document.getElementsByTagName('header')[0]);
                     }
                 }
+                // Scrolling in a section
+                else  {
+                    console.log(`${currentSection.getBoundingClientRect().top} ${Math.trunc(currentSection.getBoundingClientRect().top) >= 0}`);
+                    return;
+                }
             }
-            // Current scroll position is header
+            // User scrolling to header
             else {
+                navbar.classList.remove('before-animation');
                 scrollToSection(sectionList[0]);
             }
         }, { passive: false });
@@ -171,7 +185,6 @@ export const initNavigation = () => {
         //     previousScrollY = window.scrollY;
         // };
         const scrollToSection = (destination) => {
-            console.log(destination.id);
             // Scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
             document.body.style.overflow = 'hidden';
             document.body.style.paddingRight = `${scrollbarWidth}px`;
@@ -181,14 +194,13 @@ export const initNavigation = () => {
             sectionList.filter(section => section !== destination).forEach((section) => section.classList.add('before-animation'));
             new SmoothScroll().animateScroll(destination, 0, { speed: 600, speedAsDuration: true });
 
-            document.addEventListener('scrollStop', function scrollFinish () {
-                // Scrolling finish
+            // Scrolling finish
+            document.addEventListener('scrollStop', (event) => {
                 document.body.style.overflow = '';
                 document.body.style.paddingRight = '';
                 background.style.width = '';
                 footer.style.paddingRight = '';
-
-                destination.classList.remove('before-animation');
+                event.detail.anchor.classList.remove('before-animation');
             }, false);
         };
 

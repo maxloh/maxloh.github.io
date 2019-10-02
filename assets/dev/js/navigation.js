@@ -25,8 +25,6 @@ export const initNavigation = () => {
         return null;
     };
 
-    console.log(currentSectionPoint);
-
     /* 
      * Scrollspy
      */
@@ -119,7 +117,10 @@ export const initNavigation = () => {
             if (currentSection) {
                 if (event.deltaY > 0 && Math.trunc(currentSection.getBoundingClientRect().bottom) <= currentSectionPoint) {
                     event.preventDefault();
-                    scrollToSection(currentSection.nextElementSibling);
+                    // if not scrolled to the bottomest pixel of the page, where sectionBottom === currentSectionPoint
+                    if (currentSection !== sectionList[sectionList.length - 1]) {
+                        scrollToSection(currentSection.nextElementSibling);
+                    }
                 } else if (event.deltaY < 0 && Math.trunc(currentSection.getBoundingClientRect().top) >= 0) {
                     event.preventDefault();
                     if (currentSection.previousElementSibling) {
