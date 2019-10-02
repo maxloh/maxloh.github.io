@@ -118,31 +118,31 @@ export const initNavigation = () => {
                 let currentSectionTop = Math.trunc(currentSection.getBoundingClientRect().top);
                 let currentSectionBottom = Math.trunc(currentSection.getBoundingClientRect().bottom);
 
-                if (event.deltaY > 0 && currentSectionBottom <= screenBottom) {
+                // Scrolling down to next section
+                // currentSection !== sectionList[sectionList.length - 1]: if not scrolled to the bottomest pixel of the last section, where currentSectionBottom === screenBottom
+                if (event.deltaY > 0 && currentSectionBottom <= screenBottom && currentSection !== sectionList[sectionList.length - 1]) {
                     event.preventDefault();
-                    // if not scrolled to the bottomest pixel of the last section, where currentSectionBottom === screenBottom
-                    if (currentSection !== sectionList[sectionList.length - 1]) {
-                        scrollToSection(currentSection.nextElementSibling);
+                    scrollToSection(currentSection.nextElementSibling);
+                }
+                // Scrolling up to previous section from non-last-section
+                else if (event.deltaY < 0 && currentSectionTop === 0) {
+                    if (currentSection.previousElementSibling) {
+                        scrollToSection(currentSection.previousElementSibling);
+                    } else {
+                        navbar.classList.add('before-animation');
+                        scrollToSection(document.getElementsByTagName('header')[0]);
                     }
-                } else if (event.deltaY < 0) {
-                    if (currentSectionTop === 0) {
-                        event.preventDefault();
-                        if (currentSection.previousElementSibling) {
-                            scrollToSection(currentSection.previousElementSibling);
-                        } else {
-                            navbar.classList.add('before-animation');
-                            scrollToSection(document.getElementsByTagName('header')[0]);
-                        }
-                    } else if (currentSectionBottom < window.innerHeight / 2 && currentSectionTop < 0) {
-                        // Scrolling to previous section from last section
-                        scrollToSection(currentSection);
-                    }
+                }
+                // Scrolling up to previous section from last section
+                else if (event.deltaY < 0 && currentSectionBottom < window.innerHeight / 2 && currentSectionTop < 0) {
+                    event.preventDefault();
+                    scrollToSection(currentSection);
                 }
                 // Scrolling within a section
                 else return;
             }
-            // Scrolling to header
-            else {
+            // Scrolling down from header to first section
+            else if (event.deltaY > 0) {
                 navbar.classList.remove('before-animation');
                 scrollToSection(sectionList[0]);
             }
