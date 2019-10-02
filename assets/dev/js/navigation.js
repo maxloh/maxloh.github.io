@@ -101,6 +101,7 @@ export const initNavigation = () => {
 
         const background = document.getElementById('background');
         const footer = document.getElementsByTagName('footer')[0];
+        const screenBottom = Math.floor(window.innerHeight - navbarHeight);
         const scrollbarWidth = (() => {
             const div = document.createElement('div');
             div.style.visibility = 'hidden';
@@ -110,84 +111,7 @@ export const initNavigation = () => {
             document.body.removeChild(div);
             return scrollbarWidth;
         })();
-        const screenBottom = Math.floor(window.innerHeight - navbarHeight);
 
-        document.addEventListener('wheel', (event) => {
-            let currentSection = getCurrentSection();
-            if (currentSection) {
-                let currentSectionTop = Math.trunc(currentSection.getBoundingClientRect().top);
-                let currentSectionBottom = Math.trunc(currentSection.getBoundingClientRect().bottom);
-
-                // Scrolling down to next section
-                // currentSection !== sectionList[sectionList.length - 1]: if not scrolled to the bottomest pixel of the last section, where currentSectionBottom === screenBottom
-                if (event.deltaY > 0 && currentSectionBottom <= screenBottom && currentSection !== sectionList[sectionList.length - 1]) {
-                    event.preventDefault();
-                    scrollToSection(currentSection.nextElementSibling);
-                }
-                // Scrolling up to previous section from non-last-section
-                else if (event.deltaY < 0 && currentSectionTop === 0) {
-                    if (currentSection.previousElementSibling) {
-                        scrollToSection(currentSection.previousElementSibling);
-                    } else {
-                        navbar.classList.add('before-animation');
-                        scrollToSection(document.getElementsByTagName('header')[0]);
-                    }
-                }
-                // Scrolling up to previous section from last section
-                else if (event.deltaY < 0 && currentSectionBottom < window.innerHeight / 2 && currentSectionTop < 0) {
-                    event.preventDefault();
-                    scrollToSection(currentSection);
-                }
-                // Scrolling within a section
-                else return;
-            }
-            // Scrolling down from header to first section
-            else if (event.deltaY > 0) {
-                navbar.classList.remove('before-animation');
-                scrollToSection(sectionList[0]);
-            }
-        }, { passive: false });
-
-        // let previousScrollY = window.scrollY;
-        // let previousDestination;
-
-        // const headerScrollHandler = () => {
-        //     if (window.scrollY > 0) {
-        //         navbar.classList.remove('before-animation');
-        //         document.getElementById('background').style.opacity = 0.5;
-        //         scrollToSection(document.getElementsByTagName('section')[0], headerScrollHandler, sectionScrollHandler);
-        //         previousScrollY = 0;
-        //     }
-        // };
-        // const sectionScrollHandler = () => {
-        //     // Scrolling down
-        //     if (window.scrollY > previousScrollY) {
-        //         let nextSection = getCurrentSection();
-        //         // If next section exists and user scroll through topmost pixel of next section
-        //         if (nextSection && nextSection.getBoundingClientRect().top >= 1) {
-        //             scrollToSection(nextSection, sectionScrollHandler, sectionScrollHandler);
-        //         }
-        //     }
-        //     // Scrolling up
-        //     else {
-        //         let previousSection = getCurrentSection().previousElementSibling;
-        //         // If previous section exists and user scroll through bottommost pixel of previous section
-        //         if (previousSection && previousSection.getBoundingClientRect().bottom >= 1) {
-        //             scrollToSection(previousSection, sectionScrollHandler, sectionScrollHandler);
-        //         }
-        //         /* Scroll to header as current section is the first section
-        //            sectionScrollHandler may be triggered on scrollStop so we need to check 
-        //            if user scroll through topmost pixel of current section */
-        //         else if (!previousSection && getCurrentSection().getBoundingClientRect().top >= 1) {
-        //             // Add 'before-animation' class for navbar
-        //             navbar.classList.add('before-animation');
-        //             document.getElementById('background').style.opacity = '';
-        //             scrollToSection(document.getElementsByTagName('header')[0], sectionScrollHandler, headerScrollHandler);
-        //         }
-        //     }
-
-        //     previousScrollY = window.scrollY;
-        // };
         const scrollToSection = (destination) => {
             // Scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
             document.body.style.overflow = 'hidden';
@@ -207,29 +131,65 @@ export const initNavigation = () => {
                 event.detail.anchor.classList.remove('before-animation');
             }, false);
         };
+        const scrollHandler = (event, direction) => {
+            let currentSection = getCurrentSection();
+            if (currentSection) {
+                let currentSectionTop = Math.trunc(currentSection.getBoundingClientRect().top);
+                let currentSectionBottom = Math.trunc(currentSection.getBoundingClientRect().bottom);
 
-        // // Normal page load
-        // if (window.scrollY === 0) {
-        //     window.addEventListener('scroll', headerScrollHandler);
-        // }
-        // // Page reload
-        // else {
-        //     navbar.classList.remove('before-animation');
-        //     document.getElementById('background').style.opacity = 0.5;
-        //     getCurrentSection().classList.remove('before-animation');
-        //     previousDestination = getCurrentSection();
-        //     window.addEventListener('scroll', sectionScrollHandler);
-        // }
+                // Scrolling down to next section
+                // currentSection !== sectionList[sectionList.length - 1]: if not scrolling down form the bottomest pixel of the last section, where currentSectionBottom === screenBottom
+                if (direction === 'down' && currentSectionBottom <= screenBottom && currentSection !== sectionList[sectionList.length - 1]) {
+                    event.preventDefault();
+                    scrollToSection(currentSection.nextElementSibling);
+                }
+                // Scrolling up to previous section from non-last-section
+                else if (direction === 'up' && currentSectionTop === 0) {
+                    if (currentSection.previousElementSibling) {
+                        scrollToSection(currentSection.previousElementSibling);
+                    } else {
+                        navbar.classList.add('before-animation');
+                        scrollToSection(document.getElementsByTagName('header')[0]);
+                    }
+                }
+                // Scrolling up to previous section from the last section, currentSection variable actually store a reference to n-1 section
+                else if (direction === 'up' && currentSectionBottom < window.innerHeight / 2 && currentSectionTop < 0) {
+                    event.preventDefault();
+                    scrollToSection(currentSection);
+                }
+                // Scrolling within a section
+                else return;
+            }
+            // Scrolling down from header to first section
+            else if (direction === 'down') {
+                navbar.classList.remove('before-animation');
+                scrollToSection(sectionList[0]);
+            }
+        };
+
+        // when Page reload
+        if (window.scrollY !== 0) {
+            navbar.classList.remove('before-animation');
+            document.getElementById('background').style.opacity = 0.5;
+            getCurrentSection().classList.remove('before-animation');
+            document.querySelector('a.nav-link[href="#' + getCurrentSection().id + '"]').classList.add('active');
+        }
+
+        document.addEventListener('wheel', event => scrollHandler(event, event.deltaY < 0 ? 'up' : 'down'), { passive: false });
+        document.addEventListener('keydown', event => {
+            if (event.keyCode === 38) scrollHandler(event, 'up');
+            else if (event.keyCode === 40) scrollHandler(event, 'down');
+        }, { passive: false });
 
         /* 
          * Navbar jump links handling
          * Making navbar jump links compatible with section navigation JavaScript
          */
 
-        document.querySelectorAll('#navbar a.nav-link').forEach(function (element) {
-            element.addEventListener('click', function (event) {
+        document.querySelectorAll('#navbar a.nav-link').forEach((element) => {
+            element.addEventListener('click', (event) => {
                 event.preventDefault();
-                scrollToSection(document.getElementById(event.target.href.split('#')[1]), sectionScrollHandler, sectionScrollHandler);
+                scrollToSection(document.getElementById(event.target.href.split('#')[1]));
             })
         });
     }
