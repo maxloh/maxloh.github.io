@@ -16,7 +16,11 @@ export const initNavigation = () => {
     const sectionList = [...document.getElementsByTagName('section')];
     const getCurrentSection = () => {
         for (let element of document.getElementsByTagName('section')) {
-            if (Math.trunc(element.getBoundingClientRect().top) >= 0) return element;
+            let elementTop = Math.trunc(element.getBoundingClientRect().top);
+            let elementBottom = Math.trunc(element.getBoundingClientRect().bottom);
+            if ((elementTop >= 0 && elementTop <= currentSectionPoint) || (elementBottom > 0 && elementBottom <= currentSectionPoint)) {
+                return element;
+            }
         }
         return null;
     };
@@ -118,7 +122,7 @@ export const initNavigation = () => {
                     if (currentSection.previousElementSibling) scrollToSection(currentSection.previousElementSibling);
                     else scrollToSection(document.getElementsByTagName('header')[0]);
                 }
-            } 
+            }
             // Current scroll position is header
             else {
                 scrollToSection(sectionList[0]);
@@ -166,7 +170,6 @@ export const initNavigation = () => {
         //     previousScrollY = window.scrollY;
         // };
         const scrollToSection = (destination) => {
-            console.log(destination.id);
             // Scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
             document.body.style.overflow = 'hidden';
             document.body.style.paddingRight = `${scrollbarWidth}px`;
@@ -176,13 +179,12 @@ export const initNavigation = () => {
             sectionList.filter(section => section !== destination).forEach((section) => section.classList.add('before-animation'));
             new SmoothScroll().animateScroll(destination, 0, { speed: 600, speedAsDuration: true });
 
-            document.addEventListener('scrollStop', function scrollFinish () {
-                // Scrolling finish
+            // Scrolling finish
+            document.addEventListener('scrollStop', () => {
                 document.body.style.overflow = '';
                 document.body.style.paddingRight = '';
                 background.style.width = '';
                 footer.style.paddingRight = '';
-
                 destination.classList.remove('before-animation');
             }, false);
         };
