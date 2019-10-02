@@ -18,12 +18,14 @@ export const initNavigation = () => {
         for (let element of document.getElementsByTagName('section')) {
             let elementTop = Math.trunc(element.getBoundingClientRect().top);
             let elementBottom = Math.trunc(element.getBoundingClientRect().bottom);
-            if ((elementTop >= 0 && elementTop <= currentSectionPoint) || (elementBottom > 0 && elementBottom <= currentSectionPoint)) {
+            if (elementTop === 0 || (elementTop < 0 && elementBottom > 0)) {
                 return element;
             }
         }
         return null;
     };
+
+    console.log(currentSectionPoint);
 
     /* 
      * Scrollspy
@@ -115,16 +117,24 @@ export const initNavigation = () => {
         document.addEventListener('wheel', (event) => {
             let currentSection = getCurrentSection();
             if (currentSection) {
-                event.preventDefault();
-                if (event.deltaY > 0) {
+                if (event.deltaY > 0 && Math.trunc(currentSection.getBoundingClientRect().bottom) <= currentSectionPoint) {
+                    event.preventDefault();
                     scrollToSection(currentSection.nextElementSibling);
-                } else {
-                    if (currentSection.previousElementSibling) scrollToSection(currentSection.previousElementSibling);
-                    else scrollToSection(document.getElementsByTagName('header')[0]);
+                } else if (event.deltaY < 0 && Math.trunc(currentSection.getBoundingClientRect().top) >= 0) {
+                    event.preventDefault();
+                    if (currentSection.previousElementSibling) {
+                        scrollToSection(currentSection.previousElementSibling);
+                    } else {
+                        navbar.classList.add('before-animation');
+                        scrollToSection(document.getElementsByTagName('header')[0]);
+                    }
                 }
+                // Scrolling in a section
+                else return;
             }
-            // Current scroll position is header
+            // User scrolling to header
             else {
+                navbar.classList.remove('before-animation');
                 scrollToSection(sectionList[0]);
             }
         }, { passive: false });
@@ -180,12 +190,12 @@ export const initNavigation = () => {
             new SmoothScroll().animateScroll(destination, 0, { speed: 600, speedAsDuration: true });
 
             // Scrolling finish
-            document.addEventListener('scrollStop', () => {
+            document.addEventListener('scrollStop', (event) => {
                 document.body.style.overflow = '';
                 document.body.style.paddingRight = '';
                 background.style.width = '';
                 footer.style.paddingRight = '';
-                destination.classList.remove('before-animation');
+                event.detail.anchor.classList.remove('before-animation');
             }, false);
         };
 
