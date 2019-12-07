@@ -31,6 +31,8 @@ $body-color: $font-color;
 @import "photoswipe/dist/photoswipe";
 @import "./default-skin";
 
+@import "@material/fab/mdc-fab";
+
 @import "./hind-font";
 @import "./background";
 
@@ -282,6 +284,9 @@ main {
             flex-direction: column;
             flex-wrap: wrap;
             justify-content: center;
+
+            // For FAB positioning
+            position: relative;
         }
 
         @include mobile {
@@ -289,7 +294,7 @@ main {
         }
 
         &>* {
-            transition: $main-transition;
+            transition: $main-transition !important;
         }
 
         &>*:first-child {
@@ -353,6 +358,16 @@ main {
                 height: calc(100vh - #{$navbar-height});
                 flex-direction: column;
                 flex-wrap: nowrap;
+            }
+
+            button.mdc-fab {
+                position: fixed;
+                right: calc(10vh + 56px);
+                top: calc((100% - 3.5rem - 1rem)/2);
+
+                @include mobile {
+                    display: none;
+                }
             }
 
             #skills-container {
