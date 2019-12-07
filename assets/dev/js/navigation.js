@@ -110,6 +110,8 @@ export const initNavigation = () => {
             document.body.removeChild(div);
             return scrollbarWidth;
         })();
+        const transitionTime = 1250;
+        let prevScrollTime = (new Date()).getTime();
 
         getCurrentSection = () => sectionList.find(s => !s.classList.contains('above-viewport') && !s.classList.contains('below-viewport'));
 
@@ -137,9 +139,15 @@ export const initNavigation = () => {
                 document.body.style.overflow = '';
                 sectionList[currentIndex].classList.remove('animating');
                 sectionList[destinationIndex].classList.remove('animating');
-            }, 1000);
+            }, transitionTime);
         };
+
         const scrollHandler = (event, direction) => {
+            // Handle whell event firing multiple times by trackpad
+            const now = (new Date()).getTime();
+            if (now - prevScrollTime < transitionTime) return;
+            prevScrollTime = now;
+
             let currentSection = getCurrentSection();
             let currentSectionIndex = sectionList.findIndex(s => s === currentSection);
 
