@@ -284,17 +284,12 @@ main {
             flex-direction: column;
             flex-wrap: wrap;
             justify-content: center;
-
             // For FAB positioning
             position: relative;
         }
 
         @include mobile {
             margin: var(--section-vertical-spacing) 0;
-        }
-
-        &>* {
-            transition: $main-transition !important;
         }
 
         &>*:first-child {
@@ -305,9 +300,37 @@ main {
             margin-bottom: 0px;
         }
 
+        &>* {
+            transition: $main-transition !important;
+        }
+
+        &.animating {
+            display: flex !important;
+            position: fixed;
+            top: 0;
+            // Fix section being resized when it is position: absolute while transtion
+            width: 100%;
+        }
+
         &.before-animation>* {
             opacity: 0;
             transform: translateY(calc(var(--section-vertical-spacing) * 0.6));
+        }
+
+        &.above-viewport, &.below-viewport {
+            display: none;
+
+            &>* {
+                opacity: 0;
+            }
+        }
+
+        &.above-viewport>* {
+            transform: translateY(-100vh);
+        }
+
+        &.below-viewport>* {
+            transform: translateY(100vh);
         }
 
         a {

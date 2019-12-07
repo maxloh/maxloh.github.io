@@ -13,7 +13,7 @@ export const initNavigation = () => {
 
     // Height to determine current section 
     const sectionList = [...document.getElementsByTagName('section')];
-    const getCurrentSection = () => {
+    let getCurrentSection = () => {
         for (let element of sectionList) {
             let elementTop = Math.trunc(element.getBoundingClientRect().top);
             let elementBottom = Math.trunc(element.getBoundingClientRect().bottom);
@@ -101,7 +101,6 @@ export const initNavigation = () => {
 
         const background = document.getElementById('background');
         const footer = document.getElementsByTagName('footer')[0];
-        const screenBottom = Math.floor(window.innerHeight - navbarHeight);
         const scrollbarWidth = (() => {
             const div = document.createElement('div');
             div.style.visibility = 'hidden';
@@ -112,59 +111,61 @@ export const initNavigation = () => {
             return scrollbarWidth;
         })();
 
-        const scrollToSection = (destination) => {
+        getCurrentSection = () => sectionList.find(s => !s.classList.contains('above-viewport') && !s.classList.contains('below-viewport'));
+
+        const scrollToSection = (destinationIndex, currentIndex) => {
             // Scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
             document.body.style.overflow = 'hidden';
-            document.body.style.paddingRight = `${scrollbarWidth}px`;
-            background.style.width = `calc(100% - ${scrollbarWidth}px)`;
-            footer.style.paddingRight = `${parseFloat(getComputedStyle(footer).paddingRight) + scrollbarWidth}px`;
+            sectionList[destinationIndex].style.display = '';
+            sectionList[currentIndex].classList.add('animating');
+            sectionList[destinationIndex].classList.add('animating');
 
-            sectionList.filter(section => section !== destination).forEach((section) => section.classList.add('before-animation'));
-            new SmoothScroll().animateScroll(destination, 0, { speed: 600, speedAsDuration: true });
+            // Transition would not be evoked if it is followed instantly afer display: none is removed
+            setTimeout(() => {
+                if (destinationIndex > currentIndex) {
+                    sectionList[currentIndex].classList.add('above-viewport');
+                    sectionList[destinationIndex].classList.remove('below-viewport');
+                } else {
+                    sectionList[currentIndex].classList.add('below-viewport');
+                    sectionList[destinationIndex].classList.remove('above-viewport');
+                }
+            }, 50);
 
             // Scrolling finish
-            document.addEventListener('scrollStop', (event) => {
+            // TODO: change timeout value
+            setTimeout(() => {
                 document.body.style.overflow = '';
-                document.body.style.paddingRight = '';
-                background.style.width = '';
-                footer.style.paddingRight = '';
-                event.detail.anchor.classList.remove('before-animation');
-            }, false);
+                sectionList[currentIndex].classList.remove('animating');
+                sectionList[destinationIndex].classList.remove('animating');
+            }, 1000);
         };
         const scrollHandler = (event, direction) => {
             let currentSection = getCurrentSection();
-            if (currentSection) {
-                let currentSectionTop = Math.trunc(currentSection.getBoundingClientRect().top);
-                let currentSectionBottom = Math.trunc(currentSection.getBoundingClientRect().bottom);
+            let currentSectionIndex = sectionList.findIndex(s => s === currentSection);
 
+            if (currentSection) {
                 // Scrolling down to next section
-                // currentSection !== sectionList[sectionList.length - 1]: if not scrolling down form the bottomest pixel of the last section, where currentSectionBottom === screenBottom
-                if (direction === 'down' && currentSectionBottom <= screenBottom && currentSection !== sectionList[sectionList.length - 1]) {
+                if (direction === 'down') {
                     event.preventDefault();
-                    scrollToSection(currentSection.nextElementSibling);
-                }
-                // Scrolling up to previous section from non-last-section
-                else if (direction === 'up' && currentSectionTop === 0) {
-                    if (currentSection.previousElementSibling) {
-                        scrollToSection(currentSection.previousElementSibling);
-                    } else {
-                        navbar.classList.add('before-animation');
-                        scrollToSection(document.getElementsByTagName('header')[0]);
+                    if (currentSectionIndex !== sectionList.length) {
+                        scrollToSection(currentSectionIndex + 1, currentSectionIndex);
                     }
                 }
-                // Scrolling up to previous section from the last section, currentSection variable actually store a reference to n-1 section
-                else if (direction === 'up' && currentSectionBottom < window.innerHeight / 2 && currentSectionTop < 0) {
-                    event.preventDefault();
-                    scrollToSection(currentSection);
+                // Scrolling up to previous section
+                else if (direction === 'up') {
+                    if (currentSectionIndex !== 0) {
+                        scrollToSection(currentSectionIndex - 1, currentSectionIndex);
+                    } else {
+                        // navbar.classList.add('before-animation');
+                        // Scroll to header
+                    }
                 }
-                // Scrolling within a section
-                else return;
             }
             // Scrolling down from header to first section
-            else if (direction === 'down') {
-                navbar.classList.remove('before-animation');
-                scrollToSection(sectionList[0]);
-            }
+            // else if (direction === 'down') {
+            //     navbar.classList.remove('before-animation');
+            //     scrollToSection(sectionList[0]);
+            // }
         };
 
         // when Page reload
@@ -180,6 +181,8 @@ export const initNavigation = () => {
             if (event.keyCode === 38) scrollHandler(event, 'up');
             else if (event.keyCode === 40) scrollHandler(event, 'down');
         }, { passive: false });
+
+        sectionList.forEach((s, index) => { if (index !== 0) s.classList.add('below-viewport'); });
 
         /* 
          * Navbar jump links handling
