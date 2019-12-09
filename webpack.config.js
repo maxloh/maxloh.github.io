@@ -7,7 +7,7 @@ module.exports = {
         filename: 'app.bundle.js',
         path: path.resolve(__dirname, './assets/js/'),
     },
-    mode: 'production',
+    mode: process.env.NODE_ENV,
     devtool: 'source-map',
     plugins: [
         new webpack.BannerPlugin('Copyright (c) 2019 Loh Ka Hong. All rights reserved.')
