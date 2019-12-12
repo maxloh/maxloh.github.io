@@ -317,7 +317,8 @@ main {
             transform: translateY(calc(var(--section-vertical-spacing) * 0.6));
         }
 
-        &.above-viewport, &.below-viewport {
+        &.above-viewport,
+        &.below-viewport {
             display: none;
 
             &>* {
@@ -582,7 +583,8 @@ footer {
 
 
 .overlay {
-    background-color: #FFFFFF;
+    background-color: #ffffffaa;
+    backdrop-filter: blur(8px);
     position: fixed;
     top: 0;
     left: 0;
