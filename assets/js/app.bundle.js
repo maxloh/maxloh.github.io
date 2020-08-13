@@ -82,2332 +82,11 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./assets/dev/js/app.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ "./assets/dev/js/app.js":
-/*!******************************!*\
-  !*** ./assets/dev/js/app.js ***!
-  \******************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/style.scss */ "./assets/dev/scss/style.scss");
-/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_style_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _navigation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./navigation */ "./assets/dev/js/navigation.js");
-/* harmony import */ var _gallery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./gallery */ "./assets/dev/js/gallery.js");
-/* harmony import */ var _resources__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./resources */ "./assets/dev/js/resources.js");
-
-
-
-
-
-addEventListener('DOMContentLoaded', function () {
-    Object(_navigation__WEBPACK_IMPORTED_MODULE_1__["initNavigation"])();
-    Object(_gallery__WEBPACK_IMPORTED_MODULE_2__["initPhotoSwipe"])();
-    Object(_resources__WEBPACK_IMPORTED_MODULE_3__["initResourcesList"])();
-});
-
-/***/ }),
-
-/***/ "./assets/dev/js/gallery.js":
-/*!**********************************!*\
-  !*** ./assets/dev/js/gallery.js ***!
-  \**********************************/
-/*! exports provided: initPhotoSwipe */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initPhotoSwipe", function() { return initPhotoSwipe; });
-/* harmony import */ var photoswipe__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! photoswipe */ "./node_modules/photoswipe/dist/photoswipe.js");
-/* harmony import */ var photoswipe__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(photoswipe__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var photoswipe_dist_photoswipe_ui_default__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! photoswipe/dist/photoswipe-ui-default */ "./node_modules/photoswipe/dist/photoswipe-ui-default.js");
-/* harmony import */ var photoswipe_dist_photoswipe_ui_default__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(photoswipe_dist_photoswipe_ui_default__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-const initPhotoSwipe = () => {
-    const openPhotoSwipe = (imgElement, galleryClass) => {
-        let pswpElement = document.querySelector('.pswp');
-
-        // build items array, record element index
-        let index = 0;
-        let items;
-
-        {
-            let count = 0;
-            /* [...HTMLCollection].map(): use spread operator to convert nodeList to array and call the map function,
-               while having better peroformence than Array.from(nodeList).map or Array.prototype.map.call(nodeList, function)
-               https://measurethat.net/Benchmarks/Show/4507/0/arrayprototypemapcall-vs-arraymap */
-            items = [...imgElement.closest(galleryClass).getElementsByTagName('img')].map((element) => {
-                if (element === imgElement) { index = count; }
-                count++;
-                // msrc: prevent PhotoSwipe displaying grey placeholder
-                return { src: element.currentSrc, msrc: element.currentSrc, w: element.naturalWidth, h: element.naturalHeight };
-            });
-        }
-
-        // define options
-        let options = {
-            index: index,
-            getThumbBoundsFn: () => {
-                let pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
-                    rect = imgElement.getBoundingClientRect();
-                return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
-            },
-            showHideOpacity: true,
-            /* bgOpacity: 0.32 -> Scrim opacity in material design dialogs
-               https://material.io/design/components/dialogs.html#theming */
-            bgOpacity: 0.32,
-            shareEl: false,
-            closeElClasses: ['item', 'caption', 'zoom-wrap', 'ui'],
-        };
-
-        // Initializes and opens PhotoSwipe
-        let pswp = new photoswipe__WEBPACK_IMPORTED_MODULE_0__(pswpElement, photoswipe_dist_photoswipe_ui_default__WEBPACK_IMPORTED_MODULE_1__, items, options);
-        pswp.init();
-
-        // Prevent double shadow of .pswp__img and .pswp__img--placeholder
-        pswp.listen('initialZoomInEnd', () => {
-            document.getElementsByClassName('pswp__img--placeholder')[0].style.display = 'none';
-        });
-
-        pswp.listen('close', () => {
-            document.body.style.overflow = '';
-        });
-    }
-
-    [...document.querySelectorAll('.gallery-item img')].forEach((element) => {
-        element.onclick = (event) => {
-            // Prevent browser opening href links
-            event.preventDefault();
-            openPhotoSwipe(event.target, '.gallery');
-            document.body.style.overflow = 'hidden';
-        }
-    });
-
-    // Add PhotoSwipe (.pswp) element to page
-    document.body.insertAdjacentHTML('beforeend',
-        '<!-- Root element of PhotoSwipe. Must have class pswp. -->' +
-        '<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">' +
-        '' +
-        '    <!-- Background of PhotoSwipe. ' +
-        '         It\'s a separate element as animating opacity is faster than rgba(). -->' +
-        '    <div class="pswp__bg"></div>' +
-        '' +
-        '    <!-- Slides wrapper with overflow:hidden. -->' +
-        '    <div class="pswp__scroll-wrap">' +
-        '' +
-        '        <!-- Container that holds slides. ' +
-        '            PhotoSwipe keeps only 3 of them in the DOM to save memory.' +
-        '            Don\'t modify these 3 pswp__item elements, data is added later on. -->' +
-        '        <div class="pswp__container">' +
-        '            <div class="pswp__item"></div>' +
-        '            <div class="pswp__item"></div>' +
-        '            <div class="pswp__item"></div>' +
-        '        </div>' +
-        '' +
-        '        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->' +
-        '        <div class="pswp__ui pswp__ui--hidden">' +
-        '' +
-        '            <div class="pswp__top-bar">' +
-        '' +
-        '                <!--  Controls are self-explanatory. Order can be changed. -->' +
-        '' +
-        '                <div class="pswp__counter"></div>' +
-        '' +
-        '                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>' +
-        '' +
-        '                <button class="pswp__button pswp__button--share" title="Share"></button>' +
-        '' +
-        '                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>' +
-        '' +
-        '                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>' +
-        '' +
-        '                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->' +
-        '                <!-- element will get class pswp__preloader--active when preloader is running -->' +
-        '                <div class="pswp__preloader">' +
-        '                    <div class="pswp__preloader__icn">' +
-        '                      <div class="pswp__preloader__cut">' +
-        '                        <div class="pswp__preloader__donut"></div>' +
-        '                      </div>' +
-        '                    </div>' +
-        '                </div>' +
-        '            </div>' +
-        '' +
-        '            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">' +
-        '                <div class="pswp__share-tooltip"></div> ' +
-        '            </div>' +
-        '' +
-        '            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">' +
-        '            </button>' +
-        '' +
-        '            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">' +
-        '            </button>' +
-        '' +
-        '            <div class="pswp__caption">' +
-        '                <div class="pswp__caption__center"></div>' +
-        '            </div>' +
-        '' +
-        '        </div>' +
-        '' +
-        '    </div>' +
-        '' +
-        '</div>'
-    );
-};
-
-/***/ }),
-
-/***/ "./assets/dev/js/navigation.js":
-/*!*************************************!*\
-  !*** ./assets/dev/js/navigation.js ***!
-  \*************************************/
-/*! exports provided: initNavigation */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initNavigation", function() { return initNavigation; });
-/* harmony import */ var intersection_observer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! intersection-observer */ "./node_modules/intersection-observer/intersection-observer.js");
-/* harmony import */ var intersection_observer__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(intersection_observer__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var smooth_scroll__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! smooth-scroll */ "./node_modules/smooth-scroll/dist/smooth-scroll.polyfills.min.js");
-/* harmony import */ var smooth_scroll__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(smooth_scroll__WEBPACK_IMPORTED_MODULE_1__);
-// Add partial support for old browsers that do not support IntersectionObserver, e.g. Safari
-
-
-
-const initNavigation = () => {
-    /*
-     * Globel varieables
-     */
-
-    const deviceType = (window.innerWidth < 768) ? 'mobile' : 'desktop';
-    const navbar = document.getElementById('navbar');
-    const navbarHeight = navbar.getBoundingClientRect().height;
-
-    // Height to determine current section 
-    const sectionList = [...document.getElementsByTagName('section')];
-    let getCurrentSection = () => {
-        for (let element of sectionList) {
-            let elementTop = Math.trunc(element.getBoundingClientRect().top);
-            let elementBottom = Math.trunc(element.getBoundingClientRect().bottom);
-            if (elementTop === 0 || (elementTop < 0 && elementBottom > 0)) {
-                return element;
-            }
-        }
-        return null;
-    };
-
-    /* 
-     * Scrollspy
-     */
-
-    addEventListener('scroll', () => {
-        // Add scrollspy to page
-        let activeLink = document.querySelector('a.nav-link.active');
-        if (activeLink) activeLink.classList.remove('active');
-        if (deviceType === 'mobile' && navbar.getBoundingClientRect().top !== 0) return;
-        if (getCurrentSection()) document.querySelector('a.nav-link[href="#' + getCurrentSection().id + '"]').classList.add('active');
-    });
-
-    /* 
-     * Mobile only JavaScript
-     */
-
-    if (deviceType === 'mobile') {
-
-        /*
-         * Animation
-         * Animate navbar on page load and animate section when it enter viewport
-         */
-
-        const delay = 400;
-        const animationObserver = new IntersectionObserver((entries, animationObserver) => {
-            entries.forEach((entry) => {
-                // Animate element when it enter viewport
-                if (entry.intersectionRatio > 0) {
-                    animationObserver.unobserve(entry.target);
-                    entry.target.classList.remove('before-animation');
-                }
-            });
-        });
-
-        // Animate navbar and observe section on page load
-        navbar.classList.remove('before-animation');
-        setTimeout(() => {
-            sectionList.forEach((element) => {
-                animationObserver.observe(element);
-            });
-        }, delay);
-
-        /*
-         * Add shadow to navbar when it is sticky
-         */
-
-        window.addEventListener('scroll', () => {
-            if (navbar.getBoundingClientRect().top === 0) navbar.classList.add('sticky');
-            else navbar.classList.remove('sticky');
-        });
-
-        /* 
-         * Navbar jump links handling
-         * Offset jump links (html anchors) for the sticky navbar, pointing them to the correct position
-         */
-
-        [...document.getElementsByClassName('nav-link')].forEach((element) => {
-            element.addEventListener('click', (event) => {
-                event.preventDefault();
-                let target = document.getElementById(event.target.href.split('#')[1]);
-                window.scroll({ top: target.offsetTop - navbarHeight - parseInt(getComputedStyle(target).marginTop), behavior: 'smooth' });
-            })
-        });
-    }
-
-    /* 
-     * Desktop only JavaScript
-     */
-    else {
-
-        /*
-         * Desktop section navigation
-         * Scroll to next/previous section on scroll on desktop
-         */
-
-        const background = document.getElementById('background');
-        const footer = document.getElementsByTagName('footer')[0];
-        const scrollbarWidth = (() => {
-            const div = document.createElement('div');
-            div.style.visibility = 'hidden';
-            div.style.overflow = 'scroll';
-            document.body.appendChild(div);
-            const scrollbarWidth = div.offsetWidth - div.clientWidth;
-            document.body.removeChild(div);
-            return scrollbarWidth;
-        })();
-        const transitionTime = 1250;
-        let prevScrollTime = (new Date()).getTime();
-
-        getCurrentSection = () => sectionList.find(s => !s.classList.contains('above-viewport') && !s.classList.contains('below-viewport'));
-
-        const scrollToSection = (destinationIndex, currentIndex) => {
-            // Scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
-            document.body.style.overflow = 'hidden';
-            sectionList[destinationIndex].style.display = '';
-            sectionList[currentIndex].classList.add('animating');
-            sectionList[destinationIndex].classList.add('animating');
-
-            // Transition would not be evoked if it is followed instantly afer display: none is removed
-            setTimeout(() => {
-                if (destinationIndex > currentIndex) {
-                    sectionList[currentIndex].classList.add('above-viewport');
-                    sectionList[destinationIndex].classList.remove('below-viewport');
-                } else {
-                    sectionList[currentIndex].classList.add('below-viewport');
-                    sectionList[destinationIndex].classList.remove('above-viewport');
-                }
-            }, 50);
-
-            // Scrolling finish
-            // TODO: change timeout value
-            setTimeout(() => {
-                document.body.style.overflow = '';
-                sectionList[currentIndex].classList.remove('animating');
-                sectionList[destinationIndex].classList.remove('animating');
-            }, transitionTime);
-        };
-
-        const scrollHandler = (event, direction) => {
-            // Handle whell event firing multiple times by trackpad
-            const now = (new Date()).getTime();
-            if (now - prevScrollTime < transitionTime) return;
-            prevScrollTime = now;
-
-            let currentSection = getCurrentSection();
-            let currentSectionIndex = sectionList.findIndex(s => s === currentSection);
-
-            if (currentSection) {
-                // Scrolling down to next section
-                if (direction === 'down') {
-                    event.preventDefault();
-                    if (currentSectionIndex !== sectionList.length) {
-                        scrollToSection(currentSectionIndex + 1, currentSectionIndex);
-                    }
-                }
-                // Scrolling up to previous section
-                else if (direction === 'up') {
-                    if (currentSectionIndex !== 0) {
-                        scrollToSection(currentSectionIndex - 1, currentSectionIndex);
-                    } else {
-                        // navbar.classList.add('before-animation');
-                        // Scroll to header
-                    }
-                }
-            }
-            // Scrolling down from header to first section
-            // else if (direction === 'down') {
-            //     navbar.classList.remove('before-animation');
-            //     scrollToSection(sectionList[0]);
-            // }
-        };
-
-        // when Page reload
-        if (window.scrollY !== 0) {
-            navbar.classList.remove('before-animation');
-            document.getElementById('background').style.opacity = 0.5;
-            getCurrentSection().classList.remove('before-animation');
-            document.querySelector('a.nav-link[href="#' + getCurrentSection().id + '"]').classList.add('active');
-        }
-
-        document.addEventListener('wheel', event => scrollHandler(event, event.deltaY < 0 ? 'up' : 'down'), { passive: false });
-        document.addEventListener('keydown', event => {
-            if (event.keyCode === 38) scrollHandler(event, 'up');
-            else if (event.keyCode === 40) scrollHandler(event, 'down');
-        }, { passive: false });
-
-        sectionList.forEach((s, index) => { if (index !== 0) s.classList.add('below-viewport'); });
-
-        /* 
-         * Navbar jump links handling
-         * Making navbar jump links compatible with section navigation JavaScript
-         */
-
-        document.querySelectorAll('#navbar a.nav-link').forEach((element) => {
-            element.addEventListener('click', (event) => {
-                event.preventDefault();
-                scrollToSection(document.getElementById(event.target.href.split('#')[1]));
-            })
-        });
-    }
-}
-
-/***/ }),
-
-/***/ "./assets/dev/js/resources.js":
-/*!************************************!*\
-  !*** ./assets/dev/js/resources.js ***!
-  \************************************/
-/*! exports provided: initResourcesList */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initResourcesList", function() { return initResourcesList; });
-/* harmony import */ var remarkable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! remarkable */ "./node_modules/remarkable/dist/esm/index.browser.js");
-
-
-const initResourcesList = () => {
-    fetch(`${location.origin}/assets/md/resources.md`)
-        .then(response => response.text())
-        .then(text => {
-            document.getElementById('resources-list').innerHTML = new remarkable__WEBPACK_IMPORTED_MODULE_0__().render(text);
-        });
-
-    document.getElementById('resources-btn').onclick = () => {
-        document.getElementsByClassName('overlay')[0].style.visibility = 'visible';
-        document.getElementsByClassName('overlay')[0].style.opacity = '1';
-        document.body.style.overflow = 'hidden';
-    }
-
-    document.getElementById('close-btn').onclick = () => {
-        document.getElementsByClassName('overlay')[0].style.visibility = '';
-        document.getElementsByClassName('overlay')[0].style.opacity = '';
-        document.body.style.overflow = '';
-    }
-}
-
-/***/ }),
-
-/***/ "./assets/dev/scss/style.scss":
-/*!************************************!*\
-  !*** ./assets/dev/scss/style.scss ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ "./node_modules/intersection-observer/intersection-observer.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/intersection-observer/intersection-observer.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Copyright 2016 Google Inc. All Rights Reserved.
- *
- * Licensed under the W3C SOFTWARE AND DOCUMENT NOTICE AND LICENSE.
- *
- *  https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document
- *
- */
-(function() {
-'use strict';
-
-// Exit early if we're not running in a browser.
-if (typeof window !== 'object') {
-  return;
-}
-
-// Exit early if all IntersectionObserver and IntersectionObserverEntry
-// features are natively supported.
-if ('IntersectionObserver' in window &&
-    'IntersectionObserverEntry' in window &&
-    'intersectionRatio' in window.IntersectionObserverEntry.prototype) {
-
-  // Minimal polyfill for Edge 15's lack of `isIntersecting`
-  // See: https://github.com/w3c/IntersectionObserver/issues/211
-  if (!('isIntersecting' in window.IntersectionObserverEntry.prototype)) {
-    Object.defineProperty(window.IntersectionObserverEntry.prototype,
-      'isIntersecting', {
-      get: function () {
-        return this.intersectionRatio > 0;
-      }
-    });
-  }
-  return;
-}
-
-/**
- * Returns the embedding frame element, if any.
- * @param {!Document} doc
- * @return {!Element}
- */
-function getFrameElement(doc) {
-  try {
-    return doc.defaultView && doc.defaultView.frameElement || null;
-  } catch (e) {
-    // Ignore the error.
-    return null;
-  }
-}
-
-/**
- * A local reference to the root document.
- */
-var document = (function(startDoc) {
-  var doc = startDoc;
-  var frame = getFrameElement(doc);
-  while (frame) {
-    doc = frame.ownerDocument;
-    frame = getFrameElement(doc);
-  }
-  return doc;
-})(window.document);
-
-/**
- * An IntersectionObserver registry. This registry exists to hold a strong
- * reference to IntersectionObserver instances currently observing a target
- * element. Without this registry, instances without another reference may be
- * garbage collected.
- */
-var registry = [];
-
-/**
- * The signal updater for cross-origin intersection. When not null, it means
- * that the polyfill is configured to work in a cross-origin mode.
- * @type {function(DOMRect|ClientRect, DOMRect|ClientRect)}
- */
-var crossOriginUpdater = null;
-
-/**
- * The current cross-origin intersection. Only used in the cross-origin mode.
- * @type {DOMRect|ClientRect}
- */
-var crossOriginRect = null;
-
-
-/**
- * Creates the global IntersectionObserverEntry constructor.
- * https://w3c.github.io/IntersectionObserver/#intersection-observer-entry
- * @param {Object} entry A dictionary of instance properties.
- * @constructor
- */
-function IntersectionObserverEntry(entry) {
-  this.time = entry.time;
-  this.target = entry.target;
-  this.rootBounds = ensureDOMRect(entry.rootBounds);
-  this.boundingClientRect = ensureDOMRect(entry.boundingClientRect);
-  this.intersectionRect = ensureDOMRect(entry.intersectionRect || getEmptyRect());
-  this.isIntersecting = !!entry.intersectionRect;
-
-  // Calculates the intersection ratio.
-  var targetRect = this.boundingClientRect;
-  var targetArea = targetRect.width * targetRect.height;
-  var intersectionRect = this.intersectionRect;
-  var intersectionArea = intersectionRect.width * intersectionRect.height;
-
-  // Sets intersection ratio.
-  if (targetArea) {
-    // Round the intersection ratio to avoid floating point math issues:
-    // https://github.com/w3c/IntersectionObserver/issues/324
-    this.intersectionRatio = Number((intersectionArea / targetArea).toFixed(4));
-  } else {
-    // If area is zero and is intersecting, sets to 1, otherwise to 0
-    this.intersectionRatio = this.isIntersecting ? 1 : 0;
-  }
-}
-
-
-/**
- * Creates the global IntersectionObserver constructor.
- * https://w3c.github.io/IntersectionObserver/#intersection-observer-interface
- * @param {Function} callback The function to be invoked after intersection
- *     changes have queued. The function is not invoked if the queue has
- *     been emptied by calling the `takeRecords` method.
- * @param {Object=} opt_options Optional configuration options.
- * @constructor
- */
-function IntersectionObserver(callback, opt_options) {
-
-  var options = opt_options || {};
-
-  if (typeof callback != 'function') {
-    throw new Error('callback must be a function');
-  }
-
-  if (options.root && options.root.nodeType != 1) {
-    throw new Error('root must be an Element');
-  }
-
-  // Binds and throttles `this._checkForIntersections`.
-  this._checkForIntersections = throttle(
-      this._checkForIntersections.bind(this), this.THROTTLE_TIMEOUT);
-
-  // Private properties.
-  this._callback = callback;
-  this._observationTargets = [];
-  this._queuedEntries = [];
-  this._rootMarginValues = this._parseRootMargin(options.rootMargin);
-
-  // Public properties.
-  this.thresholds = this._initThresholds(options.threshold);
-  this.root = options.root || null;
-  this.rootMargin = this._rootMarginValues.map(function(margin) {
-    return margin.value + margin.unit;
-  }).join(' ');
-
-  /** @private @const {!Array<!Document>} */
-  this._monitoringDocuments = [];
-  /** @private @const {!Array<function()>} */
-  this._monitoringUnsubscribes = [];
-}
-
-
-/**
- * The minimum interval within which the document will be checked for
- * intersection changes.
- */
-IntersectionObserver.prototype.THROTTLE_TIMEOUT = 100;
-
-
-/**
- * The frequency in which the polyfill polls for intersection changes.
- * this can be updated on a per instance basis and must be set prior to
- * calling `observe` on the first target.
- */
-IntersectionObserver.prototype.POLL_INTERVAL = null;
-
-/**
- * Use a mutation observer on the root element
- * to detect intersection changes.
- */
-IntersectionObserver.prototype.USE_MUTATION_OBSERVER = true;
-
-
-/**
- * Sets up the polyfill in the cross-origin mode. The result is the
- * updater function that accepts two arguments: `boundingClientRect` and
- * `intersectionRect` - just as these fields would be available to the
- * parent via `IntersectionObserverEntry`. This function should be called
- * each time the iframe receives intersection information from the parent
- * window, e.g. via messaging.
- * @return {function(DOMRect|ClientRect, DOMRect|ClientRect)}
- */
-IntersectionObserver._setupCrossOriginUpdater = function() {
-  if (!crossOriginUpdater) {
-    /**
-     * @param {DOMRect|ClientRect} boundingClientRect
-     * @param {DOMRect|ClientRect} intersectionRect
-     */
-    crossOriginUpdater = function(boundingClientRect, intersectionRect) {
-      if (!boundingClientRect || !intersectionRect) {
-        crossOriginRect = getEmptyRect();
-      } else {
-        crossOriginRect = convertFromParentRect(boundingClientRect, intersectionRect);
-      }
-      registry.forEach(function(observer) {
-        observer._checkForIntersections();
-      });
-    };
-  }
-  return crossOriginUpdater;
-};
-
-
-/**
- * Resets the cross-origin mode.
- */
-IntersectionObserver._resetCrossOriginUpdater = function() {
-  crossOriginUpdater = null;
-  crossOriginRect = null;
-};
-
-
-/**
- * Starts observing a target element for intersection changes based on
- * the thresholds values.
- * @param {Element} target The DOM element to observe.
- */
-IntersectionObserver.prototype.observe = function(target) {
-  var isTargetAlreadyObserved = this._observationTargets.some(function(item) {
-    return item.element == target;
-  });
-
-  if (isTargetAlreadyObserved) {
-    return;
-  }
-
-  if (!(target && target.nodeType == 1)) {
-    throw new Error('target must be an Element');
-  }
-
-  this._registerInstance();
-  this._observationTargets.push({element: target, entry: null});
-  this._monitorIntersections(target.ownerDocument);
-  this._checkForIntersections();
-};
-
-
-/**
- * Stops observing a target element for intersection changes.
- * @param {Element} target The DOM element to observe.
- */
-IntersectionObserver.prototype.unobserve = function(target) {
-  this._observationTargets =
-      this._observationTargets.filter(function(item) {
-        return item.element != target;
-      });
-  this._unmonitorIntersections(target.ownerDocument);
-  if (this._observationTargets.length == 0) {
-    this._unregisterInstance();
-  }
-};
-
-
-/**
- * Stops observing all target elements for intersection changes.
- */
-IntersectionObserver.prototype.disconnect = function() {
-  this._observationTargets = [];
-  this._unmonitorAllIntersections();
-  this._unregisterInstance();
-};
-
-
-/**
- * Returns any queue entries that have not yet been reported to the
- * callback and clears the queue. This can be used in conjunction with the
- * callback to obtain the absolute most up-to-date intersection information.
- * @return {Array} The currently queued entries.
- */
-IntersectionObserver.prototype.takeRecords = function() {
-  var records = this._queuedEntries.slice();
-  this._queuedEntries = [];
-  return records;
-};
-
-
-/**
- * Accepts the threshold value from the user configuration object and
- * returns a sorted array of unique threshold values. If a value is not
- * between 0 and 1 and error is thrown.
- * @private
- * @param {Array|number=} opt_threshold An optional threshold value or
- *     a list of threshold values, defaulting to [0].
- * @return {Array} A sorted list of unique and valid threshold values.
- */
-IntersectionObserver.prototype._initThresholds = function(opt_threshold) {
-  var threshold = opt_threshold || [0];
-  if (!Array.isArray(threshold)) threshold = [threshold];
-
-  return threshold.sort().filter(function(t, i, a) {
-    if (typeof t != 'number' || isNaN(t) || t < 0 || t > 1) {
-      throw new Error('threshold must be a number between 0 and 1 inclusively');
-    }
-    return t !== a[i - 1];
-  });
-};
-
-
-/**
- * Accepts the rootMargin value from the user configuration object
- * and returns an array of the four margin values as an object containing
- * the value and unit properties. If any of the values are not properly
- * formatted or use a unit other than px or %, and error is thrown.
- * @private
- * @param {string=} opt_rootMargin An optional rootMargin value,
- *     defaulting to '0px'.
- * @return {Array<Object>} An array of margin objects with the keys
- *     value and unit.
- */
-IntersectionObserver.prototype._parseRootMargin = function(opt_rootMargin) {
-  var marginString = opt_rootMargin || '0px';
-  var margins = marginString.split(/\s+/).map(function(margin) {
-    var parts = /^(-?\d*\.?\d+)(px|%)$/.exec(margin);
-    if (!parts) {
-      throw new Error('rootMargin must be specified in pixels or percent');
-    }
-    return {value: parseFloat(parts[1]), unit: parts[2]};
-  });
-
-  // Handles shorthand.
-  margins[1] = margins[1] || margins[0];
-  margins[2] = margins[2] || margins[0];
-  margins[3] = margins[3] || margins[1];
-
-  return margins;
-};
-
-
-/**
- * Starts polling for intersection changes if the polling is not already
- * happening, and if the page's visibility state is visible.
- * @param {!Document} doc
- * @private
- */
-IntersectionObserver.prototype._monitorIntersections = function(doc) {
-  var win = doc.defaultView;
-  if (!win) {
-    // Already destroyed.
-    return;
-  }
-  if (this._monitoringDocuments.indexOf(doc) != -1) {
-    // Already monitoring.
-    return;
-  }
-
-  // Private state for monitoring.
-  var callback = this._checkForIntersections;
-  var monitoringInterval = null;
-  var domObserver = null;
-
-  // If a poll interval is set, use polling instead of listening to
-  // resize and scroll events or DOM mutations.
-  if (this.POLL_INTERVAL) {
-    monitoringInterval = win.setInterval(callback, this.POLL_INTERVAL);
-  } else {
-    addEvent(win, 'resize', callback, true);
-    addEvent(doc, 'scroll', callback, true);
-    if (this.USE_MUTATION_OBSERVER && 'MutationObserver' in win) {
-      domObserver = new win.MutationObserver(callback);
-      domObserver.observe(doc, {
-        attributes: true,
-        childList: true,
-        characterData: true,
-        subtree: true
-      });
-    }
-  }
-
-  this._monitoringDocuments.push(doc);
-  this._monitoringUnsubscribes.push(function() {
-    // Get the window object again. When a friendly iframe is destroyed, it
-    // will be null.
-    var win = doc.defaultView;
-
-    if (win) {
-      if (monitoringInterval) {
-        win.clearInterval(monitoringInterval);
-      }
-      removeEvent(win, 'resize', callback, true);
-    }
-
-    removeEvent(doc, 'scroll', callback, true);
-    if (domObserver) {
-      domObserver.disconnect();
-    }
-  });
-
-  // Also monitor the parent.
-  if (doc != (this.root && this.root.ownerDocument || document)) {
-    var frame = getFrameElement(doc);
-    if (frame) {
-      this._monitorIntersections(frame.ownerDocument);
-    }
-  }
-};
-
-
-/**
- * Stops polling for intersection changes.
- * @param {!Document} doc
- * @private
- */
-IntersectionObserver.prototype._unmonitorIntersections = function(doc) {
-  var index = this._monitoringDocuments.indexOf(doc);
-  if (index == -1) {
-    return;
-  }
-
-  var rootDoc = (this.root && this.root.ownerDocument || document);
-
-  // Check if any dependent targets are still remaining.
-  var hasDependentTargets =
-      this._observationTargets.some(function(item) {
-        var itemDoc = item.element.ownerDocument;
-        // Target is in this context.
-        if (itemDoc == doc) {
-          return true;
-        }
-        // Target is nested in this context.
-        while (itemDoc && itemDoc != rootDoc) {
-          var frame = getFrameElement(itemDoc);
-          itemDoc = frame && frame.ownerDocument;
-          if (itemDoc == doc) {
-            return true;
-          }
-        }
-        return false;
-      });
-  if (hasDependentTargets) {
-    return;
-  }
-
-  // Unsubscribe.
-  var unsubscribe = this._monitoringUnsubscribes[index];
-  this._monitoringDocuments.splice(index, 1);
-  this._monitoringUnsubscribes.splice(index, 1);
-  unsubscribe();
-
-  // Also unmonitor the parent.
-  if (doc != rootDoc) {
-    var frame = getFrameElement(doc);
-    if (frame) {
-      this._unmonitorIntersections(frame.ownerDocument);
-    }
-  }
-};
-
-
-/**
- * Stops polling for intersection changes.
- * @param {!Document} doc
- * @private
- */
-IntersectionObserver.prototype._unmonitorAllIntersections = function() {
-  var unsubscribes = this._monitoringUnsubscribes.slice(0);
-  this._monitoringDocuments.length = 0;
-  this._monitoringUnsubscribes.length = 0;
-  for (var i = 0; i < unsubscribes.length; i++) {
-    unsubscribes[i]();
-  }
-};
-
-
-/**
- * Scans each observation target for intersection changes and adds them
- * to the internal entries queue. If new entries are found, it
- * schedules the callback to be invoked.
- * @private
- */
-IntersectionObserver.prototype._checkForIntersections = function() {
-  if (!this.root && crossOriginUpdater && !crossOriginRect) {
-    // Cross origin monitoring, but no initial data available yet.
-    return;
-  }
-
-  var rootIsInDom = this._rootIsInDom();
-  var rootRect = rootIsInDom ? this._getRootRect() : getEmptyRect();
-
-  this._observationTargets.forEach(function(item) {
-    var target = item.element;
-    var targetRect = getBoundingClientRect(target);
-    var rootContainsTarget = this._rootContainsTarget(target);
-    var oldEntry = item.entry;
-    var intersectionRect = rootIsInDom && rootContainsTarget &&
-        this._computeTargetAndRootIntersection(target, targetRect, rootRect);
-
-    var newEntry = item.entry = new IntersectionObserverEntry({
-      time: now(),
-      target: target,
-      boundingClientRect: targetRect,
-      rootBounds: crossOriginUpdater && !this.root ? null : rootRect,
-      intersectionRect: intersectionRect
-    });
-
-    if (!oldEntry) {
-      this._queuedEntries.push(newEntry);
-    } else if (rootIsInDom && rootContainsTarget) {
-      // If the new entry intersection ratio has crossed any of the
-      // thresholds, add a new entry.
-      if (this._hasCrossedThreshold(oldEntry, newEntry)) {
-        this._queuedEntries.push(newEntry);
-      }
-    } else {
-      // If the root is not in the DOM or target is not contained within
-      // root but the previous entry for this target had an intersection,
-      // add a new record indicating removal.
-      if (oldEntry && oldEntry.isIntersecting) {
-        this._queuedEntries.push(newEntry);
-      }
-    }
-  }, this);
-
-  if (this._queuedEntries.length) {
-    this._callback(this.takeRecords(), this);
-  }
-};
-
-
-/**
- * Accepts a target and root rect computes the intersection between then
- * following the algorithm in the spec.
- * TODO(philipwalton): at this time clip-path is not considered.
- * https://w3c.github.io/IntersectionObserver/#calculate-intersection-rect-algo
- * @param {Element} target The target DOM element
- * @param {Object} targetRect The bounding rect of the target.
- * @param {Object} rootRect The bounding rect of the root after being
- *     expanded by the rootMargin value.
- * @return {?Object} The final intersection rect object or undefined if no
- *     intersection is found.
- * @private
- */
-IntersectionObserver.prototype._computeTargetAndRootIntersection =
-    function(target, targetRect, rootRect) {
-  // If the element isn't displayed, an intersection can't happen.
-  if (window.getComputedStyle(target).display == 'none') return;
-
-  var intersectionRect = targetRect;
-  var parent = getParentNode(target);
-  var atRoot = false;
-
-  while (!atRoot && parent) {
-    var parentRect = null;
-    var parentComputedStyle = parent.nodeType == 1 ?
-        window.getComputedStyle(parent) : {};
-
-    // If the parent isn't displayed, an intersection can't happen.
-    if (parentComputedStyle.display == 'none') return null;
-
-    if (parent == this.root || parent.nodeType == /* DOCUMENT */ 9) {
-      atRoot = true;
-      if (parent == this.root || parent == document) {
-        if (crossOriginUpdater && !this.root) {
-          if (!crossOriginRect ||
-              crossOriginRect.width == 0 && crossOriginRect.height == 0) {
-            // A 0-size cross-origin intersection means no-intersection.
-            parent = null;
-            parentRect = null;
-            intersectionRect = null;
-          } else {
-            parentRect = crossOriginRect;
-          }
-        } else {
-          parentRect = rootRect;
-        }
-      } else {
-        // Check if there's a frame that can be navigated to.
-        var frame = getParentNode(parent);
-        var frameRect = frame && getBoundingClientRect(frame);
-        var frameIntersect =
-            frame &&
-            this._computeTargetAndRootIntersection(frame, frameRect, rootRect);
-        if (frameRect && frameIntersect) {
-          parent = frame;
-          parentRect = convertFromParentRect(frameRect, frameIntersect);
-        } else {
-          parent = null;
-          intersectionRect = null;
-        }
-      }
-    } else {
-      // If the element has a non-visible overflow, and it's not the <body>
-      // or <html> element, update the intersection rect.
-      // Note: <body> and <html> cannot be clipped to a rect that's not also
-      // the document rect, so no need to compute a new intersection.
-      var doc = parent.ownerDocument;
-      if (parent != doc.body &&
-          parent != doc.documentElement &&
-          parentComputedStyle.overflow != 'visible') {
-        parentRect = getBoundingClientRect(parent);
-      }
-    }
-
-    // If either of the above conditionals set a new parentRect,
-    // calculate new intersection data.
-    if (parentRect) {
-      intersectionRect = computeRectIntersection(parentRect, intersectionRect);
-    }
-    if (!intersectionRect) break;
-    parent = parent && getParentNode(parent);
-  }
-  return intersectionRect;
-};
-
-
-/**
- * Returns the root rect after being expanded by the rootMargin value.
- * @return {ClientRect} The expanded root rect.
- * @private
- */
-IntersectionObserver.prototype._getRootRect = function() {
-  var rootRect;
-  if (this.root) {
-    rootRect = getBoundingClientRect(this.root);
-  } else {
-    // Use <html>/<body> instead of window since scroll bars affect size.
-    var html = document.documentElement;
-    var body = document.body;
-    rootRect = {
-      top: 0,
-      left: 0,
-      right: html.clientWidth || body.clientWidth,
-      width: html.clientWidth || body.clientWidth,
-      bottom: html.clientHeight || body.clientHeight,
-      height: html.clientHeight || body.clientHeight
-    };
-  }
-  return this._expandRectByRootMargin(rootRect);
-};
-
-
-/**
- * Accepts a rect and expands it by the rootMargin value.
- * @param {DOMRect|ClientRect} rect The rect object to expand.
- * @return {ClientRect} The expanded rect.
- * @private
- */
-IntersectionObserver.prototype._expandRectByRootMargin = function(rect) {
-  var margins = this._rootMarginValues.map(function(margin, i) {
-    return margin.unit == 'px' ? margin.value :
-        margin.value * (i % 2 ? rect.width : rect.height) / 100;
-  });
-  var newRect = {
-    top: rect.top - margins[0],
-    right: rect.right + margins[1],
-    bottom: rect.bottom + margins[2],
-    left: rect.left - margins[3]
-  };
-  newRect.width = newRect.right - newRect.left;
-  newRect.height = newRect.bottom - newRect.top;
-
-  return newRect;
-};
-
-
-/**
- * Accepts an old and new entry and returns true if at least one of the
- * threshold values has been crossed.
- * @param {?IntersectionObserverEntry} oldEntry The previous entry for a
- *    particular target element or null if no previous entry exists.
- * @param {IntersectionObserverEntry} newEntry The current entry for a
- *    particular target element.
- * @return {boolean} Returns true if a any threshold has been crossed.
- * @private
- */
-IntersectionObserver.prototype._hasCrossedThreshold =
-    function(oldEntry, newEntry) {
-
-  // To make comparing easier, an entry that has a ratio of 0
-  // but does not actually intersect is given a value of -1
-  var oldRatio = oldEntry && oldEntry.isIntersecting ?
-      oldEntry.intersectionRatio || 0 : -1;
-  var newRatio = newEntry.isIntersecting ?
-      newEntry.intersectionRatio || 0 : -1;
-
-  // Ignore unchanged ratios
-  if (oldRatio === newRatio) return;
-
-  for (var i = 0; i < this.thresholds.length; i++) {
-    var threshold = this.thresholds[i];
-
-    // Return true if an entry matches a threshold or if the new ratio
-    // and the old ratio are on the opposite sides of a threshold.
-    if (threshold == oldRatio || threshold == newRatio ||
-        threshold < oldRatio !== threshold < newRatio) {
-      return true;
-    }
-  }
-};
-
-
-/**
- * Returns whether or not the root element is an element and is in the DOM.
- * @return {boolean} True if the root element is an element and is in the DOM.
- * @private
- */
-IntersectionObserver.prototype._rootIsInDom = function() {
-  return !this.root || containsDeep(document, this.root);
-};
-
-
-/**
- * Returns whether or not the target element is a child of root.
- * @param {Element} target The target element to check.
- * @return {boolean} True if the target element is a child of root.
- * @private
- */
-IntersectionObserver.prototype._rootContainsTarget = function(target) {
-  return containsDeep(this.root || document, target) &&
-    (!this.root || this.root.ownerDocument == target.ownerDocument);
-};
-
-
-/**
- * Adds the instance to the global IntersectionObserver registry if it isn't
- * already present.
- * @private
- */
-IntersectionObserver.prototype._registerInstance = function() {
-  if (registry.indexOf(this) < 0) {
-    registry.push(this);
-  }
-};
-
-
-/**
- * Removes the instance from the global IntersectionObserver registry.
- * @private
- */
-IntersectionObserver.prototype._unregisterInstance = function() {
-  var index = registry.indexOf(this);
-  if (index != -1) registry.splice(index, 1);
-};
-
-
-/**
- * Returns the result of the performance.now() method or null in browsers
- * that don't support the API.
- * @return {number} The elapsed time since the page was requested.
- */
-function now() {
-  return window.performance && performance.now && performance.now();
-}
-
-
-/**
- * Throttles a function and delays its execution, so it's only called at most
- * once within a given time period.
- * @param {Function} fn The function to throttle.
- * @param {number} timeout The amount of time that must pass before the
- *     function can be called again.
- * @return {Function} The throttled function.
- */
-function throttle(fn, timeout) {
-  var timer = null;
-  return function () {
-    if (!timer) {
-      timer = setTimeout(function() {
-        fn();
-        timer = null;
-      }, timeout);
-    }
-  };
-}
-
-
-/**
- * Adds an event handler to a DOM node ensuring cross-browser compatibility.
- * @param {Node} node The DOM node to add the event handler to.
- * @param {string} event The event name.
- * @param {Function} fn The event handler to add.
- * @param {boolean} opt_useCapture Optionally adds the even to the capture
- *     phase. Note: this only works in modern browsers.
- */
-function addEvent(node, event, fn, opt_useCapture) {
-  if (typeof node.addEventListener == 'function') {
-    node.addEventListener(event, fn, opt_useCapture || false);
-  }
-  else if (typeof node.attachEvent == 'function') {
-    node.attachEvent('on' + event, fn);
-  }
-}
-
-
-/**
- * Removes a previously added event handler from a DOM node.
- * @param {Node} node The DOM node to remove the event handler from.
- * @param {string} event The event name.
- * @param {Function} fn The event handler to remove.
- * @param {boolean} opt_useCapture If the event handler was added with this
- *     flag set to true, it should be set to true here in order to remove it.
- */
-function removeEvent(node, event, fn, opt_useCapture) {
-  if (typeof node.removeEventListener == 'function') {
-    node.removeEventListener(event, fn, opt_useCapture || false);
-  }
-  else if (typeof node.detatchEvent == 'function') {
-    node.detatchEvent('on' + event, fn);
-  }
-}
-
-
-/**
- * Returns the intersection between two rect objects.
- * @param {Object} rect1 The first rect.
- * @param {Object} rect2 The second rect.
- * @return {?Object|?ClientRect} The intersection rect or undefined if no
- *     intersection is found.
- */
-function computeRectIntersection(rect1, rect2) {
-  var top = Math.max(rect1.top, rect2.top);
-  var bottom = Math.min(rect1.bottom, rect2.bottom);
-  var left = Math.max(rect1.left, rect2.left);
-  var right = Math.min(rect1.right, rect2.right);
-  var width = right - left;
-  var height = bottom - top;
-
-  return (width >= 0 && height >= 0) && {
-    top: top,
-    bottom: bottom,
-    left: left,
-    right: right,
-    width: width,
-    height: height
-  } || null;
-}
-
-
-/**
- * Shims the native getBoundingClientRect for compatibility with older IE.
- * @param {Element} el The element whose bounding rect to get.
- * @return {DOMRect|ClientRect} The (possibly shimmed) rect of the element.
- */
-function getBoundingClientRect(el) {
-  var rect;
-
-  try {
-    rect = el.getBoundingClientRect();
-  } catch (err) {
-    // Ignore Windows 7 IE11 "Unspecified error"
-    // https://github.com/w3c/IntersectionObserver/pull/205
-  }
-
-  if (!rect) return getEmptyRect();
-
-  // Older IE
-  if (!(rect.width && rect.height)) {
-    rect = {
-      top: rect.top,
-      right: rect.right,
-      bottom: rect.bottom,
-      left: rect.left,
-      width: rect.right - rect.left,
-      height: rect.bottom - rect.top
-    };
-  }
-  return rect;
-}
-
-
-/**
- * Returns an empty rect object. An empty rect is returned when an element
- * is not in the DOM.
- * @return {ClientRect} The empty rect.
- */
-function getEmptyRect() {
-  return {
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    width: 0,
-    height: 0
-  };
-}
-
-
-/**
- * Ensure that the result has all of the necessary fields of the DOMRect.
- * Specifically this ensures that `x` and `y` fields are set.
- *
- * @param {?DOMRect|?ClientRect} rect
- * @return {?DOMRect}
- */
-function ensureDOMRect(rect) {
-  // A `DOMRect` object has `x` and `y` fields.
-  if (!rect || 'x' in rect) {
-    return rect;
-  }
-  // A IE's `ClientRect` type does not have `x` and `y`. The same is the case
-  // for internally calculated Rect objects. For the purposes of
-  // `IntersectionObserver`, it's sufficient to simply mirror `left` and `top`
-  // for these fields.
-  return {
-    top: rect.top,
-    y: rect.top,
-    bottom: rect.bottom,
-    left: rect.left,
-    x: rect.left,
-    right: rect.right,
-    width: rect.width,
-    height: rect.height
-  };
-}
-
-
-/**
- * Inverts the intersection and bounding rect from the parent (frame) BCR to
- * the local BCR space.
- * @param {DOMRect|ClientRect} parentBoundingRect The parent's bound client rect.
- * @param {DOMRect|ClientRect} parentIntersectionRect The parent's own intersection rect.
- * @return {ClientRect} The local root bounding rect for the parent's children.
- */
-function convertFromParentRect(parentBoundingRect, parentIntersectionRect) {
-  var top = parentIntersectionRect.top - parentBoundingRect.top;
-  var left = parentIntersectionRect.left - parentBoundingRect.left;
-  return {
-    top: top,
-    left: left,
-    height: parentIntersectionRect.height,
-    width: parentIntersectionRect.width,
-    bottom: top + parentIntersectionRect.height,
-    right: left + parentIntersectionRect.width
-  };
-}
-
-
-/**
- * Checks to see if a parent element contains a child element (including inside
- * shadow DOM).
- * @param {Node} parent The parent element.
- * @param {Node} child The child element.
- * @return {boolean} True if the parent node contains the child node.
- */
-function containsDeep(parent, child) {
-  var node = child;
-  while (node) {
-    if (node == parent) return true;
-
-    node = getParentNode(node);
-  }
-  return false;
-}
-
-
-/**
- * Gets the parent node of an element or its host element if the parent node
- * is a shadow root.
- * @param {Node} node The node whose parent to get.
- * @return {Node|null} The parent node or null if no parent exists.
- */
-function getParentNode(node) {
-  var parent = node.parentNode;
-
-  if (node.nodeType == /* DOCUMENT */ 9 && node != document) {
-    // If this node is a document node, look for the embedding frame.
-    return getFrameElement(node);
-  }
-
-  if (parent && parent.nodeType == 11 && parent.host) {
-    // If the parent is a shadow root, return the host element.
-    return parent.host;
-  }
-
-  if (parent && parent.assignedSlot) {
-    // If the parent is distributed in a <slot>, return the parent of a slot.
-    return parent.assignedSlot.parentNode;
-  }
-
-  return parent;
-}
-
-
-// Exposes the constructors globally.
-window.IntersectionObserver = IntersectionObserver;
-window.IntersectionObserverEntry = IntersectionObserverEntry;
-
-}());
-
-
-/***/ }),
-
-/***/ "./node_modules/photoswipe/dist/photoswipe-ui-default.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/photoswipe/dist/photoswipe-ui-default.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! PhotoSwipe Default UI - 4.1.3 - 2019-01-08
-* http://photoswipe.com
-* Copyright (c) 2019 Dmitry Semenov; */
-/**
-*
-* UI on top of main sliding area (caption, arrows, close button, etc.).
-* Built just using public methods/properties of PhotoSwipe.
-* 
-*/
-(function (root, factory) { 
-	if (true) {
-		!(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
-				__WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	} else {}
-})(this, function () {
-
-	'use strict';
-
-
-
-var PhotoSwipeUI_Default =
- function(pswp, framework) {
-
-	var ui = this;
-	var _overlayUIUpdated = false,
-		_controlsVisible = true,
-		_fullscrenAPI,
-		_controls,
-		_captionContainer,
-		_fakeCaptionContainer,
-		_indexIndicator,
-		_shareButton,
-		_shareModal,
-		_shareModalHidden = true,
-		_initalCloseOnScrollValue,
-		_isIdle,
-		_listen,
-
-		_loadingIndicator,
-		_loadingIndicatorHidden,
-		_loadingIndicatorTimeout,
-
-		_galleryHasOneSlide,
-
-		_options,
-		_defaultUIOptions = {
-			barsSize: {top:44, bottom:'auto'},
-			closeElClasses: ['item', 'caption', 'zoom-wrap', 'ui', 'top-bar'], 
-			timeToIdle: 4000, 
-			timeToIdleOutside: 1000,
-			loadingIndicatorDelay: 1000, // 2s
-			
-			addCaptionHTMLFn: function(item, captionEl /*, isFake */) {
-				if(!item.title) {
-					captionEl.children[0].innerHTML = '';
-					return false;
-				}
-				captionEl.children[0].innerHTML = item.title;
-				return true;
-			},
-
-			closeEl:true,
-			captionEl: true,
-			fullscreenEl: true,
-			zoomEl: true,
-			shareEl: true,
-			counterEl: true,
-			arrowEl: true,
-			preloaderEl: true,
-
-			tapToClose: false,
-			tapToToggleControls: true,
-
-			clickToCloseNonZoomable: true,
-
-			shareButtons: [
-				{id:'facebook', label:'Share on Facebook', url:'https://www.facebook.com/sharer/sharer.php?u={{url}}'},
-				{id:'twitter', label:'Tweet', url:'https://twitter.com/intent/tweet?text={{text}}&url={{url}}'},
-				{id:'pinterest', label:'Pin it', url:'http://www.pinterest.com/pin/create/button/'+
-													'?url={{url}}&media={{image_url}}&description={{text}}'},
-				{id:'download', label:'Download image', url:'{{raw_image_url}}', download:true}
-			],
-			getImageURLForShare: function( /* shareButtonData */ ) {
-				return pswp.currItem.src || '';
-			},
-			getPageURLForShare: function( /* shareButtonData */ ) {
-				return window.location.href;
-			},
-			getTextForShare: function( /* shareButtonData */ ) {
-				return pswp.currItem.title || '';
-			},
-				
-			indexIndicatorSep: ' / ',
-			fitControlsWidth: 1200
-
-		},
-		_blockControlsTap,
-		_blockControlsTapTimeout;
-
-
-
-	var _onControlsTap = function(e) {
-			if(_blockControlsTap) {
-				return true;
-			}
-
-
-			e = e || window.event;
-
-			if(_options.timeToIdle && _options.mouseUsed && !_isIdle) {
-				// reset idle timer
-				_onIdleMouseMove();
-			}
-
-
-			var target = e.target || e.srcElement,
-				uiElement,
-				clickedClass = target.getAttribute('class') || '',
-				found;
-
-			for(var i = 0; i < _uiElements.length; i++) {
-				uiElement = _uiElements[i];
-				if(uiElement.onTap && clickedClass.indexOf('pswp__' + uiElement.name ) > -1 ) {
-					uiElement.onTap();
-					found = true;
-
-				}
-			}
-
-			if(found) {
-				if(e.stopPropagation) {
-					e.stopPropagation();
-				}
-				_blockControlsTap = true;
-
-				// Some versions of Android don't prevent ghost click event 
-				// when preventDefault() was called on touchstart and/or touchend.
-				// 
-				// This happens on v4.3, 4.2, 4.1, 
-				// older versions strangely work correctly, 
-				// but just in case we add delay on all of them)	
-				var tapDelay = framework.features.isOldAndroid ? 600 : 30;
-				_blockControlsTapTimeout = setTimeout(function() {
-					_blockControlsTap = false;
-				}, tapDelay);
-			}
-
-		},
-		_fitControlsInViewport = function() {
-			return !pswp.likelyTouchDevice || _options.mouseUsed || screen.width > _options.fitControlsWidth;
-		},
-		_togglePswpClass = function(el, cName, add) {
-			framework[ (add ? 'add' : 'remove') + 'Class' ](el, 'pswp__' + cName);
-		},
-
-		// add class when there is just one item in the gallery
-		// (by default it hides left/right arrows and 1ofX counter)
-		_countNumItems = function() {
-			var hasOneSlide = (_options.getNumItemsFn() === 1);
-
-			if(hasOneSlide !== _galleryHasOneSlide) {
-				_togglePswpClass(_controls, 'ui--one-slide', hasOneSlide);
-				_galleryHasOneSlide = hasOneSlide;
-			}
-		},
-		_toggleShareModalClass = function() {
-			_togglePswpClass(_shareModal, 'share-modal--hidden', _shareModalHidden);
-		},
-		_toggleShareModal = function() {
-
-			_shareModalHidden = !_shareModalHidden;
-			
-			
-			if(!_shareModalHidden) {
-				_toggleShareModalClass();
-				setTimeout(function() {
-					if(!_shareModalHidden) {
-						framework.addClass(_shareModal, 'pswp__share-modal--fade-in');
-					}
-				}, 30);
-			} else {
-				framework.removeClass(_shareModal, 'pswp__share-modal--fade-in');
-				setTimeout(function() {
-					if(_shareModalHidden) {
-						_toggleShareModalClass();
-					}
-				}, 300);
-			}
-			
-			if(!_shareModalHidden) {
-				_updateShareURLs();
-			}
-			return false;
-		},
-
-		_openWindowPopup = function(e) {
-			e = e || window.event;
-			var target = e.target || e.srcElement;
-
-			pswp.shout('shareLinkClick', e, target);
-
-			if(!target.href) {
-				return false;
-			}
-
-			if( target.hasAttribute('download') ) {
-				return true;
-			}
-
-			window.open(target.href, 'pswp_share', 'scrollbars=yes,resizable=yes,toolbar=no,'+
-										'location=yes,width=550,height=420,top=100,left=' + 
-										(window.screen ? Math.round(screen.width / 2 - 275) : 100)  );
-
-			if(!_shareModalHidden) {
-				_toggleShareModal();
-			}
-			
-			return false;
-		},
-		_updateShareURLs = function() {
-			var shareButtonOut = '',
-				shareButtonData,
-				shareURL,
-				image_url,
-				page_url,
-				share_text;
-
-			for(var i = 0; i < _options.shareButtons.length; i++) {
-				shareButtonData = _options.shareButtons[i];
-
-				image_url = _options.getImageURLForShare(shareButtonData);
-				page_url = _options.getPageURLForShare(shareButtonData);
-				share_text = _options.getTextForShare(shareButtonData);
-
-				shareURL = shareButtonData.url.replace('{{url}}', encodeURIComponent(page_url) )
-									.replace('{{image_url}}', encodeURIComponent(image_url) )
-									.replace('{{raw_image_url}}', image_url )
-									.replace('{{text}}', encodeURIComponent(share_text) );
-
-				shareButtonOut += '<a href="' + shareURL + '" target="_blank" '+
-									'class="pswp__share--' + shareButtonData.id + '"' +
-									(shareButtonData.download ? 'download' : '') + '>' + 
-									shareButtonData.label + '</a>';
-
-				if(_options.parseShareButtonOut) {
-					shareButtonOut = _options.parseShareButtonOut(shareButtonData, shareButtonOut);
-				}
-			}
-			_shareModal.children[0].innerHTML = shareButtonOut;
-			_shareModal.children[0].onclick = _openWindowPopup;
-
-		},
-		_hasCloseClass = function(target) {
-			for(var  i = 0; i < _options.closeElClasses.length; i++) {
-				if( framework.hasClass(target, 'pswp__' + _options.closeElClasses[i]) ) {
-					return true;
-				}
-			}
-		},
-		_idleInterval,
-		_idleTimer,
-		_idleIncrement = 0,
-		_onIdleMouseMove = function() {
-			clearTimeout(_idleTimer);
-			_idleIncrement = 0;
-			if(_isIdle) {
-				ui.setIdle(false);
-			}
-		},
-		_onMouseLeaveWindow = function(e) {
-			e = e ? e : window.event;
-			var from = e.relatedTarget || e.toElement;
-			if (!from || from.nodeName === 'HTML') {
-				clearTimeout(_idleTimer);
-				_idleTimer = setTimeout(function() {
-					ui.setIdle(true);
-				}, _options.timeToIdleOutside);
-			}
-		},
-		_setupFullscreenAPI = function() {
-			if(_options.fullscreenEl && !framework.features.isOldAndroid) {
-				if(!_fullscrenAPI) {
-					_fullscrenAPI = ui.getFullscreenAPI();
-				}
-				if(_fullscrenAPI) {
-					framework.bind(document, _fullscrenAPI.eventK, ui.updateFullscreen);
-					ui.updateFullscreen();
-					framework.addClass(pswp.template, 'pswp--supports-fs');
-				} else {
-					framework.removeClass(pswp.template, 'pswp--supports-fs');
-				}
-			}
-		},
-		_setupLoadingIndicator = function() {
-			// Setup loading indicator
-			if(_options.preloaderEl) {
-			
-				_toggleLoadingIndicator(true);
-
-				_listen('beforeChange', function() {
-
-					clearTimeout(_loadingIndicatorTimeout);
-
-					// display loading indicator with delay
-					_loadingIndicatorTimeout = setTimeout(function() {
-
-						if(pswp.currItem && pswp.currItem.loading) {
-
-							if( !pswp.allowProgressiveImg() || (pswp.currItem.img && !pswp.currItem.img.naturalWidth)  ) {
-								// show preloader if progressive loading is not enabled, 
-								// or image width is not defined yet (because of slow connection)
-								_toggleLoadingIndicator(false); 
-								// items-controller.js function allowProgressiveImg
-							}
-							
-						} else {
-							_toggleLoadingIndicator(true); // hide preloader
-						}
-
-					}, _options.loadingIndicatorDelay);
-					
-				});
-				_listen('imageLoadComplete', function(index, item) {
-					if(pswp.currItem === item) {
-						_toggleLoadingIndicator(true);
-					}
-				});
-
-			}
-		},
-		_toggleLoadingIndicator = function(hide) {
-			if( _loadingIndicatorHidden !== hide ) {
-				_togglePswpClass(_loadingIndicator, 'preloader--active', !hide);
-				_loadingIndicatorHidden = hide;
-			}
-		},
-		_applyNavBarGaps = function(item) {
-			var gap = item.vGap;
-
-			if( _fitControlsInViewport() ) {
-				
-				var bars = _options.barsSize; 
-				if(_options.captionEl && bars.bottom === 'auto') {
-					if(!_fakeCaptionContainer) {
-						_fakeCaptionContainer = framework.createEl('pswp__caption pswp__caption--fake');
-						_fakeCaptionContainer.appendChild( framework.createEl('pswp__caption__center') );
-						_controls.insertBefore(_fakeCaptionContainer, _captionContainer);
-						framework.addClass(_controls, 'pswp__ui--fit');
-					}
-					if( _options.addCaptionHTMLFn(item, _fakeCaptionContainer, true) ) {
-
-						var captionSize = _fakeCaptionContainer.clientHeight;
-						gap.bottom = parseInt(captionSize,10) || 44;
-					} else {
-						gap.bottom = bars.top; // if no caption, set size of bottom gap to size of top
-					}
-				} else {
-					gap.bottom = bars.bottom === 'auto' ? 0 : bars.bottom;
-				}
-				
-				// height of top bar is static, no need to calculate it
-				gap.top = bars.top;
-			} else {
-				gap.top = gap.bottom = 0;
-			}
-		},
-		_setupIdle = function() {
-			// Hide controls when mouse is used
-			if(_options.timeToIdle) {
-				_listen('mouseUsed', function() {
-					
-					framework.bind(document, 'mousemove', _onIdleMouseMove);
-					framework.bind(document, 'mouseout', _onMouseLeaveWindow);
-
-					_idleInterval = setInterval(function() {
-						_idleIncrement++;
-						if(_idleIncrement === 2) {
-							ui.setIdle(true);
-						}
-					}, _options.timeToIdle / 2);
-				});
-			}
-		},
-		_setupHidingControlsDuringGestures = function() {
-
-			// Hide controls on vertical drag
-			_listen('onVerticalDrag', function(now) {
-				if(_controlsVisible && now < 0.95) {
-					ui.hideControls();
-				} else if(!_controlsVisible && now >= 0.95) {
-					ui.showControls();
-				}
-			});
-
-			// Hide controls when pinching to close
-			var pinchControlsHidden;
-			_listen('onPinchClose' , function(now) {
-				if(_controlsVisible && now < 0.9) {
-					ui.hideControls();
-					pinchControlsHidden = true;
-				} else if(pinchControlsHidden && !_controlsVisible && now > 0.9) {
-					ui.showControls();
-				}
-			});
-
-			_listen('zoomGestureEnded', function() {
-				pinchControlsHidden = false;
-				if(pinchControlsHidden && !_controlsVisible) {
-					ui.showControls();
-				}
-			});
-
-		};
-
-
-
-	var _uiElements = [
-		{ 
-			name: 'caption', 
-			option: 'captionEl',
-			onInit: function(el) {  
-				_captionContainer = el; 
-			} 
-		},
-		{ 
-			name: 'share-modal', 
-			option: 'shareEl',
-			onInit: function(el) {  
-				_shareModal = el;
-			},
-			onTap: function() {
-				_toggleShareModal();
-			} 
-		},
-		{ 
-			name: 'button--share', 
-			option: 'shareEl',
-			onInit: function(el) { 
-				_shareButton = el;
-			},
-			onTap: function() {
-				_toggleShareModal();
-			} 
-		},
-		{ 
-			name: 'button--zoom', 
-			option: 'zoomEl',
-			onTap: pswp.toggleDesktopZoom
-		},
-		{ 
-			name: 'counter', 
-			option: 'counterEl',
-			onInit: function(el) {  
-				_indexIndicator = el;
-			} 
-		},
-		{ 
-			name: 'button--close', 
-			option: 'closeEl',
-			onTap: pswp.close
-		},
-		{ 
-			name: 'button--arrow--left', 
-			option: 'arrowEl',
-			onTap: pswp.prev
-		},
-		{ 
-			name: 'button--arrow--right', 
-			option: 'arrowEl',
-			onTap: pswp.next
-		},
-		{ 
-			name: 'button--fs', 
-			option: 'fullscreenEl',
-			onTap: function() {  
-				if(_fullscrenAPI.isFullscreen()) {
-					_fullscrenAPI.exit();
-				} else {
-					_fullscrenAPI.enter();
-				}
-			} 
-		},
-		{ 
-			name: 'preloader', 
-			option: 'preloaderEl',
-			onInit: function(el) {  
-				_loadingIndicator = el;
-			} 
-		}
-
-	];
-
-	var _setupUIElements = function() {
-		var item,
-			classAttr,
-			uiElement;
-
-		var loopThroughChildElements = function(sChildren) {
-			if(!sChildren) {
-				return;
-			}
-
-			var l = sChildren.length;
-			for(var i = 0; i < l; i++) {
-				item = sChildren[i];
-				classAttr = item.className;
-
-				for(var a = 0; a < _uiElements.length; a++) {
-					uiElement = _uiElements[a];
-
-					if(classAttr.indexOf('pswp__' + uiElement.name) > -1  ) {
-
-						if( _options[uiElement.option] ) { // if element is not disabled from options
-							
-							framework.removeClass(item, 'pswp__element--disabled');
-							if(uiElement.onInit) {
-								uiElement.onInit(item);
-							}
-							
-							//item.style.display = 'block';
-						} else {
-							framework.addClass(item, 'pswp__element--disabled');
-							//item.style.display = 'none';
-						}
-					}
-				}
-			}
-		};
-		loopThroughChildElements(_controls.children);
-
-		var topBar =  framework.getChildByClass(_controls, 'pswp__top-bar');
-		if(topBar) {
-			loopThroughChildElements( topBar.children );
-		}
-	};
-
-
-	
-
-	ui.init = function() {
-
-		// extend options
-		framework.extend(pswp.options, _defaultUIOptions, true);
-
-		// create local link for fast access
-		_options = pswp.options;
-
-		// find pswp__ui element
-		_controls = framework.getChildByClass(pswp.scrollWrap, 'pswp__ui');
-
-		// create local link
-		_listen = pswp.listen;
-
-
-		_setupHidingControlsDuringGestures();
-
-		// update controls when slides change
-		_listen('beforeChange', ui.update);
-
-		// toggle zoom on double-tap
-		_listen('doubleTap', function(point) {
-			var initialZoomLevel = pswp.currItem.initialZoomLevel;
-			if(pswp.getZoomLevel() !== initialZoomLevel) {
-				pswp.zoomTo(initialZoomLevel, point, 333);
-			} else {
-				pswp.zoomTo(_options.getDoubleTapZoom(false, pswp.currItem), point, 333);
-			}
-		});
-
-		// Allow text selection in caption
-		_listen('preventDragEvent', function(e, isDown, preventObj) {
-			var t = e.target || e.srcElement;
-			if(
-				t && 
-				t.getAttribute('class') && e.type.indexOf('mouse') > -1 && 
-				( t.getAttribute('class').indexOf('__caption') > 0 || (/(SMALL|STRONG|EM)/i).test(t.tagName) ) 
-			) {
-				preventObj.prevent = false;
-			}
-		});
-
-		// bind events for UI
-		_listen('bindEvents', function() {
-			framework.bind(_controls, 'pswpTap click', _onControlsTap);
-			framework.bind(pswp.scrollWrap, 'pswpTap', ui.onGlobalTap);
-
-			if(!pswp.likelyTouchDevice) {
-				framework.bind(pswp.scrollWrap, 'mouseover', ui.onMouseOver);
-			}
-		});
-
-		// unbind events for UI
-		_listen('unbindEvents', function() {
-			if(!_shareModalHidden) {
-				_toggleShareModal();
-			}
-
-			if(_idleInterval) {
-				clearInterval(_idleInterval);
-			}
-			framework.unbind(document, 'mouseout', _onMouseLeaveWindow);
-			framework.unbind(document, 'mousemove', _onIdleMouseMove);
-			framework.unbind(_controls, 'pswpTap click', _onControlsTap);
-			framework.unbind(pswp.scrollWrap, 'pswpTap', ui.onGlobalTap);
-			framework.unbind(pswp.scrollWrap, 'mouseover', ui.onMouseOver);
-
-			if(_fullscrenAPI) {
-				framework.unbind(document, _fullscrenAPI.eventK, ui.updateFullscreen);
-				if(_fullscrenAPI.isFullscreen()) {
-					_options.hideAnimationDuration = 0;
-					_fullscrenAPI.exit();
-				}
-				_fullscrenAPI = null;
-			}
-		});
-
-
-		// clean up things when gallery is destroyed
-		_listen('destroy', function() {
-			if(_options.captionEl) {
-				if(_fakeCaptionContainer) {
-					_controls.removeChild(_fakeCaptionContainer);
-				}
-				framework.removeClass(_captionContainer, 'pswp__caption--empty');
-			}
-
-			if(_shareModal) {
-				_shareModal.children[0].onclick = null;
-			}
-			framework.removeClass(_controls, 'pswp__ui--over-close');
-			framework.addClass( _controls, 'pswp__ui--hidden');
-			ui.setIdle(false);
-		});
-		
-
-		if(!_options.showAnimationDuration) {
-			framework.removeClass( _controls, 'pswp__ui--hidden');
-		}
-		_listen('initialZoomIn', function() {
-			if(_options.showAnimationDuration) {
-				framework.removeClass( _controls, 'pswp__ui--hidden');
-			}
-		});
-		_listen('initialZoomOut', function() {
-			framework.addClass( _controls, 'pswp__ui--hidden');
-		});
-
-		_listen('parseVerticalMargin', _applyNavBarGaps);
-		
-		_setupUIElements();
-
-		if(_options.shareEl && _shareButton && _shareModal) {
-			_shareModalHidden = true;
-		}
-
-		_countNumItems();
-
-		_setupIdle();
-
-		_setupFullscreenAPI();
-
-		_setupLoadingIndicator();
-	};
-
-	ui.setIdle = function(isIdle) {
-		_isIdle = isIdle;
-		_togglePswpClass(_controls, 'ui--idle', isIdle);
-	};
-
-	ui.update = function() {
-		// Don't update UI if it's hidden
-		if(_controlsVisible && pswp.currItem) {
-			
-			ui.updateIndexIndicator();
-
-			if(_options.captionEl) {
-				_options.addCaptionHTMLFn(pswp.currItem, _captionContainer);
-
-				_togglePswpClass(_captionContainer, 'caption--empty', !pswp.currItem.title);
-			}
-
-			_overlayUIUpdated = true;
-
-		} else {
-			_overlayUIUpdated = false;
-		}
-
-		if(!_shareModalHidden) {
-			_toggleShareModal();
-		}
-
-		_countNumItems();
-	};
-
-	ui.updateFullscreen = function(e) {
-
-		if(e) {
-			// some browsers change window scroll position during the fullscreen
-			// so PhotoSwipe updates it just in case
-			setTimeout(function() {
-				pswp.setScrollOffset( 0, framework.getScrollY() );
-			}, 50);
-		}
-		
-		// toogle pswp--fs class on root element
-		framework[ (_fullscrenAPI.isFullscreen() ? 'add' : 'remove') + 'Class' ](pswp.template, 'pswp--fs');
-	};
-
-	ui.updateIndexIndicator = function() {
-		if(_options.counterEl) {
-			_indexIndicator.innerHTML = (pswp.getCurrentIndex()+1) + 
-										_options.indexIndicatorSep + 
-										_options.getNumItemsFn();
-		}
-	};
-	
-	ui.onGlobalTap = function(e) {
-		e = e || window.event;
-		var target = e.target || e.srcElement;
-
-		if(_blockControlsTap) {
-			return;
-		}
-
-		if(e.detail && e.detail.pointerType === 'mouse') {
-
-			// close gallery if clicked outside of the image
-			if(_hasCloseClass(target)) {
-				pswp.close();
-				return;
-			}
-
-			if(framework.hasClass(target, 'pswp__img')) {
-				if(pswp.getZoomLevel() === 1 && pswp.getZoomLevel() <= pswp.currItem.fitRatio) {
-					if(_options.clickToCloseNonZoomable) {
-						pswp.close();
-					}
-				} else {
-					pswp.toggleDesktopZoom(e.detail.releasePoint);
-				}
-			}
-			
-		} else {
-
-			// tap anywhere (except buttons) to toggle visibility of controls
-			if(_options.tapToToggleControls) {
-				if(_controlsVisible) {
-					ui.hideControls();
-				} else {
-					ui.showControls();
-				}
-			}
-
-			// tap to close gallery
-			if(_options.tapToClose && (framework.hasClass(target, 'pswp__img') || _hasCloseClass(target)) ) {
-				pswp.close();
-				return;
-			}
-			
-		}
-	};
-	ui.onMouseOver = function(e) {
-		e = e || window.event;
-		var target = e.target || e.srcElement;
-
-		// add class when mouse is over an element that should close the gallery
-		_togglePswpClass(_controls, 'ui--over-close', _hasCloseClass(target));
-	};
-
-	ui.hideControls = function() {
-		framework.addClass(_controls,'pswp__ui--hidden');
-		_controlsVisible = false;
-	};
-
-	ui.showControls = function() {
-		_controlsVisible = true;
-		if(!_overlayUIUpdated) {
-			ui.update();
-		}
-		framework.removeClass(_controls,'pswp__ui--hidden');
-	};
-
-	ui.supportsFullscreen = function() {
-		var d = document;
-		return !!(d.exitFullscreen || d.mozCancelFullScreen || d.webkitExitFullscreen || d.msExitFullscreen);
-	};
-
-	ui.getFullscreenAPI = function() {
-		var dE = document.documentElement,
-			api,
-			tF = 'fullscreenchange';
-
-		if (dE.requestFullscreen) {
-			api = {
-				enterK: 'requestFullscreen',
-				exitK: 'exitFullscreen',
-				elementK: 'fullscreenElement',
-				eventK: tF
-			};
-
-		} else if(dE.mozRequestFullScreen ) {
-			api = {
-				enterK: 'mozRequestFullScreen',
-				exitK: 'mozCancelFullScreen',
-				elementK: 'mozFullScreenElement',
-				eventK: 'moz' + tF
-			};
-
-			
-
-		} else if(dE.webkitRequestFullscreen) {
-			api = {
-				enterK: 'webkitRequestFullscreen',
-				exitK: 'webkitExitFullscreen',
-				elementK: 'webkitFullscreenElement',
-				eventK: 'webkit' + tF
-			};
-
-		} else if(dE.msRequestFullscreen) {
-			api = {
-				enterK: 'msRequestFullscreen',
-				exitK: 'msExitFullscreen',
-				elementK: 'msFullscreenElement',
-				eventK: 'MSFullscreenChange'
-			};
-		}
-
-		if(api) {
-			api.enter = function() { 
-				// disable close-on-scroll in fullscreen
-				_initalCloseOnScrollValue = _options.closeOnScroll; 
-				_options.closeOnScroll = false; 
-
-				if(this.enterK === 'webkitRequestFullscreen') {
-					pswp.template[this.enterK]( Element.ALLOW_KEYBOARD_INPUT );
-				} else {
-					return pswp.template[this.enterK](); 
-				}
-			};
-			api.exit = function() { 
-				_options.closeOnScroll = _initalCloseOnScrollValue;
-
-				return document[this.exitK](); 
-
-			};
-			api.isFullscreen = function() { return document[this.elementK]; };
-		}
-
-		return api;
-	};
-
-
-
-};
-return PhotoSwipeUI_Default;
-
-
-});
-
-
-/***/ }),
-
-/***/ "./node_modules/photoswipe/dist/photoswipe.js":
-/*!****************************************************!*\
-  !*** ./node_modules/photoswipe/dist/photoswipe.js ***!
-  \****************************************************/
-/*! no static exports found */
+/******/ ([
+/* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! PhotoSwipe - v4.1.3 - 2019-01-08
@@ -6146,24 +3825,2283 @@ _registerModule('History', {
 });
 
 /***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/***/ "./node_modules/remarkable/dist/esm/index.browser.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/remarkable/dist/esm/index.browser.js ***!
-  \***********************************************************/
-/*! exports provided: Remarkable, utils */
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! PhotoSwipe Default UI - 4.1.3 - 2019-01-08
+* http://photoswipe.com
+* Copyright (c) 2019 Dmitry Semenov; */
+/**
+*
+* UI on top of main sliding area (caption, arrows, close button, etc.).
+* Built just using public methods/properties of PhotoSwipe.
+* 
+*/
+(function (root, factory) { 
+	if (true) {
+		!(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+})(this, function () {
+
+	'use strict';
+
+
+
+var PhotoSwipeUI_Default =
+ function(pswp, framework) {
+
+	var ui = this;
+	var _overlayUIUpdated = false,
+		_controlsVisible = true,
+		_fullscrenAPI,
+		_controls,
+		_captionContainer,
+		_fakeCaptionContainer,
+		_indexIndicator,
+		_shareButton,
+		_shareModal,
+		_shareModalHidden = true,
+		_initalCloseOnScrollValue,
+		_isIdle,
+		_listen,
+
+		_loadingIndicator,
+		_loadingIndicatorHidden,
+		_loadingIndicatorTimeout,
+
+		_galleryHasOneSlide,
+
+		_options,
+		_defaultUIOptions = {
+			barsSize: {top:44, bottom:'auto'},
+			closeElClasses: ['item', 'caption', 'zoom-wrap', 'ui', 'top-bar'], 
+			timeToIdle: 4000, 
+			timeToIdleOutside: 1000,
+			loadingIndicatorDelay: 1000, // 2s
+			
+			addCaptionHTMLFn: function(item, captionEl /*, isFake */) {
+				if(!item.title) {
+					captionEl.children[0].innerHTML = '';
+					return false;
+				}
+				captionEl.children[0].innerHTML = item.title;
+				return true;
+			},
+
+			closeEl:true,
+			captionEl: true,
+			fullscreenEl: true,
+			zoomEl: true,
+			shareEl: true,
+			counterEl: true,
+			arrowEl: true,
+			preloaderEl: true,
+
+			tapToClose: false,
+			tapToToggleControls: true,
+
+			clickToCloseNonZoomable: true,
+
+			shareButtons: [
+				{id:'facebook', label:'Share on Facebook', url:'https://www.facebook.com/sharer/sharer.php?u={{url}}'},
+				{id:'twitter', label:'Tweet', url:'https://twitter.com/intent/tweet?text={{text}}&url={{url}}'},
+				{id:'pinterest', label:'Pin it', url:'http://www.pinterest.com/pin/create/button/'+
+													'?url={{url}}&media={{image_url}}&description={{text}}'},
+				{id:'download', label:'Download image', url:'{{raw_image_url}}', download:true}
+			],
+			getImageURLForShare: function( /* shareButtonData */ ) {
+				return pswp.currItem.src || '';
+			},
+			getPageURLForShare: function( /* shareButtonData */ ) {
+				return window.location.href;
+			},
+			getTextForShare: function( /* shareButtonData */ ) {
+				return pswp.currItem.title || '';
+			},
+				
+			indexIndicatorSep: ' / ',
+			fitControlsWidth: 1200
+
+		},
+		_blockControlsTap,
+		_blockControlsTapTimeout;
+
+
+
+	var _onControlsTap = function(e) {
+			if(_blockControlsTap) {
+				return true;
+			}
+
+
+			e = e || window.event;
+
+			if(_options.timeToIdle && _options.mouseUsed && !_isIdle) {
+				// reset idle timer
+				_onIdleMouseMove();
+			}
+
+
+			var target = e.target || e.srcElement,
+				uiElement,
+				clickedClass = target.getAttribute('class') || '',
+				found;
+
+			for(var i = 0; i < _uiElements.length; i++) {
+				uiElement = _uiElements[i];
+				if(uiElement.onTap && clickedClass.indexOf('pswp__' + uiElement.name ) > -1 ) {
+					uiElement.onTap();
+					found = true;
+
+				}
+			}
+
+			if(found) {
+				if(e.stopPropagation) {
+					e.stopPropagation();
+				}
+				_blockControlsTap = true;
+
+				// Some versions of Android don't prevent ghost click event 
+				// when preventDefault() was called on touchstart and/or touchend.
+				// 
+				// This happens on v4.3, 4.2, 4.1, 
+				// older versions strangely work correctly, 
+				// but just in case we add delay on all of them)	
+				var tapDelay = framework.features.isOldAndroid ? 600 : 30;
+				_blockControlsTapTimeout = setTimeout(function() {
+					_blockControlsTap = false;
+				}, tapDelay);
+			}
+
+		},
+		_fitControlsInViewport = function() {
+			return !pswp.likelyTouchDevice || _options.mouseUsed || screen.width > _options.fitControlsWidth;
+		},
+		_togglePswpClass = function(el, cName, add) {
+			framework[ (add ? 'add' : 'remove') + 'Class' ](el, 'pswp__' + cName);
+		},
+
+		// add class when there is just one item in the gallery
+		// (by default it hides left/right arrows and 1ofX counter)
+		_countNumItems = function() {
+			var hasOneSlide = (_options.getNumItemsFn() === 1);
+
+			if(hasOneSlide !== _galleryHasOneSlide) {
+				_togglePswpClass(_controls, 'ui--one-slide', hasOneSlide);
+				_galleryHasOneSlide = hasOneSlide;
+			}
+		},
+		_toggleShareModalClass = function() {
+			_togglePswpClass(_shareModal, 'share-modal--hidden', _shareModalHidden);
+		},
+		_toggleShareModal = function() {
+
+			_shareModalHidden = !_shareModalHidden;
+			
+			
+			if(!_shareModalHidden) {
+				_toggleShareModalClass();
+				setTimeout(function() {
+					if(!_shareModalHidden) {
+						framework.addClass(_shareModal, 'pswp__share-modal--fade-in');
+					}
+				}, 30);
+			} else {
+				framework.removeClass(_shareModal, 'pswp__share-modal--fade-in');
+				setTimeout(function() {
+					if(_shareModalHidden) {
+						_toggleShareModalClass();
+					}
+				}, 300);
+			}
+			
+			if(!_shareModalHidden) {
+				_updateShareURLs();
+			}
+			return false;
+		},
+
+		_openWindowPopup = function(e) {
+			e = e || window.event;
+			var target = e.target || e.srcElement;
+
+			pswp.shout('shareLinkClick', e, target);
+
+			if(!target.href) {
+				return false;
+			}
+
+			if( target.hasAttribute('download') ) {
+				return true;
+			}
+
+			window.open(target.href, 'pswp_share', 'scrollbars=yes,resizable=yes,toolbar=no,'+
+										'location=yes,width=550,height=420,top=100,left=' + 
+										(window.screen ? Math.round(screen.width / 2 - 275) : 100)  );
+
+			if(!_shareModalHidden) {
+				_toggleShareModal();
+			}
+			
+			return false;
+		},
+		_updateShareURLs = function() {
+			var shareButtonOut = '',
+				shareButtonData,
+				shareURL,
+				image_url,
+				page_url,
+				share_text;
+
+			for(var i = 0; i < _options.shareButtons.length; i++) {
+				shareButtonData = _options.shareButtons[i];
+
+				image_url = _options.getImageURLForShare(shareButtonData);
+				page_url = _options.getPageURLForShare(shareButtonData);
+				share_text = _options.getTextForShare(shareButtonData);
+
+				shareURL = shareButtonData.url.replace('{{url}}', encodeURIComponent(page_url) )
+									.replace('{{image_url}}', encodeURIComponent(image_url) )
+									.replace('{{raw_image_url}}', image_url )
+									.replace('{{text}}', encodeURIComponent(share_text) );
+
+				shareButtonOut += '<a href="' + shareURL + '" target="_blank" '+
+									'class="pswp__share--' + shareButtonData.id + '"' +
+									(shareButtonData.download ? 'download' : '') + '>' + 
+									shareButtonData.label + '</a>';
+
+				if(_options.parseShareButtonOut) {
+					shareButtonOut = _options.parseShareButtonOut(shareButtonData, shareButtonOut);
+				}
+			}
+			_shareModal.children[0].innerHTML = shareButtonOut;
+			_shareModal.children[0].onclick = _openWindowPopup;
+
+		},
+		_hasCloseClass = function(target) {
+			for(var  i = 0; i < _options.closeElClasses.length; i++) {
+				if( framework.hasClass(target, 'pswp__' + _options.closeElClasses[i]) ) {
+					return true;
+				}
+			}
+		},
+		_idleInterval,
+		_idleTimer,
+		_idleIncrement = 0,
+		_onIdleMouseMove = function() {
+			clearTimeout(_idleTimer);
+			_idleIncrement = 0;
+			if(_isIdle) {
+				ui.setIdle(false);
+			}
+		},
+		_onMouseLeaveWindow = function(e) {
+			e = e ? e : window.event;
+			var from = e.relatedTarget || e.toElement;
+			if (!from || from.nodeName === 'HTML') {
+				clearTimeout(_idleTimer);
+				_idleTimer = setTimeout(function() {
+					ui.setIdle(true);
+				}, _options.timeToIdleOutside);
+			}
+		},
+		_setupFullscreenAPI = function() {
+			if(_options.fullscreenEl && !framework.features.isOldAndroid) {
+				if(!_fullscrenAPI) {
+					_fullscrenAPI = ui.getFullscreenAPI();
+				}
+				if(_fullscrenAPI) {
+					framework.bind(document, _fullscrenAPI.eventK, ui.updateFullscreen);
+					ui.updateFullscreen();
+					framework.addClass(pswp.template, 'pswp--supports-fs');
+				} else {
+					framework.removeClass(pswp.template, 'pswp--supports-fs');
+				}
+			}
+		},
+		_setupLoadingIndicator = function() {
+			// Setup loading indicator
+			if(_options.preloaderEl) {
+			
+				_toggleLoadingIndicator(true);
+
+				_listen('beforeChange', function() {
+
+					clearTimeout(_loadingIndicatorTimeout);
+
+					// display loading indicator with delay
+					_loadingIndicatorTimeout = setTimeout(function() {
+
+						if(pswp.currItem && pswp.currItem.loading) {
+
+							if( !pswp.allowProgressiveImg() || (pswp.currItem.img && !pswp.currItem.img.naturalWidth)  ) {
+								// show preloader if progressive loading is not enabled, 
+								// or image width is not defined yet (because of slow connection)
+								_toggleLoadingIndicator(false); 
+								// items-controller.js function allowProgressiveImg
+							}
+							
+						} else {
+							_toggleLoadingIndicator(true); // hide preloader
+						}
+
+					}, _options.loadingIndicatorDelay);
+					
+				});
+				_listen('imageLoadComplete', function(index, item) {
+					if(pswp.currItem === item) {
+						_toggleLoadingIndicator(true);
+					}
+				});
+
+			}
+		},
+		_toggleLoadingIndicator = function(hide) {
+			if( _loadingIndicatorHidden !== hide ) {
+				_togglePswpClass(_loadingIndicator, 'preloader--active', !hide);
+				_loadingIndicatorHidden = hide;
+			}
+		},
+		_applyNavBarGaps = function(item) {
+			var gap = item.vGap;
+
+			if( _fitControlsInViewport() ) {
+				
+				var bars = _options.barsSize; 
+				if(_options.captionEl && bars.bottom === 'auto') {
+					if(!_fakeCaptionContainer) {
+						_fakeCaptionContainer = framework.createEl('pswp__caption pswp__caption--fake');
+						_fakeCaptionContainer.appendChild( framework.createEl('pswp__caption__center') );
+						_controls.insertBefore(_fakeCaptionContainer, _captionContainer);
+						framework.addClass(_controls, 'pswp__ui--fit');
+					}
+					if( _options.addCaptionHTMLFn(item, _fakeCaptionContainer, true) ) {
+
+						var captionSize = _fakeCaptionContainer.clientHeight;
+						gap.bottom = parseInt(captionSize,10) || 44;
+					} else {
+						gap.bottom = bars.top; // if no caption, set size of bottom gap to size of top
+					}
+				} else {
+					gap.bottom = bars.bottom === 'auto' ? 0 : bars.bottom;
+				}
+				
+				// height of top bar is static, no need to calculate it
+				gap.top = bars.top;
+			} else {
+				gap.top = gap.bottom = 0;
+			}
+		},
+		_setupIdle = function() {
+			// Hide controls when mouse is used
+			if(_options.timeToIdle) {
+				_listen('mouseUsed', function() {
+					
+					framework.bind(document, 'mousemove', _onIdleMouseMove);
+					framework.bind(document, 'mouseout', _onMouseLeaveWindow);
+
+					_idleInterval = setInterval(function() {
+						_idleIncrement++;
+						if(_idleIncrement === 2) {
+							ui.setIdle(true);
+						}
+					}, _options.timeToIdle / 2);
+				});
+			}
+		},
+		_setupHidingControlsDuringGestures = function() {
+
+			// Hide controls on vertical drag
+			_listen('onVerticalDrag', function(now) {
+				if(_controlsVisible && now < 0.95) {
+					ui.hideControls();
+				} else if(!_controlsVisible && now >= 0.95) {
+					ui.showControls();
+				}
+			});
+
+			// Hide controls when pinching to close
+			var pinchControlsHidden;
+			_listen('onPinchClose' , function(now) {
+				if(_controlsVisible && now < 0.9) {
+					ui.hideControls();
+					pinchControlsHidden = true;
+				} else if(pinchControlsHidden && !_controlsVisible && now > 0.9) {
+					ui.showControls();
+				}
+			});
+
+			_listen('zoomGestureEnded', function() {
+				pinchControlsHidden = false;
+				if(pinchControlsHidden && !_controlsVisible) {
+					ui.showControls();
+				}
+			});
+
+		};
+
+
+
+	var _uiElements = [
+		{ 
+			name: 'caption', 
+			option: 'captionEl',
+			onInit: function(el) {  
+				_captionContainer = el; 
+			} 
+		},
+		{ 
+			name: 'share-modal', 
+			option: 'shareEl',
+			onInit: function(el) {  
+				_shareModal = el;
+			},
+			onTap: function() {
+				_toggleShareModal();
+			} 
+		},
+		{ 
+			name: 'button--share', 
+			option: 'shareEl',
+			onInit: function(el) { 
+				_shareButton = el;
+			},
+			onTap: function() {
+				_toggleShareModal();
+			} 
+		},
+		{ 
+			name: 'button--zoom', 
+			option: 'zoomEl',
+			onTap: pswp.toggleDesktopZoom
+		},
+		{ 
+			name: 'counter', 
+			option: 'counterEl',
+			onInit: function(el) {  
+				_indexIndicator = el;
+			} 
+		},
+		{ 
+			name: 'button--close', 
+			option: 'closeEl',
+			onTap: pswp.close
+		},
+		{ 
+			name: 'button--arrow--left', 
+			option: 'arrowEl',
+			onTap: pswp.prev
+		},
+		{ 
+			name: 'button--arrow--right', 
+			option: 'arrowEl',
+			onTap: pswp.next
+		},
+		{ 
+			name: 'button--fs', 
+			option: 'fullscreenEl',
+			onTap: function() {  
+				if(_fullscrenAPI.isFullscreen()) {
+					_fullscrenAPI.exit();
+				} else {
+					_fullscrenAPI.enter();
+				}
+			} 
+		},
+		{ 
+			name: 'preloader', 
+			option: 'preloaderEl',
+			onInit: function(el) {  
+				_loadingIndicator = el;
+			} 
+		}
+
+	];
+
+	var _setupUIElements = function() {
+		var item,
+			classAttr,
+			uiElement;
+
+		var loopThroughChildElements = function(sChildren) {
+			if(!sChildren) {
+				return;
+			}
+
+			var l = sChildren.length;
+			for(var i = 0; i < l; i++) {
+				item = sChildren[i];
+				classAttr = item.className;
+
+				for(var a = 0; a < _uiElements.length; a++) {
+					uiElement = _uiElements[a];
+
+					if(classAttr.indexOf('pswp__' + uiElement.name) > -1  ) {
+
+						if( _options[uiElement.option] ) { // if element is not disabled from options
+							
+							framework.removeClass(item, 'pswp__element--disabled');
+							if(uiElement.onInit) {
+								uiElement.onInit(item);
+							}
+							
+							//item.style.display = 'block';
+						} else {
+							framework.addClass(item, 'pswp__element--disabled');
+							//item.style.display = 'none';
+						}
+					}
+				}
+			}
+		};
+		loopThroughChildElements(_controls.children);
+
+		var topBar =  framework.getChildByClass(_controls, 'pswp__top-bar');
+		if(topBar) {
+			loopThroughChildElements( topBar.children );
+		}
+	};
+
+
+	
+
+	ui.init = function() {
+
+		// extend options
+		framework.extend(pswp.options, _defaultUIOptions, true);
+
+		// create local link for fast access
+		_options = pswp.options;
+
+		// find pswp__ui element
+		_controls = framework.getChildByClass(pswp.scrollWrap, 'pswp__ui');
+
+		// create local link
+		_listen = pswp.listen;
+
+
+		_setupHidingControlsDuringGestures();
+
+		// update controls when slides change
+		_listen('beforeChange', ui.update);
+
+		// toggle zoom on double-tap
+		_listen('doubleTap', function(point) {
+			var initialZoomLevel = pswp.currItem.initialZoomLevel;
+			if(pswp.getZoomLevel() !== initialZoomLevel) {
+				pswp.zoomTo(initialZoomLevel, point, 333);
+			} else {
+				pswp.zoomTo(_options.getDoubleTapZoom(false, pswp.currItem), point, 333);
+			}
+		});
+
+		// Allow text selection in caption
+		_listen('preventDragEvent', function(e, isDown, preventObj) {
+			var t = e.target || e.srcElement;
+			if(
+				t && 
+				t.getAttribute('class') && e.type.indexOf('mouse') > -1 && 
+				( t.getAttribute('class').indexOf('__caption') > 0 || (/(SMALL|STRONG|EM)/i).test(t.tagName) ) 
+			) {
+				preventObj.prevent = false;
+			}
+		});
+
+		// bind events for UI
+		_listen('bindEvents', function() {
+			framework.bind(_controls, 'pswpTap click', _onControlsTap);
+			framework.bind(pswp.scrollWrap, 'pswpTap', ui.onGlobalTap);
+
+			if(!pswp.likelyTouchDevice) {
+				framework.bind(pswp.scrollWrap, 'mouseover', ui.onMouseOver);
+			}
+		});
+
+		// unbind events for UI
+		_listen('unbindEvents', function() {
+			if(!_shareModalHidden) {
+				_toggleShareModal();
+			}
+
+			if(_idleInterval) {
+				clearInterval(_idleInterval);
+			}
+			framework.unbind(document, 'mouseout', _onMouseLeaveWindow);
+			framework.unbind(document, 'mousemove', _onIdleMouseMove);
+			framework.unbind(_controls, 'pswpTap click', _onControlsTap);
+			framework.unbind(pswp.scrollWrap, 'pswpTap', ui.onGlobalTap);
+			framework.unbind(pswp.scrollWrap, 'mouseover', ui.onMouseOver);
+
+			if(_fullscrenAPI) {
+				framework.unbind(document, _fullscrenAPI.eventK, ui.updateFullscreen);
+				if(_fullscrenAPI.isFullscreen()) {
+					_options.hideAnimationDuration = 0;
+					_fullscrenAPI.exit();
+				}
+				_fullscrenAPI = null;
+			}
+		});
+
+
+		// clean up things when gallery is destroyed
+		_listen('destroy', function() {
+			if(_options.captionEl) {
+				if(_fakeCaptionContainer) {
+					_controls.removeChild(_fakeCaptionContainer);
+				}
+				framework.removeClass(_captionContainer, 'pswp__caption--empty');
+			}
+
+			if(_shareModal) {
+				_shareModal.children[0].onclick = null;
+			}
+			framework.removeClass(_controls, 'pswp__ui--over-close');
+			framework.addClass( _controls, 'pswp__ui--hidden');
+			ui.setIdle(false);
+		});
+		
+
+		if(!_options.showAnimationDuration) {
+			framework.removeClass( _controls, 'pswp__ui--hidden');
+		}
+		_listen('initialZoomIn', function() {
+			if(_options.showAnimationDuration) {
+				framework.removeClass( _controls, 'pswp__ui--hidden');
+			}
+		});
+		_listen('initialZoomOut', function() {
+			framework.addClass( _controls, 'pswp__ui--hidden');
+		});
+
+		_listen('parseVerticalMargin', _applyNavBarGaps);
+		
+		_setupUIElements();
+
+		if(_options.shareEl && _shareButton && _shareModal) {
+			_shareModalHidden = true;
+		}
+
+		_countNumItems();
+
+		_setupIdle();
+
+		_setupFullscreenAPI();
+
+		_setupLoadingIndicator();
+	};
+
+	ui.setIdle = function(isIdle) {
+		_isIdle = isIdle;
+		_togglePswpClass(_controls, 'ui--idle', isIdle);
+	};
+
+	ui.update = function() {
+		// Don't update UI if it's hidden
+		if(_controlsVisible && pswp.currItem) {
+			
+			ui.updateIndexIndicator();
+
+			if(_options.captionEl) {
+				_options.addCaptionHTMLFn(pswp.currItem, _captionContainer);
+
+				_togglePswpClass(_captionContainer, 'caption--empty', !pswp.currItem.title);
+			}
+
+			_overlayUIUpdated = true;
+
+		} else {
+			_overlayUIUpdated = false;
+		}
+
+		if(!_shareModalHidden) {
+			_toggleShareModal();
+		}
+
+		_countNumItems();
+	};
+
+	ui.updateFullscreen = function(e) {
+
+		if(e) {
+			// some browsers change window scroll position during the fullscreen
+			// so PhotoSwipe updates it just in case
+			setTimeout(function() {
+				pswp.setScrollOffset( 0, framework.getScrollY() );
+			}, 50);
+		}
+		
+		// toogle pswp--fs class on root element
+		framework[ (_fullscrenAPI.isFullscreen() ? 'add' : 'remove') + 'Class' ](pswp.template, 'pswp--fs');
+	};
+
+	ui.updateIndexIndicator = function() {
+		if(_options.counterEl) {
+			_indexIndicator.innerHTML = (pswp.getCurrentIndex()+1) + 
+										_options.indexIndicatorSep + 
+										_options.getNumItemsFn();
+		}
+	};
+	
+	ui.onGlobalTap = function(e) {
+		e = e || window.event;
+		var target = e.target || e.srcElement;
+
+		if(_blockControlsTap) {
+			return;
+		}
+
+		if(e.detail && e.detail.pointerType === 'mouse') {
+
+			// close gallery if clicked outside of the image
+			if(_hasCloseClass(target)) {
+				pswp.close();
+				return;
+			}
+
+			if(framework.hasClass(target, 'pswp__img')) {
+				if(pswp.getZoomLevel() === 1 && pswp.getZoomLevel() <= pswp.currItem.fitRatio) {
+					if(_options.clickToCloseNonZoomable) {
+						pswp.close();
+					}
+				} else {
+					pswp.toggleDesktopZoom(e.detail.releasePoint);
+				}
+			}
+			
+		} else {
+
+			// tap anywhere (except buttons) to toggle visibility of controls
+			if(_options.tapToToggleControls) {
+				if(_controlsVisible) {
+					ui.hideControls();
+				} else {
+					ui.showControls();
+				}
+			}
+
+			// tap to close gallery
+			if(_options.tapToClose && (framework.hasClass(target, 'pswp__img') || _hasCloseClass(target)) ) {
+				pswp.close();
+				return;
+			}
+			
+		}
+	};
+	ui.onMouseOver = function(e) {
+		e = e || window.event;
+		var target = e.target || e.srcElement;
+
+		// add class when mouse is over an element that should close the gallery
+		_togglePswpClass(_controls, 'ui--over-close', _hasCloseClass(target));
+	};
+
+	ui.hideControls = function() {
+		framework.addClass(_controls,'pswp__ui--hidden');
+		_controlsVisible = false;
+	};
+
+	ui.showControls = function() {
+		_controlsVisible = true;
+		if(!_overlayUIUpdated) {
+			ui.update();
+		}
+		framework.removeClass(_controls,'pswp__ui--hidden');
+	};
+
+	ui.supportsFullscreen = function() {
+		var d = document;
+		return !!(d.exitFullscreen || d.mozCancelFullScreen || d.webkitExitFullscreen || d.msExitFullscreen);
+	};
+
+	ui.getFullscreenAPI = function() {
+		var dE = document.documentElement,
+			api,
+			tF = 'fullscreenchange';
+
+		if (dE.requestFullscreen) {
+			api = {
+				enterK: 'requestFullscreen',
+				exitK: 'exitFullscreen',
+				elementK: 'fullscreenElement',
+				eventK: tF
+			};
+
+		} else if(dE.mozRequestFullScreen ) {
+			api = {
+				enterK: 'mozRequestFullScreen',
+				exitK: 'mozCancelFullScreen',
+				elementK: 'mozFullScreenElement',
+				eventK: 'moz' + tF
+			};
+
+			
+
+		} else if(dE.webkitRequestFullscreen) {
+			api = {
+				enterK: 'webkitRequestFullscreen',
+				exitK: 'webkitExitFullscreen',
+				elementK: 'webkitFullscreenElement',
+				eventK: 'webkit' + tF
+			};
+
+		} else if(dE.msRequestFullscreen) {
+			api = {
+				enterK: 'msRequestFullscreen',
+				exitK: 'msExitFullscreen',
+				elementK: 'msFullscreenElement',
+				eventK: 'MSFullscreenChange'
+			};
+		}
+
+		if(api) {
+			api.enter = function() { 
+				// disable close-on-scroll in fullscreen
+				_initalCloseOnScrollValue = _options.closeOnScroll; 
+				_options.closeOnScroll = false; 
+
+				if(this.enterK === 'webkitRequestFullscreen') {
+					pswp.template[this.enterK]( Element.ALLOW_KEYBOARD_INPUT );
+				} else {
+					return pswp.template[this.enterK](); 
+				}
+			};
+			api.exit = function() { 
+				_options.closeOnScroll = _initalCloseOnScrollValue;
+
+				return document[this.exitK](); 
+
+			};
+			api.isFullscreen = function() { return document[this.elementK]; };
+		}
+
+		return api;
+	};
+
+
+
+};
+return PhotoSwipeUI_Default;
+
+
+});
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+/**
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the W3C SOFTWARE AND DOCUMENT NOTICE AND LICENSE.
+ *
+ *  https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document
+ *
+ */
+(function() {
+'use strict';
+
+// Exit early if we're not running in a browser.
+if (typeof window !== 'object') {
+  return;
+}
+
+// Exit early if all IntersectionObserver and IntersectionObserverEntry
+// features are natively supported.
+if ('IntersectionObserver' in window &&
+    'IntersectionObserverEntry' in window &&
+    'intersectionRatio' in window.IntersectionObserverEntry.prototype) {
+
+  // Minimal polyfill for Edge 15's lack of `isIntersecting`
+  // See: https://github.com/w3c/IntersectionObserver/issues/211
+  if (!('isIntersecting' in window.IntersectionObserverEntry.prototype)) {
+    Object.defineProperty(window.IntersectionObserverEntry.prototype,
+      'isIntersecting', {
+      get: function () {
+        return this.intersectionRatio > 0;
+      }
+    });
+  }
+  return;
+}
+
+/**
+ * Returns the embedding frame element, if any.
+ * @param {!Document} doc
+ * @return {!Element}
+ */
+function getFrameElement(doc) {
+  try {
+    return doc.defaultView && doc.defaultView.frameElement || null;
+  } catch (e) {
+    // Ignore the error.
+    return null;
+  }
+}
+
+/**
+ * A local reference to the root document.
+ */
+var document = (function(startDoc) {
+  var doc = startDoc;
+  var frame = getFrameElement(doc);
+  while (frame) {
+    doc = frame.ownerDocument;
+    frame = getFrameElement(doc);
+  }
+  return doc;
+})(window.document);
+
+/**
+ * An IntersectionObserver registry. This registry exists to hold a strong
+ * reference to IntersectionObserver instances currently observing a target
+ * element. Without this registry, instances without another reference may be
+ * garbage collected.
+ */
+var registry = [];
+
+/**
+ * The signal updater for cross-origin intersection. When not null, it means
+ * that the polyfill is configured to work in a cross-origin mode.
+ * @type {function(DOMRect|ClientRect, DOMRect|ClientRect)}
+ */
+var crossOriginUpdater = null;
+
+/**
+ * The current cross-origin intersection. Only used in the cross-origin mode.
+ * @type {DOMRect|ClientRect}
+ */
+var crossOriginRect = null;
+
+
+/**
+ * Creates the global IntersectionObserverEntry constructor.
+ * https://w3c.github.io/IntersectionObserver/#intersection-observer-entry
+ * @param {Object} entry A dictionary of instance properties.
+ * @constructor
+ */
+function IntersectionObserverEntry(entry) {
+  this.time = entry.time;
+  this.target = entry.target;
+  this.rootBounds = ensureDOMRect(entry.rootBounds);
+  this.boundingClientRect = ensureDOMRect(entry.boundingClientRect);
+  this.intersectionRect = ensureDOMRect(entry.intersectionRect || getEmptyRect());
+  this.isIntersecting = !!entry.intersectionRect;
+
+  // Calculates the intersection ratio.
+  var targetRect = this.boundingClientRect;
+  var targetArea = targetRect.width * targetRect.height;
+  var intersectionRect = this.intersectionRect;
+  var intersectionArea = intersectionRect.width * intersectionRect.height;
+
+  // Sets intersection ratio.
+  if (targetArea) {
+    // Round the intersection ratio to avoid floating point math issues:
+    // https://github.com/w3c/IntersectionObserver/issues/324
+    this.intersectionRatio = Number((intersectionArea / targetArea).toFixed(4));
+  } else {
+    // If area is zero and is intersecting, sets to 1, otherwise to 0
+    this.intersectionRatio = this.isIntersecting ? 1 : 0;
+  }
+}
+
+
+/**
+ * Creates the global IntersectionObserver constructor.
+ * https://w3c.github.io/IntersectionObserver/#intersection-observer-interface
+ * @param {Function} callback The function to be invoked after intersection
+ *     changes have queued. The function is not invoked if the queue has
+ *     been emptied by calling the `takeRecords` method.
+ * @param {Object=} opt_options Optional configuration options.
+ * @constructor
+ */
+function IntersectionObserver(callback, opt_options) {
+
+  var options = opt_options || {};
+
+  if (typeof callback != 'function') {
+    throw new Error('callback must be a function');
+  }
+
+  if (options.root && options.root.nodeType != 1) {
+    throw new Error('root must be an Element');
+  }
+
+  // Binds and throttles `this._checkForIntersections`.
+  this._checkForIntersections = throttle(
+      this._checkForIntersections.bind(this), this.THROTTLE_TIMEOUT);
+
+  // Private properties.
+  this._callback = callback;
+  this._observationTargets = [];
+  this._queuedEntries = [];
+  this._rootMarginValues = this._parseRootMargin(options.rootMargin);
+
+  // Public properties.
+  this.thresholds = this._initThresholds(options.threshold);
+  this.root = options.root || null;
+  this.rootMargin = this._rootMarginValues.map(function(margin) {
+    return margin.value + margin.unit;
+  }).join(' ');
+
+  /** @private @const {!Array<!Document>} */
+  this._monitoringDocuments = [];
+  /** @private @const {!Array<function()>} */
+  this._monitoringUnsubscribes = [];
+}
+
+
+/**
+ * The minimum interval within which the document will be checked for
+ * intersection changes.
+ */
+IntersectionObserver.prototype.THROTTLE_TIMEOUT = 100;
+
+
+/**
+ * The frequency in which the polyfill polls for intersection changes.
+ * this can be updated on a per instance basis and must be set prior to
+ * calling `observe` on the first target.
+ */
+IntersectionObserver.prototype.POLL_INTERVAL = null;
+
+/**
+ * Use a mutation observer on the root element
+ * to detect intersection changes.
+ */
+IntersectionObserver.prototype.USE_MUTATION_OBSERVER = true;
+
+
+/**
+ * Sets up the polyfill in the cross-origin mode. The result is the
+ * updater function that accepts two arguments: `boundingClientRect` and
+ * `intersectionRect` - just as these fields would be available to the
+ * parent via `IntersectionObserverEntry`. This function should be called
+ * each time the iframe receives intersection information from the parent
+ * window, e.g. via messaging.
+ * @return {function(DOMRect|ClientRect, DOMRect|ClientRect)}
+ */
+IntersectionObserver._setupCrossOriginUpdater = function() {
+  if (!crossOriginUpdater) {
+    /**
+     * @param {DOMRect|ClientRect} boundingClientRect
+     * @param {DOMRect|ClientRect} intersectionRect
+     */
+    crossOriginUpdater = function(boundingClientRect, intersectionRect) {
+      if (!boundingClientRect || !intersectionRect) {
+        crossOriginRect = getEmptyRect();
+      } else {
+        crossOriginRect = convertFromParentRect(boundingClientRect, intersectionRect);
+      }
+      registry.forEach(function(observer) {
+        observer._checkForIntersections();
+      });
+    };
+  }
+  return crossOriginUpdater;
+};
+
+
+/**
+ * Resets the cross-origin mode.
+ */
+IntersectionObserver._resetCrossOriginUpdater = function() {
+  crossOriginUpdater = null;
+  crossOriginRect = null;
+};
+
+
+/**
+ * Starts observing a target element for intersection changes based on
+ * the thresholds values.
+ * @param {Element} target The DOM element to observe.
+ */
+IntersectionObserver.prototype.observe = function(target) {
+  var isTargetAlreadyObserved = this._observationTargets.some(function(item) {
+    return item.element == target;
+  });
+
+  if (isTargetAlreadyObserved) {
+    return;
+  }
+
+  if (!(target && target.nodeType == 1)) {
+    throw new Error('target must be an Element');
+  }
+
+  this._registerInstance();
+  this._observationTargets.push({element: target, entry: null});
+  this._monitorIntersections(target.ownerDocument);
+  this._checkForIntersections();
+};
+
+
+/**
+ * Stops observing a target element for intersection changes.
+ * @param {Element} target The DOM element to observe.
+ */
+IntersectionObserver.prototype.unobserve = function(target) {
+  this._observationTargets =
+      this._observationTargets.filter(function(item) {
+        return item.element != target;
+      });
+  this._unmonitorIntersections(target.ownerDocument);
+  if (this._observationTargets.length == 0) {
+    this._unregisterInstance();
+  }
+};
+
+
+/**
+ * Stops observing all target elements for intersection changes.
+ */
+IntersectionObserver.prototype.disconnect = function() {
+  this._observationTargets = [];
+  this._unmonitorAllIntersections();
+  this._unregisterInstance();
+};
+
+
+/**
+ * Returns any queue entries that have not yet been reported to the
+ * callback and clears the queue. This can be used in conjunction with the
+ * callback to obtain the absolute most up-to-date intersection information.
+ * @return {Array} The currently queued entries.
+ */
+IntersectionObserver.prototype.takeRecords = function() {
+  var records = this._queuedEntries.slice();
+  this._queuedEntries = [];
+  return records;
+};
+
+
+/**
+ * Accepts the threshold value from the user configuration object and
+ * returns a sorted array of unique threshold values. If a value is not
+ * between 0 and 1 and error is thrown.
+ * @private
+ * @param {Array|number=} opt_threshold An optional threshold value or
+ *     a list of threshold values, defaulting to [0].
+ * @return {Array} A sorted list of unique and valid threshold values.
+ */
+IntersectionObserver.prototype._initThresholds = function(opt_threshold) {
+  var threshold = opt_threshold || [0];
+  if (!Array.isArray(threshold)) threshold = [threshold];
+
+  return threshold.sort().filter(function(t, i, a) {
+    if (typeof t != 'number' || isNaN(t) || t < 0 || t > 1) {
+      throw new Error('threshold must be a number between 0 and 1 inclusively');
+    }
+    return t !== a[i - 1];
+  });
+};
+
+
+/**
+ * Accepts the rootMargin value from the user configuration object
+ * and returns an array of the four margin values as an object containing
+ * the value and unit properties. If any of the values are not properly
+ * formatted or use a unit other than px or %, and error is thrown.
+ * @private
+ * @param {string=} opt_rootMargin An optional rootMargin value,
+ *     defaulting to '0px'.
+ * @return {Array<Object>} An array of margin objects with the keys
+ *     value and unit.
+ */
+IntersectionObserver.prototype._parseRootMargin = function(opt_rootMargin) {
+  var marginString = opt_rootMargin || '0px';
+  var margins = marginString.split(/\s+/).map(function(margin) {
+    var parts = /^(-?\d*\.?\d+)(px|%)$/.exec(margin);
+    if (!parts) {
+      throw new Error('rootMargin must be specified in pixels or percent');
+    }
+    return {value: parseFloat(parts[1]), unit: parts[2]};
+  });
+
+  // Handles shorthand.
+  margins[1] = margins[1] || margins[0];
+  margins[2] = margins[2] || margins[0];
+  margins[3] = margins[3] || margins[1];
+
+  return margins;
+};
+
+
+/**
+ * Starts polling for intersection changes if the polling is not already
+ * happening, and if the page's visibility state is visible.
+ * @param {!Document} doc
+ * @private
+ */
+IntersectionObserver.prototype._monitorIntersections = function(doc) {
+  var win = doc.defaultView;
+  if (!win) {
+    // Already destroyed.
+    return;
+  }
+  if (this._monitoringDocuments.indexOf(doc) != -1) {
+    // Already monitoring.
+    return;
+  }
+
+  // Private state for monitoring.
+  var callback = this._checkForIntersections;
+  var monitoringInterval = null;
+  var domObserver = null;
+
+  // If a poll interval is set, use polling instead of listening to
+  // resize and scroll events or DOM mutations.
+  if (this.POLL_INTERVAL) {
+    monitoringInterval = win.setInterval(callback, this.POLL_INTERVAL);
+  } else {
+    addEvent(win, 'resize', callback, true);
+    addEvent(doc, 'scroll', callback, true);
+    if (this.USE_MUTATION_OBSERVER && 'MutationObserver' in win) {
+      domObserver = new win.MutationObserver(callback);
+      domObserver.observe(doc, {
+        attributes: true,
+        childList: true,
+        characterData: true,
+        subtree: true
+      });
+    }
+  }
+
+  this._monitoringDocuments.push(doc);
+  this._monitoringUnsubscribes.push(function() {
+    // Get the window object again. When a friendly iframe is destroyed, it
+    // will be null.
+    var win = doc.defaultView;
+
+    if (win) {
+      if (monitoringInterval) {
+        win.clearInterval(monitoringInterval);
+      }
+      removeEvent(win, 'resize', callback, true);
+    }
+
+    removeEvent(doc, 'scroll', callback, true);
+    if (domObserver) {
+      domObserver.disconnect();
+    }
+  });
+
+  // Also monitor the parent.
+  if (doc != (this.root && this.root.ownerDocument || document)) {
+    var frame = getFrameElement(doc);
+    if (frame) {
+      this._monitorIntersections(frame.ownerDocument);
+    }
+  }
+};
+
+
+/**
+ * Stops polling for intersection changes.
+ * @param {!Document} doc
+ * @private
+ */
+IntersectionObserver.prototype._unmonitorIntersections = function(doc) {
+  var index = this._monitoringDocuments.indexOf(doc);
+  if (index == -1) {
+    return;
+  }
+
+  var rootDoc = (this.root && this.root.ownerDocument || document);
+
+  // Check if any dependent targets are still remaining.
+  var hasDependentTargets =
+      this._observationTargets.some(function(item) {
+        var itemDoc = item.element.ownerDocument;
+        // Target is in this context.
+        if (itemDoc == doc) {
+          return true;
+        }
+        // Target is nested in this context.
+        while (itemDoc && itemDoc != rootDoc) {
+          var frame = getFrameElement(itemDoc);
+          itemDoc = frame && frame.ownerDocument;
+          if (itemDoc == doc) {
+            return true;
+          }
+        }
+        return false;
+      });
+  if (hasDependentTargets) {
+    return;
+  }
+
+  // Unsubscribe.
+  var unsubscribe = this._monitoringUnsubscribes[index];
+  this._monitoringDocuments.splice(index, 1);
+  this._monitoringUnsubscribes.splice(index, 1);
+  unsubscribe();
+
+  // Also unmonitor the parent.
+  if (doc != rootDoc) {
+    var frame = getFrameElement(doc);
+    if (frame) {
+      this._unmonitorIntersections(frame.ownerDocument);
+    }
+  }
+};
+
+
+/**
+ * Stops polling for intersection changes.
+ * @param {!Document} doc
+ * @private
+ */
+IntersectionObserver.prototype._unmonitorAllIntersections = function() {
+  var unsubscribes = this._monitoringUnsubscribes.slice(0);
+  this._monitoringDocuments.length = 0;
+  this._monitoringUnsubscribes.length = 0;
+  for (var i = 0; i < unsubscribes.length; i++) {
+    unsubscribes[i]();
+  }
+};
+
+
+/**
+ * Scans each observation target for intersection changes and adds them
+ * to the internal entries queue. If new entries are found, it
+ * schedules the callback to be invoked.
+ * @private
+ */
+IntersectionObserver.prototype._checkForIntersections = function() {
+  if (!this.root && crossOriginUpdater && !crossOriginRect) {
+    // Cross origin monitoring, but no initial data available yet.
+    return;
+  }
+
+  var rootIsInDom = this._rootIsInDom();
+  var rootRect = rootIsInDom ? this._getRootRect() : getEmptyRect();
+
+  this._observationTargets.forEach(function(item) {
+    var target = item.element;
+    var targetRect = getBoundingClientRect(target);
+    var rootContainsTarget = this._rootContainsTarget(target);
+    var oldEntry = item.entry;
+    var intersectionRect = rootIsInDom && rootContainsTarget &&
+        this._computeTargetAndRootIntersection(target, targetRect, rootRect);
+
+    var newEntry = item.entry = new IntersectionObserverEntry({
+      time: now(),
+      target: target,
+      boundingClientRect: targetRect,
+      rootBounds: crossOriginUpdater && !this.root ? null : rootRect,
+      intersectionRect: intersectionRect
+    });
+
+    if (!oldEntry) {
+      this._queuedEntries.push(newEntry);
+    } else if (rootIsInDom && rootContainsTarget) {
+      // If the new entry intersection ratio has crossed any of the
+      // thresholds, add a new entry.
+      if (this._hasCrossedThreshold(oldEntry, newEntry)) {
+        this._queuedEntries.push(newEntry);
+      }
+    } else {
+      // If the root is not in the DOM or target is not contained within
+      // root but the previous entry for this target had an intersection,
+      // add a new record indicating removal.
+      if (oldEntry && oldEntry.isIntersecting) {
+        this._queuedEntries.push(newEntry);
+      }
+    }
+  }, this);
+
+  if (this._queuedEntries.length) {
+    this._callback(this.takeRecords(), this);
+  }
+};
+
+
+/**
+ * Accepts a target and root rect computes the intersection between then
+ * following the algorithm in the spec.
+ * TODO(philipwalton): at this time clip-path is not considered.
+ * https://w3c.github.io/IntersectionObserver/#calculate-intersection-rect-algo
+ * @param {Element} target The target DOM element
+ * @param {Object} targetRect The bounding rect of the target.
+ * @param {Object} rootRect The bounding rect of the root after being
+ *     expanded by the rootMargin value.
+ * @return {?Object} The final intersection rect object or undefined if no
+ *     intersection is found.
+ * @private
+ */
+IntersectionObserver.prototype._computeTargetAndRootIntersection =
+    function(target, targetRect, rootRect) {
+  // If the element isn't displayed, an intersection can't happen.
+  if (window.getComputedStyle(target).display == 'none') return;
+
+  var intersectionRect = targetRect;
+  var parent = getParentNode(target);
+  var atRoot = false;
+
+  while (!atRoot && parent) {
+    var parentRect = null;
+    var parentComputedStyle = parent.nodeType == 1 ?
+        window.getComputedStyle(parent) : {};
+
+    // If the parent isn't displayed, an intersection can't happen.
+    if (parentComputedStyle.display == 'none') return null;
+
+    if (parent == this.root || parent.nodeType == /* DOCUMENT */ 9) {
+      atRoot = true;
+      if (parent == this.root || parent == document) {
+        if (crossOriginUpdater && !this.root) {
+          if (!crossOriginRect ||
+              crossOriginRect.width == 0 && crossOriginRect.height == 0) {
+            // A 0-size cross-origin intersection means no-intersection.
+            parent = null;
+            parentRect = null;
+            intersectionRect = null;
+          } else {
+            parentRect = crossOriginRect;
+          }
+        } else {
+          parentRect = rootRect;
+        }
+      } else {
+        // Check if there's a frame that can be navigated to.
+        var frame = getParentNode(parent);
+        var frameRect = frame && getBoundingClientRect(frame);
+        var frameIntersect =
+            frame &&
+            this._computeTargetAndRootIntersection(frame, frameRect, rootRect);
+        if (frameRect && frameIntersect) {
+          parent = frame;
+          parentRect = convertFromParentRect(frameRect, frameIntersect);
+        } else {
+          parent = null;
+          intersectionRect = null;
+        }
+      }
+    } else {
+      // If the element has a non-visible overflow, and it's not the <body>
+      // or <html> element, update the intersection rect.
+      // Note: <body> and <html> cannot be clipped to a rect that's not also
+      // the document rect, so no need to compute a new intersection.
+      var doc = parent.ownerDocument;
+      if (parent != doc.body &&
+          parent != doc.documentElement &&
+          parentComputedStyle.overflow != 'visible') {
+        parentRect = getBoundingClientRect(parent);
+      }
+    }
+
+    // If either of the above conditionals set a new parentRect,
+    // calculate new intersection data.
+    if (parentRect) {
+      intersectionRect = computeRectIntersection(parentRect, intersectionRect);
+    }
+    if (!intersectionRect) break;
+    parent = parent && getParentNode(parent);
+  }
+  return intersectionRect;
+};
+
+
+/**
+ * Returns the root rect after being expanded by the rootMargin value.
+ * @return {ClientRect} The expanded root rect.
+ * @private
+ */
+IntersectionObserver.prototype._getRootRect = function() {
+  var rootRect;
+  if (this.root) {
+    rootRect = getBoundingClientRect(this.root);
+  } else {
+    // Use <html>/<body> instead of window since scroll bars affect size.
+    var html = document.documentElement;
+    var body = document.body;
+    rootRect = {
+      top: 0,
+      left: 0,
+      right: html.clientWidth || body.clientWidth,
+      width: html.clientWidth || body.clientWidth,
+      bottom: html.clientHeight || body.clientHeight,
+      height: html.clientHeight || body.clientHeight
+    };
+  }
+  return this._expandRectByRootMargin(rootRect);
+};
+
+
+/**
+ * Accepts a rect and expands it by the rootMargin value.
+ * @param {DOMRect|ClientRect} rect The rect object to expand.
+ * @return {ClientRect} The expanded rect.
+ * @private
+ */
+IntersectionObserver.prototype._expandRectByRootMargin = function(rect) {
+  var margins = this._rootMarginValues.map(function(margin, i) {
+    return margin.unit == 'px' ? margin.value :
+        margin.value * (i % 2 ? rect.width : rect.height) / 100;
+  });
+  var newRect = {
+    top: rect.top - margins[0],
+    right: rect.right + margins[1],
+    bottom: rect.bottom + margins[2],
+    left: rect.left - margins[3]
+  };
+  newRect.width = newRect.right - newRect.left;
+  newRect.height = newRect.bottom - newRect.top;
+
+  return newRect;
+};
+
+
+/**
+ * Accepts an old and new entry and returns true if at least one of the
+ * threshold values has been crossed.
+ * @param {?IntersectionObserverEntry} oldEntry The previous entry for a
+ *    particular target element or null if no previous entry exists.
+ * @param {IntersectionObserverEntry} newEntry The current entry for a
+ *    particular target element.
+ * @return {boolean} Returns true if a any threshold has been crossed.
+ * @private
+ */
+IntersectionObserver.prototype._hasCrossedThreshold =
+    function(oldEntry, newEntry) {
+
+  // To make comparing easier, an entry that has a ratio of 0
+  // but does not actually intersect is given a value of -1
+  var oldRatio = oldEntry && oldEntry.isIntersecting ?
+      oldEntry.intersectionRatio || 0 : -1;
+  var newRatio = newEntry.isIntersecting ?
+      newEntry.intersectionRatio || 0 : -1;
+
+  // Ignore unchanged ratios
+  if (oldRatio === newRatio) return;
+
+  for (var i = 0; i < this.thresholds.length; i++) {
+    var threshold = this.thresholds[i];
+
+    // Return true if an entry matches a threshold or if the new ratio
+    // and the old ratio are on the opposite sides of a threshold.
+    if (threshold == oldRatio || threshold == newRatio ||
+        threshold < oldRatio !== threshold < newRatio) {
+      return true;
+    }
+  }
+};
+
+
+/**
+ * Returns whether or not the root element is an element and is in the DOM.
+ * @return {boolean} True if the root element is an element and is in the DOM.
+ * @private
+ */
+IntersectionObserver.prototype._rootIsInDom = function() {
+  return !this.root || containsDeep(document, this.root);
+};
+
+
+/**
+ * Returns whether or not the target element is a child of root.
+ * @param {Element} target The target element to check.
+ * @return {boolean} True if the target element is a child of root.
+ * @private
+ */
+IntersectionObserver.prototype._rootContainsTarget = function(target) {
+  return containsDeep(this.root || document, target) &&
+    (!this.root || this.root.ownerDocument == target.ownerDocument);
+};
+
+
+/**
+ * Adds the instance to the global IntersectionObserver registry if it isn't
+ * already present.
+ * @private
+ */
+IntersectionObserver.prototype._registerInstance = function() {
+  if (registry.indexOf(this) < 0) {
+    registry.push(this);
+  }
+};
+
+
+/**
+ * Removes the instance from the global IntersectionObserver registry.
+ * @private
+ */
+IntersectionObserver.prototype._unregisterInstance = function() {
+  var index = registry.indexOf(this);
+  if (index != -1) registry.splice(index, 1);
+};
+
+
+/**
+ * Returns the result of the performance.now() method or null in browsers
+ * that don't support the API.
+ * @return {number} The elapsed time since the page was requested.
+ */
+function now() {
+  return window.performance && performance.now && performance.now();
+}
+
+
+/**
+ * Throttles a function and delays its execution, so it's only called at most
+ * once within a given time period.
+ * @param {Function} fn The function to throttle.
+ * @param {number} timeout The amount of time that must pass before the
+ *     function can be called again.
+ * @return {Function} The throttled function.
+ */
+function throttle(fn, timeout) {
+  var timer = null;
+  return function () {
+    if (!timer) {
+      timer = setTimeout(function() {
+        fn();
+        timer = null;
+      }, timeout);
+    }
+  };
+}
+
+
+/**
+ * Adds an event handler to a DOM node ensuring cross-browser compatibility.
+ * @param {Node} node The DOM node to add the event handler to.
+ * @param {string} event The event name.
+ * @param {Function} fn The event handler to add.
+ * @param {boolean} opt_useCapture Optionally adds the even to the capture
+ *     phase. Note: this only works in modern browsers.
+ */
+function addEvent(node, event, fn, opt_useCapture) {
+  if (typeof node.addEventListener == 'function') {
+    node.addEventListener(event, fn, opt_useCapture || false);
+  }
+  else if (typeof node.attachEvent == 'function') {
+    node.attachEvent('on' + event, fn);
+  }
+}
+
+
+/**
+ * Removes a previously added event handler from a DOM node.
+ * @param {Node} node The DOM node to remove the event handler from.
+ * @param {string} event The event name.
+ * @param {Function} fn The event handler to remove.
+ * @param {boolean} opt_useCapture If the event handler was added with this
+ *     flag set to true, it should be set to true here in order to remove it.
+ */
+function removeEvent(node, event, fn, opt_useCapture) {
+  if (typeof node.removeEventListener == 'function') {
+    node.removeEventListener(event, fn, opt_useCapture || false);
+  }
+  else if (typeof node.detatchEvent == 'function') {
+    node.detatchEvent('on' + event, fn);
+  }
+}
+
+
+/**
+ * Returns the intersection between two rect objects.
+ * @param {Object} rect1 The first rect.
+ * @param {Object} rect2 The second rect.
+ * @return {?Object|?ClientRect} The intersection rect or undefined if no
+ *     intersection is found.
+ */
+function computeRectIntersection(rect1, rect2) {
+  var top = Math.max(rect1.top, rect2.top);
+  var bottom = Math.min(rect1.bottom, rect2.bottom);
+  var left = Math.max(rect1.left, rect2.left);
+  var right = Math.min(rect1.right, rect2.right);
+  var width = right - left;
+  var height = bottom - top;
+
+  return (width >= 0 && height >= 0) && {
+    top: top,
+    bottom: bottom,
+    left: left,
+    right: right,
+    width: width,
+    height: height
+  } || null;
+}
+
+
+/**
+ * Shims the native getBoundingClientRect for compatibility with older IE.
+ * @param {Element} el The element whose bounding rect to get.
+ * @return {DOMRect|ClientRect} The (possibly shimmed) rect of the element.
+ */
+function getBoundingClientRect(el) {
+  var rect;
+
+  try {
+    rect = el.getBoundingClientRect();
+  } catch (err) {
+    // Ignore Windows 7 IE11 "Unspecified error"
+    // https://github.com/w3c/IntersectionObserver/pull/205
+  }
+
+  if (!rect) return getEmptyRect();
+
+  // Older IE
+  if (!(rect.width && rect.height)) {
+    rect = {
+      top: rect.top,
+      right: rect.right,
+      bottom: rect.bottom,
+      left: rect.left,
+      width: rect.right - rect.left,
+      height: rect.bottom - rect.top
+    };
+  }
+  return rect;
+}
+
+
+/**
+ * Returns an empty rect object. An empty rect is returned when an element
+ * is not in the DOM.
+ * @return {ClientRect} The empty rect.
+ */
+function getEmptyRect() {
+  return {
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    width: 0,
+    height: 0
+  };
+}
+
+
+/**
+ * Ensure that the result has all of the necessary fields of the DOMRect.
+ * Specifically this ensures that `x` and `y` fields are set.
+ *
+ * @param {?DOMRect|?ClientRect} rect
+ * @return {?DOMRect}
+ */
+function ensureDOMRect(rect) {
+  // A `DOMRect` object has `x` and `y` fields.
+  if (!rect || 'x' in rect) {
+    return rect;
+  }
+  // A IE's `ClientRect` type does not have `x` and `y`. The same is the case
+  // for internally calculated Rect objects. For the purposes of
+  // `IntersectionObserver`, it's sufficient to simply mirror `left` and `top`
+  // for these fields.
+  return {
+    top: rect.top,
+    y: rect.top,
+    bottom: rect.bottom,
+    left: rect.left,
+    x: rect.left,
+    right: rect.right,
+    width: rect.width,
+    height: rect.height
+  };
+}
+
+
+/**
+ * Inverts the intersection and bounding rect from the parent (frame) BCR to
+ * the local BCR space.
+ * @param {DOMRect|ClientRect} parentBoundingRect The parent's bound client rect.
+ * @param {DOMRect|ClientRect} parentIntersectionRect The parent's own intersection rect.
+ * @return {ClientRect} The local root bounding rect for the parent's children.
+ */
+function convertFromParentRect(parentBoundingRect, parentIntersectionRect) {
+  var top = parentIntersectionRect.top - parentBoundingRect.top;
+  var left = parentIntersectionRect.left - parentBoundingRect.left;
+  return {
+    top: top,
+    left: left,
+    height: parentIntersectionRect.height,
+    width: parentIntersectionRect.width,
+    bottom: top + parentIntersectionRect.height,
+    right: left + parentIntersectionRect.width
+  };
+}
+
+
+/**
+ * Checks to see if a parent element contains a child element (including inside
+ * shadow DOM).
+ * @param {Node} parent The parent element.
+ * @param {Node} child The child element.
+ * @return {boolean} True if the parent node contains the child node.
+ */
+function containsDeep(parent, child) {
+  var node = child;
+  while (node) {
+    if (node == parent) return true;
+
+    node = getParentNode(node);
+  }
+  return false;
+}
+
+
+/**
+ * Gets the parent node of an element or its host element if the parent node
+ * is a shadow root.
+ * @param {Node} node The node whose parent to get.
+ * @return {Node|null} The parent node or null if no parent exists.
+ */
+function getParentNode(node) {
+  var parent = node.parentNode;
+
+  if (node.nodeType == /* DOCUMENT */ 9 && node != document) {
+    // If this node is a document node, look for the embedding frame.
+    return getFrameElement(node);
+  }
+
+  if (parent && parent.nodeType == 11 && parent.host) {
+    // If the parent is a shadow root, return the host element.
+    return parent.host;
+  }
+
+  if (parent && parent.assignedSlot) {
+    // If the parent is distributed in a <slot>, return the parent of a slot.
+    return parent.assignedSlot.parentNode;
+  }
+
+  return parent;
+}
+
+
+// Exposes the constructors globally.
+window.IntersectionObserver = IntersectionObserver;
+window.IntersectionObserverEntry = IntersectionObserverEntry;
+
+}());
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! smooth-scroll v16.1.3 | (c) 2020 Chris Ferdinandi | MIT License | http://github.com/cferdinandi/smooth-scroll */
+window.Element&&!Element.prototype.closest&&(Element.prototype.closest=function(e){var t,n=(this.document||this.ownerDocument).querySelectorAll(e),o=this;do{for(t=n.length;0<=--t&&n.item(t)!==o;);}while(t<0&&(o=o.parentElement));return o}),(function(){if("function"==typeof window.CustomEvent)return;function e(e,t){t=t||{bubbles:!1,cancelable:!1,detail:void 0};var n=document.createEvent("CustomEvent");return n.initCustomEvent(e,t.bubbles,t.cancelable,t.detail),n}e.prototype=window.Event.prototype,window.CustomEvent=e})(),(function(){for(var r=0,e=["ms","moz","webkit","o"],t=0;t<e.length&&!window.requestAnimationFrame;++t)window.requestAnimationFrame=window[e[t]+"RequestAnimationFrame"],window.cancelAnimationFrame=window[e[t]+"CancelAnimationFrame"]||window[e[t]+"CancelRequestAnimationFrame"];window.requestAnimationFrame||(window.requestAnimationFrame=function(e,t){var n=(new Date).getTime(),o=Math.max(0,16-(n-r)),a=window.setTimeout((function(){e(n+o)}),o);return r=n+o,a}),window.cancelAnimationFrame||(window.cancelAnimationFrame=function(e){clearTimeout(e)})})(),(function(e,t){ true?!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function(){return t(e)}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):undefined})("undefined"!=typeof global?global:"undefined"!=typeof window?window:this,(function(M){"use strict";var q={ignore:"[data-scroll-ignore]",header:null,topOnEmptyHash:!0,speed:500,speedAsDuration:!1,durationMax:null,durationMin:null,clip:!0,offset:0,easing:"easeInOutCubic",customEasing:null,updateURL:!0,popstate:!0,emitEvents:!0},I=function(){var n={};return Array.prototype.forEach.call(arguments,(function(e){for(var t in e){if(!e.hasOwnProperty(t))return;n[t]=e[t]}})),n},r=function(e){"#"===e.charAt(0)&&(e=e.substr(1));for(var t,n=String(e),o=n.length,a=-1,r="",i=n.charCodeAt(0);++a<o;){if(0===(t=n.charCodeAt(a)))throw new InvalidCharacterError("Invalid character: the input contains U+0000.");1<=t&&t<=31||127==t||0===a&&48<=t&&t<=57||1===a&&48<=t&&t<=57&&45===i?r+="\\"+t.toString(16)+" ":r+=128<=t||45===t||95===t||48<=t&&t<=57||65<=t&&t<=90||97<=t&&t<=122?n.charAt(a):"\\"+n.charAt(a)}return"#"+r},F=function(){return Math.max(document.body.scrollHeight,document.documentElement.scrollHeight,document.body.offsetHeight,document.documentElement.offsetHeight,document.body.clientHeight,document.documentElement.clientHeight)},L=function(e){return e?(t=e,parseInt(M.getComputedStyle(t).height,10)+e.offsetTop):0;var t},x=function(e,t,n){0===e&&document.body.focus(),n||(e.focus(),document.activeElement!==e&&(e.setAttribute("tabindex","-1"),e.focus(),e.style.outline="none"),M.scrollTo(0,t))},H=function(e,t,n,o){if(t.emitEvents&&"function"==typeof M.CustomEvent){var a=new CustomEvent(e,{bubbles:!0,detail:{anchor:n,toggle:o}});document.dispatchEvent(a)}};return function(o,e){var b,a,A,O,C={};C.cancelScroll=function(e){cancelAnimationFrame(O),O=null,e||H("scrollCancel",b)},C.animateScroll=function(a,r,e){C.cancelScroll();var i=I(b||q,e||{}),c="[object Number]"===Object.prototype.toString.call(a),t=c||!a.tagName?null:a;if(c||t){var s=M.pageYOffset;i.header&&!A&&(A=document.querySelector(i.header));var n,o,u,l,m,d,f,h,p=L(A),g=c?a:(function(e,t,n,o){var a=0;if(e.offsetParent)for(;a+=e.offsetTop,e=e.offsetParent;);return a=Math.max(a-t-n,0),o&&(a=Math.min(a,F()-M.innerHeight)),a})(t,p,parseInt("function"==typeof i.offset?i.offset(a,r):i.offset,10),i.clip),y=g-s,v=F(),w=0,S=(n=y,u=(o=i).speedAsDuration?o.speed:Math.abs(n/1e3*o.speed),o.durationMax&&u>o.durationMax?o.durationMax:o.durationMin&&u<o.durationMin?o.durationMin:parseInt(u,10)),E=function(e){var t,n,o;l||(l=e),w+=e-l,d=s+y*(n=m=1<(m=0===S?0:w/S)?1:m,"easeInQuad"===(t=i).easing&&(o=n*n),"easeOutQuad"===t.easing&&(o=n*(2-n)),"easeInOutQuad"===t.easing&&(o=n<.5?2*n*n:(4-2*n)*n-1),"easeInCubic"===t.easing&&(o=n*n*n),"easeOutCubic"===t.easing&&(o=--n*n*n+1),"easeInOutCubic"===t.easing&&(o=n<.5?4*n*n*n:(n-1)*(2*n-2)*(2*n-2)+1),"easeInQuart"===t.easing&&(o=n*n*n*n),"easeOutQuart"===t.easing&&(o=1- --n*n*n*n),"easeInOutQuart"===t.easing&&(o=n<.5?8*n*n*n*n:1-8*--n*n*n*n),"easeInQuint"===t.easing&&(o=n*n*n*n*n),"easeOutQuint"===t.easing&&(o=1+--n*n*n*n*n),"easeInOutQuint"===t.easing&&(o=n<.5?16*n*n*n*n*n:1+16*--n*n*n*n*n),t.customEasing&&(o=t.customEasing(n)),o||n),M.scrollTo(0,Math.floor(d)),(function(e,t){var n=M.pageYOffset;if(e==t||n==t||(s<t&&M.innerHeight+n)>=v)return C.cancelScroll(!0),x(a,t,c),H("scrollStop",i,a,r),!(O=l=null)})(d,g)||(O=M.requestAnimationFrame(E),l=e)};0===M.pageYOffset&&M.scrollTo(0,0),f=a,h=i,c||history.pushState&&h.updateURL&&history.pushState({smoothScroll:JSON.stringify(h),anchor:f.id},document.title,f===document.documentElement?"#top":"#"+f.id),"matchMedia"in M&&M.matchMedia("(prefers-reduced-motion)").matches?x(a,Math.floor(g),!1):(H("scrollStart",i,a,r),C.cancelScroll(!0),M.requestAnimationFrame(E))}};var t=function(e){if(!e.defaultPrevented&&!(0!==e.button||e.metaKey||e.ctrlKey||e.shiftKey)&&"closest"in e.target&&(a=e.target.closest(o))&&"a"===a.tagName.toLowerCase()&&!e.target.closest(b.ignore)&&a.hostname===M.location.hostname&&a.pathname===M.location.pathname&&/#/.test(a.href)){var t,n;try{t=r(decodeURIComponent(a.hash))}catch(e){t=r(a.hash)}if("#"===t){if(!b.topOnEmptyHash)return;n=document.documentElement}else n=document.querySelector(t);(n=n||"#top"!==t?n:document.documentElement)&&(e.preventDefault(),(function(e){if(history.replaceState&&e.updateURL&&!history.state){var t=M.location.hash;t=t||"",history.replaceState({smoothScroll:JSON.stringify(e),anchor:t||M.pageYOffset},document.title,t||M.location.href)}})(b),C.animateScroll(n,a))}},n=function(e){if(null!==history.state&&history.state.smoothScroll&&history.state.smoothScroll===JSON.stringify(b)){var t=history.state.anchor;"string"==typeof t&&t&&!(t=document.querySelector(r(history.state.anchor)))||C.animateScroll(t,null,{updateURL:!1})}};C.destroy=function(){b&&(document.removeEventListener("click",t,!1),M.removeEventListener("popstate",n,!1),C.cancelScroll(),O=A=a=b=null)};return (function(){if(!("querySelector"in document&&"addEventListener"in M&&"requestAnimationFrame"in M&&"closest"in M.Element.prototype))throw"Smooth Scroll: This browser does not support the required JavaScript methods and browser APIs.";C.destroy(),b=I(q,e||{}),A=b.header?document.querySelector(b.header):null,document.addEventListener("click",t,!1),b.updateURL&&b.popstate&&M.addEventListener("popstate",n,!1)})(),C}}));
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5)))
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Remarkable", function() { return Remarkable; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "utils", function() { return utils; });
-var textarea;
+
+// NAMESPACE OBJECT: ./node_modules/remarkable/dist/esm/index.browser.js
+var index_browser_namespaceObject = {};
+__webpack_require__.r(index_browser_namespaceObject);
+__webpack_require__.d(index_browser_namespaceObject, "Remarkable", function() { return Remarkable; });
+__webpack_require__.d(index_browser_namespaceObject, "utils", function() { return utils; });
+
+// EXTERNAL MODULE: ./assets/dev/scss/style.scss
+var style = __webpack_require__(2);
+
+// EXTERNAL MODULE: ./node_modules/intersection-observer/intersection-observer.js
+var intersection_observer = __webpack_require__(3);
+
+// EXTERNAL MODULE: ./node_modules/smooth-scroll/dist/smooth-scroll.polyfills.min.js
+var smooth_scroll_polyfills_min = __webpack_require__(4);
+
+// CONCATENATED MODULE: ./assets/dev/js/navigation.js
+// Add partial support for old browsers that do not support IntersectionObserver, e.g. Safari
+
+
+
+const initNavigation = () => {
+    /*
+     * Globel varieables
+     */
+
+    const deviceType = (window.innerWidth < 768) ? 'mobile' : 'desktop';
+    const navbar = document.getElementById('navbar');
+    const navbarHeight = navbar.getBoundingClientRect().height;
+
+    // Height to determine current section 
+    const sectionList = [...document.getElementsByTagName('section')];
+    let getCurrentSection = () => {
+        for (let element of sectionList) {
+            let elementTop = Math.trunc(element.getBoundingClientRect().top);
+            let elementBottom = Math.trunc(element.getBoundingClientRect().bottom);
+            if (elementTop === 0 || (elementTop < 0 && elementBottom > 0)) {
+                return element;
+            }
+        }
+        return null;
+    };
+
+    /* 
+     * Scrollspy
+     */
+
+    addEventListener('scroll', () => {
+        // Add scrollspy to page
+        let activeLink = document.querySelector('a.nav-link.active');
+        if (activeLink) activeLink.classList.remove('active');
+        if (deviceType === 'mobile' && navbar.getBoundingClientRect().top !== 0) return;
+        if (getCurrentSection()) document.querySelector('a.nav-link[href="#' + getCurrentSection().id + '"]').classList.add('active');
+    });
+
+    /* 
+     * Mobile only JavaScript
+     */
+
+    if (deviceType === 'mobile') {
+
+        /*
+         * Animation
+         * Animate navbar on page load and animate section when it enter viewport
+         */
+
+        const delay = 400;
+        const animationObserver = new IntersectionObserver((entries, animationObserver) => {
+            entries.forEach((entry) => {
+                // Animate element when it enter viewport
+                if (entry.intersectionRatio > 0) {
+                    animationObserver.unobserve(entry.target);
+                    entry.target.classList.remove('before-animation');
+                }
+            });
+        });
+
+        // Animate navbar and observe section on page load
+        navbar.classList.remove('before-animation');
+        setTimeout(() => {
+            sectionList.forEach((element) => {
+                animationObserver.observe(element);
+            });
+        }, delay);
+
+        /*
+         * Add shadow to navbar when it is sticky
+         */
+
+        window.addEventListener('scroll', () => {
+            if (navbar.getBoundingClientRect().top === 0) navbar.classList.add('sticky');
+            else navbar.classList.remove('sticky');
+        });
+
+        /* 
+         * Navbar jump links handling
+         * Offset jump links (html anchors) for the sticky navbar, pointing them to the correct position
+         */
+
+        [...document.getElementsByClassName('nav-link')].forEach((element) => {
+            element.addEventListener('click', (event) => {
+                event.preventDefault();
+                let target = document.getElementById(event.target.href.split('#')[1]);
+                window.scroll({ top: target.offsetTop - navbarHeight - parseInt(getComputedStyle(target).marginTop), behavior: 'smooth' });
+            })
+        });
+    }
+
+    /* 
+     * Desktop only JavaScript
+     */
+    else {
+
+        /*
+         * Desktop section navigation
+         * Scroll to next/previous section on scroll on desktop
+         */
+
+        const background = document.getElementById('background');
+        const footer = document.getElementsByTagName('footer')[0];
+        const scrollbarWidth = (() => {
+            const div = document.createElement('div');
+            div.style.visibility = 'hidden';
+            div.style.overflow = 'scroll';
+            document.body.appendChild(div);
+            const scrollbarWidth = div.offsetWidth - div.clientWidth;
+            document.body.removeChild(div);
+            return scrollbarWidth;
+        })();
+        const transitionTime = 1250;
+        let prevScrollTime = (new Date()).getTime();
+
+        getCurrentSection = () => sectionList.find(s => !s.classList.contains('above-viewport') && !s.classList.contains('below-viewport'));
+
+        const scrollToSection = (destinationIndex, currentIndex) => {
+            // Scroll behaviour can only prevented by CSS "overflow: hidden" but not event.preventDefault()
+            document.body.style.overflow = 'hidden';
+            sectionList[destinationIndex].style.display = '';
+            sectionList[currentIndex].classList.add('animating');
+            sectionList[destinationIndex].classList.add('animating');
+
+            // Transition would not be evoked if it is followed instantly afer display: none is removed
+            setTimeout(() => {
+                if (destinationIndex > currentIndex) {
+                    sectionList[currentIndex].classList.add('above-viewport');
+                    sectionList[destinationIndex].classList.remove('below-viewport');
+                } else {
+                    sectionList[currentIndex].classList.add('below-viewport');
+                    sectionList[destinationIndex].classList.remove('above-viewport');
+                }
+            }, 50);
+
+            // Scrolling finish
+            // TODO: change timeout value
+            setTimeout(() => {
+                document.body.style.overflow = '';
+                sectionList[currentIndex].classList.remove('animating');
+                sectionList[destinationIndex].classList.remove('animating');
+            }, transitionTime);
+        };
+
+        const scrollHandler = (event, direction) => {
+            // Handle whell event firing multiple times by trackpad
+            const now = (new Date()).getTime();
+            if (now - prevScrollTime < transitionTime) return;
+            prevScrollTime = now;
+
+            let currentSection = getCurrentSection();
+            let currentSectionIndex = sectionList.findIndex(s => s === currentSection);
+
+            if (currentSection) {
+                // Scrolling down to next section
+                if (direction === 'down') {
+                    event.preventDefault();
+                    if (currentSectionIndex !== sectionList.length) {
+                        scrollToSection(currentSectionIndex + 1, currentSectionIndex);
+                    }
+                }
+                // Scrolling up to previous section
+                else if (direction === 'up') {
+                    if (currentSectionIndex !== 0) {
+                        scrollToSection(currentSectionIndex - 1, currentSectionIndex);
+                    } else {
+                        // navbar.classList.add('before-animation');
+                        // Scroll to header
+                    }
+                }
+            }
+            // Scrolling down from header to first section
+            // else if (direction === 'down') {
+            //     navbar.classList.remove('before-animation');
+            //     scrollToSection(sectionList[0]);
+            // }
+        };
+
+        // when Page reload
+        if (window.scrollY !== 0) {
+            navbar.classList.remove('before-animation');
+            document.getElementById('background').style.opacity = 0.5;
+            getCurrentSection().classList.remove('before-animation');
+            document.querySelector('a.nav-link[href="#' + getCurrentSection().id + '"]').classList.add('active');
+        }
+
+        document.addEventListener('wheel', event => scrollHandler(event, event.deltaY < 0 ? 'up' : 'down'), { passive: false });
+        document.addEventListener('keydown', event => {
+            if (event.keyCode === 38) scrollHandler(event, 'up');
+            else if (event.keyCode === 40) scrollHandler(event, 'down');
+        }, { passive: false });
+
+        sectionList.forEach((s, index) => { if (index !== 0) s.classList.add('below-viewport'); });
+
+        /* 
+         * Navbar jump links handling
+         * Making navbar jump links compatible with section navigation JavaScript
+         */
+
+        document.querySelectorAll('#navbar a.nav-link').forEach((element) => {
+            element.addEventListener('click', (event) => {
+                event.preventDefault();
+                scrollToSection(document.getElementById(event.target.href.split('#')[1]));
+            })
+        });
+    }
+}
+// EXTERNAL MODULE: ./node_modules/photoswipe/dist/photoswipe.js
+var photoswipe = __webpack_require__(0);
+
+// EXTERNAL MODULE: ./node_modules/photoswipe/dist/photoswipe-ui-default.js
+var photoswipe_ui_default = __webpack_require__(1);
+
+// CONCATENATED MODULE: ./assets/dev/js/gallery.js
+
+
+
+const initPhotoSwipe = () => {
+    const openPhotoSwipe = (imgElement, galleryClass) => {
+        let pswpElement = document.querySelector('.pswp');
+
+        // build items array, record element index
+        let index = 0;
+        let items;
+
+        {
+            let count = 0;
+            /* [...HTMLCollection].map(): use spread operator to convert nodeList to array and call the map function,
+               while having better peroformence than Array.from(nodeList).map or Array.prototype.map.call(nodeList, function)
+               https://measurethat.net/Benchmarks/Show/4507/0/arrayprototypemapcall-vs-arraymap */
+            items = [...imgElement.closest(galleryClass).getElementsByTagName('img')].map((element) => {
+                if (element === imgElement) { index = count; }
+                count++;
+                // msrc: prevent PhotoSwipe displaying grey placeholder
+                return { src: element.currentSrc, msrc: element.currentSrc, w: element.naturalWidth, h: element.naturalHeight };
+            });
+        }
+
+        // define options
+        let options = {
+            index: index,
+            getThumbBoundsFn: () => {
+                let pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                    rect = imgElement.getBoundingClientRect();
+                return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+            },
+            showHideOpacity: true,
+            /* bgOpacity: 0.32 -> Scrim opacity in material design dialogs
+               https://material.io/design/components/dialogs.html#theming */
+            bgOpacity: 0.32,
+            shareEl: false,
+            closeElClasses: ['item', 'caption', 'zoom-wrap', 'ui'],
+        };
+
+        // Initializes and opens PhotoSwipe
+        let pswp = new photoswipe(pswpElement, photoswipe_ui_default, items, options);
+        pswp.init();
+
+        // Prevent double shadow of .pswp__img and .pswp__img--placeholder
+        pswp.listen('initialZoomInEnd', () => {
+            document.getElementsByClassName('pswp__img--placeholder')[0].style.display = 'none';
+        });
+
+        pswp.listen('close', () => {
+            document.body.style.overflow = '';
+        });
+    }
+
+    [...document.querySelectorAll('.gallery-item img')].forEach((element) => {
+        element.onclick = (event) => {
+            // Prevent browser opening href links
+            event.preventDefault();
+            openPhotoSwipe(event.target, '.gallery');
+            document.body.style.overflow = 'hidden';
+        }
+    });
+
+    // Add PhotoSwipe (.pswp) element to page
+    document.body.insertAdjacentHTML('beforeend',
+        '<!-- Root element of PhotoSwipe. Must have class pswp. -->' +
+        '<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">' +
+        '' +
+        '    <!-- Background of PhotoSwipe. ' +
+        '         It\'s a separate element as animating opacity is faster than rgba(). -->' +
+        '    <div class="pswp__bg"></div>' +
+        '' +
+        '    <!-- Slides wrapper with overflow:hidden. -->' +
+        '    <div class="pswp__scroll-wrap">' +
+        '' +
+        '        <!-- Container that holds slides. ' +
+        '            PhotoSwipe keeps only 3 of them in the DOM to save memory.' +
+        '            Don\'t modify these 3 pswp__item elements, data is added later on. -->' +
+        '        <div class="pswp__container">' +
+        '            <div class="pswp__item"></div>' +
+        '            <div class="pswp__item"></div>' +
+        '            <div class="pswp__item"></div>' +
+        '        </div>' +
+        '' +
+        '        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->' +
+        '        <div class="pswp__ui pswp__ui--hidden">' +
+        '' +
+        '            <div class="pswp__top-bar">' +
+        '' +
+        '                <!--  Controls are self-explanatory. Order can be changed. -->' +
+        '' +
+        '                <div class="pswp__counter"></div>' +
+        '' +
+        '                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>' +
+        '' +
+        '                <button class="pswp__button pswp__button--share" title="Share"></button>' +
+        '' +
+        '                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>' +
+        '' +
+        '                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>' +
+        '' +
+        '                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->' +
+        '                <!-- element will get class pswp__preloader--active when preloader is running -->' +
+        '                <div class="pswp__preloader">' +
+        '                    <div class="pswp__preloader__icn">' +
+        '                      <div class="pswp__preloader__cut">' +
+        '                        <div class="pswp__preloader__donut"></div>' +
+        '                      </div>' +
+        '                    </div>' +
+        '                </div>' +
+        '            </div>' +
+        '' +
+        '            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">' +
+        '                <div class="pswp__share-tooltip"></div> ' +
+        '            </div>' +
+        '' +
+        '            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">' +
+        '            </button>' +
+        '' +
+        '            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">' +
+        '            </button>' +
+        '' +
+        '            <div class="pswp__caption">' +
+        '                <div class="pswp__caption__center"></div>' +
+        '            </div>' +
+        '' +
+        '        </div>' +
+        '' +
+        '    </div>' +
+        '' +
+        '</div>'
+    );
+};
+// CONCATENATED MODULE: ./node_modules/remarkable/dist/esm/index.browser.js
+var index_browser_textarea;
 
 function decodeEntity(name) {
-  textarea = textarea || document.createElement('textarea');
-  textarea.innerHTML = '&' + name + ';';
-  return textarea.value;
+  index_browser_textarea = index_browser_textarea || document.createElement('textarea');
+  index_browser_textarea.innerHTML = '&' + name + ';';
+  return index_browser_textarea.value;
 }
 
 /**
@@ -6188,7 +6126,7 @@ function has(object, key) {
 
 // Extend objects
 //
-function assign(obj /*from1, from2, from3, ...*/) {
+function index_browser_assign(obj /*from1, from2, from3, ...*/) {
   var sources = [].slice.call(arguments, 1);
 
   sources.forEach(function (source) {
@@ -6298,7 +6236,7 @@ function escapeHtml(str) {
 var utils = /*#__PURE__*/Object.freeze({
   isString: isString,
   has: has,
-  assign: assign,
+  assign: index_browser_assign,
   unescapeMd: unescapeMd,
   isValidEntityCode: isValidEntityCode,
   fromCodePoint: fromCodePoint,
@@ -6725,7 +6663,7 @@ var getBreak = rules.getBreak = function getBreak(tokens, idx) {
  */
 
 function Renderer() {
-  this.rules = assign({}, rules);
+  this.rules = index_browser_assign({}, rules);
 
   // exported helper, for custom rules only
   this.getBreak = rules.getBreak;
@@ -9485,7 +9423,7 @@ function isTerminatorChar(ch) {
   }
 }
 
-function text(state, silent) {
+function index_browser_text(state, silent) {
   var pos = state.pos;
 
   while (pos < state.posMax && !isTerminatorChar(state.src.charCodeAt(pos))) {
@@ -9564,7 +9502,7 @@ for (var i = 0; i < 256; i++) { ESCAPED.push(0); }
   .split('').forEach(function(ch) { ESCAPED[ch.charCodeAt(0)] = 1; });
 
 
-function escape(state, silent) {
+function index_browser_escape(state, silent) {
   var ch, pos = state.pos, max = state.posMax;
 
   if (state.src.charCodeAt(pos) !== 0x5C/* \ */) { return false; }
@@ -10822,9 +10760,9 @@ function entity(state, silent) {
  */
 
 var _rules$2 = [
-  [ 'text',            text ],
+  [ 'text',            index_browser_text ],
   [ 'newline',         newline ],
-  [ 'escape',          escape ],
+  [ 'escape',          index_browser_escape ],
   [ 'backticks',       backticks ],
   [ 'del',             del ],
   [ 'ins',             ins ],
@@ -11219,7 +11157,7 @@ function Remarkable(preset, options) {
  */
 
 Remarkable.prototype.set = function (options) {
-  assign(this.options, options);
+  index_browser_assign(this.options, options);
 };
 
 /**
@@ -11323,53 +11261,40 @@ Remarkable.prototype.renderInline = function (str, env) {
 
 
 
+// CONCATENATED MODULE: ./assets/dev/js/resources.js
 
-/***/ }),
 
-/***/ "./node_modules/smooth-scroll/dist/smooth-scroll.polyfills.min.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/smooth-scroll/dist/smooth-scroll.polyfills.min.js ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+const initResourcesList = () => {
+    fetch(`${location.origin}/assets/md/resources.md`)
+        .then(response => response.text())
+        .then(text => {
+            document.getElementById('resources-list').innerHTML = new index_browser_namespaceObject().render(text);
+        });
 
-/* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! smooth-scroll v16.1.3 | (c) 2020 Chris Ferdinandi | MIT License | http://github.com/cferdinandi/smooth-scroll */
-window.Element&&!Element.prototype.closest&&(Element.prototype.closest=function(e){var t,n=(this.document||this.ownerDocument).querySelectorAll(e),o=this;do{for(t=n.length;0<=--t&&n.item(t)!==o;);}while(t<0&&(o=o.parentElement));return o}),(function(){if("function"==typeof window.CustomEvent)return;function e(e,t){t=t||{bubbles:!1,cancelable:!1,detail:void 0};var n=document.createEvent("CustomEvent");return n.initCustomEvent(e,t.bubbles,t.cancelable,t.detail),n}e.prototype=window.Event.prototype,window.CustomEvent=e})(),(function(){for(var r=0,e=["ms","moz","webkit","o"],t=0;t<e.length&&!window.requestAnimationFrame;++t)window.requestAnimationFrame=window[e[t]+"RequestAnimationFrame"],window.cancelAnimationFrame=window[e[t]+"CancelAnimationFrame"]||window[e[t]+"CancelRequestAnimationFrame"];window.requestAnimationFrame||(window.requestAnimationFrame=function(e,t){var n=(new Date).getTime(),o=Math.max(0,16-(n-r)),a=window.setTimeout((function(){e(n+o)}),o);return r=n+o,a}),window.cancelAnimationFrame||(window.cancelAnimationFrame=function(e){clearTimeout(e)})})(),(function(e,t){ true?!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function(){return t(e)}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):undefined})("undefined"!=typeof global?global:"undefined"!=typeof window?window:this,(function(M){"use strict";var q={ignore:"[data-scroll-ignore]",header:null,topOnEmptyHash:!0,speed:500,speedAsDuration:!1,durationMax:null,durationMin:null,clip:!0,offset:0,easing:"easeInOutCubic",customEasing:null,updateURL:!0,popstate:!0,emitEvents:!0},I=function(){var n={};return Array.prototype.forEach.call(arguments,(function(e){for(var t in e){if(!e.hasOwnProperty(t))return;n[t]=e[t]}})),n},r=function(e){"#"===e.charAt(0)&&(e=e.substr(1));for(var t,n=String(e),o=n.length,a=-1,r="",i=n.charCodeAt(0);++a<o;){if(0===(t=n.charCodeAt(a)))throw new InvalidCharacterError("Invalid character: the input contains U+0000.");1<=t&&t<=31||127==t||0===a&&48<=t&&t<=57||1===a&&48<=t&&t<=57&&45===i?r+="\\"+t.toString(16)+" ":r+=128<=t||45===t||95===t||48<=t&&t<=57||65<=t&&t<=90||97<=t&&t<=122?n.charAt(a):"\\"+n.charAt(a)}return"#"+r},F=function(){return Math.max(document.body.scrollHeight,document.documentElement.scrollHeight,document.body.offsetHeight,document.documentElement.offsetHeight,document.body.clientHeight,document.documentElement.clientHeight)},L=function(e){return e?(t=e,parseInt(M.getComputedStyle(t).height,10)+e.offsetTop):0;var t},x=function(e,t,n){0===e&&document.body.focus(),n||(e.focus(),document.activeElement!==e&&(e.setAttribute("tabindex","-1"),e.focus(),e.style.outline="none"),M.scrollTo(0,t))},H=function(e,t,n,o){if(t.emitEvents&&"function"==typeof M.CustomEvent){var a=new CustomEvent(e,{bubbles:!0,detail:{anchor:n,toggle:o}});document.dispatchEvent(a)}};return function(o,e){var b,a,A,O,C={};C.cancelScroll=function(e){cancelAnimationFrame(O),O=null,e||H("scrollCancel",b)},C.animateScroll=function(a,r,e){C.cancelScroll();var i=I(b||q,e||{}),c="[object Number]"===Object.prototype.toString.call(a),t=c||!a.tagName?null:a;if(c||t){var s=M.pageYOffset;i.header&&!A&&(A=document.querySelector(i.header));var n,o,u,l,m,d,f,h,p=L(A),g=c?a:(function(e,t,n,o){var a=0;if(e.offsetParent)for(;a+=e.offsetTop,e=e.offsetParent;);return a=Math.max(a-t-n,0),o&&(a=Math.min(a,F()-M.innerHeight)),a})(t,p,parseInt("function"==typeof i.offset?i.offset(a,r):i.offset,10),i.clip),y=g-s,v=F(),w=0,S=(n=y,u=(o=i).speedAsDuration?o.speed:Math.abs(n/1e3*o.speed),o.durationMax&&u>o.durationMax?o.durationMax:o.durationMin&&u<o.durationMin?o.durationMin:parseInt(u,10)),E=function(e){var t,n,o;l||(l=e),w+=e-l,d=s+y*(n=m=1<(m=0===S?0:w/S)?1:m,"easeInQuad"===(t=i).easing&&(o=n*n),"easeOutQuad"===t.easing&&(o=n*(2-n)),"easeInOutQuad"===t.easing&&(o=n<.5?2*n*n:(4-2*n)*n-1),"easeInCubic"===t.easing&&(o=n*n*n),"easeOutCubic"===t.easing&&(o=--n*n*n+1),"easeInOutCubic"===t.easing&&(o=n<.5?4*n*n*n:(n-1)*(2*n-2)*(2*n-2)+1),"easeInQuart"===t.easing&&(o=n*n*n*n),"easeOutQuart"===t.easing&&(o=1- --n*n*n*n),"easeInOutQuart"===t.easing&&(o=n<.5?8*n*n*n*n:1-8*--n*n*n*n),"easeInQuint"===t.easing&&(o=n*n*n*n*n),"easeOutQuint"===t.easing&&(o=1+--n*n*n*n*n),"easeInOutQuint"===t.easing&&(o=n<.5?16*n*n*n*n*n:1+16*--n*n*n*n*n),t.customEasing&&(o=t.customEasing(n)),o||n),M.scrollTo(0,Math.floor(d)),(function(e,t){var n=M.pageYOffset;if(e==t||n==t||(s<t&&M.innerHeight+n)>=v)return C.cancelScroll(!0),x(a,t,c),H("scrollStop",i,a,r),!(O=l=null)})(d,g)||(O=M.requestAnimationFrame(E),l=e)};0===M.pageYOffset&&M.scrollTo(0,0),f=a,h=i,c||history.pushState&&h.updateURL&&history.pushState({smoothScroll:JSON.stringify(h),anchor:f.id},document.title,f===document.documentElement?"#top":"#"+f.id),"matchMedia"in M&&M.matchMedia("(prefers-reduced-motion)").matches?x(a,Math.floor(g),!1):(H("scrollStart",i,a,r),C.cancelScroll(!0),M.requestAnimationFrame(E))}};var t=function(e){if(!e.defaultPrevented&&!(0!==e.button||e.metaKey||e.ctrlKey||e.shiftKey)&&"closest"in e.target&&(a=e.target.closest(o))&&"a"===a.tagName.toLowerCase()&&!e.target.closest(b.ignore)&&a.hostname===M.location.hostname&&a.pathname===M.location.pathname&&/#/.test(a.href)){var t,n;try{t=r(decodeURIComponent(a.hash))}catch(e){t=r(a.hash)}if("#"===t){if(!b.topOnEmptyHash)return;n=document.documentElement}else n=document.querySelector(t);(n=n||"#top"!==t?n:document.documentElement)&&(e.preventDefault(),(function(e){if(history.replaceState&&e.updateURL&&!history.state){var t=M.location.hash;t=t||"",history.replaceState({smoothScroll:JSON.stringify(e),anchor:t||M.pageYOffset},document.title,t||M.location.href)}})(b),C.animateScroll(n,a))}},n=function(e){if(null!==history.state&&history.state.smoothScroll&&history.state.smoothScroll===JSON.stringify(b)){var t=history.state.anchor;"string"==typeof t&&t&&!(t=document.querySelector(r(history.state.anchor)))||C.animateScroll(t,null,{updateURL:!1})}};C.destroy=function(){b&&(document.removeEventListener("click",t,!1),M.removeEventListener("popstate",n,!1),C.cancelScroll(),O=A=a=b=null)};return (function(){if(!("querySelector"in document&&"addEventListener"in M&&"requestAnimationFrame"in M&&"closest"in M.Element.prototype))throw"Smooth Scroll: This browser does not support the required JavaScript methods and browser APIs.";C.destroy(),b=I(q,e||{}),A=b.header?document.querySelector(b.header):null,document.addEventListener("click",t,!1),b.updateURL&&b.popstate&&M.addEventListener("popstate",n,!1)})(),C}}));
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+    document.getElementById('resources-btn').onclick = () => {
+        document.getElementsByClassName('overlay')[0].style.visibility = 'visible';
+        document.getElementsByClassName('overlay')[0].style.opacity = '1';
+        document.body.style.overflow = 'hidden';
+    }
 
-/***/ }),
-
-/***/ "./node_modules/webpack/buildin/global.js":
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
+    document.getElementById('close-btn').onclick = () => {
+        document.getElementsByClassName('overlay')[0].style.visibility = '';
+        document.getElementsByClassName('overlay')[0].style.opacity = '';
+        document.body.style.overflow = '';
+    }
 }
+// CONCATENATED MODULE: ./assets/dev/js/app.js
 
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
 
-module.exports = g;
 
+
+
+addEventListener('DOMContentLoaded', function () {
+    initNavigation();
+    initPhotoSwipe();
+    initResourcesList();
+});
 
 /***/ })
-
-/******/ });
+/******/ ]);
 //# sourceMappingURL=app.bundle.js.map

@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
@@ -10,6 +11,7 @@ module.exports = {
   },
   mode: process.env.NODE_ENV,
   devtool: 'source-map',
+  optimization: { minimizer: [new OptimizeCSSAssetsPlugin()] },
   plugins: [
     new webpack.BannerPlugin('Copyright (c) 2019 Loh Ka Hong. All rights reserved.'),
     new MiniCssExtractPlugin({ filename: '../css/style.css' }),
