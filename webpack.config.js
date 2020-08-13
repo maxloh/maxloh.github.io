@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
@@ -14,7 +13,6 @@ module.exports = {
   plugins: [
     new webpack.BannerPlugin('Copyright (c) 2019 Loh Ka Hong. All rights reserved.'),
     new MiniCssExtractPlugin({ filename: '../css/style.css' }),
-    new CssMinimizerPlugin({ sourceMap: true })
   ],
   module: {
     rules: [
@@ -28,7 +26,13 @@ module.exports = {
           },
           {
             loader: 'postcss-loader', // Run postcss actions
-            options: { plugins: () => require('autoprefixer') } // postcss plugins, can be exported to postcss.config.js
+            options: {
+              sourceMap: true,
+              plugins: [ // postcss plugins, can be exported to postcss.config.js
+                require('autoprefixer'),
+                require('cssnano')()
+              ]
+            }
           },
           'sass-loader' // compiles Sass to CSS
         ]
