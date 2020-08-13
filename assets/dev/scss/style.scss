@@ -3,9 +3,9 @@ $base-color: #FFFFFF;
 $font-color: #000000;
 
 $navbar-margin-mobile: 20px;
+$navbar-margin-desktop: 10px;
 $navbar-height: (1.2rem * 1.5)+(0.5rem * 2)+(1rem * 2);
-$main-transition: transform 1250ms,
-opacity 1250ms;
+$main-transition: transform 1250ms, opacity 1250ms;
 
 // Override Bootstrap's variables
 $body-bg: $base-color;
@@ -168,7 +168,10 @@ nav.navbar {
 
     @include desktop {
         position: fixed;
-        bottom: 0;
+        bottom: $navbar-margin-desktop;
+        left: $navbar-margin-desktop;
+        width: calc(100% - #{$navbar-margin-desktop * 2});
+        border-radius: $navbar-margin-desktop;
         padding: 1rem;
         background-color: $base-color;
         // 8 dp shadow in material design
@@ -559,8 +562,8 @@ footer {
 
     @include desktop {
         position: fixed;
-        bottom: 0;
-        right: 0;
+        bottom: $navbar-margin-desktop;
+        right: $navbar-margin-desktop;
         z-index: 1100;
         height: $navbar-height;
         padding-right: 1rem;
