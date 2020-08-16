@@ -1,0 +1,12 @@
+// Variables to be reused by other SCSS files
+
+@use '../bootstrap-variables' as bootstrap;
+
+$accent-color: #4285f4;
+$base-color: bootstrap.$white;
+$main-transition: 1000ms ease-in;
+
+$navbar-padding-desktop: 1rem;
+$navbar-font-size-desktop: 1.125rem;
+$navbar-margin-desktop: 10px;
+$navbar-height-desktop: ($navbar-font-size-desktop * bootstrap.$line-height-base)+(bootstrap.$navbar-nav-link-padding-x * 2)+($navbar-padding-desktop * 2);
