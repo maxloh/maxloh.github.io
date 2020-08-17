@@ -1,0 +1,20 @@
+@use '../variables'as *;
+
+section {
+  .desktop & {
+    min-height: calc(100vh - #{$navbar-height});
+    margin: 0 auto;
+    padding: var(--section-vertical-spacing) 10vw var(--section-vertical-spacing);
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    // For FAB positioning
+    position: relative;
+  }
+
+  .mobile & {
+    margin: var(--section-vertical-spacing) 0;
+  }
+}
