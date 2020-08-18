@@ -10,9 +10,9 @@ import './App.scss';
 const sectionContext = React.createContext();
 
 function App() {
-  const [platform, setPlatform] = React.useState('desktop');
-  const [currentSection, setCurrentSection] = React.useState('about-me');
   const getPlatform = () => (matchMedia('(pointer:fine)').matches && window.innerWidth >= 768) ? 'desktop' : 'mobile';
+  const [platform, setPlatform] = React.useState(getPlatform());
+  const [currentSection, setCurrentSection] = React.useState('about-me');
 
   window.addEventListener('resize', () => setPlatform(getPlatform()));
 

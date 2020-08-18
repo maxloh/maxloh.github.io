@@ -38,9 +38,7 @@ nav.navbar {
   ul.nav {
     .mobile & {
       flex-wrap: nowrap;
-      white-space: nowrap;
       overflow-x: auto;
-      width: 100%;
       justify-content: space-between;
     }
 
@@ -50,6 +48,7 @@ nav.navbar {
       }
 
       a.nav-link {
+        // Material design inactive tab text color (icon: none)
         color: rgba(0, 0, 0, .6);
         border-radius: 0.5rem;
         font-weight: 500;
@@ -57,6 +56,8 @@ nav.navbar {
         .mobile & {
           padding-left: 0.5rem;
           padding-right: 0.5rem;
+          // Prevent "About me" label to be wrapped
+          white-space: nowrap;
         }
 
         &.active {
