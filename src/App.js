@@ -8,7 +8,6 @@ const getPlatform = () => (matchMedia('(pointer:fine)').matches && window.innerW
 const sectionContext = React.createContext();
 
 class App extends React.Component {
-
   static transitioning = false;
 
   navigate = (detination) => {
@@ -23,37 +22,22 @@ class App extends React.Component {
 
     this.setState({ currentSection: detination });
     for (const section of sectionsToAnimate) {
-      setTimeout(() => this.setState(state => ({
-        ...state,
-        sectionsPosition: {
-          ...state.sectionsPosition,
-          [section]: navigateToRight ? 'left' : 'right'
-        }
-      })), delay);
+      setTimeout(() => this.setState(state => {
+        state.sectionsPosition[section] = navigateToRight ? 'left' : 'right';
+        return state;
+      }), delay);
       delay += animationDuration;
     }
-
-    setTimeout(() => this.setState(state => ({
-      ...state,
-      sectionsPosition: {
-        ...state.sectionsPosition,
-        [detination]: ''
-      }
-    })), delay);
+    setTimeout(() => this.setState(state => {
+      state.sectionsPosition[detination] = '';
+      return state;
+    }), delay);
     delay += animationDuration;
     setTimeout(() => this.transitioning = false, delay);
   };
 
-  wheelHandler = (event) => {
-    const destinationIndex = event.deltaY > 0 ? hrefList.indexOf(this.state.currentSection) + 1 : hrefList.indexOf(this.state.currentSection) - 1;
-    if (destinationIndex >= 0 && destinationIndex < hrefList.length) {
-      this.navigate(hrefList[destinationIndex]);
-    }
-  };
-
-  keyPressHandler = (event) => {
-    if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return;
-    const destinationIndex = event.key === 'ArrowDown' ? hrefList.indexOf(this.state.currentSection) + 1 : hrefList.indexOf(this.state.currentSection) - 1;
+  scroll = (direction) => {
+    const destinationIndex = direction === 'down' ? hrefList.indexOf(this.state.currentSection) + 1 : hrefList.indexOf(this.state.currentSection) - 1;
     if (destinationIndex >= 0 && destinationIndex < hrefList.length) {
       this.navigate(hrefList[destinationIndex]);
     }
@@ -74,12 +58,15 @@ class App extends React.Component {
 
   componentDidMount() {
     window.addEventListener('resize', () => this.setState({ platform: getPlatform() }));
-    window.addEventListener('keydown', this.keyPressHandler);
+    window.addEventListener('keydown', (event) => {
+      if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return;
+      this.scroll(event.key === 'ArrowDown' ? 'down' : 'up');
+    });
   }
 
   render() {
     return (
-      <div className={`App ${this.state.platform}`} onWheel={this.wheelHandler}>
+      <div className={`App ${this.state.platform}`} onWheel={event => this.scroll(event.deltaY > 0 ? 'down' : 'up')}>
         <sectionContext.Provider value={{ currentSection: this.state.currentSection, navigate: this.navigate, sectionsPosition: this.state.sectionsPosition }}>
           {hrefList.map((href, index) => (
             <Section href={href} key={index} />
