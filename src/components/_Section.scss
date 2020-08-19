@@ -1,0 +1,22 @@
+@use '../variables'as *;
+
+header,
+section {
+  .desktop & {
+    min-height: calc(100vh - #{$navbar-height-desktop} - #{$navbar-margin-desktop});
+    padding: 3rem 10vw 3rem;
+    transition: $main-transition;
+
+    &.left {
+      transform: translateX(100vw);
+    }
+
+    &.right {
+      transform: translateX(100vw);
+    }
+  }
+
+  .mobile & {
+    margin: 2rem 0;
+  }
+}

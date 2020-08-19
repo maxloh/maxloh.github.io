@@ -8,5 +8,5 @@ $main-transition: 1000ms ease-in;
 
 $navbar-padding-desktop: 1rem;
 $navbar-font-size-desktop: 1.125rem;
-$navbar-margin-desktop: 10px;
+$navbar-margin-desktop: 0.75rem;
 $navbar-height-desktop: ($navbar-font-size-desktop * bootstrap.$line-height-base) + (bootstrap.$navbar-nav-link-padding-x * 2) + ($navbar-padding-desktop * 2);
