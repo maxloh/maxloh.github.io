@@ -21,7 +21,7 @@ function Section(props) {
   const context = React.useContext(sectionContext);
   const TagName = hrefSectionMap[props.href];
   return (
-    <TagName href={props.href} position={context.sectionsPosition[props.href].position}/>
+    <TagName href={props.href} position={context.sectionsPosition[props.href].position} />
   );
 }
 

@@ -15,9 +15,9 @@ function NavItem(props) {
 }
 
 function Navbar() {
-  console.log();
+  const context = React.useContext(sectionContext);
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${context.currentSection === 'header' && 'hidden'}`}>
       <ul className="nav">
         {hrefList.slice(1).map((href, index) => (
           <NavItem href={href} key={index} />
