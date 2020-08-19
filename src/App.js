@@ -7,65 +7,89 @@ import './App.scss';
 const getPlatform = () => (matchMedia('(pointer:fine)').matches && window.innerWidth >= 768) ? 'desktop' : 'mobile';
 const sectionContext = React.createContext();
 
-function App() {
-  const [platform, setPlatform] = React.useState(getPlatform());
-  const [currentSection, setCurrentSection] = React.useState('header');
-  const sectionsPosition = Object.assign({}, ...hrefList.map(href => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [position, setposition] = React.useState(href === 'header' ? '' : 'right');
-    return { [href]: { position, setposition } };
-  }));
-  const transitioning = React.useRef(false);
+class App extends React.Component {
 
-  const navigate = (detination) => {
-    if (transitioning.current) return;
-    transitioning.current = true;
+  static transitioning = false;
+
+  navigate = (detination) => {
+    if (this.transitioning) return;
+    this.transitioning = true;
 
     const detinationIndex = hrefList.indexOf(detination);
-    const currentSectionIndex = hrefList.indexOf(currentSection);
+    const currentSectionIndex = hrefList.indexOf(this.state.currentSection);
     const navigateToRight = detinationIndex > currentSectionIndex;
     const sectionsToAnimate = navigateToRight ? hrefList.slice(currentSectionIndex, detinationIndex) : hrefList.slice(detinationIndex + 1, currentSectionIndex + 1).reverse();
     let delay = 0;
 
-    setCurrentSection(detination);
+    this.setState({ currentSection: detination });
     for (const section of sectionsToAnimate) {
-      setTimeout(() => sectionsPosition[section].setposition(navigateToRight ? 'left' : 'right'), delay);
+      setTimeout(() => this.setState(state => ({
+        ...state,
+        sectionsPosition: {
+          ...state.sectionsPosition,
+          [section]: navigateToRight ? 'left' : 'right'
+        }
+      })), delay);
       delay += animationDuration;
     }
-    setTimeout(() => sectionsPosition[detination].setposition(''), delay);
+
+    setTimeout(() => this.setState(state => ({
+      ...state,
+      sectionsPosition: {
+        ...state.sectionsPosition,
+        [detination]: ''
+      }
+    })), delay);
     delay += animationDuration;
-    setTimeout(() => transitioning.current = false, delay);
+    setTimeout(() => this.transitioning = false, delay);
   };
 
-  const wheelHandler = (event) => {
-    const destinationIndex = event.deltaY > 0 ? hrefList.indexOf(currentSection) + 1 : hrefList.indexOf(currentSection) - 1;
+  wheelHandler = (event) => {
+    const destinationIndex = event.deltaY > 0 ? hrefList.indexOf(this.state.currentSection) + 1 : hrefList.indexOf(this.state.currentSection) - 1;
     if (destinationIndex >= 0 && destinationIndex < hrefList.length) {
-      navigate(hrefList[destinationIndex]);
+      this.navigate(hrefList[destinationIndex]);
     }
   };
 
-  const keyPressHandler = (event) => {
+  keyPressHandler = (event) => {
     if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return;
-    const destinationIndex = event.key === 'ArrowDown' ? hrefList.indexOf(currentSection) + 1 : hrefList.indexOf(currentSection) - 1;
+    const destinationIndex = event.key === 'ArrowDown' ? hrefList.indexOf(this.state.currentSection) + 1 : hrefList.indexOf(this.state.currentSection) - 1;
     if (destinationIndex >= 0 && destinationIndex < hrefList.length) {
-      navigate(hrefList[destinationIndex]);
+      this.navigate(hrefList[destinationIndex]);
     }
   };
 
-  window.addEventListener('resize', () => setPlatform(getPlatform()));
-  window.addEventListener('keydown', keyPressHandler);
+  constructor() {
+    super();
+    this.state = {
+      platform: getPlatform(),
+      currentSection: 'header',
+      sectionsPosition: Object.assign({}, ...hrefList.map(href => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const position = href === 'header' ? '' : 'right';
+        return { [href]: position };
+      }))
+    };
+  }
 
-  return (
-    <div className={`App ${platform}`} onWheel={wheelHandler}>
-      <sectionContext.Provider value={{ currentSection: currentSection, navigate: navigate, sectionsPosition: sectionsPosition }}>
-        {hrefList.map((href, index) => (
-          <Section href={href} key={index} />
-        ))}
-        <Navbar />
-        <Background />
-      </sectionContext.Provider>
-    </div>
-  );
+  componentDidMount() {
+    window.addEventListener('resize', () => this.setState({ platform: getPlatform() }));
+    window.addEventListener('keydown', this.keyPressHandler);
+  }
+
+  render() {
+    return (
+      <div className={`App ${this.state.platform}`} onWheel={this.wheelHandler}>
+        <sectionContext.Provider value={{ currentSection: this.state.currentSection, navigate: this.navigate, sectionsPosition: this.state.sectionsPosition }}>
+          {hrefList.map((href, index) => (
+            <Section href={href} key={index} />
+          ))}
+          <Navbar />
+          <Background />
+        </sectionContext.Provider>
+      </div>
+    );
+  }
 }
 
 export { sectionContext };
