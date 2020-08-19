@@ -15,11 +15,12 @@ function App() {
     const [position, setposition] = React.useState(href === 'header' ? '' : 'right');
     return { [href]: { position, setposition } };
   }));
-  const { current: scrolling } = React.useRef({ flag: false });
+  const transitioning = React.useRef(false);
 
   const navigate = (detination) => {
-    if (scrolling.flag) return;
-    scrolling.flag = true;
+    if (transitioning.current) return;
+    transitioning.current = true;
+
     const detinationIndex = hrefList.indexOf(detination);
     const currentSectionIndex = hrefList.indexOf(currentSection);
     const navigateToRight = detinationIndex > currentSectionIndex;
@@ -33,7 +34,7 @@ function App() {
     }
     setTimeout(() => sectionsPosition[detination].setposition(''), delay);
     delay += animationDuration;
-    setTimeout(() => scrolling.flag = false, delay + animationDuration);
+    setTimeout(() => transitioning.current = false, delay);
   };
 
   const wheelHandler = (event) => {
