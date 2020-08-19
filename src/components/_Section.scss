@@ -4,12 +4,19 @@ header,
 section {
   .desktop & {
     position: fixed;
+    width: 100%;
     min-height: calc(100vh - #{$navbar-height-desktop} - #{$navbar-margin-desktop});
     padding: 3rem 10vw 3rem;
     transition: $main-transition;
 
+    // Testing only
+    font-size: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     &.left {
-      transform: translateX(100vw);
+      transform: translateX(-100vw);
     }
 
     &.right {

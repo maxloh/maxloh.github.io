@@ -15,7 +15,7 @@ const hrefSectionList = [
 ];
 const hrefList = hrefSectionList.map(hrefSection => hrefSection.href);
 const hrefSectionMap = Object.assign({}, ...hrefSectionList.map(hrefSection => ({ [hrefSection.href]: hrefSection.section })));
-const animationDuration = 500;
+const animationDuration = 250;
 
 function Section(props) {
   const context = React.useContext(sectionContext);

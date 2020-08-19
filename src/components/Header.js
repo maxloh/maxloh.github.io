@@ -1,10 +1,10 @@
 import React from 'react';
 import './Header.scss';
 
-function Header() {
+function Header(props) {
   return (
-    <header>
-
+    <header className={props.position}>
+      Header
     </header>
   );
 }
