@@ -3,6 +3,7 @@
 header,
 section {
   .desktop & {
+    position: fixed;
     min-height: calc(100vh - #{$navbar-height-desktop} - #{$navbar-margin-desktop});
     padding: 3rem 10vw 3rem;
     transition: $main-transition;

@@ -15,12 +15,12 @@ function NavItem(props) {
 }
 
 function Navbar() {
-  console.log()
+  console.log();
   return (
     <nav className="navbar">
       <ul className="nav">
-        {hrefList.slice(1).map(href => (
-          <NavItem href={href} />
+        {hrefList.slice(1).map((href, index) => (
+          <NavItem href={href} key={index} />
         ))}
       </ul>
     </nav>

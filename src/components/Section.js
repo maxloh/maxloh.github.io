@@ -1,4 +1,5 @@
 import React from 'react';
+import { sectionContext } from '../App.js';
 import Header from './Header.js';
 import Section1 from './Section1.js';
 import Section2 from './Section2.js';
@@ -14,13 +15,15 @@ const hrefSectionList = [
 ];
 const hrefList = hrefSectionList.map(hrefSection => hrefSection.href);
 const hrefSectionMap = Object.assign({}, ...hrefSectionList.map(hrefSection => ({ [hrefSection.href]: hrefSection.section })));
+const animationDuration = 500;
 
 function Section(props) {
+  const context = React.useContext(sectionContext);
   const TagName = hrefSectionMap[props.href];
   return (
-    <TagName href={props.href} />
+    <TagName href={props.href} position={context.sectionsPosition[props.href].position}/>
   );
 }
 
-export { hrefList, hrefSectionMap };
+export { hrefList, hrefSectionMap, animationDuration };
 export default Section;
