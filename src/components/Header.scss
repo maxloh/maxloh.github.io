@@ -26,42 +26,47 @@
 $colorOutline: #ffffff;
 $sizeTrackball: 10px;
 
-.mouse {
-  border: 5px solid $colorOutline;
-  position: relative;
-  width: 55px;
-  height: 90px;
-  border-radius: 100px;
+header {
+  h1.greeting {
+    font-size: 7rem;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
 
-  &:after {
-    content: '';
+  .mouse-container {
     position: absolute;
-    top: 20px;
     left: 0;
-    right: 0;
-    width: $sizeTrackball;
-    height: $sizeTrackball;
-    margin: auto;
-    background-color: $colorOutline;
-    border-radius: 100%;
-    animation: trackBallSlide 1.5s ease-in infinite;
-  }
-}
+    width: 100%;
+    bottom: 1rem;
 
-@keyframes trackBallSlide {
-  0% {
-    opacity: 0;
-    transform: scale(1) translateY(0);
-  }
+    .mouse {
+      width: 28px;
+      height: 42px;
+      border-radius: 14px;
+      border: 2px solid black;
+      margin: auto;
 
-  20% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
+      &:after {
+        content: '';
+        display: block;
+        width: 4px;
+        height: 12px;
+        border-radius: 2px;
+        background: black;
+        margin: 5px auto auto;
+        animation: mouse-wheel 900ms cubic-bezier(0.45, 0, 0.55, 1);
+        animation-direction: alternate;
+        animation-iteration-count: infinite;
+      }
+    }
 
-  70%,
-  100% {
-    opacity: 0;
-    transform: scale(0.4) translateY(30px);
+    @keyframes mouse-wheel {
+      0% {
+        transform: translateY(0px);
+      }
+      100% {
+        transform: translateY(5px);
+      }
+    }
   }
 }
