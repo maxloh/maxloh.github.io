@@ -8,6 +8,7 @@ section {
     min-height: calc(100vh - #{$navbar-height-desktop} - #{$navbar-margin-desktop});
     padding: 3rem 10vw 3rem;
     transition: $main-transition;
+    opacity: 1;
 
     // Testing only
     font-size: 5rem;
@@ -17,10 +18,12 @@ section {
 
     &.left {
       transform: translateX(-100vw);
+      opacity: 0;
     }
 
     &.right {
       transform: translateX(100vw);
+      opacity: 0;
     }
   }
 
