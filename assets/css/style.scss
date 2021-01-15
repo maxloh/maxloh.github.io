@@ -1,5 +1,4 @@
 @import "gallery.scss";
-@import "latolatinfonts.scss";
 
 $accent-color: #63e6be;
 $base-color: #212529;
@@ -62,7 +61,7 @@ html {
 body {
     background-color: $base-color;
     color: $font-color;
-    font-family: "Lato", "arial", sans-serif;
+    font-family: Inter, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-weight: 400;
     overflow-x: hidden;
     letter-spacing: 0.0075em;
@@ -81,7 +80,7 @@ body {
     h4,
     h5,
     h6 {
-        margin-top: calc(1rem * 1.5);
+        margin-top: 2rem;
         margin-bottom: 1rem;
         font-weight: 400;
     }
@@ -371,6 +370,8 @@ body {
     }
 
     footer {
+        padding-bottom: var(--main-margin);
+
         small {
             display: block;
         }
@@ -382,6 +383,7 @@ body {
     opacity: 0;
     z-index: 2000;
     background-color: rgba(0, 0, 0, 0.90);
+    backdrop-filter: blur(2px);
     transition: 250ms ease-out;
     position: fixed;
     top: 0;

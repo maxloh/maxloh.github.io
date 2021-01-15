@@ -20,9 +20,8 @@
 
 - Font
 
-  - Main font: Source Sans Pro ([SIL Open Font License 1.1](https://github.com/adobe-fonts/source-sans-pro/blob/release/LICENSE.md))  
-  Font weight: heading 1 200, heading 2 600, paragraph 400  
-  <https://adobe-fonts.github.io/source-sans-pro/>
+  - Main font: Inter ([SIL Open Font License 1.1](https://github.com/rsms/inter/blob/master/LICENSE.txt))  
+  <https://github.com/rsms/inter>
 
   - Logo font: Jura 300 ([SIL Open Font License 1.1](https://github.com/ossobuffo/jura/blob/master/OFL.txt))  
   <https://github.com/ossobuffo/jura>

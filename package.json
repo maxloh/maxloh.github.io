@@ -1,14 +1,14 @@
 {
   "name": "maxloh.github.io",
-  "version": "2.0.0",
-  "description": "Copyright &copy; 2019 Loh Ka Hong. All rights reserved.",
+  "version": "1.1.0",
+  "description": "Copyright © 2021 Loh Ka Hong. All rights reserved.",
   "dependencies": {},
   "devDependencies": {
     "sass": "^1.20.3",
     "terser": "^4.0.0"
   },
   "scripts": {
-    "build": ".\\node_modules\\.bin\\sass .\\assets\\css\\style.scss:.\\assets\\css\\style.css --style=compressed --source-map && cd .\\assets\\js\\ && ..\\..\\node_modules\\.bin\\terser main.js navbar.js gallery.js --compress --mangle reserved=['css'] --toplevel --source-map url='app.js.map' --output app.js"
+    "build": "sass ./assets/css/style.scss:./assets/css/style.css --style=compressed --source-map && cd ./assets/js/ && terser main.js navbar.js gallery.js --compress --mangle reserved=['css'] --toplevel --source-map url='app.js.map' --output app.js"
   },
   "repository": {
     "type": "git",
