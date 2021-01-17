@@ -1,7 +1,6 @@
 import {css} from './functions';
 
 export const initAnimation = () => {
-    const animationCSS = { 'opacity': '1', 'transform': 'translateY(0)' };
     const delay = 400;
     const navbar = document.getElementById('navbar');
     const section = document.querySelectorAll('main>.section');

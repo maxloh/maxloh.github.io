@@ -14,6 +14,7 @@
     <meta name="theme-color" content="#212529" />
     <!--Favicon-->
     <link rel="icon" type="image/png" href="./assets/img/icon/256x256.png" sizes="256x256">
+
     <!--PWA support-->
     <!--APP Manifest-->
     <link rel="manifest" href="./manifest.json">
@@ -22,386 +23,295 @@
     <script src="./pwabuilder-sw.js"></script>
     <script src="./pwabuilder-sw-register.js"></script>
 
-    <!--Font Awesome-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <!--Google Font-->
-    <!--Logo font: Jura 300-->
-    <link href="https://fonts.googleapis.com/css?family=Jura:300" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
-    <!--Compiled Style-->
+    <!--Compiled Styles-->
     <link rel="stylesheet" href="./assets/css/style.css">
-    <!--Compiled JavaScript-->
-    <script src="./assets/js/app.bundle.js"></script>
 </head>
 
 <body>
-    <!--justify-content-center: center social-link in mobile site-->
-    <div class="header row justify-content-center">
-        <!--col-12: for xs or above, the logo column occupy the whole row
-                col-md-auto: for md or above (overriding the last rule), the logo column sized based on the natural width of contents within
-                mr-md-auto: mr-auto for md or larger device, pushing social links to right site-->
-        <div class="logo col-12 col-md-auto mr-md-auto">
-            <a href=".">Max Loh</a>
-        </div>
-        <!--col-auto: the column sized based on the natural width of contents within
-                d-flex: put items to same row
-                align-items-center: center items within (for mobile site)
-                Negative margin: let social-link stick to the edge of its parent element-->
-        <div class="col-auto d-flex align-items-center" style="margin: 0px -20px;">
-            <a href="https://www.github.com/maxloh/" target="_blank">
-                <div class="social-link">
-                    <i class="fab fa-github"></i><br>
+    <div class="container">
+        <div class="header row">
+            <a href="/" class="logo col-12 col-md-auto">
+                <img src="assets/img/icon/favicon.svg">
+                <span>Max Loh</span>
+            </a>
+            <div class="social col-auto">
+                <!--
+                    The MIT License (MIT)
+
+                    Copyright (c) 2013-2017 Cole Bemis
+
+                    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+                    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+                    
+                    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+                -->
+                <a href="https://www.github.com/maxloh/" target="_blank" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-github">
+                        <path
+                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                    </svg>
                     <span>Github</span>
-                </div>
-            </a>
-            <a href="mailto:lohkahong@gmail.com">
-                <div class="social-link">
-                    <i class="far fa-envelope"></i><br>
+                </a>
+                <a href="mailto:lohkahong@gmail.com" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-mail">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
+                    </svg>
                     <span>EMail</span>
-                </div>
-            </a>
+                </a>
+            </div>
         </div>
+        <nav id="navbar" class="navbar navbar-dark before-animation">
+            <a class="logo" href="/">
+                <img src="assets/img/icon/favicon.svg">
+            </a>
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" href="#about-me">About Me</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#education">Education</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#skills">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#projects">Projects</a>
+                </li>
+            </ul>
+        </nav>
+
+        <main>
+            <div id="about-me" class="row section before-animation">
+                <div class="col-md-1 col-12">
+                    <h1>About Me</h1>
+                </div>
+                <div class="content col-md-11 col-12">
+                    <p>
+                        My name is Loh Ka Hong. I am a graduate from OUHK in Bachelor of Computing in Internet
+                        Technology with First Class Honours Award.
+                    </p>
+                    <p>
+                        I took up back-end development and databases in college. I have basic knowledge on SQL, PHP and
+                        MongoDB. I am familiar with backend development on NodeJS and the library express. I also have
+                        knowledge in writing server with Java Spring MVC library In my final year project which required
+                        our group to work out “a fast and user-friendly prototyping tool on user interface of mobile
+                        app”, I was working with my groupmates on a webform for mobile app development companies to
+                        collect requirements of clients without any UI knowledge, and then displayed a prototype demo of
+                        the final product. I was responsible for the mobile app user interface templates in two
+                        categories, E shopping and food deliveries. I wrote both of them with framework7, JavaScript,
+                        SCSS, and also React in one of the templates as well as the backend express server in JavaScript
+                        which implements promises and ES6 classes.
+                    </p>
+                    <p>
+                        I particularly interest in front-end development and user interface design. I investigate
+                        different mobile application and website to inspect their content organization to learn how to
+                        make user interface more user-friendly and presentable. I also study web technology and UI
+                        design online in my spare time. I have basic understanding on different frameworks/libraries
+                        involved in web development, like TypeScript, Webpack, SCSS, React, etc.
+                    </p>
+                    <p>
+                        To further enrich my programming knowledge, I spend my free time exploring more online through
+                        self-learning, such as JavaScript, HTML and CSS. I created my personal website in my second year
+                        in OUHK. I study different libraries by reading software documentation. I keep following up
+                        cutting edge technology and software. I browse GitHub in a daily basis to learn about the
+                        current trends of programming, like JavaScript and UI development.
+                    </p>
+                </div>
+            </div>
+            <div id="education" class="row section before-animation">
+                <div class="col-md-1 col-12">
+                    <h1>Education</h1>
+                </div>
+                <div class="content col-md-11 col-12">
+                    <h2>2017-2020
+                        <small class="programme">Bachelor of Computing with Honours in Internet Technology</small>
+                        <small class="university">The Open University of Hong Kong</small>
+                    </h2>
+                    <div>Award GPA: 3.78, CGPA: 3.54</div>
+                    <div>Dean's List for 2017 Autumn Term, 2018 Spring Term and 2018 Autumn Term</div>
+                    <h2>2015-2017
+                        <small class="programme">Associate of Social Science in Public Relations and
+                            Advertising</small>
+                        <small class="university">Community College of City University</small>
+                    </h2>
+                    <div>CGPA: 2.72</div>
+                </div>
+            </div>
+            <div id="skills" class="row section before-animation">
+                <div class="col-md-1 col-12">
+                    <h1>Skills</h1>
+                </div>
+                <div class="content col-md-11 col-12">
+                    <h2>Front end</h2>
+                    <ul>
+                        <li>React (React Route, Context, Redux, Nest.js)</li>
+                        <li>Basic Vue</li>
+                        <li>Bootstrap, jQuery</li>
+                        <li>Web API (Progressive Web App, Canvas, Shadow DOM)</li>
+                        <li>Build toolchain (webpack, Babel, Terser)</li>
+                        <li>CSS preprocessor and technologies (SCSS, CSS modules)</li>
+                        <li>Basic Android App development</li>
+                        <li>Basic UI/UX design (Responsive web design, Material Design)</li>
+                    </ul>
+
+                    <h2>Back end</h2>
+                    <ul>
+                        <li>Express (Node.js, MangoDB, Building REST API)</li>
+                        <li>Java EE (Spring MVC, Spring Data JPA, Spring Security, Hibernate, JSP)</li>
+                        <li>Laravel (Eloquent ORM)</li>
+                        <li>Designing and implementing databases (MySQL, PostgreSQL, MongoDB, Apache Derby)</li>
+                    </ul>
+
+                    <h2>Programming Language</h2>
+                    <ul>
+                        <li>JavaScript, HTML, CSS</li>
+                        <li>Java, C, PHP</li>
+                        <li>SQL</li>
+                    </ul>
+
+                    <h2>Other skills</h2>
+                    <ul>
+                        <li>Git (Basic CLI, Rebase)</li>
+                        <li>Project management (Git flow, Semantic Versioning, Conventional Commit Messages)</li>
+                        <li>Different shells (Bash, CMD, PowerShell)</li>
+                        <li>Managing and publishing NPM packages</li>
+                        <li>Chrome extension Development</li>
+                        <li>Basic concepts on AI</li>
+                        <li>Basic concepts on data mining</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="projects" class="row section before-animation">
+                <div class="col-md-1 col-12">
+                    <h1>Projects</h1>
+                </div>
+                <div class="content col-md-11 col-12">
+                    <h2>
+                        OUHK CGPA Calculator
+                        <span class="github-button">
+                            <script async defer src="https://buttons.github.io/buttons.js"></script>
+                            <a class="github-button" href="https://github.com/maxloh/OUHK-CGPA-Calculator"
+                                data-icon="octicon-star" data-size="large"
+                                aria-label="Star maxloh/OUHK-CGPA-Calculator on GitHub">Star</a>
+                        </span>
+                    </h2>
+                    <p>
+                        OUHK CGPA Calculator is a few lines of JavaScript code to help OUHK students calculate their
+                        CGPA. The calculater can be run directly in Chrome DevTools or used as a JavaScript bookmarklet.
+                        It automatically search for the respective table containing reuslts, parse the table to json
+                        varieable and calculate the CGPA. Than display the CGPA using the alert() function.
+                    </p>
+                    <div class="row gallery">
+                        <div class="gallery-item col-12 col-md-4">
+                            <div class="img-container">
+                                <a href=".\assets\img\index\projects-cgpacalculator-1.png">
+                                    <img src=".\assets\img\index\projects-cgpacalculator-1.png">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="gallery-item col-12 col-md-4">
+                            <div class="img-container">
+                                <a href=".\assets\img\index\projects-cgpacalculator-2.png">
+                                    <img src=".\assets\img\index\projects-cgpacalculator-2.png">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="gallery-item col-12 col-md-4">
+                            <div class="img-container">
+                                <a href=".\assets\img\index\projects-cgpacalculator-3.png">
+                                    <img src=".\assets\img\index\projects-cgpacalculator-3.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>Secondary school website</h2>
+                    <p>
+                        This website is written for the group project of my web accessibility course in college. In the
+                        project, I in charged of the design and coding of the website and my teammate was responsible
+                        for documentation. The final product was powered by Bootstrap. Contents of the website was
+                        reorganized into different sections and presented in a more user-friendly way. Different
+                        components like alternative text and ‘skip to contents’ navigation was added to the website to
+                        make it more accessible to people with disability.
+                    </p>
+                    <div class="row gallery">
+                        <div class="gallery-item col-12 col-md-4">
+                            <div class="img-container">
+                                <a href=".\assets\img\index\projects-secondary-1.jpg">
+                                    <img src=".\assets\img\index\projects-secondary-1.jpg">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="gallery-item col-12 col-md-4">
+                            <div class="img-container">
+                                <a href=".\assets\img\index\projects-secondary-2.png">
+                                    <img src=".\assets\img\index\projects-secondary-2.png">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="gallery-item col-12 col-md-4">
+                            <div class="img-container">
+                                <a href=".\assets\img\index\projects-secondary-3.png">
+                                    <img src=".\assets\img\index\projects-secondary-3.png">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="gallery-item col-12 col-md-4">
+                            <div class="img-container">
+                                <a href=".\assets\img\index\projects-secondary-4.png">
+                                    <img src=".\assets\img\index\projects-secondary-4.png">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="gallery-item col-12 col-md-4">
+                            <div class="img-container">
+                                <a href=".\assets\img\index\projects-secondary-5.jpg">
+                                    <img src=".\assets\img\index\projects-secondary-5.jpg">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="gallery-item col-12 col-md-4">
+                            <div class="img-container">
+                                <a href=".\assets\img\index\projects-secondary-6.png">
+                                    <img src=".\assets\img\index\projects-secondary-6.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            Copyright &copy; 2021 Loh Ka Hong
+            <Small><span id="resources-btn">Resources and libraries</span> used to build this site</Small>
+        </footer>
     </div>
 
-    <!--For a sticky navbar, .navbar element must be a direct child of body-->
-    <nav id="navbar" class="navbar navbar-dark before-animation">
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link" href="#about-me">About Me</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#education">Education</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#skills">Skills</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#projects">Projects</a>
-            </li>
-        </ul>
-    </nav>
-
-    <main>
-        <div id="about-me" class="section before-animation">
-            <h1>About Me</h1>
-            <p> My name is Loh Ka Hong, a current Year 3 student of The Open University of Hong Kong enrolled in
-                the undergraduate programme, <a href="https://computing.ouhk.edu.hk/web/programme/BCOMPHITJ/Overview"
-                    target="blank">
-                    Bachelor of Computing with Honours in Internet Technology</a>.</p>
-            <p>
-                I have particular interest in programming languages which I find them mind challenging with
-                sense of fulfilment through the process. I spend my free time to explore more programming
-                languages other than what I have taught in classes, like Python and JavaScript. I love to browse
-                GitHub and look into source code of interesting projects to understand their usages, even though
-                I may not know its programming language.
-            </p>
-            <p>
-                Front-end development is my favourite. It is like an achievement to use what I design and built.
-                Being a fan of user interface design, I investigate different user interface software to inspect
-                their content organization and implementation of visual hierarchy. I also study web technology
-                and UI design online.
-            </p>
-            <p>
-                I studied basics of php in my database course which I implemented in my group projects. The
-                course also aroused my interests in back-end development which I did research on Web and found
-                out some basic concept on related technologies like Note.js and different types of database.
-            </p>
-        </div>
-        <div id="education" class="section before-animation">
-            <h1>Education</h1>
-            <h2>2017-
-                <small class="programme">Bachelor of Computing with Honours in Internet Technology</small>
-                <small class="university">The Open University of Hong Kong</small>
-            </h2>
-            <h3>Course Results</h3>
-            <div class="table-container">
-                <div class="table-header">
-                    <div class="term">2018 Autumn Term</div>
-                    <div>Term GPA: 4.00</div>
-                </div>
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td>Computer Architecture</td>
-                            <td>A</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="table-container">
-                <div class="table-header">
-                    <div class="term">2018 Spring Term</div>
-                    <div>Term GPA: 3.50</div>
-                </div>
-                <table class="table">
-                    <tbody class="term">
-                        <tr>
-                            <td>Intermediate Java Programming and User Interface Design</td>
-                            <td>A-</td>
-                        </tr>
-                        <tr>
-                            <td>Data Structures, Algorithms, and Problem Solving</td>
-                            <td>A</td>
-                        </tr>
-                        <tr>
-                            <td>Web Usability, Internationalization and. Social Issues</td>
-                            <td>B+</td>
-                        </tr>
-                        <tr>
-                            <td>Effective Use of English II</td>
-                            <td>B</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="table-container">
-                <div class="table-header">
-                    <div class="term">2017 Autumn Term</div>
-                    <div>Term GPA: 3.74</div>
-                </div>
-                <table class="table">
-                    <tbody class="term">
-                        <tr>
-                            <td>Java Programming Fundamentals</td>
-                            <td>A</td>
-                        </tr>
-                        <tr>
-                            <td>Introduction to Computer Programming</td>
-                            <td>A-</td>
-                        </tr>
-                        <tr>
-                            <td>Discrete Structures</td>
-                            <td>A</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <h2>2015-2017
-                <small class="programme">Associate of Social Science in Public Relations and
-                    Advertising</small>
-                <small class="university">Community College of City University</small>
-            </h2>
-            <p>CGPA: 2.72</p>
-        </div>
-        <div id="skills" class="section before-animation">
-            <h1>Skills</h1>
-            <div class="skill">
-                <h3>C</h3>
-                <!--Display with div class="tag"s?-->
-                <p class="tags-heading">Skills learnt</p>
-                <div class="tags-container">
-                    <div class="tag">Basic syndex</div>
-                    <div class="tag">Address and pointers</div>
-                    <div class="tag">Dynamic memory allocation</div>
-                    <div class="tag">File I/O</div>
-                </div>
-            </div>
-            <div class="skill">
-                <h3>Java</h3>
-                <p class="tags-heading">Skills learnt</p>
-                <div class="tags-container">
-                    <div class="tag">Basic syndex</div>
-                    <div class="tag">Object oriented programming</div>
-                    <div class="tag">GUI programming with AWT and Swing</div>
-                    <div class="tag">File I/O</div>
-                    <div class="tag">Multi-Thread programming</div>
-                    <div class="tag">Database and Web programming</div>
-                    <div class="tag">Cryptography</div>
-                </div>
-            </div>
-            <div class="skill">
-                <h3>Python</h3>
-                <p class="tags-heading">Skills learnt</p>
-                <div class="tags-container">
-                    <div class="tag">Basic syndex</div>
-                </div>
-            </div>
-            <h2>Web Development</h2>
-            <div class="skill">
-                <h3>HTML & CSS</h3>
-                <p class="tags-heading">Skills learnt</p>
-                <div class="tags-container">
-                    <div class="tag">Selectors</div>
-                    <div class="tag">CSS properties</div>
-                    <div class="tag">HTML element tags</div>
-                    <div class="tag">CSS Flexbox</div>
-                    <div class="tag">CSS animation</div>
-                    <div class="tag">Accessibility</div>
-                    <div class="tag">Page layouts and graphic design</div>
-                    <div class="tag">Internationalisation and Localisation</div>
-                </div>
-            </div>
-            <div class="skill">
-                <h3>Vanilla JavaScript</h3>
-                <p class="tags-heading">Skills learnt</p>
-                <div class="tags-container">
-                    <div class="tag">Basic syndex</div>
-                    <div class="tag">Pass function as parameter</div>
-                    <div class="tag">Document interface</div>
-                    <div class="tag">Select DOM nodes/elements</div>
-                    <div class="tag">Edit page contents</div>
-                    <div class="tag">Inject inline CSS</div>
-                    <div class="tag">Create and edit JSON varieables</div>
-                    <div class="tag">addEventListener()</div>
-                    <div class="tag">async await</div>
-                    <div class="tag">setInterval() clearInterval()</div>
-                    <div class="tag">setTimeout()</div>
-                    <div class="tag">MutationObserver</div>
-                    <div class="tag">IntersectionObserver</div>
-                </div>
-            </div>
-            <div class="skill">
-                <h3>jQuery</h3>
-                <p class="tags-heading">Skills learnt</p>
-                <div class="tags-container">
-                    <div class="tag">jQuery objects</div>
-                    <div class="tag">Select DOM elements with $(...)</div>
-                    <div class="tag">Edit page contents</div>
-                    <div class="tag">css()</div>
-                    <div class="tag">html()</div>
-                    <div class="tag">each()</div>
-                    <div class="tag">grep()</div>
-                    <div class="tag">ajax()</div>
-                </div>
-            </div>
-            <div class="skill">
-                <h2>Programs / IDEs</h2>
-                <div class="tags-container">
-                    <div class="tag">Visual Studio Code</div>
-                    <div class="tag">Netsbean</div>
-                    <div class="tag">CMD / witing batch files(.bat)</div>
-                    <div class="tag">Powershell / witing script files (.ps1)</div>
-                </div>
-            </div>
-        </div>
-        <div id="projects" class="section before-animation">
-            <h1>Projects</h1>
-            <div class="section-item">
-                <h2>
-                    OUHK CGPA Calculator
-                    <span class="github-button">
-                        <script async defer src="https://buttons.github.io/buttons.js"></script>
-                        <a class="github-button" href="https://github.com/maxloh/OUHK-CGPA-Calculator"
-                            data-icon="octicon-star" data-size="large"
-                            aria-label="Star maxloh/OUHK-CGPA-Calculator on GitHub">Star</a>
-                    </span>
-                </h2>
-                <p>
-                    OUHK CGPA Calculator is a few lines of JavaScript code to help OUHK students calculate their
-                    CGPA. The calculater can be run directly in Chrome DevTools or used as a JavaScript bookmarklet.
-                    It automatically search for the respective table containing reuslts, parse the table to json
-                    varieable and calculate the CGPA. Than display the CGPA using the alert() function.
-                </p>
-                <div class="row gallery">
-                    <div class="col-12 col-md-3 gallery-item">
-                        <div class="img-container">
-                            <a href=".\assets\img\index\projects-cgpacalculator-1.png">
-                                <img src=".\assets\img\index\projects-cgpacalculator-1.png">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-3 gallery-item">
-                        <div class="img-container">
-                            <a href=".\assets\img\index\projects-cgpacalculator-2.png">
-                                <img src=".\assets\img\index\projects-cgpacalculator-2.png">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-3 gallery-item">
-                        <div class="img-container">
-                            <a href=".\assets\img\index\projects-cgpacalculator-3.png">
-                                <img src=".\assets\img\index\projects-cgpacalculator-3.png">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="section-item">
-                <h2>Secondary school website</h2>
-                <p>
-                    This website is written for the group project of my web accessibility course in college. In the
-                    project, I in charged of the design and coding of the website and my teammate was responsible
-                    for documentation. The final product was powered by Bootstrap. Contents of the website was
-                    reorganized into different sections and presented in a more user-friendly way. Different
-                    components like alternative text and ‘skip to contents’ navigation was added to the website to
-                    make it more accessible to people with disability.
-                </p>
-                <div class="row gallery">
-                    <div class="col-12 col-md-3 gallery-item">
-                        <div class="img-container">
-                            <a href=".\assets\img\index\projects-secondary-1.jpg">
-                                <img src=".\assets\img\index\projects-secondary-1.jpg">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-3 gallery-item">
-                        <div class="img-container">
-                            <a href=".\assets\img\index\projects-secondary-2.png">
-                                <img src=".\assets\img\index\projects-secondary-2.png">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-3 gallery-item">
-                        <div class="img-container">
-                            <a href=".\assets\img\index\projects-secondary-3.png">
-                                <img src=".\assets\img\index\projects-secondary-3.png">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-3 gallery-item">
-                        <div class="img-container">
-                            <a href=".\assets\img\index\projects-secondary-4.png">
-                                <img src=".\assets\img\index\projects-secondary-4.png">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-3 gallery-item">
-                        <div class="img-container">
-                            <a href=".\assets\img\index\projects-secondary-5.jpg">
-                                <img src=".\assets\img\index\projects-secondary-5.jpg">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-3 gallery-item">
-                        <div class="img-container">
-                            <a href=".\assets\img\index\projects-secondary-6.png">
-                                <img src=".\assets\img\index\projects-secondary-6.png">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="section-item">
-                <h2>This website</h2>
-                <p>
-                    In the past, I usually use web templates when I required to write a website in projects. This
-                    website, however, is written start from scratch to practice my skills in HTML and CSS. I also
-                    implement latest technology such as responsive web design and progressive web app to this
-                    website.
-                </p>
-            </div>
-        </div>
-    </main>
-    <footer>
-        Copyright &copy; 2019 Loh Ka Hong
-        <small>
-            <a id="resources-btn" href="javascript:void(0)">Resources and libraries</a> used to build this site
-        </small>
-    </footer>
-
-    <div class='overlay'>
+    <div class="overlay">
         <div class="overlay-container">
-            <a id='close-btn'>
+            <div class="close-btn" id="close-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path
                         d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
                 </svg>
-            </a>
+            </div>
             <div id="resources-list" class="container"></div>
         </div>
     </div>
 
+    <!--Compiled JavaScript-->
+    <script src="./assets/js/app.bundle.js"></script>
 </body>
 
 </html>

@@ -20,9 +20,8 @@
 
 - Font
 
-  - Main font: Source Sans Pro ([SIL Open Font License 1.1](https://github.com/adobe-fonts/source-sans-pro/blob/release/LICENSE.md))  
-  Font weight: heading 1 200, heading 2 600, paragraph 400  
-  <https://adobe-fonts.github.io/source-sans-pro/>
+  - Main font: Inter ([SIL Open Font License 1.1](https://github.com/rsms/inter/blob/master/LICENSE.txt))  
+  <https://github.com/rsms/inter>
 
   - Logo font: Jura 300 ([SIL Open Font License 1.1](https://github.com/ossobuffo/jura/blob/master/OFL.txt))  
   <https://github.com/ossobuffo/jura>
@@ -34,17 +33,11 @@
   - Font: Timmana ([SIL Open Font License 1.1](https://github.com/appajid/timmana/blob/master/OFL.txt))  
   <https://github.com/appajid/timmana>
 
-  - Created using: inkscape  
-  <https://inkscape.org/>
-  
-  - Converted to PNG with: ImageMagick  
-  <https://magick.imagemagick.org/>
-
 - Social 
 
-  - Font Awesome ([SIL Open Font License 1.1](https://github.com/FortAwesome/Font-Awesome/blob/master/LICENSE.txt))  
+  - https://feathericons.com/ ([MIT License](https://github.com/feathericons/feather))  
   GIthub and Email icon in header  
-  <https://fontawesome.com/>
+  <https://feathericons.com/>
 
   - github-buttons ([BSD 2-Clause License](https://github.com/ntkme/github-buttons/blob/master/LICENSE))  
   Github star button in Projects section  
@@ -62,6 +55,9 @@
 
 - SASS  
   <https://sass-lang.com/>
+
+- webpack  
+  <https://webpack.js.org/>
   
 - Visual Studio Code Insiders  
   <https://code.visualstudio.com/>

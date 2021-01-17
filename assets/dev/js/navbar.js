@@ -13,7 +13,7 @@ export const initNavbar = () => {
      * Let text of .nav-item stick to the edge of its parent element (.container), when navbar is not sticky
      */
 
-    var navbarObserver = new MutationObserver(function () {
+    const navbarObserver = new MutationObserver(function () {
         // if one of the .nav-link is active, meaning that navbar is sticking to top of the page
         if (deviceType === 'desktop') {
             if (document.querySelector('a.nav-link.active')) {
@@ -46,7 +46,7 @@ export const initNavbar = () => {
             event.preventDefault();
             let target = document.getElementById((event.target.href).substring((event.target.href).lastIndexOf('#') + 1));
             let offsetTop = target.getBoundingClientRect().top + window.scrollY;
-            let scrollY = offsetTop - navbarHeight;
+            let scrollY = offsetTop - navbarHeight - parseInt(getComputedStyle(document.documentElement).getPropertyValue('--navbar-margin'));
 
             if (css(target, 'opacity') < 1) {
                 let currentTranslateY = css(target, 'transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
@@ -62,7 +62,7 @@ export const initNavbar = () => {
                     behavior: 'smooth'
                 });
             }
-        })
+        });
     });
 
     /* 
@@ -73,17 +73,15 @@ export const initNavbar = () => {
     const pageCenter = Math.ceil(window.innerWidth / 2);
 
     addEventListener('scroll', () => {
-        if (deviceType === 'mobile' && navbar.getBoundingClientRect().top !== 0) return;
-
-        let activeLink = document.querySelector('a.nav-link.active');
+        const activeLink = document.querySelector('a.nav-link.active');
         if (activeLink) activeLink.classList.remove('active');
+        if (navbar.getBoundingClientRect().top !== 0) return;
 
+        let viewport = navbarHeight + 1;
         let element;
-        let viewport = deviceType === 'desktop' ? 1 : navbarHeight + 1;
-        while ((element = document.elementFromPoint(pageCenter, viewport).closest(".section")) === null) {
+        while ((element = document.elementFromPoint(pageCenter, viewport).closest(".row.section")) === null) {
             viewport += 100;
         }
-        console.log(element);
         document.querySelector('a.nav-link[href="#' + element.id + '"]').classList.add('active');
     });
-}
+};
