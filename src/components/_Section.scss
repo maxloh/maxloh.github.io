@@ -18,12 +18,10 @@ section {
 
     &.left {
       transform: translateX(-100vw);
-      opacity: 0;
     }
 
     &.right {
       transform: translateX(100vw);
-      opacity: 0;
     }
   }
 

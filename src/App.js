@@ -8,7 +8,16 @@ const getPlatform = () => (matchMedia('(pointer:fine)').matches && window.innerW
 const sectionContext = React.createContext();
 
 class App extends React.Component {
-  static transitioning = false;
+  state = {
+    platform: getPlatform(),
+    currentSection: 'header',
+    sectionsPosition: Object.assign({}, ...hrefList.map(href => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const position = href === 'header' ? '' : 'right';
+      return { [href]: position };
+    }))
+  };
+  transitioning = false;
 
   navigate = (detination) => {
     if (this.transitioning) return;
@@ -17,22 +26,20 @@ class App extends React.Component {
     const detinationIndex = hrefList.indexOf(detination);
     const currentSectionIndex = hrefList.indexOf(this.state.currentSection);
     const navigateToRight = detinationIndex > currentSectionIndex;
+    // There may be multiple sections to scroll if this function was triggered by navbar click
     const sectionsToAnimate = navigateToRight ? hrefList.slice(currentSectionIndex, detinationIndex) : hrefList.slice(detinationIndex + 1, currentSectionIndex + 1).reverse();
+
     let delay = 0;
+    const triggerTransition = (sectionName, direction) => {
+      setTimeout(() => this.setState({ sectionsPosition: { ...this.state.sectionsPosition, ...{ [sectionName]: direction } } }), delay);
+      delay += animationDuration;
+    };
 
     this.setState({ currentSection: detination });
     for (const section of sectionsToAnimate) {
-      setTimeout(() => this.setState(state => {
-        state.sectionsPosition[section] = navigateToRight ? 'left' : 'right';
-        return state;
-      }), delay);
-      delay += animationDuration;
+      triggerTransition(section, navigateToRight ? 'left' : 'right');
     }
-    setTimeout(() => this.setState(state => {
-      state.sectionsPosition[detination] = '';
-      return state;
-    }), delay);
-    delay += animationDuration;
+    triggerTransition(detination, '');
     setTimeout(() => this.transitioning = false, delay);
   };
 
@@ -43,30 +50,20 @@ class App extends React.Component {
     }
   };
 
-  constructor() {
-    super();
-    this.state = {
-      platform: getPlatform(),
-      currentSection: 'header',
-      sectionsPosition: Object.assign({}, ...hrefList.map(href => {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        const position = href === 'header' ? '' : 'right';
-        return { [href]: position };
-      }))
-    };
-  }
-
   componentDidMount() {
     window.addEventListener('resize', () => this.setState({ platform: getPlatform() }));
-    window.addEventListener('keydown', (event) => {
+    window.addEventListener('keydown', event => {
       if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return;
       this.scroll(event.key === 'ArrowDown' ? 'down' : 'up');
+    });
+    window.addEventListener('wheel', event => {
+      this.scroll(event.deltaY > 0 ? 'down' : 'up');
     });
   }
 
   render() {
     return (
-      <div className={`App ${this.state.platform}`} onWheel={event => this.scroll(event.deltaY > 0 ? 'down' : 'up')}>
+      <div className={`App ${this.state.platform}`}>
         <sectionContext.Provider value={{ currentSection: this.state.currentSection, navigate: this.navigate, sectionsPosition: this.state.sectionsPosition }}>
           {hrefList.map((href, index) => (
             <Section href={href} key={index} />
