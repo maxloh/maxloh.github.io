@@ -16,7 +16,7 @@ export const initPhotoSwipe = () => {
                [...nodeList].map(): use spread operator to convert nodeList to array and call the map function,
                while having better peroformence than Array.from(nodeList).map or Array.prototype.map.call(nodeList, function)
                https://measurethat.net/Benchmarks/Show/4507/0/arrayprototypemapcall-vs-arraymap */
-            items = [...imgElement.closest(galleryClass).querySelectorAll('img')].map(function (element) {
+            items = [...imgElement.closest(galleryClass).querySelectorAll('img')].map(element => {
                 if (element === imgElement) { index = count; }
                 count++;
                 // msrc: prevent PhotoSwipe displaying grey placeholder
@@ -27,7 +27,7 @@ export const initPhotoSwipe = () => {
         // define options
         let options = {
             index: index,
-            getThumbBoundsFn: function () {
+            getThumbBoundsFn: () => {
                 let pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
                     rect = imgElement.getBoundingClientRect();
                 return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
@@ -45,23 +45,23 @@ export const initPhotoSwipe = () => {
         pswp.init();
 
         // Prevent double shadow of .pswp__img and .pswp__img--placeholder
-        pswp.listen('initialZoomInEnd', function () {
+        pswp.listen('initialZoomInEnd', () => {
             css('.pswp__img--placeholder', { 'display': 'none' });
         });
 
-        pswp.listen('close', function () {
+        pswp.listen('close', () => {
             css('body', { 'overflow': '' });
         });
-    }
+    };
 
-    [...document.querySelectorAll('.gallery-item img')].forEach(function (element) {
+    for (const element of document.querySelectorAll('.gallery-item img')) {
         element.onclick = function (event) {
             // Prevent browser opening href links
             event.preventDefault();
             openPhotoSwipe(event.target, '.gallery');
             css('body', { 'overflow': 'hidden' });
-        }
-    });
+        };
+    }
 
     // Add PhotoSwipe (.pswp) element to page
     document.body.insertAdjacentHTML('beforeend',

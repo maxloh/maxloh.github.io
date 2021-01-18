@@ -5,7 +5,6 @@ export const initNavbar = () => {
      * Globel varieables
      */
 
-    const deviceType = (window.innerWidth < 768) ? 'mobile' : 'desktop';
     const navbar = document.getElementById('navbar');
     const navbarHeight = navbar.getBoundingClientRect().height;
 
@@ -13,36 +12,28 @@ export const initNavbar = () => {
      * Let text of .nav-item stick to the edge of its parent element (.container), when navbar is not sticky
      */
 
-    const navbarObserver = new MutationObserver(function () {
+    const navbarObserver = new MutationObserver(() => {
         // if one of the .nav-link is active, meaning that navbar is sticking to top of the page
-        if (deviceType === 'desktop') {
-            if (document.querySelector('a.nav-link.active')) {
-                navbar.classList.add('sticky');
-            } else {
-                navbar.classList.remove('sticky');
-            }
+        if (document.querySelector('a.nav-link.active')) {
+            navbar.classList.add('sticky');
         } else {
-            if (document.querySelector('a.nav-link.active')) {
-                navbar.classList.add('sticky');
-            } else {
-                navbar.classList.remove('sticky');
-            }
+            navbar.classList.remove('sticky');
         }
     });
-    [...document.getElementsByClassName('nav-link')].forEach(function (element) {
+    for (const element of document.getElementsByClassName('nav-link')) {
         navbarObserver.observe(element, {
             attributes: true,
             attributeFilter: ['class']
         });
-    });
+    }
 
     /* 
      * Offset jump links (html anchors) for the sticky navbar and amination, 
      * pointing them to the correct position
      */
 
-    document.querySelectorAll('#navbar a.nav-link').forEach(function (element) {
-        element.addEventListener('click', function (event) {
+    for (const element of document.querySelectorAll('#navbar a.nav-link')) {
+        element.addEventListener('click', event => {
             event.preventDefault();
             let target = document.getElementById((event.target.href).substring((event.target.href).lastIndexOf('#') + 1));
             let offsetTop = target.getBoundingClientRect().top + window.scrollY;
@@ -63,7 +54,7 @@ export const initNavbar = () => {
                 });
             }
         });
-    });
+    }
 
     /* 
      * Add scrollapy to page
