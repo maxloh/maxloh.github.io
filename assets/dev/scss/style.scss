@@ -108,7 +108,8 @@ body {
 }
 
 .container {
-    margin: var(--main-margin) auto;
+    margin: auto;
+    padding: var(--main-margin) 0;
 
     @include desktop {
         width: 900px;
@@ -192,7 +193,11 @@ body {
     }
 
     nav.navbar {
+        $navbar-offset-desktop: 1rem;
         $logo-width: calc(1.2rem * 1.5 + 0.5rem * 2);
+        $logo-spacing: calc((0.5rem + 10px)* 2);
+        $logo-full-width: calc(#{$navbar-offset-desktop} + #{$logo-width} + #{$logo-spacing});
+
         background-color: $base-color;
         margin: var(--navbar-margin) var(--navbar-strech);
         padding-right: calc(-1 * var(--navbar-strech));
@@ -200,17 +205,13 @@ body {
         position: sticky;
         top: 0;
         z-index: 1000;
-
-        @include mobile {
-            @include mainTransition ();
-        }
+        @include mainTransition ();
 
         @include desktop {
-            margin-left: calc(var(--navbar-strech) - 1rem);
+            margin-left: calc(var(--navbar-strech) - #{$navbar-offset-desktop});
             padding-top: 1rem;
             padding-bottom: 1rem;
             justify-content: flex-start;
-            transition: margin-left 250ms;
         }
 
         &.before-animation {
@@ -219,31 +220,46 @@ body {
         }
 
         &.sticky {
-            // 4 dp shadow in material design
-            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
+            @include mobile {
+                // 4 dp shadow in material design
+                box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
+            }
 
             @include desktop {
                 // 8 dp shadow in material design
                 box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
 
                 a.logo {
+                    margin-right: 0;
+
                     img {
-                        width: calc(#{$logo-width} + calc((0.5rem + 10px)* 2));
-                        padding-right: calc((0.5rem + 10px)* 2);
-                        margin-left: 1rem;
+                        width: $logo-width;
                     }
                 }
             }
         }
 
         a.logo {
-            height: $logo-width;
-            display: flex;
-            justify-content: center;
+            @include desktop {
+                $logo-transition-duration-desktop: 250ms;
+                // Content height would change during transition
+                height: $logo-width;
+                width: $logo-full-width;
+                margin-right: calc(-1 * #{$logo-full-width});
+                display: flex;
+                justify-content: center;
+                transition: margin-right $logo-transition-duration-desktop;
 
-            img {
-                width: 0;
-                transition: width 250ms;
+                img {
+                    width: 0;
+                    margin-left: 1rem;
+                    margin-right: $logo-spacing;
+                    transition: width $logo-transition-duration-desktop;
+                }
+            }
+
+            @include mobile {
+                display: none;
             }
         }
 
@@ -386,8 +402,6 @@ body {
     }
 
     footer {
-        padding-bottom: var(--main-margin);
-
         small {
             display: block;
 
