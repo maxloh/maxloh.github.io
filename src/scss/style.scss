@@ -67,7 +67,7 @@ $body-color: $font-color;
 
     @include tablet {
         // overwrite desktop's value
-        --container-width: 720px;
+        --container-width: 768px;
     }
 }
 
@@ -341,14 +341,14 @@ body {
 
             &.programme {
                 display: block;
-                margin-top: 10px;
+                margin-top: 0;
                 font-size: 1.75rem;
                 font-weight: 600;
             }
 
             &.university {
                 display: block;
-                margin-top: 10px;
+                margin-top: 0;
                 font-size: 1.5rem;
                 font-weight: 500;
             }
