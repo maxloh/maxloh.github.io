@@ -1,7 +1,7 @@
 import * as Remarkable from 'remarkable';
-import { css } from './functions';
 
 export const initResourcesList = () => {
+    const overlay = document.getElementsByClassName('overlay')[0];
     fetch(`${location.origin}/assets/md/resources.md`).then((response) => {
         response.text().then((text) => {
             document.getElementById('resources-list').innerHTML = new Remarkable().render(text);
@@ -9,12 +9,14 @@ export const initResourcesList = () => {
     });
 
     document.getElementById('resources-btn').onclick = () => {
-        css('.overlay', { 'visibility': 'visible', 'opacity': '1' });
-        css('body', { 'overflow': 'hidden' });
+        overlay.style.visibility = 'visible';
+        overlay.style.opacity = 1;
+        document.body.style.overflow = 'hidden';
     };
 
     document.getElementById('close-btn').onclick = () => {
-        css('.overlay', { 'visibility': '', 'opacity': '' });
-        css('body', { 'overflow': '' });
+        overlay.style.visibility = '';
+        overlay.style.opacity = '';
+        document.body.style.overflow = '';
     };
 };

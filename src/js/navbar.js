@@ -1,5 +1,3 @@
-import { css } from './functions';
-
 export const initNavbar = () => {
     /*
      * Globel varieables
@@ -39,8 +37,8 @@ export const initNavbar = () => {
             let offsetTop = target.getBoundingClientRect().top + window.scrollY;
             let scrollY = offsetTop - navbarHeight - parseInt(getComputedStyle(document.documentElement).getPropertyValue('--navbar-margin'));
 
-            if (css(target, 'opacity') < 1) {
-                let currentTranslateY = css(target, 'transform').match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
+            if (getComputedStyle(target).opacity < 1) {
+                let currentTranslateY = getComputedStyle(target).transform.match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
                 window.scroll({
                     top: Math.ceil(scrollY) - Math.floor(currentTranslateY),
                     behavior: 'smooth'
@@ -69,22 +67,28 @@ export const initNavbar = () => {
 
         let viewport = navbarHeight + 1;
         let element;
-        while ((element = document.elementFromPoint(pageCenter, viewport).closest(".row.section")) === null) {
+        do {
+            element = document.elementFromPoint(pageCenter, viewport).closest(".row.section");
             viewport += 100;
-        }
+        } while (element === null);
         document.querySelector('a.nav-link[href="#' + element.id + '"]').classList.add('active');
     };
 
     addEventListener('scroll', scrollHandler);
-    if ((window.scrollY || window.pageYOffset) !== 0) {
-        const transitionDuration = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--show-transition-duration'));
-        // Check for navbar top value until it is zero
-        setTimeout(() => {
-            const interval = setInterval(() => {
-                if (navbar.getBoundingClientRect().top !== 0) return;
-                clearInterval(interval);
-                scrollHandler();
-            }, 10);
-        }, transitionDuration);
-    }
+
+    // window.scrollY may be 0 at page reload, but updated after 100ms
+    const delay = 100;
+    setTimeout(() => {
+        if ((window.scrollY || window.pageYOffset) !== 0) {
+            const transitionDuration = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--show-transition-duration'));
+            // Check for navbar top value until it is zero
+            setTimeout(() => {
+                const interval = setInterval(() => {
+                    if (navbar.getBoundingClientRect().top !== 0) return;
+                    clearInterval(interval);
+                    scrollHandler();
+                }, 10);
+            }, transitionDuration - delay);
+        }
+    }, delay);
 };
