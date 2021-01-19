@@ -37,8 +37,8 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|gif|svg)$/,
-        use: 'url-loader'
+        test: /\.html$/,
+        use: 'html-loader'
       },
       {
         test: /\.md$/,
@@ -53,6 +53,10 @@ module.exports = {
             },
           },
         ]
+      },
+      {
+        test: /\.(png|gif|svg)$/,
+        use: 'url-loader'
       },
       // {
       //   test: /\.(woff2)$/,
