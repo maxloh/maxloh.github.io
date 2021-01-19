@@ -27,26 +27,24 @@ $body-color: $font-color;
 @import "gallery";
 
 @mixin mobile {
-    @media (max-width: $desktop-width - 1) {
+    @include media-breakpoint-down(md) {
         @content;
     }
 }
 
 @mixin tablet {
-    @media (min-width: $desktop-width) and (max-width: 992px - 1) {
-        @content;
+    @include media-breakpoint-up(md) {
+        @include media-breakpoint-down(lg) {
+            @content;
+        }
     }
 }
 
 /* Desktop and tablet */
 @mixin desktop {
-    @media (min-width: $desktop-width) {
+    @include media-breakpoint-up(md) {
         @content;
     }
-}
-
-@mixin mainTransition ($property: null) {
-    transition: transform 1250ms, opacity 1250ms, $property;
 }
 
 :root {
@@ -61,17 +59,17 @@ $body-color: $font-color;
         --navbar-strech: calc(-1 * #{$navbar-padding});
     }
 
-    @include tablet {
-        /* !important: overwrite desktop's value */
-        --container-width: 720px !important;
-    }
-
     @include desktop {
         --main-margin: 70px;
         --navbar-margin: 25px;
         --section-margin: 70px;
         --navbar-strech: calc(-1 * ((100vw - var(--container-width)) / 2 + #{$navbar-padding}));
         --container-width: 900px;
+    }
+
+    @include tablet {
+        // overwrite desktop's value
+        --container-width: 720px;
     }
 }
 
