@@ -1,5 +1,3 @@
-# Resources and libraries
-
 ## Library
 
 - Bootstrap ([MIT License](https://github.com/twbs/bootstrap/blob/master/LICENSE))  

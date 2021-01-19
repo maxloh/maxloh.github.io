@@ -100,10 +100,6 @@ body {
         margin-bottom: 1rem;
         font-weight: 400;
     }
-
-    h2 {
-        font-weight: 600;
-    }
 }
 
 .container {
@@ -473,11 +469,21 @@ body {
 
         #resources-list {
             h2 {
-                margin-top: 3rem;
-            }
+                font-weight: 300;
 
-            h3 {
-                margin-top: 1.5rem;
+                @include desktop {
+                    margin: 4rem 0 1.5rem;
+                    font-size: 2rem;
+                }
+
+                @include mobile {
+                    margin-top: 3rem;
+                    font-size: 1.75rem;
+                }
+
+                &:first-child {
+                    margin-top: 0;
+                }
             }
 
             li {
