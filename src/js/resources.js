@@ -1,12 +1,8 @@
-import * as Remarkable from 'remarkable';
+import resources from '../md/resources.md';
 
 export const initResourcesList = () => {
+    document.getElementById('resources-list').innerHTML = resources;
     const overlay = document.getElementsByClassName('overlay')[0];
-    fetch(`${location.origin}/assets/md/resources.md`).then((response) => {
-        response.text().then((text) => {
-            document.getElementById('resources-list').innerHTML = new Remarkable().render(text);
-        });
-    });
 
     document.getElementById('resources-btn').onclick = () => {
         overlay.style.visibility = 'visible';

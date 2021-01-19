@@ -1,5 +1,6 @@
 const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const RemarkHTML = require("remark-html");
 
 module.exports = {
   entry: ['./src/js/app.js', './src/scss/style.scss'],
@@ -17,7 +18,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [['@babel/preset-env', { targets: "defaults" }]]
+            presets: [['@babel/preset-env', { targets: 'defaults' }]]
           }
         }
       },
@@ -30,28 +31,38 @@ module.exports = {
           {
             loader: 'sass-loader', options: {
               sourceMap: true,
-              includePaths: ["node_modules"]
+              includePaths: ['node_modules']
             }
           }
         ]
       },
       {
         test: /\.(png|gif|svg)$/,
-        use: [{
-          loader: 'url-loader',
-        }]
+        use: 'url-loader'
       },
       {
-        test: /\.(woff2)$/,
-        use: [{
-          loader: 'file-loader',
-        }]
-      }
+        test: /\.md$/,
+        use: [
+          'html-loader',
+          {
+            loader: "remark-loader",
+            options: {
+              remarkOptions: {
+                plugins: [RemarkHTML],
+              },
+            },
+          },
+        ]
+      },
+      // {
+      //   test: /\.(woff2)$/,
+      //   use: 'file-loader'
+      // }
     ]
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "../css/style.css"
+      filename: '../css/style.css'
     })
   ]
 };
