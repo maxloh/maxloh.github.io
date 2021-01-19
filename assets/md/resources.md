@@ -9,10 +9,6 @@
   Power the screenshot gallery in Projects section  
   <https://photoswipe.com/>
 
-- remarkable ([MIT License](https://github.com/jonschlinkert/remarkable/blob/master/LICENSE))  
-  Parse markdown to HTML in Resources section  
-  <https://github.com/jonschlinkert/remarkable>
-
 ## Design
 
 - Color scheme: Open color ([MIT License](https://github.com/yeun/open-color/blob/master/LICENSE))  
@@ -23,9 +19,6 @@
   - Main font: Inter ([SIL Open Font License 1.1](https://github.com/rsms/inter/blob/master/LICENSE.txt))  
   <https://github.com/rsms/inter>
 
-  - Logo font: Jura 300 ([SIL Open Font License 1.1](https://github.com/ossobuffo/jura/blob/master/OFL.txt))  
-  <https://github.com/ossobuffo/jura>
-
   - Delivered by [Google Fonts](https://fonts.google.com)
 
 - Website favicon
@@ -35,7 +28,7 @@
 
 - Social 
 
-  - https://feathericons.com/ ([MIT License](https://github.com/feathericons/feather))  
+  - Feather Icons ([MIT License](https://github.com/feathericons/feather))  
   GIthub and Email icon in header  
   <https://feathericons.com/>
 
