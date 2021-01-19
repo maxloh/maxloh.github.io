@@ -11,7 +11,7 @@ export const initAnimation = () => {
             if (entry.intersectionRatio > 0) {
                 animationObserver.unobserve(entry.target);
                 setTimeout(() => {
-                    entry.target.classList.remove('before-animation');
+                    entry.target.classList.add('show');
                     delay -= 500;
                 }, delay);
                 delay += 500;

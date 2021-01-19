@@ -3,6 +3,8 @@ $base-color: #212529;
 $font-color: #adb5bd;
 $desktop-width: 768px;
 $navbar-padding: 15px;
+$show-transition: transform var(--show-transition-duration),
+opacity var(--show-transition-duration);
 
 // Override Bootstrap's variables
 $body-bg: $base-color;
@@ -48,6 +50,7 @@ $body-color: $font-color;
 }
 
 :root {
+    --show-transition-duration: 1250ms; // For JS to read the value
     --section-translateY: calc(var(--section-margin) * 0.6);
     --navbar-translateY: var(--navbar-margin);
 
@@ -197,6 +200,7 @@ body {
         $logo-width: calc(1.2rem * 1.5 + 0.5rem * 2);
         $logo-spacing: calc((0.5rem + 10px)* 2);
         $logo-full-width: calc(#{$navbar-offset-desktop} + #{$logo-width} + #{$logo-spacing});
+        $logo-transition-duration-desktop: 250ms;
 
         background-color: $base-color;
         margin: var(--navbar-margin) var(--navbar-strech);
@@ -205,7 +209,9 @@ body {
         position: sticky;
         top: 0;
         z-index: 1000;
-        @include mainTransition ();
+        transition: $show-transition;
+        opacity: 0;
+        transform: translateY(var(--navbar-translateY));
 
         @include desktop {
             margin-left: calc(var(--navbar-strech) - #{$navbar-offset-desktop});
@@ -214,9 +220,9 @@ body {
             justify-content: flex-start;
         }
 
-        &.before-animation {
-            opacity: 0;
-            transform: translateY(var(--navbar-translateY));
+        &.show {
+            opacity: 1;
+            transform: none;
         }
 
         &.sticky {
@@ -241,7 +247,6 @@ body {
 
         a.logo {
             @include desktop {
-                $logo-transition-duration-desktop: 250ms;
                 // Content height would change during transition
                 height: $logo-width;
                 width: $logo-full-width;
@@ -354,11 +359,13 @@ body {
         .section {
             margin-top: var(--section-margin);
             margin-bottom: var(--section-margin);
-            @include mainTransition ();
+            transition: $show-transition;
+            opacity: 0;
+            transform: translateY(var(--section-translateY));
 
-            &.before-animation {
-                opacity: 0;
-                transform: translateY(var(--section-translateY));
+            &.show {
+                opacity: 1;
+                transform: none;
             }
 
             .content {

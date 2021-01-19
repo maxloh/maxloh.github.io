@@ -62,8 +62,7 @@ export const initNavbar = () => {
 
     // Horizontal center of the page
     const pageCenter = Math.ceil(window.innerWidth / 2);
-
-    addEventListener('scroll', () => {
+    const scrollHandler = () => {
         const activeLink = document.querySelector('a.nav-link.active');
         if (activeLink) activeLink.classList.remove('active');
         if (navbar.getBoundingClientRect().top !== 0) return;
@@ -74,5 +73,18 @@ export const initNavbar = () => {
             viewport += 100;
         }
         document.querySelector('a.nav-link[href="#' + element.id + '"]').classList.add('active');
-    });
+    };
+
+    addEventListener('scroll', scrollHandler);
+    if ((window.scrollY || window.pageYOffset) !== 0) {
+        const transitionDuration = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--show-transition-duration'));
+        // Check for navbar top value until it is zero
+        setTimeout(() => {
+            const interval = setInterval(() => {
+                if (navbar.getBoundingClientRect().top !== 0) return;
+                clearInterval(interval);
+                scrollHandler();
+            }, 10);
+        }, transitionDuration);
+    }
 };
