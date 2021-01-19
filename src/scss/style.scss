@@ -2,7 +2,6 @@ $accent-color: #63e6be;
 $base-color: #212529;
 $font-color: #adb5bd;
 $desktop-width: 768px;
-$navbar-padding: 15px;
 $show-transition: transform var(--show-transition-duration),
 opacity var(--show-transition-duration);
 
@@ -53,17 +52,16 @@ $body-color: $font-color;
     --navbar-translateY: var(--navbar-margin);
 
     @include mobile {
-        --main-margin: 40px;
+        --bs-gutter-x: 1.5rem; // Copied from Bootstrap
         --section-margin: 40px;
         --navbar-margin: 20px;
-        --navbar-strech: calc(-1 * #{$navbar-padding});
+        --navbar-strech: calc(-1 * var(--bs-gutter-x));
     }
 
     @include desktop {
-        --main-margin: 70px;
         --navbar-margin: 25px;
         --section-margin: 70px;
-        --navbar-strech: calc(-1 * ((100vw - var(--container-width)) / 2 + #{$navbar-padding}));
+        --navbar-strech: calc(-1 * ((100vw - var(--container-width)) / 2 + 15px));
         --container-width: 900px;
     }
 
@@ -110,17 +108,21 @@ body {
 
 .container {
     margin: auto;
-    padding: var(--main-margin) 0;
 
     @include desktop {
         width: 900px;
+        padding: var(--section-margin) 0;
+    }
+
+    @include mobile {
+        padding-top: calc(var(--section-margin) + 20px);
+        padding-bottom: var(--section-margin);
     }
 
     .header {
-        margin-top: var(--navbar-margin) 0px;
-
         @include desktop {
             align-items: center;
+            margin-top: 20px;
         }
 
         .logo {
@@ -133,10 +135,6 @@ body {
             @include mobile {
                 padding-bottom: .25rem;
                 margin-bottom: var(--navbar-margin);
-            }
-
-            @include desktop {
-                margin-left: -5px;
             }
 
             &:hover {
@@ -181,7 +179,10 @@ body {
                 text-align: center;
                 text-transform: uppercase;
                 text-decoration: none;
-                margin: 0px 20px;
+
+                &:not(:last-child) {
+                    margin-right: 40px;
+                }
 
                 svg {
                     display: block;
@@ -215,6 +216,7 @@ body {
             margin-left: calc(var(--navbar-strech) - #{$navbar-offset-desktop});
             padding-top: 1rem;
             padding-bottom: 1rem;
+            margin-bottom: -1.5rem;
             justify-content: flex-start;
         }
 
@@ -311,7 +313,7 @@ body {
     }
 
     main {
-        margin: var(--main-margin) 0px;
+        margin: var(--section-margin) 0px;
 
         h1 {
             @include mobile {
@@ -334,23 +336,25 @@ body {
         }
 
         h2 {
+            font-weight: 300;
+
             span.github-button {
                 vertical-align: middle;
                 margin-left: 0.5rem;
             }
 
-            small {
-                &.programme {
-                    display: block;
-                    margin-top: 10px;
-                    font-size: 1.75rem;
-                }
+            &.programme {
+                display: block;
+                margin-top: 10px;
+                font-size: 1.75rem;
+                font-weight: 600;
+            }
 
-                &.university {
-                    display: block;
-                    margin-top: 10px;
-                    font-size: 1.2rem;
-                }
+            &.university {
+                display: block;
+                margin-top: 10px;
+                font-size: 1.5rem;
+                font-weight: 500;
             }
         }
 
