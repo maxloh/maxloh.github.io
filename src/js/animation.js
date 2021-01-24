@@ -3,7 +3,7 @@ import 'intersection-observer';
 export const initAnimation = () => {
     let delay = 0;
     const navbar = document.getElementById('navbar');
-    const section = document.querySelectorAll('main>.section');
+    const section = document.getElementsByClassName('section');
 
     const animationObserver = new IntersectionObserver((entries, animationObserver) => {
         for (const entry of entries) {

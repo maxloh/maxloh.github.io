@@ -12,7 +12,7 @@ export const initNavbar = () => {
 
     const navbarObserver = new MutationObserver(() => {
         // if one of the .nav-link is active, meaning that navbar is sticking to top of the page
-        if (document.querySelector('a.nav-link.active')) {
+        if (document.getElementsByClassName('nav-link active').length !== 0) {
             navbar.classList.add('sticky');
         } else {
             navbar.classList.remove('sticky');
@@ -30,15 +30,15 @@ export const initNavbar = () => {
      * pointing them to the correct position
      */
 
-    for (const element of document.querySelectorAll('#navbar a.nav-link')) {
+    for (const element of document.getElementsByClassName('nav-link')) {
         element.addEventListener('click', event => {
             event.preventDefault();
-            let target = document.getElementById((event.target.href).substring((event.target.href).lastIndexOf('#') + 1));
-            let offsetTop = target.getBoundingClientRect().top + window.scrollY;
-            let scrollY = offsetTop - navbarHeight - parseInt(getComputedStyle(document.documentElement).getPropertyValue('--navbar-margin'));
+            const target = document.getElementById((event.target.href).substring((event.target.href).lastIndexOf('#') + 1));
+            const offsetTop = target.getBoundingClientRect().top + window.scrollY;
+            const scrollY = offsetTop - navbarHeight - parseInt(getComputedStyle(document.documentElement).getPropertyValue('--navbar-margin'));
 
             if (getComputedStyle(target).opacity < 1) {
-                let currentTranslateY = getComputedStyle(target).transform.match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
+                const currentTranslateY = getComputedStyle(target).transform.match(/matrix\(.*, (\d*\.?\d+)\)/)[1];
                 window.scroll({
                     top: Math.ceil(scrollY) - Math.floor(currentTranslateY),
                     behavior: 'smooth'

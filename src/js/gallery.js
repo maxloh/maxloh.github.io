@@ -4,33 +4,22 @@ import photoswipeElement from '../html/photoswipe.html';
 
 export const initPhotoSwipe = () => {
     const openPhotoSwipe = (imgElement, galleryClass) => {
-        let pswpElement = document.querySelector('.pswp');
+        const pswpElement = document.getElementsByClassName('pswp')[0];
 
         // build items array, record element index
-        let index = 0;
-        let items;
-
-        {
-            let count = 0;
-            /* imgElement.closest(galleryClass).querySelectorAll('img'): select all img elements on the same level
-               [...nodeList].map(): use spread operator to convert nodeList to array and call the map function,
-               while having better peroformence than Array.from(nodeList).map or Array.prototype.map.call(nodeList, function)
-               https://measurethat.net/Benchmarks/Show/4507/0/arrayprototypemapcall-vs-arraymap */
-            items = [...imgElement.closest(galleryClass).querySelectorAll('img')].map(element => {
-                if (element === imgElement) { index = count; }
-                count++;
-                // msrc: prevent PhotoSwipe displaying grey placeholder
-                return { src: element.currentSrc, msrc: element.currentSrc, w: element.naturalWidth, h: element.naturalHeight };
-            });
-        }
+        let imgIndex = 0;
+        const items = [...imgElement.closest(galleryClass).getElementsByTagName('img')].map((element, index) => {
+            if (element === imgElement) { imgIndex = index; }
+            // msrc: prevent PhotoSwipe displaying grey placeholder
+            return { src: element.currentSrc, msrc: element.currentSrc, w: element.naturalWidth, h: element.naturalHeight };
+        });
 
         // define options
-        let options = {
-            index: index,
+        const options = {
+            index: imgIndex,
             getThumbBoundsFn: () => {
-                let pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
-                    rect = imgElement.getBoundingClientRect();
-                return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+                const rect = imgElement.getBoundingClientRect();
+                return { x: rect.left, y: rect.top + window.scrollY, w: rect.width };
             },
             showHideOpacity: true,
             /* bgOpacity: 0.32 -> Scrim opacity in material design dialogs
@@ -41,7 +30,7 @@ export const initPhotoSwipe = () => {
         };
 
         // Initializes and opens PhotoSwipe
-        let pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+        const pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
         pswp.init();
 
         // Prevent double shadow of .pswp__img and .pswp__img--placeholder
