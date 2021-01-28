@@ -4,12 +4,20 @@ const RemarkHTML = require("remark-html");
 
 module.exports = {
   entry: ['./src/js/app.js', './src/scss/style.scss'],
-  mode: 'production',
   output: {
     filename: 'app.bundle.js',
-    path: path.resolve(__dirname, './assets/js/'),
+    path: path.resolve(__dirname, './assets/js/')
   },
+  mode: 'production',
   devtool: 'source-map',
+  devServer: {
+    contentBase: __dirname,
+    compress: true,
+    port: 80
+  },
+  plugins: [
+    new MiniCssExtractPlugin({ filename: '../css/style.css' })
+  ],
   module: {
     rules: [
       {
@@ -18,7 +26,9 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [['@babel/preset-env', { targets: 'defaults' }]]
+            presets: [
+              ['@babel/preset-env', { targets: 'defaults' }]
+            ]
           }
         }
       },
@@ -29,9 +39,10 @@ module.exports = {
           'css-loader',
           'resolve-url-loader',
           {
-            loader: 'sass-loader', options: {
+            loader: 'sass-loader',
+            options: {
               sourceMap: true,
-              includePaths: ['node_modules']
+              sassOptions: { includePaths: ['node_modules'] }
             }
           }
         ]
@@ -47,26 +58,15 @@ module.exports = {
           {
             loader: "remark-loader",
             options: {
-              remarkOptions: {
-                plugins: [RemarkHTML],
-              },
-            },
-          },
+              remarkOptions: { plugins: [RemarkHTML] }
+            }
+          }
         ]
       },
       {
-        test: /\.(png|gif|svg)$/,
-        use: 'url-loader'
-      },
-      // {
-      //   test: /\.(woff2)$/,
-      //   use: 'file-loader'
-      // }
+        test: /\.(gif|png|svg)/,
+        type: 'asset/inline'
+      }
     ]
-  },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: '../css/style.css'
-    })
-  ]
+  }
 };

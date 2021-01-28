@@ -10,23 +10,23 @@
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "babel-loader": "^8.2.2",
-    "css-loader": "^3.6.0",
-    "file-loader": "^4.3.0",
+    "css-loader": "^5.0.1",
     "html-loader": "^1.3.2",
-    "mini-css-extract-plugin": "^0.7.0",
+    "mini-css-extract-plugin": "^1.3.5",
     "remark": "^13.0.0",
     "remark-html": "^13.0.1",
     "remark-loader": "^2.0.0",
     "resolve-url-loader": "^3.1.2",
-    "sass": "^1.32.4",
-    "sass-loader": "^7.3.1",
-    "url-loader": "^2.3.0",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12"
+    "sass": "^1.32.5",
+    "sass-loader": "^10.1.1",
+    "webpack": "^5.18.0",
+    "webpack-cli": "^4.4.0",
+    "webpack-dev-server": "^3.11.2"
   },
   "scripts": {
+    "start": "npm run watch",
     "build": "webpack",
-    "watch": "webpack --mode development --watch"
+    "watch": "webpack serve --open --mode development"
   },
   "repository": {
     "type": "git",
