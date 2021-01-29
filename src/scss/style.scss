@@ -3,494 +3,498 @@ $base-color: #212529;
 $font-color: #adb5bd;
 $desktop-width: 768px;
 $show-transition: transform var(--show-transition-duration),
-opacity var(--show-transition-duration);
+  opacity var(--show-transition-duration);
 
 // Override Bootstrap's variables
 $body-bg: $base-color;
 $body-color: $font-color;
 
 // import Bootstrap CSS
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/mixins";
-@import "bootstrap/scss/nav";
-@import "bootstrap/scss/navbar";
-@import "bootstrap/scss/reboot";
-@import "bootstrap/scss/containers";
-@import "bootstrap/scss/grid";
-
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/nav';
+@import 'bootstrap/scss/navbar';
+@import 'bootstrap/scss/reboot';
+@import 'bootstrap/scss/containers';
+@import 'bootstrap/scss/grid';
 
 // import PhotoSwipe CSS
-@import "photoswipe/dist/default-skin/default-skin";
-@import "photoswipe/dist/photoswipe";
-@import "gallery";
+@import 'photoswipe/dist/default-skin/default-skin';
+@import 'photoswipe/dist/photoswipe';
+@import 'gallery';
 
 @mixin mobile {
-    @include media-breakpoint-down(md) {
-        @content;
-    }
+  @include media-breakpoint-down(md) {
+    @content;
+  }
 }
 
 @mixin tablet {
-    @include media-breakpoint-up(md) {
-        @include media-breakpoint-down(lg) {
-            @content;
-        }
+  @include media-breakpoint-up(md) {
+    @include media-breakpoint-down(lg) {
+      @content;
     }
+  }
 }
 
 /* Desktop and tablet */
 @mixin desktop {
-    @include media-breakpoint-up(md) {
-        @content;
-    }
+  @include media-breakpoint-up(md) {
+    @content;
+  }
 }
 
 :root {
-    --show-transition-duration: 1250ms; // For JS to read the value
-    --section-translateY: calc(var(--section-margin) * 0.6);
-    --navbar-translateY: var(--navbar-margin);
+  --show-transition-duration: 1250ms; // For JS to read the value
+  --section-translateY: calc(var(--section-margin) * 0.6);
+  --navbar-translateY: var(--navbar-margin);
 
-    @include mobile {
-        --bs-gutter-x: 1.5rem; // Copied from Bootstrap
-        --section-margin: 40px;
-        --navbar-margin: 20px;
-        --navbar-strech: calc(-1 * var(--bs-gutter-x));
-    }
+  @include mobile {
+    --bs-gutter-x: 1.5rem; // Copied from Bootstrap
+    --section-margin: 40px;
+    --navbar-margin: 20px;
+    --navbar-strech: calc(-1 * var(--bs-gutter-x));
+  }
 
-    @include desktop {
-        --navbar-margin: 25px;
-        --section-margin: 70px;
-        --navbar-strech: calc(-1 * ((100vw - var(--container-width)) / 2 + 15px));
-        --container-width: 900px;
-    }
+  @include desktop {
+    --navbar-margin: 25px;
+    --section-margin: 70px;
+    --navbar-strech: calc(-1 * ((100vw - var(--container-width)) / 2 + 15px));
+    --container-width: 900px;
+  }
 
-    @include tablet {
-        // overwrite desktop's value
-        --container-width: 768px;
-    }
+  @include tablet {
+    // overwrite desktop's value
+    --container-width: 768px;
+  }
 }
 
 html {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    background-color: $base-color;
-    color: $font-color;
-    font-family: Inter, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  background-color: $base-color;
+  color: $font-color;
+  font-family: Inter, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-weight: 400;
+  overflow-x: hidden;
+
+  @include desktop {
+    font-size: 1.2rem;
+  }
+
+  a {
+    color: $accent-color;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
     font-weight: 400;
-    overflow-x: hidden;
-
-    @include desktop {
-        font-size: 1.2rem;
-    }
-
-    a {
-        color: $accent-color;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        margin-top: 2.5rem;
-        margin-bottom: 1rem;
-        font-weight: 400;
-    }
+  }
 }
 
 .container {
-    margin: auto;
+  margin: auto;
+
+  @include desktop {
+    width: 900px;
+    padding: var(--section-margin) 0;
+  }
+
+  @include mobile {
+    padding-top: calc(var(--section-margin) + 20px);
+    padding-bottom: var(--section-margin);
+  }
+
+  .header {
+    @include desktop {
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      color: $font-color;
+      text-decoration: none;
+      font-size: 50px;
+
+      @include mobile {
+        padding-bottom: 0.25rem;
+        margin-bottom: var(--navbar-margin);
+      }
+
+      &:hover {
+        text-decoration: none;
+      }
+
+      img {
+        height: 1em;
+
+        @include mobile {
+          margin-right: 0.5ex;
+        }
+
+        @include desktop {
+          margin-right: 0.7ex;
+        }
+      }
+
+      span {
+        font-weight: 200;
+        line-height: 1em;
+        text-transform: uppercase;
+
+        @include desktop {
+          letter-spacing: 2px;
+        }
+      }
+    }
+
+    .social {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+
+      @include mobile {
+        margin-right: auto;
+      }
+
+      .social-link {
+        display: block;
+        color: $font-color;
+        text-align: center;
+        text-transform: uppercase;
+        text-decoration: none;
+
+        &:not(:last-child) {
+          margin-right: 40px;
+        }
+
+        svg {
+          display: block;
+          height: 25px;
+          margin: 0 auto 5px;
+        }
+      }
+    }
+  }
+
+  nav.navbar {
+    $navbar-offset-desktop: 1rem;
+    $logo-width: calc(1.2rem * 1.5 + 0.5rem * 2);
+    $logo-spacing: calc((0.5rem + 10px) * 2);
+    $logo-full-width: calc(
+      #{$navbar-offset-desktop} + #{$logo-width} + #{$logo-spacing}
+    );
+    $logo-transition-duration-desktop: 250ms;
+
+    background-color: $base-color;
+    margin: var(--navbar-margin) var(--navbar-strech);
+    padding-right: calc(-1 * var(--navbar-strech));
+    padding-left: calc(-1 * var(--navbar-strech));
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: $show-transition;
+    opacity: 0;
+    transform: translateY(var(--navbar-translateY));
 
     @include desktop {
-        width: 900px;
-        padding: var(--section-margin) 0;
+      margin-left: calc(var(--navbar-strech) - #{$navbar-offset-desktop});
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      margin-bottom: -1.5rem;
+      justify-content: flex-start;
     }
 
-    @include mobile {
-        padding-top: calc(var(--section-margin) + 20px);
-        padding-bottom: var(--section-margin);
+    &.show {
+      opacity: 1;
+      transform: none;
     }
 
-    .header {
-        @include desktop {
-            align-items: center;
-            margin-top: 20px;
-        }
+    &.sticky {
+      @include mobile {
+        // 4 dp shadow in material design
+        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
+          0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+      }
 
-        .logo {
-            display: flex;
-            justify-content: center;
-            color: $font-color;
-            text-decoration: none;
-            font-size: 50px;
-
-            @include mobile {
-                padding-bottom: .25rem;
-                margin-bottom: var(--navbar-margin);
-            }
-
-            &:hover {
-                text-decoration: none;
-            }
-
-            img {
-                height: 1em;
-
-                @include mobile {
-                    margin-right: 0.5ex;
-                }
-
-                @include desktop {
-                    margin-right: .7ex;
-                }
-            }
-
-            span {
-                font-weight: 200;
-                line-height: 1em;
-                text-transform: uppercase;
-
-                @include desktop {
-                    letter-spacing: 2px;
-                }
-            }
-        }
-
-        .social {
-            display: flex;
-            align-items: center;
-            margin-left: auto;
-
-            @include mobile {
-                margin-right: auto;
-            }
-
-            .social-link {
-                display: block;
-                color: $font-color;
-                text-align: center;
-                text-transform: uppercase;
-                text-decoration: none;
-
-                &:not(:last-child) {
-                    margin-right: 40px;
-                }
-
-                svg {
-                    display: block;
-                    height: 25px;
-                    margin: 0 auto 5px;
-                }
-            }
-
-        }
-    }
-
-    nav.navbar {
-        $navbar-offset-desktop: 1rem;
-        $logo-width: calc(1.2rem * 1.5 + 0.5rem * 2);
-        $logo-spacing: calc((0.5rem + 10px)* 2);
-        $logo-full-width: calc(#{$navbar-offset-desktop} + #{$logo-width} + #{$logo-spacing});
-        $logo-transition-duration-desktop: 250ms;
-
-        background-color: $base-color;
-        margin: var(--navbar-margin) var(--navbar-strech);
-        padding-right: calc(-1 * var(--navbar-strech));
-        padding-left: calc(-1 * var(--navbar-strech));
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        transition: $show-transition;
-        opacity: 0;
-        transform: translateY(var(--navbar-translateY));
-
-        @include desktop {
-            margin-left: calc(var(--navbar-strech) - #{$navbar-offset-desktop});
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-            margin-bottom: -1.5rem;
-            justify-content: flex-start;
-        }
-
-        &.show {
-            opacity: 1;
-            transform: none;
-        }
-
-        &.sticky {
-            @include mobile {
-                // 4 dp shadow in material design
-                box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
-            }
-
-            @include desktop {
-                // 8 dp shadow in material design
-                box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
-
-                a.logo {
-                    margin-right: 0;
-
-                    img {
-                        width: $logo-width;
-                    }
-                }
-            }
-        }
+      @include desktop {
+        // 8 dp shadow in material design
+        box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+          0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 
         a.logo {
-            @include desktop {
-                // Content height would change during transition
-                height: $logo-width;
-                width: $logo-full-width;
-                margin-right: calc(-1 * #{$logo-full-width});
-                display: flex;
-                justify-content: center;
-                transition: margin-right $logo-transition-duration-desktop;
+          margin-right: 0;
 
-                img {
-                    width: 0;
-                    margin-left: 1rem;
-                    margin-right: $logo-spacing;
-                    transition: width $logo-transition-duration-desktop;
-                }
-            }
-
-            @include mobile {
-                display: none;
-            }
+          img {
+            width: $logo-width;
+          }
         }
-
-        ul.nav.nav-pills {
-            @include mobile {
-                flex-wrap: nowrap;
-                white-space: nowrap;
-                overflow-x: auto;
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            li.nav-item {
-                @include mobile {
-                    margin: 0px 5px;
-                }
-
-                @include desktop {
-                    margin: 0px 10px;
-                }
-
-                &:first-child {
-                    margin-left: 0px !important;
-                }
-
-                &:last-child {
-                    margin-right: 0px !important;
-                }
-
-                a.nav-link {
-                    border-radius: 0.5rem;
-                    background-color: transparent;
-
-                    @include mobile {
-                        padding-left: 0.5rem;
-                        padding-right: 0.5rem;
-                    }
-
-                    &.active {
-                        color: $base-color;
-                        background-color: $accent-color;
-                        font-weight: 600;
-                    }
-                }
-            }
-        }
+      }
     }
 
-    main {
-        margin: var(--section-margin) 0px;
+    a.logo {
+      @include desktop {
+        // Content height would change during transition
+        height: $logo-width;
+        width: $logo-full-width;
+        margin-right: calc(-1 * #{$logo-full-width});
+        display: flex;
+        justify-content: center;
+        transition: margin-right $logo-transition-duration-desktop;
 
-        h1 {
-            @include mobile {
-                margin-top: 0px;
-                font-weight: 600;
-            }
-
-            @include desktop {
-                font-size: 3.4rem;
-                font-weight: 200;
-                line-height: 1;
-                margin: 0px;
-                margin-top: -3.5px;
-                padding-bottom: 5px;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                writing-mode: vertical-lr;
-                transform: rotate(180deg);
-            }
+        img {
+          width: 0;
+          margin-left: 1rem;
+          margin-right: $logo-spacing;
+          transition: width $logo-transition-duration-desktop;
         }
+      }
 
-        h2 {
-            font-weight: 300;
-
-            span.github-button {
-                vertical-align: middle;
-                margin-left: 0.5rem;
-            }
-
-            &.programme {
-                display: block;
-                margin-top: 0;
-                font-size: 1.75rem;
-                font-weight: 600;
-            }
-
-            &.university {
-                display: block;
-                margin-top: 0;
-                font-size: 1.5rem;
-                font-weight: 500;
-            }
-        }
-
-        .section {
-            margin-top: var(--section-margin);
-            margin-bottom: var(--section-margin);
-            transition: $show-transition;
-            opacity: 0;
-            transform: translateY(var(--section-translateY));
-
-            &.show {
-                opacity: 1;
-                transform: none;
-            }
-
-            .content {
-                a {
-                    text-decoration: none;
-                    color: $font-color;
-                    background-image: linear-gradient($accent-color, $accent-color);
-                    background-repeat: no-repeat;
-                    background-size: 100% 10%;
-                    background-position: 0 95%;
-                    transition: 0.35s ease;
-
-                    &:hover {
-                        border-radius: 2px;
-                        color: #495057;
-                        background-size: 100% 100%;
-                    }
-                }
-
-                @include desktop {
-                    padding-left: 40px;
-                }
-
-                &>*:first-child {
-                    margin-top: 0px;
-                }
-
-                &>*:last-child {
-                    margin-bottom: 0px;
-                }
-
-                p {
-                    line-height: 1.7;
-                }
-
-                li {
-                    margin-bottom: 1rem;
-                }
-            }
-        }
+      @include mobile {
+        display: none;
+      }
     }
 
-    footer {
-        small {
-            display: block;
+    ul.nav.nav-pills {
+      @include mobile {
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        overflow-x: auto;
+        width: 100%;
+        justify-content: space-between;
+      }
 
-            span#resources-btn {
-                color: $accent-color;
-                cursor: pointer;
-            }
+      li.nav-item {
+        @include mobile {
+          margin: 0px 5px;
         }
+
+        @include desktop {
+          margin: 0px 10px;
+        }
+
+        &:first-child {
+          margin-left: 0px !important;
+        }
+
+        &:last-child {
+          margin-right: 0px !important;
+        }
+
+        a.nav-link {
+          border-radius: 0.5rem;
+          background-color: transparent;
+
+          @include mobile {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+          }
+
+          &.active {
+            color: $base-color;
+            background-color: $accent-color;
+            font-weight: 600;
+          }
+        }
+      }
     }
+  }
+
+  main {
+    margin: var(--section-margin) 0px;
+
+    h1 {
+      @include mobile {
+        margin-top: 0px;
+        font-weight: 600;
+      }
+
+      @include desktop {
+        font-size: 3.4rem;
+        font-weight: 200;
+        line-height: 1;
+        margin: 0px;
+        margin-top: -3.5px;
+        padding-bottom: 5px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        writing-mode: vertical-lr;
+        transform: rotate(180deg);
+      }
+    }
+
+    h2 {
+      font-weight: 300;
+
+      span.github-button {
+        vertical-align: middle;
+        margin-left: 0.5rem;
+      }
+
+      &.programme {
+        display: block;
+        margin-top: 0;
+        font-size: 1.75rem;
+        font-weight: 600;
+      }
+
+      &.university {
+        display: block;
+        margin-top: 0;
+        font-size: 1.5rem;
+        font-weight: 500;
+      }
+    }
+
+    .section {
+      margin-top: var(--section-margin);
+      margin-bottom: var(--section-margin);
+      transition: $show-transition;
+      opacity: 0;
+      transform: translateY(var(--section-translateY));
+
+      &.show {
+        opacity: 1;
+        transform: none;
+      }
+
+      .content {
+        a {
+          text-decoration: none;
+          color: $font-color;
+          background-image: linear-gradient($accent-color, $accent-color);
+          background-repeat: no-repeat;
+          background-size: 100% 10%;
+          background-position: 0 95%;
+          transition: 0.35s ease;
+
+          &:hover {
+            border-radius: 2px;
+            color: #495057;
+            background-size: 100% 100%;
+          }
+        }
+
+        @include desktop {
+          padding-left: 40px;
+        }
+
+        & > *:first-child {
+          margin-top: 0px;
+        }
+
+        & > *:last-child {
+          margin-bottom: 0px;
+        }
+
+        p {
+          line-height: 1.7;
+        }
+
+        li {
+          margin-bottom: 1rem;
+        }
+      }
+    }
+  }
+
+  footer {
+    small {
+      display: block;
+
+      span#resources-btn {
+        color: $accent-color;
+        cursor: pointer;
+      }
+    }
+  }
 }
 
 .overlay {
-    visibility: hidden;
-    opacity: 0;
-    z-index: 2000;
-    background-color: rgba(0, 0, 0, 0.90);
-    transition: 250ms ease-out;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 2000;
+  background-color: rgba(0, 0, 0, 0.9);
+  transition: 250ms ease-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+
+  .overlay-container {
+    overflow-y: auto;
     height: 100%;
-    overflow-y: hidden;
 
-    .overlay-container {
-        overflow-y: auto;
-        height: 100%;
+    .close-btn {
+      position: sticky;
+      float: right;
+      cursor: pointer;
 
-        .close-btn {
-            position: sticky;
-            float: right;
-            cursor: pointer;
+      @include mobile {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.5rem;
+      }
 
-            @include mobile {
-                top: 0.5rem;
-                right: 0.5rem;
-                padding: 0.5rem;
-            }
+      @include desktop {
+        top: 1rem;
+        right: 1rem;
+        padding: 0.5rem;
+      }
 
-            @include desktop {
-                top: 1rem;
-                right: 1rem;
-                padding: 0.5rem;
-            }
+      svg {
+        fill: $font-color;
 
-            svg {
-                fill: $font-color;
-
-                @include mobile {
-                    width: 1.5rem;
-                    height: 1.5rem;
-                }
-
-                @include desktop {
-                    width: 1.75rem;
-                    height: 1.75rem;
-                }
-            }
+        @include mobile {
+          width: 1.5rem;
+          height: 1.5rem;
         }
 
-        #resources-list {
-            h2 {
-                font-weight: 300;
-
-                @include desktop {
-                    margin: 4rem 0 1.5rem;
-                    font-size: 2rem;
-                }
-
-                @include mobile {
-                    margin-top: 3rem;
-                    font-size: 1.75rem;
-                }
-
-                &:first-child {
-                    margin-top: 0;
-                }
-            }
-
-            li {
-                word-break: break-word;
-                margin-bottom: 1rem;
-            }
+        @include desktop {
+          width: 1.75rem;
+          height: 1.75rem;
         }
+      }
     }
+
+    #resources-list {
+      h2 {
+        font-weight: 300;
+
+        @include desktop {
+          margin: 4rem 0 1.5rem;
+          font-size: 2rem;
+        }
+
+        @include mobile {
+          margin-top: 3rem;
+          font-size: 1.75rem;
+        }
+
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+
+      li {
+        word-break: break-word;
+        margin-bottom: 1rem;
+      }
+    }
+  }
 }
