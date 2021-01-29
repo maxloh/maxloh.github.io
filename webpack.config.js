@@ -1,34 +1,32 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const RemarkHTML = require("remark-html");
+const RemarkHTML = require('remark-html');
 
 module.exports = {
+  mode: 'production',
   entry: ['./src/js/app.js', './src/scss/style.scss'],
   output: {
+    path: path.resolve('./assets/js/'),
     filename: 'app.bundle.js',
-    path: path.resolve(__dirname, './assets/js/')
+    environment: {
+      arrowFunction: false,
+      destructuring: false,
+      forOf: false
+    }
   },
-  mode: 'production',
-  devtool: 'source-map',
-  devServer: {
-    contentBase: __dirname,
-    compress: true,
-    port: 80
-  },
-  plugins: [
-    new MiniCssExtractPlugin({ filename: '../css/style.css' })
-  ],
   module: {
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: [
+          // \\ for Windows, / for Mac OS and Linux
+          /node_modules[\\/]core-js/,
+          /node_modules[\\/]webpack[\\/]buildin/
+        ],
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              ['@babel/preset-env', { targets: 'defaults' }]
-            ]
+            presets: [['@babel/preset-env', { targets: 'defaults' }]]
           }
         }
       },
@@ -56,7 +54,7 @@ module.exports = {
         use: [
           'html-loader',
           {
-            loader: "remark-loader",
+            loader: 'remark-loader',
             options: {
               remarkOptions: { plugins: [RemarkHTML] }
             }
@@ -68,5 +66,11 @@ module.exports = {
         type: 'asset/inline'
       }
     ]
-  }
+  },
+  devtool: 'source-map',
+  devServer: {
+    compress: true,
+    port: 80
+  },
+  plugins: [new MiniCssExtractPlugin({ filename: '../css/style.css' })]
 };
