@@ -21,7 +21,8 @@ module.exports = {
         exclude: [
           // \\ for Windows, / for Mac OS and Linux
           /node_modules[\\/]core-js/,
-          /node_modules[\\/]webpack[\\/]buildin/
+          /node_modules[\\/]webpack[\\/]buildin/,
+          /node_modules[\\/]github-buttons/
         ],
         use: {
           loader: 'babel-loader',
@@ -70,7 +71,8 @@ module.exports = {
   devtool: 'source-map',
   devServer: {
     compress: true,
-    port: 80
+    port: 80,
+    open: true
   },
   plugins: [new MiniCssExtractPlugin({ filename: '../css/style.css' })]
 };
