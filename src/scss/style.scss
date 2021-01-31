@@ -5,14 +5,17 @@ $desktop-width: 768px;
 $show-transition: transform var(--show-transition-duration),
   opacity var(--show-transition-duration);
 
-// Override Bootstrap's variables
-$body-bg: $base-color;
-$body-color: $font-color;
-
-// import Bootstrap CSS
+// import Bootstrap variables
 @import 'bootstrap/scss/functions';
 @import 'bootstrap/scss/variables';
 @import 'bootstrap/scss/mixins';
+
+// Override Bootstrap's variables
+$body-bg: $base-color;
+$body-color: $font-color;
+$font-family-base: Inter, $font-family-sans-serif;
+
+// import Bootstrap CSS
 @import 'bootstrap/scss/nav';
 @import 'bootstrap/scss/navbar';
 @import 'bootstrap/scss/reboot';
@@ -30,14 +33,6 @@ $body-color: $font-color;
   }
 }
 
-@mixin tablet {
-  @include media-breakpoint-up(md) {
-    @include media-breakpoint-down(lg) {
-      @content;
-    }
-  }
-}
-
 /* Desktop and tablet */
 @mixin desktop {
   @include media-breakpoint-up(md) {
@@ -49,24 +44,19 @@ $body-color: $font-color;
   --show-transition-duration: 1250ms; // For JS to read the value
   --section-translateY: calc(var(--section-margin) * 0.6);
   --navbar-translateY: var(--navbar-margin);
+  --navbar-stretch: calc(-1 * (100vw - var(--container-width)) / 2);
 
   @include mobile {
     --bs-gutter-x: 1.5rem; // Copied from Bootstrap
     --section-margin: 40px;
     --navbar-margin: 20px;
-    --navbar-strech: calc(-1 * var(--bs-gutter-x));
+    --container-width: calc(100vw - var(--bs-gutter-x) * 2);
   }
 
   @include desktop {
     --navbar-margin: 25px;
     --section-margin: 70px;
-    --navbar-strech: calc(-1 * ((100vw - var(--container-width)) / 2 + 15px));
     --container-width: 900px;
-  }
-
-  @include tablet {
-    // overwrite desktop's value
-    --container-width: 768px;
   }
 }
 
@@ -76,10 +66,6 @@ html {
 
 body {
   background-color: $base-color;
-  color: $font-color;
-  font-family: Inter, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-    'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   font-weight: 400;
   overflow-x: hidden;
 
@@ -107,7 +93,7 @@ body {
   margin: auto;
 
   @include desktop {
-    width: 900px;
+    width: var(--container-width);
     padding: var(--section-margin) 0;
   }
 
@@ -191,31 +177,26 @@ body {
   }
 
   nav.navbar {
-    $navbar-offset-desktop: 1rem;
     $logo-width: calc(1.2rem * 1.5 + 0.5rem * 2);
     $logo-spacing: calc((0.5rem + 10px) * 2);
-    $logo-full-width: calc(
-      #{$navbar-offset-desktop} + #{$logo-width} + #{$logo-spacing}
-    );
+    $logo-full-width: calc(#{$logo-width} + #{$logo-spacing});
     $logo-transition-duration-desktop: 250ms;
 
-    background-color: $base-color;
-    margin: var(--navbar-margin) var(--navbar-strech);
-    padding-right: calc(-1 * var(--navbar-strech));
-    padding-left: calc(-1 * var(--navbar-strech));
+    width: 100vw;
+    margin: var(--navbar-margin) 0 var(--navbar-margin) var(--navbar-stretch);
     position: sticky;
     top: 0;
     z-index: 1000;
-    transition: $show-transition;
+    justify-content: center;
+    background-color: $base-color;
     opacity: 0;
+    transition: $show-transition;
     transform: translateY(var(--navbar-translateY));
 
     @include desktop {
-      margin-left: calc(var(--navbar-strech) - #{$navbar-offset-desktop});
       padding-top: 1rem;
       padding-bottom: 1rem;
       margin-bottom: -1.5rem;
-      justify-content: flex-start;
     }
 
     &.show {
@@ -235,78 +216,80 @@ body {
         box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
           0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 
-        a.logo {
-          margin-right: 0;
+        .navbar-inner {
+          a.logo {
+            margin-right: 0;
+
+            img {
+              width: $logo-width;
+            }
+          }
+        }
+      }
+    }
+
+    .navbar-inner {
+      display: flex;
+      width: var(--container-width);
+
+      a.logo {
+        @include desktop {
+          // Content height would change during transition
+          width: $logo-full-width;
+          height: $logo-width;
+          margin-right: calc(-1 * #{$logo-full-width} - 1rem);
+          display: flex;
+          justify-content: center;
+          transition: margin-right $logo-transition-duration-desktop;
 
           img {
-            width: $logo-width;
+            width: 0;
+            margin-right: $logo-spacing;
+            transition: width $logo-transition-duration-desktop;
           }
         }
-      }
-    }
 
-    a.logo {
-      @include desktop {
-        // Content height would change during transition
-        height: $logo-width;
-        width: $logo-full-width;
-        margin-right: calc(-1 * #{$logo-full-width});
-        display: flex;
-        justify-content: center;
-        transition: margin-right $logo-transition-duration-desktop;
-
-        img {
-          width: 0;
-          margin-left: 1rem;
-          margin-right: $logo-spacing;
-          transition: width $logo-transition-duration-desktop;
-        }
-      }
-
-      @include mobile {
-        display: none;
-      }
-    }
-
-    ul.nav.nav-pills {
-      @include mobile {
-        flex-wrap: nowrap;
-        white-space: nowrap;
-        overflow-x: auto;
-        width: 100%;
-        justify-content: space-between;
-      }
-
-      li.nav-item {
         @include mobile {
-          margin: 0px 5px;
+          display: none;
+        }
+      }
+
+      ul.nav.nav-pills {
+        @include mobile {
+          flex-wrap: nowrap;
+          white-space: nowrap;
+          overflow-x: auto;
+          width: 100%;
+          justify-content: space-between;
         }
 
-        @include desktop {
-          margin: 0px 10px;
-        }
-
-        &:first-child {
-          margin-left: 0px !important;
-        }
-
-        &:last-child {
-          margin-right: 0px !important;
-        }
-
-        a.nav-link {
-          border-radius: 0.5rem;
-          background-color: transparent;
-
+        li.nav-item {
           @include mobile {
-            padding-left: 0.5rem;
-            padding-right: 0.5rem;
+            margin-right: 10px;
           }
 
-          &.active {
-            color: $base-color;
-            background-color: $accent-color;
-            font-weight: 600;
+          @include desktop {
+            margin-right: 20px;
+          }
+
+          &:last-child {
+            margin-right: 0px;
+          }
+
+          a.nav-link {
+            border-radius: 0.5rem;
+            background-color: transparent;
+
+            @include mobile {
+              padding-left: 0.5rem;
+              padding-right: 0.5rem;
+            }
+
+            &.active {
+              color: $base-color;
+              background-color: $accent-color;
+              font-weight: 600;
+            }
           }
         }
       }
