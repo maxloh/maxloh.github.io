@@ -70,6 +70,9 @@ module.exports = {
   devtool: 'source-map',
   devServer: {
     compress: true,
+    dev: { writeToDisk: true },
+    host: 'localhost',
+    open: true,
     port: 80
   },
   plugins: [new MiniCssExtractPlugin({ filename: '../css/style.css' })]

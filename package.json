@@ -22,12 +22,13 @@
     "sass-loader": "^10.1.1",
     "webpack": "^5.18.0",
     "webpack-cli": "^4.4.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^4.0.0-beta.0"
   },
   "scripts": {
-    "start": "npm run watch",
-    "build": "webpack",
-    "watch": "webpack serve --open --mode development"
+    "start": "npm run serve",
+    "build": "rm -rf assets/js assets/css && webpack",
+    "serve": "webpack serve --mode development",
+    "watch": "webpack --watch --mode development"
   },
   "repository": {
     "type": "git",
