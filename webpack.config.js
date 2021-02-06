@@ -2,12 +2,15 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const RemarkHTML = require('remark-html');
 
+const assetsPath = 'assets';
+
 module.exports = {
   mode: 'production',
   entry: ['./src/js/app.js', './src/scss/style.scss'],
   output: {
-    path: path.resolve('./assets/js/'),
-    filename: 'app.bundle.js',
+    path: path.resolve(assetsPath),
+    filename: 'js/app.bundle.js',
+    publicPath: `/${assetsPath}/`,
     environment: {
       arrowFunction: false,
       destructuring: false,
@@ -70,10 +73,9 @@ module.exports = {
   devtool: 'source-map',
   devServer: {
     compress: true,
-    dev: { writeToDisk: true },
     host: 'localhost',
     open: true,
     port: 80
   },
-  plugins: [new MiniCssExtractPlugin({ filename: '../css/style.css' })]
+  plugins: [new MiniCssExtractPlugin({ filename: 'css/style.css' })]
 };
