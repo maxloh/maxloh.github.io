@@ -1,35 +1,40 @@
 export const initAnimation = () => {
-  let delay = 0;
-  const navbar = document.getElementById('navbar');
-  const sections = document.getElementsByClassName('section');
+  const delayBetweenTransitions = 500;
 
   try {
+    let firstRun = true;
     const animationObserver = new IntersectionObserver(
       (entries, animationObserver) => {
-        for (const entry of entries) {
-          // Animate element when it enter viewport
-          if (entry.intersectionRatio > 0) {
-            animationObserver.unobserve(entry.target);
-            setTimeout(() => {
-              entry.target.classList.add('show');
-              delay -= 500;
-            }, delay);
-            delay += 500;
-          }
+        let delay = firstRun ? 0 : 250;
+
+        // prettier-ignore
+        // Animate element within the viewport
+        for (const entry of entries.filter(entry => entry.intersectionRatio > 0)) {
+          animationObserver.unobserve(entry.target);
+          entry.target.style.transitionDelay = `${delay}ms`;
+          entry.target.classList.add('show');
+          /* While animating multiple sections (e.g. on page load),
+             delay the animation of subsequent sections */
+          delay += delayBetweenTransitions;
         }
+        firstRun = false;
       }
     );
 
-    // observe 'main>.section' and animate #navbar on page load
-    for (const element of [navbar, ...sections]) {
+    // prettier-ignore
+    for (const element of [document.getElementById('navbar'), ...document.getElementsByClassName('section')]) {
       animationObserver.observe(element);
     }
   } catch (error) {
-    navbar.classList.add('show');
-    delay += 500;
+    let delay = 0;
+    const sections = document.getElementsByClassName('section');
+
+    document.getElementById('navbar').classList.add('show');
+    delay += delayBetweenTransitions;
+
     for (let i = 0; i < sections.length; i++) {
       setTimeout(() => sections[i].classList.add('show'), delay);
-      delay += 500;
+      delay += delayBetweenTransitions;
     }
   }
 };

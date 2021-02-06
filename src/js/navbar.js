@@ -69,23 +69,20 @@ export const initNavbar = () => {
    * Add scrollapy to page
    */
 
-  // Horizontal center of the page
-  const pageCenter = Math.ceil(window.innerWidth / 2);
+  const sections = [...document.getElementsByClassName('section')];
   const scrollHandler = () => {
     const activeLink = document.querySelector('a.nav-link.active');
     if (activeLink) activeLink.classList.remove('active');
     if (navbar.getBoundingClientRect().top !== 0) return;
 
-    let viewport = navbarHeight + 1;
-    let element;
-    do {
-      element = document
-        .elementFromPoint(pageCenter, viewport)
-        .closest('.row.section');
-      viewport += 100;
-    } while (element === null);
+    /* This line won't be reached if navbar is not sticked to top
+       so it is safe to assume that at least one section is active */
+    const currentSection = sections.find(
+      section => section.getBoundingClientRect().bottom > navbarHeight
+    );
+
     document
-      .querySelector('a.nav-link[href="#' + element.id + '"]')
+      .querySelector('a.nav-link[href="#' + currentSection.id + '"]')
       .classList.add('active');
   };
 
@@ -94,12 +91,10 @@ export const initNavbar = () => {
   // window.scrollY may be 0 at page reload, but updated after 100ms
   const delay = 100;
   setTimeout(() => {
-    if ((window.scrollY || window.pageYOffset) !== 0) {
-      const transitionDuration = parseInt(
-        getComputedStyle(document.documentElement).getPropertyValue(
-          '--show-transition-duration'
-        )
-      );
+    if (window.scrollY !== 0) {
+      // prettier-ignore
+      const transitionDuration = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--show-transition-duration'));
+
       // Check for navbar top value until it is zero
       setTimeout(() => {
         const interval = setInterval(() => {
