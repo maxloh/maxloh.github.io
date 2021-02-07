@@ -1,3 +1,5 @@
+let enableScrollSpy = true;
+
 export const initNavbar = () => {
   /*
    * Globel varieables
@@ -33,6 +35,8 @@ export const initNavbar = () => {
   for (const element of document.getElementsByClassName('nav-link')) {
     element.addEventListener('click', event => {
       event.preventDefault();
+      enableScrollSpy = false;
+
       const target = document.getElementById(
         event.target.href.substring(event.target.href.lastIndexOf('#') + 1)
       );
@@ -46,22 +50,15 @@ export const initNavbar = () => {
           )
         );
 
-      if (getComputedStyle(target).opacity < 1) {
-        const currentTranslateY = getComputedStyle(target).transform.match(
-          /matrix\(.*, (\d*\.?\d+)\)/
-        )[1];
-        window.scroll({
-          top: Math.ceil(scrollY) - Math.floor(currentTranslateY),
-          behavior: 'smooth'
-        });
-      }
-      // If animation of that element has been completed
-      else {
-        window.scroll({
-          top: Math.ceil(scrollY),
-          behavior: 'smooth'
-        });
-      }
+      const yCoord = Math.ceil(scrollY);
+      window.scroll({ top: yCoord, behavior: 'smooth' });
+      const interval = setInterval(() => {
+        if (Math.abs(window.scrollY - yCoord) < 2) {
+          clearInterval(interval);
+          enableScrollSpy = true;
+          scrollHandler(); // Manually update navbar indicator
+        }
+      }, 10);
     });
   }
 
@@ -71,6 +68,8 @@ export const initNavbar = () => {
 
   const sections = [...document.getElementsByClassName('section')];
   const scrollHandler = () => {
+    if (!enableScrollSpy) return;
+
     const activeLink = document.querySelector('a.nav-link.active');
     if (activeLink) activeLink.classList.remove('active');
     if (navbar.getBoundingClientRect().top !== 0) return;

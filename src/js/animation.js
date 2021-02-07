@@ -11,8 +11,12 @@ export const initAnimation = () => {
         // Animate element within the viewport
         for (const entry of entries.filter(entry => entry.intersectionRatio > 0)) {
           animationObserver.unobserve(entry.target);
-          entry.target.style.transitionDelay = `${delay}ms`;
+
+          for (const child of entry.target.children) {
+            child.style.transitionDelay = `${delay}ms`;
+          }
           entry.target.classList.add('show');
+
           /* While animating multiple sections (e.g. on page load),
              delay the animation of subsequent sections */
           delay += delayBetweenTransitions;
