@@ -1,4 +1,4 @@
-export const initAnimation = () => {
+export default function initAnimation() {
   const delayBetweenTransitions = 500;
 
   try {
@@ -11,10 +11,14 @@ export const initAnimation = () => {
         // Animate element within the viewport
         for (const entry of entries.filter(entry => entry.intersectionRatio > 0)) {
           animationObserver.unobserve(entry.target);
-          entry.target.style.transitionDelay = `${delay}ms`;
+
+          for (const child of entry.target.children) {
+            child.style.transitionDelay = `${delay}ms`;
+          }
           entry.target.classList.add('show');
-          /* While animating multiple sections (e.g. on page load),
-             delay the animation of subsequent sections */
+
+          // While animating multiple sections (e.g. on page load),
+          // delay the animation of subsequent sections
           delay += delayBetweenTransitions;
         }
         firstRun = false;
@@ -22,12 +26,12 @@ export const initAnimation = () => {
     );
 
     // prettier-ignore
-    for (const element of [document.getElementById('navbar'), ...document.getElementsByClassName('section')]) {
+    for (const element of [document.getElementById('navbar'), ...document.getElementsByTagName('section')]) {
       animationObserver.observe(element);
     }
   } catch (error) {
     let delay = 0;
-    const sections = document.getElementsByClassName('section');
+    const sections = document.getElementsByTagName('section');
 
     document.getElementById('navbar').classList.add('show');
     delay += delayBetweenTransitions;
@@ -37,4 +41,4 @@ export const initAnimation = () => {
       delay += delayBetweenTransitions;
     }
   }
-};
+}

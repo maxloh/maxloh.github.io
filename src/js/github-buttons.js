@@ -1,6 +1,6 @@
 import { render } from 'github-buttons';
 
-export const initGithubButtons = () => {
+export default function initGithubButtons() {
   for (const anchor of document.querySelectorAll('a.github-button')) {
     render(
       {
@@ -12,4 +12,4 @@ export const initGithubButtons = () => {
       el => anchor.parentNode.replaceChild(el, anchor)
     );
   }
-};
+}

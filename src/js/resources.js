@@ -1,6 +1,6 @@
 import resources from '../md/resources.md';
 
-export const initResourcesList = () => {
+export default function initResourcesList() {
   document.getElementById('resources-list').innerHTML = resources;
   const overlay = document.getElementsByClassName('overlay')[0];
 
@@ -15,4 +15,4 @@ export const initResourcesList = () => {
     overlay.style.opacity = '';
     document.body.style.overflow = '';
   };
-};
+}
