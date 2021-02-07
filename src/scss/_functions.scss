@@ -1,0 +1,3 @@
+@function selector-last($selector) {
+  @return nth(nth(selector-parse($selector), -1), -1);
+}

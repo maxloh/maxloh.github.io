@@ -1,47 +1,15 @@
-$accent-color: #63e6be;
-$base-color: #212529;
-$font-color: #adb5bd;
-$desktop-width: 768px;
-$show-transition: transform var(--show-transition-duration),
-  opacity var(--show-transition-duration);
+// Import Bootstrap CSS
+@use 'bootstrap';
 
-// import Bootstrap variables
-@import 'bootstrap/scss/functions';
-@import 'bootstrap/scss/variables';
-@import 'bootstrap/scss/mixins';
+// Import primer timeline CSS
+@use '@primer/css/timeline';
 
-// Override Bootstrap's variables
-$body-bg: $base-color;
-$body-color: $font-color;
-$font-family-base: Inter, $font-family-sans-serif;
+// Import PhotoSwipe CSS
+@use 'gallery';
 
-// import Bootstrap CSS
-@import 'bootstrap/scss/nav';
-@import 'bootstrap/scss/navbar';
-@import 'bootstrap/scss/reboot';
-@import 'bootstrap/scss/containers';
-@import 'bootstrap/scss/grid';
-
-// import primer timeline css
-@import '@primer/css/timeline/index.scss';
-
-// import PhotoSwipe CSS
-@import 'photoswipe/dist/default-skin/default-skin';
-@import 'photoswipe/dist/photoswipe';
-@import 'gallery';
-
-@mixin mobile {
-  @include media-breakpoint-down(md) {
-    @content;
-  }
-}
-
-/* Desktop and tablet */
-@mixin desktop {
-  @include media-breakpoint-up(md) {
-    @content;
-  }
-}
+@use 'variables' as *;
+@use 'functions' as *;
+@use 'mixins' as *;
 
 :root {
   --show-transition-duration: 1250ms; // For JS to read the value
@@ -68,7 +36,6 @@ html {
 }
 
 body {
-  background-color: $base-color;
   font-weight: 400;
   overflow-x: hidden;
 
@@ -93,14 +60,13 @@ body {
 }
 
 .container {
-  margin: auto;
-
   @include desktop {
     width: var(--container-width);
-    padding: var(--section-margin) 0;
+    margin: var(--section-margin) auto;
   }
 
   @include mobile {
+    margin: auto;
     padding-top: calc(var(--section-margin) + 20px);
     padding-bottom: var(--section-margin);
   }
@@ -180,9 +146,12 @@ body {
   }
 
   nav.navbar {
+    $nav-item-padding: 0.5rem;
+    $nav-item-margin-right-desktop: 20px;
+    $nav-link-padding-x-desktop: 0.2rem;
+    $navbar-transition: 500ms ease;
+
     $logo-width: calc(1.2rem * 1.5 + 0.5rem * 2);
-    $logo-spacing: calc((0.5rem + 10px) * 2);
-    $logo-full-width: calc(#{$logo-width} + #{$logo-spacing});
     $logo-transition-duration-desktop: 250ms;
 
     width: 100vw;
@@ -192,9 +161,6 @@ body {
     z-index: 1000;
     justify-content: center;
     background-color: $base-color;
-    opacity: 0;
-    transition: $show-transition;
-    transform: translateY(var(--navbar-translateY));
 
     @include desktop {
       padding-top: 1rem;
@@ -202,53 +168,52 @@ body {
       margin-bottom: -1.5rem;
     }
 
-    &.show {
-      opacity: 1;
-      transform: none;
-    }
-
     &.sticky {
-      @include mobile {
-        // 4 dp shadow in material design
-        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
-          0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
-      }
+      border-bottom: 1px solid rgba(0, 0, 0, 15%);
+      box-shadow: 0 4px 20px 0px rgb(0 0 0 / 12%);
 
-      @include desktop {
-        // 8 dp shadow in material design
-        box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-          0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
-
-        .navbar-inner {
-          a.logo {
-            margin-right: 0;
-
-            img {
-              width: $logo-width;
-            }
-          }
-        }
+      ul.nav.nav-pills > li.nav-item > a.nav-link {
+        color: $font-color;
       }
     }
 
     .navbar-inner {
       display: flex;
       width: var(--container-width);
+      opacity: 0;
+      transition: $show-transition;
+      transform: translateY(var(--navbar-translateY));
+
+      @at-root #{'nav.navbar.show' selector-last(&)} {
+        opacity: 1 !important;
+        transform: none !important;
+      }
 
       a.logo {
         @include desktop {
-          // Content height would change during transition
-          width: $logo-full-width;
+          width: $logo-width;
           height: $logo-width;
-          margin-right: calc(-1 * #{$logo-full-width} - 1rem);
+          // Content height would change during transition
+          margin-right: calc(
+            -1 * #{$logo-width} - #{$nav-item-padding} - #{$nav-link-padding-x-desktop}
+          );
           display: flex;
-          justify-content: center;
+          justify-content: flex-start;
           transition: margin-right $logo-transition-duration-desktop;
 
           img {
             width: 0;
-            margin-right: $logo-spacing;
             transition: width $logo-transition-duration-desktop;
+          }
+
+          @at-root #{'nav.navbar.sticky' selector-last(&)} {
+            margin-right: calc(
+              #{$nav-item-padding + $nav-link-padding-x-desktop} + #{$nav-item-margin-right-desktop}
+            ) !important;
+
+            img {
+              width: $logo-width !important;
+            }
           }
         }
 
@@ -259,20 +224,22 @@ body {
 
       ul.nav.nav-pills {
         @include mobile {
+          width: 100%;
+          justify-content: space-between;
           flex-wrap: nowrap;
           white-space: nowrap;
           overflow-x: auto;
-          width: 100%;
-          justify-content: space-between;
         }
 
         li.nav-item {
+          padding: $nav-item-padding;
+
           @include mobile {
             margin-right: 10px;
           }
 
           @include desktop {
-            margin-right: 20px;
+            margin-right: $nav-item-margin-right-desktop;
           }
 
           &:last-child {
@@ -280,18 +247,39 @@ body {
           }
 
           a.nav-link {
-            border-radius: 0.5rem;
-            background-color: transparent;
+            position: relative;
+            transition: color $navbar-transition;
 
-            @include mobile {
-              padding-left: 0.5rem;
-              padding-right: 0.5rem;
+            @include desktop {
+              padding: 0 $nav-link-padding-x-desktop;
             }
 
-            &.active {
-              color: $base-color;
+            @include mobile {
+              padding: 0;
+            }
+
+            &:before {
+              content: '';
+              position: absolute;
+              bottom: -4px;
+              left: 0px;
+              right: 0px;
+              height: 2px;
               background-color: $accent-color;
-              font-weight: 600;
+              transition: transform $navbar-transition;
+              transform-origin: right;
+              transform: scaleX(0);
+            }
+
+            &:hover,
+            &.active {
+              color: $font-color;
+              background-color: transparent;
+
+              &:before {
+                transform-origin: left;
+                transform: scaleX(1);
+              }
             }
           }
         }
@@ -302,62 +290,66 @@ body {
   main {
     margin: var(--section-margin) 0px;
 
-    h1 {
-      @include mobile {
-        margin-top: 0px;
-        font-weight: 600;
-      }
-
-      @include desktop {
-        font-size: 3.4rem;
-        font-weight: 200;
-        line-height: 1;
-        margin: 0px;
-        margin-top: -3.5px;
-        padding-bottom: 5px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        writing-mode: vertical-lr;
-        transform: rotate(180deg);
-      }
-    }
-
-    h2 {
-      font-weight: 300;
-
-      span.github-button {
-        vertical-align: middle;
-        margin-left: 0.5rem;
-      }
-
-      &.programme {
-        display: block;
-        margin-top: 0;
-        font-size: 1.75rem;
-        font-weight: 600;
-      }
-
-      &.university {
-        display: block;
-        margin-top: 0;
-        font-size: 1.5rem;
-        font-weight: 500;
-      }
-    }
-
-    .section {
+    section {
       margin-top: var(--section-margin);
       margin-bottom: var(--section-margin);
-      transition: $show-transition;
-      opacity: 0;
-      transform: translateY(var(--section-translateY));
+      display: flex;
+      flex-wrap: wrap;
 
-      &.show {
-        opacity: 1;
-        transform: none;
+      & > * {
+        transform: translateY(var(--section-translateY));
+        opacity: 0;
+        transition: $show-transition;
+
+        @at-root #{'section.show >' selector-last(&)} {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      }
+
+      h1 {
+        color: $accent-color;
+
+        @include mobile {
+          margin-top: 0px;
+          font-weight: 600;
+          width: 100%;
+        }
+
+        @include desktop {
+          width: 1em;
+          margin: 0px;
+          padding-top: 4px;
+          font-size: 3.4rem;
+          font-weight: 200;
+          line-height: 1;
+          text-align: end;
+
+          & > span {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
+          }
+        }
       }
 
       .content {
+        flex: 1;
+
+        @include desktop {
+          padding-left: 40px;
+        }
+
+        h2 {
+          font-weight: 300;
+
+          span.github-button {
+            vertical-align: middle;
+            margin-left: 0.5rem;
+          }
+        }
+
         a {
           text-decoration: none;
           color: $font-color;
@@ -372,10 +364,6 @@ body {
             color: #495057;
             background-size: 100% 100%;
           }
-        }
-
-        @include desktop {
-          padding-left: 40px;
         }
 
         & > *:first-child {
@@ -396,7 +384,7 @@ body {
 
         // Education section
         .TimelineItem {
-          $timeline-color: #495057;
+          $timeline-color: #e1e4e8;
           $timeline-line-width: 3px;
           $timeline-circle-size: 32px;
 
@@ -421,7 +409,7 @@ body {
 
             &:after {
               content: '';
-              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' enable-background='new 0 0 24 24' viewBox='0 0 24 24' fill='%23adb5bd' width='18px' height='18px'%3E%3Crect fill='none' height='24' width='24'/%3E%3Cpath d='M12,7V3H2v18h20V7H12z M10,19H4v-2h6V19z M10,15H4v-2h6V15z M10,11H4V9h6V11z M10,7H4V5h6V7z M20,19h-8V9h8V19z M18,11h-4v2 h4V11z M18,15h-4v2h4V15z'/%3E%3C/svg%3E");
+              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' enable-background='new 0 0 24 24' viewBox='0 0 24 24' fill='%23586069' width='18px' height='18px'%3E%3Crect fill='none' height='24' width='24'/%3E%3Cpath d='M12,7V3H2v18h20V7H12z M10,19H4v-2h6V19z M10,15H4v-2h6V15z M10,11H4V9h6V11z M10,7H4V5h6V7z M20,19h-8V9h8V19z M18,11h-4v2 h4V11z M18,15h-4v2h4V15z'/%3E%3C/svg%3E");
               width: 18px;
               height: 18px;
             }
@@ -525,48 +513,51 @@ body {
     height: 100%;
 
     .close-btn {
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       position: sticky;
       float: right;
       cursor: pointer;
 
       @include mobile {
-        top: 0.5rem;
-        right: 0.5rem;
-        padding: 0.5rem;
+        top: 1rem;
+        right: 1rem;
       }
 
       @include desktop {
-        top: 1rem;
-        right: 1rem;
-        padding: 0.5rem;
+        top: 1.5rem;
+        right: 1.5rem;
       }
 
       svg {
-        fill: $font-color;
-
-        @include mobile {
-          width: 1.5rem;
-          height: 1.5rem;
-        }
-
-        @include desktop {
-          width: 1.75rem;
-          height: 1.75rem;
-        }
+        color: white;
       }
     }
 
     #resources-list {
+      color: white;
+
+      * {
+        word-break: break-word;
+      }
+
+      p {
+        margin-bottom: 0.75rem;
+      }
+
       h2 {
         font-weight: 300;
+        margin-top: 3rem;
 
         @include desktop {
-          margin: 4rem 0 1.5rem;
           font-size: 2rem;
+          margin-bottom: 1.5rem;
         }
 
         @include mobile {
-          margin-top: 3rem;
           font-size: 1.75rem;
         }
 
@@ -575,9 +566,8 @@ body {
         }
       }
 
-      li {
-        word-break: break-word;
-        margin-bottom: 1rem;
+      & > ul > li {
+        margin-bottom: 1.5rem;
       }
     }
   }

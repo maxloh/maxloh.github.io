@@ -31,8 +31,8 @@ export const initPhotoSwipe = () => {
         return { x: rect.left, y: rect.top + window.scrollY, w: rect.width };
       },
       showHideOpacity: true,
-      /* bgOpacity: 0.32 -> Scrim opacity in material design dialogs
-               https://material.io/design/components/dialogs.html#theming */
+      // bgOpacity: 0.32 -> Scrim opacity in material design dialogs
+      // https://material.io/design/components/dialogs.html#theming
       bgOpacity: 0.32,
       shareEl: false,
       closeElClasses: ['item', 'caption', 'zoom-wrap', 'ui']

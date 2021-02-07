@@ -1,0 +1,18 @@
+@use 'variables' as *;
+
+// Import Bootstrap variables
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+// Override Bootstrap's variables
+$body-bg: $base-color;
+$body-color: $font-color;
+$font-family-base: Inter, $font-family-sans-serif;
+
+// Import Bootstrap CSS
+@import 'bootstrap/scss/nav';
+@import 'bootstrap/scss/navbar';
+@import 'bootstrap/scss/reboot';
+@import 'bootstrap/scss/containers';
+@import 'bootstrap/scss/grid';
