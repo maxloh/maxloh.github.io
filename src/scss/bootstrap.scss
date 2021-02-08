@@ -16,3 +16,15 @@ $font-family-base: Inter, $font-family-sans-serif;
 @import 'bootstrap/scss/reboot';
 @import 'bootstrap/scss/containers';
 @import 'bootstrap/scss/grid';
+
+:root {
+  --container-width: 100vw;
+
+  @each $breakpoint, $container-max-width in $container-max-widths {
+    @if ($container-max-width < $container-width-desktop) {
+      @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+        --container-width: #{$container-max-width};
+      }
+    }
+  }
+}

@@ -1,11 +1,6 @@
-// Import Bootstrap CSS
 @use 'bootstrap';
-
-// Import primer timeline CSS
-@use '@primer/css/timeline';
-
-// Import PhotoSwipe CSS
 @use 'gallery';
+@use '@primer/css/timeline';
 
 @use 'variables' as *;
 @use 'functions' as *;
@@ -15,19 +10,22 @@
   --show-transition-duration: 1250ms; // For JS to read the value
   --section-translateY: calc(var(--section-margin) * 0.6);
   --navbar-translateY: var(--navbar-margin);
-  --navbar-stretch: calc(-1 * (100vw - var(--container-width)) / 2);
+  --navbar-stretch: calc(-1 * (100vw - var(--container-width)) / 2 - var(--bs-gutter-x));
 
   @include mobile {
     --bs-gutter-x: 1.5rem; // Copied from Bootstrap
     --section-margin: 40px;
     --navbar-margin: 20px;
-    --container-width: calc(100vw - var(--bs-gutter-x) * 2);
   }
 
   @include desktop {
     --navbar-margin: 25px;
     --section-margin: 70px;
-    --container-width: 900px;
+    --bs-gutter-x: 0px;
+  }
+
+  @media (min-width: #{$container-width-desktop}) {
+    --container-width: #{$container-width-desktop};
   }
 }
 
@@ -38,6 +36,7 @@ html {
 body {
   font-weight: 400;
   overflow-x: hidden;
+  display: flex; // Fix container margin bottom not working
 
   @include desktop {
     font-size: 1.2rem;
@@ -50,8 +49,9 @@ body {
 
 .container {
   @include desktop {
-    width: var(--container-width);
-    padding: var(--section-margin) 0;
+    max-width: var(--container-width);
+    padding-top: var(--section-margin);
+    padding-bottom: var(--section-margin);
   }
 
   @include mobile {
@@ -136,14 +136,14 @@ body {
   nav.navbar {
     $nav-item-padding: 0.5rem;
     $nav-item-margin-right-desktop: 20px;
-    $nav-link-padding-x-desktop: 0.2rem;
+    $nav-link-padding-x: 0.2rem;
     $navbar-transition: 500ms ease;
 
     $logo-width: calc(1.2rem * 1.5 + 0.5rem * 2);
     $logo-transition-duration-desktop: 250ms;
 
     width: 100vw;
-    margin: var(--navbar-margin) 0 var(--navbar-margin) var(--navbar-stretch);
+    margin: var(--navbar-margin) var(--navbar-stretch);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -168,6 +168,7 @@ body {
     .navbar-inner {
       display: flex;
       width: var(--container-width);
+      padding: 0 var(--bs-gutter-x);
       opacity: 0;
       transition: $show-transition;
       transform: translateY(var(--navbar-translateY));
@@ -183,7 +184,7 @@ body {
           height: $logo-width;
           // Content height would change during transition
           margin-right: calc(
-            -1 * #{$logo-width} - #{$nav-item-padding} - #{$nav-link-padding-x-desktop}
+            -1 * #{$logo-width} - #{$nav-item-padding} - #{$nav-link-padding-x}
           );
           display: flex;
           justify-content: flex-start;
@@ -196,7 +197,7 @@ body {
 
           @at-root #{'nav.navbar.sticky' selector-last(&)} {
             margin-right: calc(
-              #{$nav-item-padding + $nav-link-padding-x-desktop} + #{$nav-item-margin-right-desktop}
+              #{$nav-item-padding + $nav-link-padding-x} + #{$nav-item-margin-right-desktop}
             ) !important;
 
             img {
@@ -220,14 +221,14 @@ body {
         }
 
         li.nav-item {
-          padding: $nav-item-padding;
-
           @include mobile {
             margin-right: 10px;
+            padding: $nav-item-padding 0;
           }
 
           @include desktop {
             margin-right: $nav-item-margin-right-desktop;
+            padding: $nav-item-padding;
           }
 
           &:last-child {
@@ -237,36 +238,38 @@ body {
           a.nav-link {
             position: relative;
             transition: color $navbar-transition;
-
-            @include desktop {
-              padding: 0 $nav-link-padding-x-desktop;
-            }
-
-            @include mobile {
-              padding: 0;
-            }
+            padding: 0 $nav-link-padding-x;
 
             &:before {
               content: '';
               position: absolute;
-              bottom: -4px;
-              left: 0px;
-              right: 0px;
+              width: 100%;
               height: 2px;
+              left: 0px;
+              bottom: -4px;
               background-color: $accent-color;
               transition: transform $navbar-transition;
               transform-origin: right;
               transform: scaleX(0);
             }
 
-            &:hover,
-            &.active {
+            @mixin nav-link-active {
               color: $font-color;
               background-color: transparent;
 
               &:before {
                 transform-origin: left;
                 transform: scaleX(1);
+              }
+            }
+
+            &.active {
+              @include nav-link-active;
+            }
+
+            @include desktop {
+              &:hover {
+                @include nav-link-active;
               }
             }
           }
