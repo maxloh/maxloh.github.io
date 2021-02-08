@@ -1,3 +1,8 @@
+@use 'photoswipe/src/css/default-skin/default-skin';
+@use 'photoswipe/src/css/main';
+
+@use 'mixins' as *;
+
 .gallery {
   margin-left: -10px !important;
   margin-right: -10px !important;
@@ -28,9 +33,11 @@
       transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1),
         transform 280ms ease-in-out;
 
-      &:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0px 20px 2px rgb(0 0 0 / 20%);
+      @include desktop {
+        &:hover {
+          transform: scale(1.05);
+          box-shadow: 0 0px 20px 2px rgb(0 0 0 / 20%);
+        }
       }
     }
   }

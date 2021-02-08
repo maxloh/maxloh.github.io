@@ -1,47 +1,15 @@
-$accent-color: #00bfa5;
-$base-color: #f8f9fa;
-$font-color: #202124;
-$desktop-width: 768px;
-$show-transition: transform var(--show-transition-duration),
-  opacity var(--show-transition-duration);
+// Import Bootstrap CSS
+@use 'bootstrap';
 
-// import Bootstrap variables
-@import 'bootstrap/scss/functions';
-@import 'bootstrap/scss/variables';
-@import 'bootstrap/scss/mixins';
+// Import primer timeline CSS
+@use '@primer/css/timeline';
 
-// Override Bootstrap's variables
-$body-bg: $base-color;
-$body-color: $font-color;
-$font-family-base: Inter, $font-family-sans-serif;
+// Import PhotoSwipe CSS
+@use 'gallery';
 
-// import Bootstrap CSS
-@import 'bootstrap/scss/nav';
-@import 'bootstrap/scss/navbar';
-@import 'bootstrap/scss/reboot';
-@import 'bootstrap/scss/containers';
-@import 'bootstrap/scss/grid';
-
-// import primer timeline css
-@import '@primer/css/timeline/index.scss';
-
-// import PhotoSwipe CSS
-@import 'photoswipe/dist/default-skin/default-skin';
-@import 'photoswipe/dist/photoswipe';
-@import 'gallery';
-
-@mixin mobile {
-  @include media-breakpoint-down(md) {
-    @content;
-  }
-}
-
-/* Desktop and tablet */
-@mixin desktop {
-  @include media-breakpoint-up(md) {
-    @content;
-  }
-}
+@use 'variables' as *;
+@use 'functions' as *;
+@use 'mixins' as *;
 
 :root {
   --show-transition-duration: 1250ms; // For JS to read the value
@@ -68,7 +36,6 @@ html {
 }
 
 body {
-  background-color: $base-color;
   font-weight: 400;
   overflow-x: hidden;
 
@@ -93,14 +60,13 @@ body {
 }
 
 .container {
-  margin: auto;
-
   @include desktop {
     width: var(--container-width);
-    padding: var(--section-margin) 0;
+    margin: var(--section-margin) auto;
   }
 
   @include mobile {
+    margin: auto;
     padding-top: calc(var(--section-margin) + 20px);
     padding-bottom: var(--section-margin);
   }
@@ -183,12 +149,9 @@ body {
     $nav-item-padding: 0.5rem;
     $nav-item-margin-right-desktop: 20px;
     $nav-link-padding-x-desktop: 0.2rem;
+    $navbar-transition: 500ms ease;
 
     $logo-width: calc(1.2rem * 1.5 + 0.5rem * 2);
-    $logo-spacing: calc(
-      #{$nav-item-padding + $nav-link-padding-x-desktop} + #{$nav-item-margin-right-desktop}
-    );
-    $logo-full-width: calc(#{$logo-width} + #{$logo-spacing});
     $logo-transition-duration-desktop: 250ms;
 
     width: 100vw;
@@ -198,9 +161,6 @@ body {
     z-index: 1000;
     justify-content: center;
     background-color: $base-color;
-    opacity: 0;
-    transition: $show-transition;
-    transform: translateY(var(--navbar-translateY));
 
     @include desktop {
       padding-top: 1rem;
@@ -208,26 +168,9 @@ body {
       margin-bottom: -1.5rem;
     }
 
-    &.show {
-      opacity: 1;
-      transform: none;
-    }
-
     &.sticky {
       border-bottom: 1px solid rgba(0, 0, 0, 15%);
       box-shadow: 0 4px 20px 0px rgb(0 0 0 / 12%);
-
-      @include desktop {
-        .navbar-inner {
-          a.logo {
-            margin-right: 0;
-
-            img {
-              width: $logo-width;
-            }
-          }
-        }
-      }
 
       ul.nav.nav-pills > li.nav-item > a.nav-link {
         color: $font-color;
@@ -237,14 +180,22 @@ body {
     .navbar-inner {
       display: flex;
       width: var(--container-width);
+      opacity: 0;
+      transition: $show-transition;
+      transform: translateY(var(--navbar-translateY));
+
+      @at-root #{'nav.navbar.show' selector-last(&)} {
+        opacity: 1 !important;
+        transform: none !important;
+      }
 
       a.logo {
         @include desktop {
-          // Content height would change during transition
-          width: $logo-full-width;
+          width: $logo-width;
           height: $logo-width;
+          // Content height would change during transition
           margin-right: calc(
-            -1 * #{$logo-full-width} - #{$nav-item-padding} - #{$nav-link-padding-x-desktop}
+            -1 * #{$logo-width} - #{$nav-item-padding} - #{$nav-link-padding-x-desktop}
           );
           display: flex;
           justify-content: flex-start;
@@ -253,6 +204,16 @@ body {
           img {
             width: 0;
             transition: width $logo-transition-duration-desktop;
+          }
+
+          @at-root #{'nav.navbar.sticky' selector-last(&)} {
+            margin-right: calc(
+              #{$nav-item-padding + $nav-link-padding-x-desktop} + #{$nav-item-margin-right-desktop}
+            ) !important;
+
+            img {
+              width: $logo-width !important;
+            }
           }
         }
 
@@ -287,7 +248,7 @@ body {
 
           a.nav-link {
             position: relative;
-            transition: color ease 500ms;
+            transition: color $navbar-transition;
 
             @include desktop {
               padding: 0 $nav-link-padding-x-desktop;
@@ -305,7 +266,7 @@ body {
               right: 0px;
               height: 2px;
               background-color: $accent-color;
-              transition: transform 0.5s ease 0s;
+              transition: transform $navbar-transition;
               transform-origin: right;
               transform: scaleX(0);
             }
@@ -329,7 +290,7 @@ body {
   main {
     margin: var(--section-margin) 0px;
 
-    .section {
+    section {
       margin-top: var(--section-margin);
       margin-bottom: var(--section-margin);
       display: flex;
@@ -339,11 +300,11 @@ body {
         transform: translateY(var(--section-translateY));
         opacity: 0;
         transition: $show-transition;
-      }
 
-      &.show > * {
-        opacity: 1;
-        transform: none;
+        @at-root #{'section.show >' selector-last(&)} {
+          opacity: 1 !important;
+          transform: none !important;
+        }
       }
 
       h1 {
@@ -356,12 +317,13 @@ body {
         }
 
         @include desktop {
+          width: 1em;
+          margin: 0px;
+          padding-top: 4px;
           font-size: 3.4rem;
           font-weight: 200;
           line-height: 1;
-          margin: 0px;
           text-align: end;
-          padding-top: 4px;
 
           & > span {
             text-transform: uppercase;
@@ -551,14 +513,14 @@ body {
     height: 100%;
 
     .close-btn {
+      width: 2rem;
+      height: 2rem;
       display: flex;
       justify-content: center;
       align-items: center;
       position: sticky;
       float: right;
       cursor: pointer;
-      width: 2rem;
-      height: 2rem;
 
       @include mobile {
         top: 1rem;
@@ -583,7 +545,7 @@ body {
       }
 
       p {
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
       }
 
       h2 {

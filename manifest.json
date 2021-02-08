@@ -6,9 +6,9 @@
   "display": "standalone",
   "start_url": "https://www.maxloh.dev/",
   "short_name": "Max",
-  "theme_color": "#212529",
-  "description": "Loh Ka Hong. I am a coputing student currently studying in OUHK.",
-  "background_color": "#212529",
+  "theme_color": "#00bfa5",
+  "description": "Loh Ka Hong. I am a graduate from OUHK in Bachelor of Computing in Internet Technology with First Class Honours Award.",
+  "background_color": "#f8f9fa",
   "icons": [
     {
       "src": "/assets/img/icon/192x192.png",

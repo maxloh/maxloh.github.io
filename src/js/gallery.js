@@ -2,7 +2,7 @@ import * as PhotoSwipe from 'photoswipe';
 import * as PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default';
 import photoswipeElement from '../html/photoswipe.html';
 
-export const initPhotoSwipe = () => {
+export default function initPhotoSwipe() {
   const openPhotoSwipe = (imgElement, galleryClass) => {
     const pswpElement = document.getElementsByClassName('pswp')[0];
 
@@ -31,8 +31,8 @@ export const initPhotoSwipe = () => {
         return { x: rect.left, y: rect.top + window.scrollY, w: rect.width };
       },
       showHideOpacity: true,
-      /* bgOpacity: 0.32 -> Scrim opacity in material design dialogs
-               https://material.io/design/components/dialogs.html#theming */
+      // bgOpacity: 0.32 -> Scrim opacity in material design dialogs
+      // https://material.io/design/components/dialogs.html#theming
       bgOpacity: 0.32,
       shareEl: false,
       closeElClasses: ['item', 'caption', 'zoom-wrap', 'ui']
@@ -70,4 +70,4 @@ export const initPhotoSwipe = () => {
 
   // Add PhotoSwipe (.pswp) element to page
   document.body.insertAdjacentHTML('beforeend', photoswipeElement);
-};
+}

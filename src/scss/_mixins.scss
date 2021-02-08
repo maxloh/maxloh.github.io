@@ -1,0 +1,16 @@
+// Import Bootstrap variables
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+@mixin mobile {
+  @include media-breakpoint-down(md) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @include media-breakpoint-up(md) {
+    @content;
+  }
+}
