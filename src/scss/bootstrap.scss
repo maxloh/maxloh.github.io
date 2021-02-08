@@ -11,15 +11,18 @@ $body-color: $font-color;
 $font-family-base: Inter, $font-family-sans-serif;
 
 // Import Bootstrap CSS
-@import 'bootstrap/scss/nav';
-@import 'bootstrap/scss/navbar';
+// Ordered following https://github.com/twbs/bootstrap/blob/v5.0.0-beta1/scss/bootstrap.scss
 @import 'bootstrap/scss/reboot';
 @import 'bootstrap/scss/containers';
-@import 'bootstrap/scss/grid';
+@import 'bootstrap/scss/nav';
+@import 'bootstrap/scss/navbar';
 
 :root {
-  --container-width: 100vw;
+  // Copied from https://github.com/twbs/bootstrap/blob/v5.0.0-beta1/scss/mixins/_grid.scss
+  --#{$variable-prefix}gutter-x: #{$grid-gutter-width};
 
+  --container-width: 100vw;
+  // Copied from https://github.com/twbs/bootstrap/blob/v5.0.0-beta1/scss/_containers.scss
   @each $breakpoint, $container-max-width in $container-max-widths {
     @if ($container-max-width < $container-width-desktop) {
       @include media-breakpoint-up($breakpoint, $grid-breakpoints) {

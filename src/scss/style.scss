@@ -10,12 +10,9 @@
   --show-transition-duration: 1250ms; // For JS to read the value
   --section-translateY: calc(var(--section-margin) * 0.6);
   --navbar-translateY: var(--navbar-margin);
-  --navbar-stretch: calc(
-    -1 * (100vw - var(--container-width)) / 2 - var(--bs-gutter-x)
-  );
+  --navbar-stretch: calc(-1 * (100vw - var(--container-width)) / 2);
 
   @include mobile {
-    --bs-gutter-x: 1.5rem; // Copied from Bootstrap
     --section-margin: 40px;
     --navbar-margin: 20px;
   }
@@ -23,7 +20,6 @@
   @include desktop {
     --navbar-margin: 25px;
     --section-margin: 70px;
-    --bs-gutter-x: 0px;
   }
 
   @media (min-width: #{$container-width-desktop}) {
@@ -50,18 +46,21 @@ body {
 }
 
 .container {
-  @include desktop {
-    max-width: var(--container-width);
-    padding-top: var(--section-margin);
-    padding-bottom: var(--section-margin);
-  }
+  padding-top: var(--section-margin);
+  padding-bottom: var(--section-margin);
 
-  @include mobile {
-    padding-top: calc(var(--section-margin) + 20px);
-    padding-bottom: var(--section-margin);
+  @media (min-width: #{$container-width-desktop}) {
+    max-width: calc(var(--container-width) + var(--bs-gutter-x) * 2);
   }
 
   .header {
+    display: flex;
+    flex-wrap: wrap;
+
+    @include mobile {
+      padding-top: 20px;
+    }
+
     @include desktop {
       align-items: center;
       margin-top: 20px;
@@ -75,8 +74,9 @@ body {
       font-size: 50px;
 
       @include mobile {
-        padding-bottom: 0.25rem;
+        width: 100%;
         margin-bottom: var(--navbar-margin);
+        padding-bottom: 0.25rem;
       }
 
       &:hover {
@@ -160,7 +160,7 @@ body {
 
     &.sticky {
       border-bottom: 1px solid rgba(0, 0, 0, 15%);
-      box-shadow: 0 4px 20px 0px rgb(0 0 0 / 12%);
+      box-shadow: 0 4px 20px 0px rgb(0 0 0 / 10%);
 
       ul.nav.nav-pills > li.nav-item > a.nav-link {
         color: $font-color;
@@ -170,7 +170,6 @@ body {
     .navbar-inner {
       display: flex;
       width: var(--container-width);
-      padding: 0 var(--bs-gutter-x);
       opacity: 0;
       transition: $show-transition;
       transform: translateY(var(--navbar-translateY));
