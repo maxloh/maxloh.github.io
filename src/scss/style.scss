@@ -10,7 +10,9 @@
   --show-transition-duration: 1250ms; // For JS to read the value
   --section-translateY: calc(var(--section-margin) * 0.6);
   --navbar-translateY: var(--navbar-margin);
-  --navbar-stretch: calc(-1 * (100vw - var(--container-width)) / 2);
+  --navbar-stretch: calc(
+    -1 * (100vw - var(--container-width)) / 2 - var(--bs-gutter-x)
+  );
 
   @include mobile {
     --section-margin: 40px;
@@ -23,7 +25,9 @@
   }
 
   @media (min-width: #{$container-width-desktop}) {
-    --container-width: #{$container-width-desktop};
+    --container-width: calc(
+      #{$container-width-desktop} + var(--bs-gutter-x) * 2
+    );
   }
 }
 
@@ -50,7 +54,7 @@ body {
   padding-bottom: var(--section-margin);
 
   @media (min-width: #{$container-width-desktop}) {
-    max-width: calc(var(--container-width) + var(--bs-gutter-x) * 2);
+    max-width: var(--container-width);
   }
 
   .header {
@@ -169,7 +173,7 @@ body {
 
     .navbar-inner {
       display: flex;
-      width: var(--container-width);
+      width: calc(var(--container-width) - var(--bs-gutter-x) * 2);
       opacity: 0;
       transition: $show-transition;
       transform: translateY(var(--navbar-translateY));
@@ -198,7 +202,7 @@ body {
 
           @at-root #{'nav.navbar.sticky' selector-last(&)} {
             margin-right: calc(
-              #{$nav-item-padding + $nav-link-padding-x} + #{$nav-item-margin-right-desktop}
+              #{$nav-item-padding} + #{$nav-item-margin-right-desktop}
             ) !important;
 
             img {

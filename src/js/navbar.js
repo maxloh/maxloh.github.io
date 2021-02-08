@@ -1,5 +1,3 @@
-let enableScrollSpy = true;
-
 export default function initNavbar() {
   // Laravel style comment header
 
@@ -39,10 +37,10 @@ export default function initNavbar() {
   |--------------------------------------------------------------------------
   */
 
-  let interval;
+  let checkScrollEndInterval;
   const onScrollEnd = () => {
-    enableScrollSpy = true;
-    clearInterval(interval);
+    addEventListener('scroll', scrollHandler);
+    clearInterval(checkScrollEndInterval);
     removeEventListener('wheel', onScrollEnd);
     removeEventListener('touchmove', onScrollEnd);
     removeEventListener('keydown', onKeyDown);
@@ -52,7 +50,7 @@ export default function initNavbar() {
   };
   const navLinkClickHandler = event => {
     event.preventDefault();
-    enableScrollSpy = false;
+    removeEventListener('scroll', scrollHandler);
 
     // Update navbar active item
     document
@@ -77,7 +75,7 @@ export default function initNavbar() {
     window.scroll({ top: yCoord, behavior: 'smooth' });
 
     // Clean up when scrolling completed or get interrupted
-    interval = setInterval(() => {
+    checkScrollEndInterval = setInterval(() => {
       if (Math.floor(Math.abs(window.scrollY - yCoord)) === 0) onScrollEnd();
     }, 10);
     addEventListener('wheel', onScrollEnd, { once: true });
@@ -97,8 +95,6 @@ export default function initNavbar() {
 
   const sections = [...document.getElementsByTagName('section')];
   const scrollHandler = () => {
-    if (!enableScrollSpy) return;
-
     const activeLink = document.querySelector('a.nav-link.active');
     if (activeLink) activeLink.classList.remove('active');
     if (navbar.getBoundingClientRect().top !== 0) return;
