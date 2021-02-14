@@ -3,7 +3,10 @@
 ## Icon
 
 ### Creating the icon using inkscape
-1. Select pen tool
+1. Select ploygen tool
+2. Draw a unrotated ploygen
+3. 
+
 2. Press the node of the object which would be used for alignment (e.g. central point of M)
 3. Hold <kbd>control</kbd> button and drag upward/downward to create a vertical path for alignment
 4. Select the vertical path created in `2`
