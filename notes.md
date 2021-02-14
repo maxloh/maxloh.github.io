@@ -9,7 +9,7 @@
 4. Hold <kbd>shift</kbd> for multi select and select the object to align
 5. Group the polygon and the M
 6. Press <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>A</kbd> to open `Align and Distribute` panel
-7. For the `Relative to:` drop down menu, choose `First selected` (vertical path created in `2`)
+7. For the `Relative to:` drop down menu, choose `Page`
 8. Press `Center to vertical axis`
 
 <https://graphicdesign.stackexchange.com/questions/31361/how-to-align-an-object-relative-to-nodes-of-another-object-in-inkscape>
