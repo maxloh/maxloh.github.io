@@ -12,7 +12,21 @@
   "icons": [
     {
       "src": "/assets/img/icon/icon.svg",
-      "sizes": "640x512"
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/img/icon/icon.svg",
+      "sizes": "192x192 512x512 1000x1000",
+      "type": "image/svg",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/img/icon/maskable_icon.svg",
+      "sizes": "192x192 512x512 1000x1000",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
     }
   ]
 }
