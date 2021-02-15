@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:ooo="http://xml.openoffice.org/svg/export"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1000"
+   height="1000"
+   viewBox="0 0 264.58333 264.58334"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
+   sodipodi:docname="maskable_icon.svg">
+  <defs
+     id="defs2">
+    <clipPath
+       id="presentation_clip_path"
+       clipPathUnits="userSpaceOnUse">
+      <rect
+         x="0"
+         y="0"
+         width="21590"
+         height="27940"
+         id="rect4010" />
+    </clipPath>
+    <clipPath
+       id="presentation_clip_path-1"
+       clipPathUnits="userSpaceOnUse">
+      <rect
+         x="0"
+         y="0"
+         width="21590"
+         height="27940"
+         id="rect4757" />
+    </clipPath>
+    <clipPath
+       id="presentation_clip_path-4"
+       clipPathUnits="userSpaceOnUse">
+      <rect
+         x="0"
+         y="0"
+         width="21590"
+         height="27940"
+         id="rect105" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="presentation_clip_path-9">
+      <rect
+         id="rect358"
+         height="27940"
+         width="21590"
+         y="0"
+         x="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="presentation_clip_path_shrink">
+      <rect
+         id="rect361"
+         height="27885"
+         width="21547"
+         y="27"
+         x="21" />
+    </clipPath>
+    <g
+       id="g366"
+       ooo:id-list="id3"
+       ooo:slide="id1" />
+    <g
+       transform="scale(0.00048828125,-0.00048828125)"
+       id="bullet-char-template-57356">
+      <path
+         id="path370"
+         d="M 580,1141 L 1163,571 580,0 -4,571 580,1141 Z" />
+    </g>
+    <g
+       transform="scale(0.00048828125,-0.00048828125)"
+       id="bullet-char-template-57354">
+      <path
+         id="path373"
+         d="M 8,1128 L 1137,1128 1137,0 8,0 8,1128 Z" />
+    </g>
+    <g
+       transform="scale(0.00048828125,-0.00048828125)"
+       id="bullet-char-template-10146">
+      <path
+         id="path376"
+         d="M 174,0 L 602,739 174,1481 1456,739 174,0 Z M 1358,739 L 309,1346 659,739 1358,739 Z" />
+    </g>
+    <g
+       transform="scale(0.00048828125,-0.00048828125)"
+       id="bullet-char-template-10132">
+      <path
+         id="path379"
+         d="M 2015,739 L 1276,0 717,0 1260,543 174,543 174,936 1260,936 717,1481 1274,1481 2015,739 Z" />
+    </g>
+    <g
+       transform="scale(0.00048828125,-0.00048828125)"
+       id="bullet-char-template-10007">
+      <path
+         id="path382"
+         d="M 0,-2 C -7,14 -16,27 -25,37 L 356,567 C 262,823 215,952 215,954 215,979 228,992 255,992 264,992 276,990 289,987 310,991 331,999 354,1012 L 381,999 492,748 772,1049 836,1024 860,1049 C 881,1039 901,1025 922,1006 886,937 835,863 770,784 769,783 710,716 594,584 L 774,223 C 774,196 753,168 711,139 L 727,119 C 717,90 699,76 672,76 641,76 570,178 457,381 L 164,-76 C 142,-110 111,-127 72,-127 30,-127 9,-110 8,-76 1,-67 -2,-52 -2,-32 -2,-23 -1,-13 0,-2 Z" />
+    </g>
+    <g
+       transform="scale(0.00048828125,-0.00048828125)"
+       id="bullet-char-template-10004">
+      <path
+         id="path385"
+         d="M 285,-33 C 182,-33 111,30 74,156 52,228 41,333 41,471 41,549 55,616 82,672 116,743 169,778 240,778 293,778 328,747 346,684 L 369,508 C 377,444 397,411 428,410 L 1163,1116 C 1174,1127 1196,1133 1229,1133 1271,1133 1292,1118 1292,1087 L 1292,965 C 1292,929 1282,901 1262,881 L 442,47 C 390,-6 338,-33 285,-33 Z" />
+    </g>
+    <g
+       transform="scale(0.00048828125,-0.00048828125)"
+       id="bullet-char-template-9679">
+      <path
+         id="path388"
+         d="M 813,0 C 632,0 489,54 383,161 276,268 223,411 223,592 223,773 276,916 383,1023 489,1130 632,1184 813,1184 992,1184 1136,1130 1245,1023 1353,916 1407,772 1407,592 1407,412 1353,268 1245,161 1136,54 992,0 813,0 Z" />
+    </g>
+    <g
+       transform="scale(0.00048828125,-0.00048828125)"
+       id="bullet-char-template-8226">
+      <path
+         id="path391"
+         d="M 346,457 C 273,457 209,483 155,535 101,586 74,649 74,723 74,796 101,859 155,911 209,963 273,989 346,989 419,989 480,963 531,910 582,859 608,796 608,723 608,648 583,586 532,535 482,483 420,457 346,457 Z" />
+    </g>
+    <g
+       transform="scale(0.00048828125,-0.00048828125)"
+       id="bullet-char-template-8211">
+      <path
+         id="path394"
+         d="M -4,459 L 1135,459 1135,606 -4,606 -4,459 Z" />
+    </g>
+    <g
+       transform="scale(0.00048828125,-0.00048828125)"
+       id="bullet-char-template-61548">
+      <path
+         id="path397"
+         d="M 173,740 C 173,903 231,1043 346,1159 462,1274 601,1332 765,1332 928,1332 1067,1274 1183,1159 1299,1043 1357,903 1357,740 1357,577 1299,437 1183,322 1067,206 928,148 765,148 601,148 462,206 346,322 231,437 173,577 173,740 Z" />
+    </g>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35355339"
+     inkscape:cx="290.30856"
+     inkscape:cy="630.85387"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:pagecheckerboard="false"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     showguides="false"
+     inkscape:document-rotation="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-32.41665)">
+    <rect
+       style="fill:#00bfa5;fill-opacity:1;fill-rule:evenodd;stroke-width:0.292326"
+       id="rect73"
+       width="264.58334"
+       height="264.58334"
+       x="-5.0862632e-06"
+       y="32.416645" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-148.92261"
+       y="132.20236"
+       id="text4538"><tspan
+         sodipodi:role="line"
+         id="tspan4536"
+         x="-148.92261"
+         y="141.56613"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Timmana;-inkscape-font-specification:Timmana;stroke-width:0.26458332" /><tspan
+         sodipodi:role="line"
+         x="-148.92261"
+         y="154.7953"
+         id="tspan4540"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Timmana;-inkscape-font-specification:Timmana;stroke-width:0.26458332" /><tspan
+         sodipodi:role="line"
+         x="-148.92261"
+         y="168.02446"
+         id="tspan4542"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Timmana;-inkscape-font-specification:Timmana;stroke-width:0.26458332" /></text>
+    <g
+       transform="matrix(0.00754221,0,0,0.00754221,47.042059,59.339872)"
+       id="g468"
+       style="fill-rule:evenodd;stroke-width:28.222;stroke-linejoin:round">
+      <g
+         id="g407">
+        <g
+           id="id2"
+           class="Master_Slide">
+          <g
+             id="bg-id2"
+             class="Background" />
+          <g
+             id="bo-id2"
+             class="BackgroundObjects" />
+        </g>
+      </g>
+      <g
+         class="SlideGroup"
+         id="g422">
+        <g
+           id="g420">
+          <g
+             id="container-id1-8">
+            <g
+               id="id1-1"
+               class="Slide"
+               clip-path="url(#presentation_clip_path-9)">
+              <g
+                 class="Page"
+                 id="g416">
+                <g
+                   class="com.sun.star.drawing.ClosedBezierShape"
+                   id="g414">
+                  <g
+                     id="id3-1">
+                    <rect
+                       style="fill:none;stroke:none"
+                       class="BoundingBox"
+                       x="973"
+                       y="4360"
+                       width="19645"
+                       height="19221"
+                       id="rect409" />
+                    <path
+                       style="fill:#ffffff;stroke:none"
+                       inkscape:connector-curvature="0"
+                       d="M 16425,11346 11853,21971 H 9059 c -56,-451 -240,-1601 -550,-3450 -311,-1848 -522,-3125 -635,-3831 -226,-1750 -381,-2864 -466,-3344 L 4911,23580 H 974 L 5461,4361 h 3979 c 28,282 99,726 212,1333 113,607 233,1284 360,2032 127,748 261,1560 402,2434 141,875 268,1715 381,2519 113,804 212,1545 296,2223 85,677 156,1213 212,1608 113,-367 317,-889 614,-1566 296,-677 614,-1425 952,-2244 339,-818 706,-1658 1101,-2519 395,-860 769,-1672 1122,-2434 353,-762 663,-1446 931,-2053 268,-607 473,-1051 614,-1333 h 3979 l -931,19219 h -4106 c 28,-310 56,-776 84,-1397 28,-621 78,-1319 148,-2096 71,-776 127,-1587 170,-2434 42,-846 91,-1665 148,-2455 57,-790 113,-1531 169,-2222 57,-692 99,-1235 127,-1630 z"
+                       id="path411" />
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
