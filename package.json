@@ -12,6 +12,7 @@
   "author": "Loh Ka Hong",
   "scripts": {
     "build": "webpack",
+    "make:icon": "magick convert -background none assets/img/icon/icon.svg -scale 512x512 assets/img/icon/icon.png",
     "serve": "webpack serve --mode development",
     "start": "npm run serve",
     "watch": "webpack --watch --mode development"

@@ -11,18 +11,22 @@
   "background_color": "#f8f9fa",
   "icons": [
     {
-      "src": "/assets/img/icon/192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "src": "/assets/img/icon/icon.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "/assets/img/icon/512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "src": "/assets/img/icon/icon.svg",
+      "sizes": "192x192 512x512 1000x1000",
+      "type": "image/svg",
+      "purpose": "any"
     },
     {
-      "src": "/assets/img/icon/faviconSmall.svg",
-      "sizes": "640x512"
+      "src": "/assets/img/icon/maskable_icon.svg",
+      "sizes": "192x192 512x512 1000x1000",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
     }
   ]
 }
