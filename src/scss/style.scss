@@ -11,8 +11,9 @@
   --section-translateY: calc(var(--section-margin) * 0.6);
   --navbar-translateY: var(--navbar-margin);
   --navbar-stretch: calc(
-    -1 * (100vw - var(--container-width)) / 2 - var(--bs-gutter-x)
+    -1 * ((100vw - var(--container-width)) / 2 + var(--bs-gutter-x))
   );
+  --section-transition-delay: 0ms; // Default value
 
   @include mobile {
     --section-margin: 40px;
@@ -91,7 +92,7 @@ body {
         height: 1em;
 
         @include mobile {
-          margin-right: 0.5ex;
+          margin-right: 0.6ex;
         }
 
         @include desktop {
@@ -174,13 +175,14 @@ body {
     .navbar-inner {
       display: flex;
       width: calc(var(--container-width) - var(--bs-gutter-x) * 2);
-      opacity: 0;
       transition: $show-transition;
-      transform: translateY(var(--navbar-translateY));
+      opacity: 1;
+      transform: none;
+      transition-delay: var(--section-transition-delay);
 
-      @at-root #{'nav.navbar.show' selector-last(&)} {
-        opacity: 1 !important;
-        transform: none !important;
+      @at-root nav.navbar.hide #{selector-last(&)} {
+        opacity: 0 !important;
+        transform: translateY(var(--navbar-translateY)) !important;
       }
 
       a.logo {
@@ -189,7 +191,7 @@ body {
           height: $logo-width;
           // Content height would change during transition
           margin-right: calc(
-            -1 * #{$logo-width} - #{$nav-item-padding} - #{$nav-link-padding-x}
+            -1 * (#{$logo-width} + #{$nav-item-padding} + #{$nav-link-padding-x})
           );
           display: flex;
           justify-content: flex-start;
@@ -299,13 +301,14 @@ body {
       }
 
       & > * {
-        transform: translateY(var(--section-translateY));
-        opacity: 0;
+        opacity: 1;
+        transform: none;
         transition: $show-transition;
+        transition-delay: var(--section-transition-delay);
 
-        @at-root #{'section.show >' selector-last(&)} {
-          opacity: 1 !important;
-          transform: none !important;
+        @at-root #{'section.hide >' selector-last(&)} {
+          opacity: 0 !important;
+          transform: translateY(var(--section-translateY)) !important;
         }
       }
 
